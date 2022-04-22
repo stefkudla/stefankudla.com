@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { MoonIcon, SunIcon } from './icons'
 
-const ThemeChanger = ({ styles }: { styles?: string }) => {
+interface StylesProps {
+  styles?: string
+}
+
+const ThemeChanger = ({ styles }: StylesProps) => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const { resolvedTheme } = useTheme()

@@ -1,6 +1,10 @@
 import React from 'react'
 
-const PageContainer = ({ children }: { children: any }) => {
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+const PageContainer = ({ children }: LayoutProps) => {
   return <main className="container mx-auto px-1 sm:px-5">{children}</main>
 }
 

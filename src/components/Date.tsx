@@ -1,10 +1,10 @@
 import { parseISO, format } from 'date-fns'
 
-interface dateProps {
+interface DateProps {
   dateString: string
 }
 
-export const Date: React.FC<dateProps> = ({ dateString }) => {
+export const Date: React.FC<DateProps> = ({ dateString }) => {
   const date = parseISO(dateString)
   return (
     <time dateTime={dateString} className="text-fore-subtle">

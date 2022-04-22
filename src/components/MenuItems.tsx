@@ -1,7 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 
-const routes = [
+interface RouteTypes {
+  path: string
+  label: string
+}
+
+export const routes: RouteTypes[] = [
   {
     path: '/',
     label: 'Home',
