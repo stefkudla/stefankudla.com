@@ -1,12 +1,15 @@
 import '@/styles/globals.css'
 import Layout from '@/components/Layout'
 import { AppProps } from 'next/app'
+import { ThemeProvider } from 'next-themes'
 
 const MyApp: React.VFC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThemeProvider attribute="class">
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThemeProvider>
   )
 }
 

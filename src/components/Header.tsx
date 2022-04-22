@@ -1,11 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ToggleTheme } from './toggleTheme'
 import MenuItems from './MenuItems'
+import ThemeChanger from './ThemeChanger'
 
 const Header: React.VFC = () => {
-  const router = useRouter()
   return (
     <>
       <header className="sticky sm:static top-0 container h-16 max-w-screen-lg m-auto overflow-hidden sm:px-12 md:px-20">
@@ -27,7 +26,11 @@ const Header: React.VFC = () => {
             </a>
           </Link>
           <MenuItems />
-          <ToggleTheme className="hidden mt-1 transition-transform ease-in-out focus:outline-none sm:block hover:text-accent group focus-visible:outline-accent" />
+          <ThemeChanger
+            styles={
+              'hidden mt-1 transition-transform ease-in-out focus:outline-none sm:block hover:text-accent group focus-visible:outline-accent'
+            }
+          />
         </nav>
       </header>
     </>

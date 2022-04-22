@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ToggleTheme } from './toggleTheme'
+import ThemeChanger from './ThemeChanger'
 
 const routes = [
   {
@@ -90,7 +90,7 @@ const Navbar: React.VFC = () => {
                 title={route.label}
               />
             ))}
-            <ToggleTheme />
+            <ThemeChanger />
           </nav>
         </div>
       )}

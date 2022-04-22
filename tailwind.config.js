@@ -8,7 +8,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/sections/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
