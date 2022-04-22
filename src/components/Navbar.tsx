@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import ThemeChanger from './ThemeChanger'
-
-const routes = [
-  {
-    path: '/',
-    label: 'Home',
-  },
-  {
-    path: '/blog',
-    label: 'Blog',
-  },
-  {
-    path: '/projects',
-    label: 'Projects',
-  },
-]
+import { routes } from './MenuItems'
 
 const Navbar: React.VFC = () => {
   const [navOpen, setNavOpen] = useState(false)
