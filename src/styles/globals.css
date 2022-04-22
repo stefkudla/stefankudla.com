@@ -1,0 +1,119 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/public-sans-v11-latin-regular.woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/public-sans-v11-latin-italic.woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/public-sans-v11-latin-700.woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../fonts/public-sans-v11-latin-700italic.woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/public-sans-v11-latin-800.woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: italic;
+  font-weight: 800;
+  src: url('../fonts/public-sans-v11-latin-800italic.woff2');
+}
+
+@import url('https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css');
+
+:root {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
+.light {
+  --color-fore-primary: hsla(240, 6%, 10%, var(--tw-text-opacity));
+  --color-fore-secondary: hsla(240, 4%, 16%, var(--tw-text-opacity));
+  --color-fore-subtle: hsla(218, 17%, 35%, var(--tw-text-opacity));
+
+  --color-back-primary: hsla(240, 5%, 96%, var(--tw-bg-opacity));
+  --color-back-secondary: hsla(240, 6%, 93%, var(--tw-bg-opacity));
+  --color-back-subtle: hsla(210, 38%, 92%, var(--tw-bg-opacity));
+
+  --color-accent: hsla(202, 100%, 63%, var(--tw-text-opacity));
+  --color-second-accent: hsla(243, 78%, 68%, var(--tw-text-opacity));
+  --color-back-accent: hsla(217, 100%, 81%, var(--tw-bg-opacity));
+
+  --color-gradient-accent1: hsla(209, 62%, 50%, 1);
+  --color-gradient-accent2: hsla(174, 59%, 56%, 1);
+
+  --color-code-background: hsla(210, 38%, 95%, 1);
+  --color-code-background-file: hsla(210, 38%, 90%, 1);
+  --color-code-line-hover: hsla(210, 38%, 90%, 1);
+  --color-code-word-highlight: hsla(210, 38%, 75%, 0.6);
+  --color-code-word-highlight-hover: hsla(210, 38%, 75%, 1);
+}
+
+.dark {
+  --color-fore-primary: hsla(214, 32%, 91%, var(--tw-text-opacity));
+  --color-fore-secondary: hsla(214, 32%, 91%, var(--tw-text-opacity));
+  --color-fore-subtle: hsla(214, 20%, 69%, var(--tw-text-opacity));
+
+  --color-back-primary: hsla(228, 10%, 11%, var(--tw-bg-opacity));
+  --color-back-secondary: hsla(221, 39%, 8%, var(--tw-bg-opacity));
+  --color-back-subtle: hsla(221, 39%, 16%, var(--tw-bg-opacity));
+
+  --color-accent: hsla(201, 100%, 63%, var(--tw-text-opacity));
+  --color-back-accent: hsla(172, 67%, 70%, var(--tw-bg-opacity));
+
+  --color-gradient-accent1: hsla(209, 62%, 50%, 1);
+  --color-gradient-accent2: hsla(174, 59%, 56%, 1);
+
+  --color-code-background: hsla(221, 39%, 15%, 1);
+  --color-code-background-file: hsla(221, 39%, 13%, 1);
+  --color-code-line-hover: hsla(221, 39%, 13%, 1);
+  --color-code-word-highlight: hsla(211, 24%, 21%, 1);
+  --color-code-word-highlight-hover: hsl(220, 100%, 80%, 1);
+}
+
+@layer base {
+  ::-moz-selection {
+    background: var(--color-accent);
+    color: var(--color-back-primary);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-back-primary);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-back-primary);
+    color: var(--color-fore-primary);
+    @apply overflow-x-hidden antialiased;
+  }
+
+  .full-width-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+}
