@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import Layout from '@/components/Layout'
+import Layout from '../components/Layout'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
 
