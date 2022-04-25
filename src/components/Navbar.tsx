@@ -1,96 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { CloseIcon, MenuIcon } from './icons'
 import ThemeChanger from './ThemeChanger'
+import Logo from './Logo'
 import { routes } from './MenuItems'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-const Navbar: React.VFC = () => {
+const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false)
+  const currentPage = useRouter()
 
   useEffect(() => {
     const body = document.body
-    if (typeof body !== 'undefined') {
-      if (navOpen) {
-        body.style.setProperty('overflow', 'hidden')
-      } else {
-        body.style.removeProperty('overflow')
-      }
+
+    if (navOpen) {
+      body.style.setProperty('touch-action', 'none')
+    }
+
+    if (!navOpen) {
+      body.style.removeProperty('touch-action')
     }
   }, [navOpen])
 
+  useEffect(() => {
+    if (navOpen) {
+      scrollTo(0, 0)
+      setNavOpen(!navOpen)
+    }
+  }, [currentPage])
+
   return (
-    <div className="text-xl sm:hidden" aria-hidden={!navOpen}>
-      <button
-        type="button"
-        className="fixed right-0 z-50 px-5 py-6 md:hidden focus:outline-none"
-        onClick={() => {
-          setNavOpen(!navOpen)
-        }}
-      >
-        {navOpen ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+    <>
+      <nav className="fixed top-0 h-12 w-full sm:hidden backdrop-filter backdrop-blur-sm bg-opacity-30">
+        <button
+          className="absolute top-3 right-2 z-50"
+          aria-label={!navOpen ? 'Open Menu' : 'Close Menu'}
+          onClick={() => {
+            setNavOpen(!navOpen)
+          }}
+        >
+          {!navOpen ? <MenuIcon /> : <CloseIcon />}
+        </button>
+        {!navOpen ? (
+          <div className="absolute top-3 left-2">
+            <Logo />
+          </div>
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 8h16M4 16h16"
-            />
-          </svg>
-        )}
-      </button>
-      {navOpen && (
-        <div className="relative z-10">
-          <div className="fixed w-full h-screen bg-back-primary"></div>
-          <button
-            type="button"
-            className="fixed w-full h-screen cursor-auto"
-            onClick={e => {
-              setNavOpen(!navOpen)
-            }}
-          ></button>
-          <nav className="fixed flex flex-col items-center w-full h-screen px-6 py-48 mt-auto text-base tracking-widest text-fore-primary">
+          <div className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary bg-opacity-70 overflow-hidden z-40">
             {routes.map(route => (
-              <MobileNavLink
-                key={route.path}
-                to={route.path}
-                title={route.label}
-              />
+              <Link href={route.path}>
+                <a className="text-xl tracking-widest text-fore-secondary">
+                  {route.label}
+                </a>
+              </Link>
             ))}
             <ThemeChanger />
-          </nav>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function MobileNavLink({ to, title }) {
-  return (
-    <div className="flex-grow">
-      <Link href={to}>
-        <a className="text-fore-primary">{title}</a>
-      </Link>
-    </div>
+          </div>
+        )}
+      </nav>
+    </>
   )
 }
 

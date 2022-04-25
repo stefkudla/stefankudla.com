@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface RouteTypes {
   path: string
@@ -12,8 +13,8 @@ export const routes: RouteTypes[] = [
     label: 'Home',
   },
   {
-    path: '/blog',
-    label: 'Blog',
+    path: '/posts',
+    label: 'Posts',
   },
   {
     path: '/projects',
@@ -22,12 +23,24 @@ export const routes: RouteTypes[] = [
 ]
 
 const MenuItems: React.VFC = () => {
+  const removeFocus = e => {
+    e.target.classList.remove('nav--item')
+    e.target.blur()
+  }
+  const currentRoute = useRouter().pathname
   return (
     <>
-      <div className="items-center justify-start flex-grow hidden space-x-6 sm:flex">
+      <div className="relative items-center justify-start flex-grow hidden space-x-6 sm:flex">
         {routes.map(route => (
           <Link key={route.path} href={route.path}>
-            <a className="text-fore-subtle hover:text-accent transition-colors font-bold">
+            <a
+              className={
+                route.path === currentRoute
+                  ? 'text-fore-primary transition-colors font-extrabold'
+                  : 'text-fore-subtle transition-colors font-semibold nav--item'
+              }
+              onClick={removeFocus}
+            >
               {route.label}
             </a>
           </Link>
@@ -38,3 +51,5 @@ const MenuItems: React.VFC = () => {
 }
 
 export default MenuItems
+
+// className="text-fore-subtle hover:text-accent transition-colors font-bold"
