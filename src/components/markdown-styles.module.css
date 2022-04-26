@@ -6,13 +6,25 @@
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply my-6;
+  @apply my-6 text-fore-secondary;
 }
 
 .markdown h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
+  @apply text-fore-primary text-2xl font-bold mt-12 mb-4 leading-snug;
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
+  @apply text-fore-primary text-xl font-bold mt-8 mb-4 leading-snug;
+}
+
+.markdown p a {
+  @apply text-accent underline hover:text-opacity-70;
+}
+
+.markdown ul li {
+  @apply list-disc list-inside text-base mb-2 bg-back-subtle p-1 rounded;
+}
+
+.markdown ol li {
+  @apply list-decimal list-inside text-base mb-2 bg-back-subtle p-1 rounded;
 }
