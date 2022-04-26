@@ -1,16 +1,16 @@
 import Avatar from './avatar'
-import Date from './date'
-import CoverImage from './cover-image'
+import Date from './Date'
+import CoverImage from './CoverImage'
 import Link from 'next/link'
 
-export default function PostPreview({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}) {
+const PostPreview = ({ title, coverImage, date, excerpt, slug }) => {
+  console.log(
+    typeof title,
+    typeof coverImage,
+    typeof date,
+    typeof excerpt,
+    typeof slug
+  )
   return (
     <div>
       <div className="mb-5">
@@ -25,7 +25,7 @@ export default function PostPreview({
         <Date dateString={date} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-      <Avatar name={author.title} picture={author.metadata.picture.imgix_url} />
     </div>
   )
 }
+export default PostPreview
