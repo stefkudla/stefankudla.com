@@ -10,6 +10,8 @@
   --tw-text-opacity: 1;
 }
 
+/* Theme Classes */
+
 .light {
   --color-fore-primary: hsla(240, 6%, 10%);
   --color-fore-secondary: hsla(240, 4%, 16%);
@@ -19,7 +21,7 @@
   --color-back-secondary: hsla(240, 6%, 93%);
   --color-back-subtle: hsla(210, 38%, 92%);
 
-  --color-accent: hsla(202, 100%, 63%);
+  --color-accent: #4433ff;
   --color-second-accent: hsla(243, 78%, 68%);
   --color-back-accent: hsla(217, 100%, 81%);
 
@@ -56,6 +58,10 @@
   --color-code-word-highlight-hover: hsl(220, 100%, 80%, 1);
 }
 
+/* End Theme Classes */
+
+/* Custom Classes */
+
 .nav--item {
   position: relative;
 }
@@ -83,6 +89,31 @@
   transform: scaleX(1);
   transform-origin: left;
 }
+
+.filter--active {
+  position: relative;
+  z-index: -1;
+}
+
+.filter--active::after,
+.filter--active:focus::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(
+    200deg,
+    var(--color-accent),
+    var(--color-second-accent)
+  );
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 150ms ease-in-out;
+}
+
+/* End Custom Classes */
 
 @layer base {
   ::-moz-selection {

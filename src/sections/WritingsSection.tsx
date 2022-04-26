@@ -1,4 +1,3 @@
-import React from 'react'
 import PostList from '@/components/PostList'
 import { PencilIcon } from '@/components/icons'
 
@@ -13,9 +12,9 @@ const WritingsSection: React.FC<WritingsSectionProps> = ({ posts }) => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <PencilIcon />
         </div>
-        <h2 className="text-xl text-accent font-semibold">Writings</h2>
+        <h2 className="text-xl text-accent font-semibold">Posts</h2>
       </span>
-      <PostList allPosts={posts} />
+      <PostList allPosts={posts} home={true} />
     </section>
   )
 }

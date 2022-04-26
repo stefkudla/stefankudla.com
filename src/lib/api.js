@@ -30,7 +30,7 @@ export async function getPreviewPostBySlug(slug) {
 export async function getAllPostsWithSlug() {
   const params = {
     type: 'posts',
-    props: 'slug',
+    props: 'title,slug,metadata,created_at',
   }
   const data = await bucket.getObjects(params)
   return data.objects

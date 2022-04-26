@@ -4,7 +4,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const PageContainer = ({ children }: LayoutProps) => {
+const PageContainer: React.FC<LayoutProps> = ({ children }) => {
   return <main className="container mx-auto px-1 sm:px-5">{children}</main>
 }
 
