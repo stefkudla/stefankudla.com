@@ -1,14 +1,11 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Container from '@/components/container'
-import PostBody from '@/components/post-body'
-import MoreStories from '@/components/more-stories'
-import Header from '@/components/header'
-import PostHeader from '@/components/post-header'
-import SectionSeparator from '@/components/section-separator'
-import Layout from '@/components/layout'
+import PageContainer from '../../components/PageContainer'
+import PostBody from '../../components/PostBody'
+import MorePosts from '../../components/MorePosts'
+import PostHeader from '../../components/PostHeader'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/api'
-import PostTitle from '@/components/post-title'
+import PostTitle from '../../components/PostTitle'
 import Head from 'next/head'
 import { CMS_NAME } from '@/lib/constants'
 import markdownToHtml from '@/lib/markdownToHtml'
@@ -19,37 +16,29 @@ export default function Post({ post, morePosts, preview }) {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout preview={preview}>
-      <Container>
-        <Header />
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
-                <meta
-                  property="og:image"
-                  content={post.metadata.cover_image.imgix_url}
-                />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.metadata.cover_image}
-                date={post.created_at}
-                author={post.metadata.author}
+    <PageContainer>
+      {router.isFallback ? (
+        <PostTitle>Loading…</PostTitle>
+      ) : (
+        <>
+          <article className="border-b border-back-subtle py-8 mb-8">
+            <Head>
+              <title>{post.title}</title>
+              <meta
+                property="og:image"
+                content={post.metadata.cover_image.imgix_url}
               />
-              <PostBody content={post.content} />
-            </article>
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-          </>
-        )}
-      </Container>
-    </Layout>
+            </Head>
+            <PostHeader
+              title={post.title}
+              coverImage={post.metadata.cover_image}
+              date={post.created_at}
+            />
+            <PostBody content={post.content} />
+          </article>
+        </>
+      )}
+    </PageContainer>
   )
 }
 
