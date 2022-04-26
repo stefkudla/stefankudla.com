@@ -6,7 +6,7 @@ import { routes } from './MenuItems'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const Navbar = () => {
+const Navbar: React.VFC = () => {
   const [navOpen, setNavOpen] = useState(false)
   const currentPage = useRouter()
 

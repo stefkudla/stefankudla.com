@@ -5,7 +5,6 @@ import Meta from './meta'
 import Header from './Header'
 import 'lazysizes'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
-import Navbar from './Navbar'
 
 interface LayoutProps {
   children: React.ReactNode

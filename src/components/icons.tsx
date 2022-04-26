@@ -8,7 +8,7 @@ import {
   GiLetterBomb,
 } from 'react-icons/gi'
 import { FiGithub, FiTwitter } from 'react-icons/fi'
-import { MdAlternateEmail } from 'react-icons/md'
+import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
   return <GiStripedSun className={styles} />
@@ -44,6 +44,10 @@ export const TwitterIcon = ({ styles }: { styles?: string }) => {
 
 export const EmailIcon = ({ styles }: { styles?: string }) => {
   return <MdAlternateEmail className={styles} />
+}
+
+export const ForwardArrowIcon = ({ styles }: { styles?: string }) => {
+  return <MdArrowForward className={styles} />
 }
 
 export const MenuIcon = ({ styles }: { styles?: string }) => {

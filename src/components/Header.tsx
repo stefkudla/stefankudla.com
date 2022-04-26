@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import MenuItems from './MenuItems'
 import ThemeChanger from './ThemeChanger'
 import Logo from './Logo'
@@ -22,7 +20,6 @@ const Header: React.VFC = () => {
             }
           />
         </nav>
-
         <Navbar />
       </header>
     </>

@@ -17,8 +17,8 @@ export const routes: RouteTypes[] = [
     label: 'Posts',
   },
   {
-    path: '/projects',
-    label: 'Projects',
+    path: '/works',
+    label: 'Works',
   },
 ]
 
