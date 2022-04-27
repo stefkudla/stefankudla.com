@@ -1,6 +1,6 @@
 import React from 'react'
 import MenuItems from './MenuItems'
-import { GithubIcon, TwitterIcon, EmailIcon } from './icons'
+import { GithubIcon, LinkedinIcon, EmailIcon } from './icons'
 
 const Footer: React.VFC = () => {
   return (
@@ -26,10 +26,10 @@ const Footer: React.VFC = () => {
             <GithubIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
           </a>
           <a
-            href="https://twitter.com/stefankudla"
+            href="https://www.linkedin.com/in/stefankudla/"
             className="group cursor-pointer"
           >
-            <TwitterIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
+            <LinkedinIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
           </a>
         </span>
       </div>
