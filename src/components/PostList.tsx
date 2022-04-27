@@ -18,10 +18,7 @@ interface PostsProps {
   home?: boolean
 }
 
-interface PostProps {}
-
 const PostList: React.FC<PostsProps> = ({ allPosts, home }) => {
-  console.log(typeof allPosts)
   return (
     <ul className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : undefined}>
       {allPosts.map(post => (
@@ -69,5 +66,4 @@ const PostList: React.FC<PostsProps> = ({ allPosts, home }) => {
     </ul>
   )
 }
-
 export default PostList
