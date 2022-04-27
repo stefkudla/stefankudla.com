@@ -4,7 +4,9 @@ import PostTitle from './PostTitle'
 
 interface PostHeaderProps {
   title: string
-  coverImage: string
+  coverImage: {
+    imgix_url: string
+  }
   date: string
   category: string
 }

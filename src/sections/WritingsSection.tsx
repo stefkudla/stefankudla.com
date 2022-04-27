@@ -2,7 +2,7 @@ import PostList from '@/components/PostList'
 import { PencilIcon } from '@/components/icons'
 
 interface WritingsSectionProps {
-  posts: []
+  posts: any
 }
 
 const WritingsSection: React.FC<WritingsSectionProps> = ({ posts }) => {

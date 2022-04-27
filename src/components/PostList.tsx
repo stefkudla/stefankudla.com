@@ -3,14 +3,27 @@ import Date from './Date'
 import Link from 'next/link'
 import { ForwardArrowIcon } from './icons'
 
-interface PostProps {
-  allPosts: any
+interface PostsProps {
+  allPosts: [
+    {
+      title: string
+      slug: string
+      created_at: string
+      metadata: {
+        excerpt: string
+        published_date: string
+      }
+    }
+  ]
   home?: boolean
 }
 
-const PostList: React.FC<PostProps> = ({ allPosts, home }) => {
+interface PostProps {}
+
+const PostList: React.FC<PostsProps> = ({ allPosts, home }) => {
+  console.log(typeof allPosts)
   return (
-    <ul className={!home && 'grid grid-cols-1 md:grid-cols-2 gap-8'}>
+    <ul className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : undefined}>
       {allPosts.map(post => (
         <li
           className={

@@ -2,15 +2,33 @@ import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import PageContainer from '../../components/PageContainer'
 import PostBody from '../../components/PostBody'
-import MorePosts from '../../components/MorePosts'
 import PostHeader from '../../components/PostHeader'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/api'
 import PostTitle from '../../components/PostTitle'
 import Head from 'next/head'
-import { CMS_NAME } from '@/lib/constants'
 import markdownToHtml from '@/lib/markdownToHtml'
+import AlertPreview from '../../components/AlertPreview'
 
-export default function Post({ post, morePosts, preview }) {
+interface PostTypes {
+  post: {
+    slug: string
+    title: string
+    status: string
+    metadata: {
+      cover_image: {
+        imgix_url: string
+      }
+      published_date: string
+      created_at: string
+      category: string
+    }
+    content: string
+    created_at: string
+  }
+}
+
+const Post: React.FC<PostTypes> = ({ post }) => {
+  console.log(typeof post)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
@@ -29,6 +47,9 @@ export default function Post({ post, morePosts, preview }) {
                 content={post.metadata.cover_image.imgix_url}
               />
             </Head>
+            {post.status === 'draft' ? (
+              <AlertPreview preview={true} />
+            ) : undefined}
             <PostHeader
               title={post.title}
               coverImage={post.metadata.cover_image}
@@ -42,8 +63,15 @@ export default function Post({ post, morePosts, preview }) {
     </PageContainer>
   )
 }
+export default Post
 
-export async function getStaticProps({ params, preview = null }) {
+export async function getStaticProps({
+  params,
+  preview = null,
+}: {
+  params: { slug: string }
+  preview: boolean | null
+}) {
   const data = await getPostAndMorePosts(params.slug, preview)
   const content = await markdownToHtml(data.post?.metadata?.content || '')
 
@@ -62,7 +90,7 @@ export async function getStaticProps({ params, preview = null }) {
 export async function getStaticPaths() {
   const allPosts = (await getAllPostsWithSlug()) || []
   return {
-    paths: allPosts.map(post => `/posts/${post.slug}`),
+    paths: allPosts.map((post: { slug: string }) => `/posts/${post.slug}`),
     fallback: true,
   }
 }

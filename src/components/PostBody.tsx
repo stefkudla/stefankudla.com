@@ -1,6 +1,10 @@
 import markdownStyles from './markdown-styles.module.css'
 
-const PostBody: React.FC = ({ content }: { content: string }) => {
+interface PostBodyProps {
+  content: string
+}
+
+const PostBody: React.FC<PostBodyProps> = ({ content }) => {
   return (
     <div className="max-w-2xl mx-auto">
       <div

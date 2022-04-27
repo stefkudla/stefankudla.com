@@ -16,12 +16,24 @@ const categories = [
   },
 ]
 
-const Posts: React.VFC = ({ allPosts }: { allPosts: any }) => {
-  const [filter, setFilter] = useState('All')
+interface PostsProps {
+  allPosts: [
+    {
+      metadata: {
+        category: string
+      }
+    }
+  ]
+}
 
-  const filteredPosts = allPosts.filter(
-    post => post.metadata.category === filter
+const Posts: React.FC<PostsProps> = ({ allPosts }) => {
+  const [filterCategory, setFilterCategory] = useState('All')
+
+  const filteredPosts: object[] = allPosts.filter(
+    post => post.metadata.category === filterCategory
   )
+
+  console.log(typeof filteredPosts)
 
   return (
     <PageContainer>
@@ -34,11 +46,12 @@ const Posts: React.VFC = ({ allPosts }: { allPosts: any }) => {
           {categories.map(category => (
             <li
               className={
-                category.name === filter
+                category.name === filterCategory
                   ? 'cursor-pointer font-bold filter--active transition'
                   : 'cursor-pointer hover:text-slate-500 transition'
               }
-              onClick={() => setFilter(category.name)}
+              onClick={() => setFilterCategory(category.name)}
+              key={category.name}
             >
               {category.name}
             </li>
@@ -46,14 +59,14 @@ const Posts: React.VFC = ({ allPosts }: { allPosts: any }) => {
         </ul>
       </span>
       <PostList
-        allPosts={filter === 'All' ? allPosts : filteredPosts}
+        allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
         home={false}
       />
     </PageContainer>
   )
 }
 
-export async function getStaticProps({ preview }) {
+export async function getStaticProps({ preview }: { preview: boolean }) {
   const allPosts = (await getAllPostsForHome(preview)) || []
   return {
     props: { allPosts },
