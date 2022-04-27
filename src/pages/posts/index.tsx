@@ -2,6 +2,7 @@ import { useState } from 'react'
 import PageContainer from '@/components/PageContainer'
 import { getAllPostsForHome } from '@/lib/api'
 import PostList from '@/components/PostList'
+import Head from 'next/head'
 
 const categories = [
   {
@@ -24,6 +25,9 @@ const Posts: React.VFC = ({ allPosts }: { allPosts: any }) => {
 
   return (
     <PageContainer>
+      <Head>
+        <title>Posts</title>
+      </Head>
       <span className="flex justify-between items-center mb-8 ">
         <h1 className="text-4xl font-bold text-fore-primary">Posts</h1>
         <ul className="flex gap-x-4">
