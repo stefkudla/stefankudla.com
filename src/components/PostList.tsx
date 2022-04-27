@@ -16,7 +16,7 @@ const PostList: React.FC<PostProps> = ({ allPosts, home }) => {
           className={
             home
               ? 'py-5'
-              : 'flex flex-col bg-white dark:bg-gray-800 rounded p-8'
+              : 'flex flex-col bg-white dark:bg-gray-800 rounded p-8 shadow-sm'
           }
           key={post.title}
         >
@@ -33,16 +33,16 @@ const PostList: React.FC<PostProps> = ({ allPosts, home }) => {
                   {post.title}
                 </h3>
                 <p className="text-sm text-fore-subtle">
-                  {post.metadata.excerpt.slice(0, 100)}[...]
+                  {post.metadata.excerpt}
                 </p>
               </div>
               {home ? (
                 <Date dateString={post.created_at}></Date>
               ) : (
-                <p className="flex items-center text-fore-subtle text-sm transition">
+                <p className="flex items-center text-fore-subtle text-sm">
                   Read more
-                  <span className="group hidden group-hover:block ml-2 transition">
-                    <ForwardArrowIcon styles="text-lg text-fore-subtle" />
+                  <span className="group hidden group-hover:block ml-2">
+                    <ForwardArrowIcon styles="text-lg text-fore-subtle group-hover:text-accent" />
                   </span>
                 </p>
               )}

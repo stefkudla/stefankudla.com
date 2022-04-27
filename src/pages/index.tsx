@@ -7,12 +7,14 @@ import WritingsSection from '@/sections/WritingsSection'
 import ToolboxSection from '@/sections/ToolboxSection'
 import ProjectsSection from '@/sections/ProjectsSection'
 import ContactSection from '@/sections/ContactSection'
+import Head from 'next/head'
 
 const Index: NextPage = ({ allPosts }: { allPosts: any }) => {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
   return (
     <PageContainer>
+      <Head>
+        <title>Stefan Kudla | Software Developer</title>
+      </Head>
       <IntroSection />
       <AboutMeSection />
       <WritingsSection posts={allPosts} />

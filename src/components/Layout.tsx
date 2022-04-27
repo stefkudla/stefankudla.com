@@ -1,7 +1,7 @@
 import React from 'react'
 import Alert from './alert'
 import Footer from './Footer'
-import Meta from './meta'
+import Meta from './Meta'
 import Header from './Header'
 import 'lazysizes'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
@@ -18,9 +18,9 @@ const Layout = ({ preview, children }: LayoutProps) => {
       <Header />
       <div className="flex flex-col min-h-screen">
         <Alert preview={preview} />
-        <main className="container flex-grow max-w-screen-lg px-5 m-auto mt-16 sm:px-12 md:px-20">
+        <div className="container flex-grow max-w-screen-lg px-5 m-auto mt-16 sm:px-12 md:px-20">
           {children}
-        </main>
+        </div>
       </div>
       <Footer />
     </>
