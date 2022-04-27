@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
 
-const MyApp: React.VFC<AppProps> = ({ Component, pageProps }) => {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider attribute="class">
       <Layout>
