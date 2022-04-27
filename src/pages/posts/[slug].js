@@ -32,7 +32,8 @@ export default function Post({ post, morePosts, preview }) {
             <PostHeader
               title={post.title}
               coverImage={post.metadata.cover_image}
-              date={post.created_at}
+              date={post.metadata.published_date || post.created_at}
+              category={post.metadata.category}
             />
             <PostBody content={post.content} />
           </article>

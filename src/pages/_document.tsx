@@ -5,6 +5,7 @@ const Document = () => {
     <Html lang="en">
       <Head></Head>
       <body className="transition">
+        <Main />
         <NextScript />
       </body>
     </Html>

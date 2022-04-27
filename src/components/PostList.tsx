@@ -37,7 +37,10 @@ const PostList: React.FC<PostProps> = ({ allPosts, home }) => {
                 </p>
               </div>
               {home ? (
-                <Date dateString={post.created_at}></Date>
+                <Date
+                  dateString={post.metadata.published_date || post.created_at}
+                  formatStyle="LLLL, yyyy"
+                ></Date>
               ) : (
                 <p className="flex items-center text-fore-subtle text-sm">
                   Read more
