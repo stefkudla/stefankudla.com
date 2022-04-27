@@ -7,7 +7,7 @@ import {
   GiFizzingFlask,
   GiLetterBomb,
 } from 'react-icons/gi'
-import { FiGithub, FiTwitter } from 'react-icons/fi'
+import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
@@ -40,6 +40,10 @@ export const GithubIcon = ({ styles }: { styles?: string }) => {
 
 export const TwitterIcon = ({ styles }: { styles?: string }) => {
   return <FiTwitter className={styles} />
+}
+
+export const LinkedinIcon = ({ styles }: { styles?: string }) => {
+  return <FiLinkedin className={styles} />
 }
 
 export const EmailIcon = ({ styles }: { styles?: string }) => {
