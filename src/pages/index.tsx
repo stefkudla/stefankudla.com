@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { getAllPostsForHome } from '@/lib/api'
+import { getAllPosts } from '@/lib/api'
 import PageContainer from '@/components/PageContainer'
 import IntroSection from '@/sections/IntroSection'
 import AboutMeSection from '@/sections/AboutMeSection'
@@ -9,7 +9,12 @@ import ProjectsSection from '@/sections/ProjectsSection'
 import ContactSection from '@/sections/ContactSection'
 import Head from 'next/head'
 
-const Index: NextPage = ({ allPosts }: { allPosts: any }) => {
+interface IndexProps {
+  allPosts: [{}]
+  allWorks: [{}]
+}
+
+const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
   return (
     <PageContainer>
       <Head>
@@ -19,16 +24,19 @@ const Index: NextPage = ({ allPosts }: { allPosts: any }) => {
       <AboutMeSection />
       <WritingsSection posts={allPosts} />
       <ToolboxSection />
-      <ProjectsSection posts={[]} />
+      <ProjectsSection posts={allWorks} />
       <ContactSection />
     </PageContainer>
   )
 }
 
-export async function getStaticProps({ preview }) {
-  const allPosts = (await getAllPostsForHome(preview)) || []
+type preview = any
+
+export async function getStaticProps({ preview }: preview) {
+  const allPosts = (await getAllPosts(preview, 'posts')) || []
+  const allWorks = (await getAllPosts(preview, 'works')) || []
   return {
-    props: { allPosts },
+    props: { allPosts, allWorks },
   }
 }
 export default Index
