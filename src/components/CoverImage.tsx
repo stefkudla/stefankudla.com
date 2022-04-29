@@ -9,7 +9,6 @@ const CoverImage: React.FC<CoverImageProps> = ({ title, url }) => {
   return (
     <Imgix
       src={url}
-      alt={`Cover Image for ${title}`}
       className="lazyload shadow-small w-full
         hover:shadow-medium transition-shadow duration-200"
       sizes="100vw"
@@ -20,6 +19,7 @@ const CoverImage: React.FC<CoverImageProps> = ({ title, url }) => {
       }}
       htmlAttributes={{
         src: `${url}?auto=format,compress&q=1&blur=500&w=auto`,
+        alt: `Cover Image for ${title}`,
       }}
     />
   )
