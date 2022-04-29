@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent, MouseEventHandler } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -23,9 +23,8 @@ export const routes: RouteTypes[] = [
 ]
 
 const MenuItems: React.VFC = () => {
-  const removeFocus = e => {
-    e.target.classList.remove('nav--item')
-    e.target.blur()
+  const removeFocus = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.blur()
   }
   const currentRoute = useRouter().pathname
   return (
@@ -49,7 +48,4 @@ const MenuItems: React.VFC = () => {
     </>
   )
 }
-
 export default MenuItems
-
-// className="text-fore-subtle hover:text-accent transition-colors font-bold"
