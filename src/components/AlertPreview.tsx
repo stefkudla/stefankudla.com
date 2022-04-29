@@ -1,9 +1,4 @@
-interface AlertPreviewProps {
-  preview: boolean
-}
-
-const AlertPreview: React.FC<AlertPreviewProps> = ({ preview }) => {
-  preview = true
+const AlertPreview: any = ({ preview }: any) => {
   return preview ? (
     <div className="fixed text-fore-subtle left-5">
       <div className="py-2 text-center text-sm">
