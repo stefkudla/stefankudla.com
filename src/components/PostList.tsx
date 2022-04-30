@@ -15,10 +15,11 @@ interface PostsProps {
       }
     }
   ]
+  bucketType: string
   home?: boolean
 }
 
-const PostList: React.FC<PostsProps> = ({ allPosts, home }) => {
+const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
   return (
     <ul className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : undefined}>
       {allPosts.map(post => (
@@ -30,7 +31,7 @@ const PostList: React.FC<PostsProps> = ({ allPosts, home }) => {
           }
           key={post.title}
         >
-          <Link href={`/posts/${post.slug}`}>
+          <Link href={`/${bucketType}/${post.slug}`}>
             <a
               className={
                 home
