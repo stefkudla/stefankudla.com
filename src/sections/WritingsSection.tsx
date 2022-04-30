@@ -14,7 +14,7 @@ const WritingsSection: React.FC<WritingsSectionProps> = ({ posts }) => {
         </div>
         <h2 className="text-xl text-accent font-semibold">Posts</h2>
       </span>
-      <PostList allPosts={posts} home={true} />
+      <PostList allPosts={posts} bucketType="posts" home={true} />
     </section>
   )
 }
