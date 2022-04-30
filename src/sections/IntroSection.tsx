@@ -4,7 +4,7 @@ const IntroSection: React.VFC = () => {
   return (
     <section>
       <h1 className="text-4xl font-bold mb-8 text-fore-primary">
-        Hello, I'm Stefan
+        Hi there, I'm Stefan Kudla.
       </h1>
       <p className="text-fore-primary">
         I'm a Czech American software developer based in Las Vegas, Nevada.{' '}
