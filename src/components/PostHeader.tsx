@@ -19,7 +19,6 @@ interface PostHeaderProps {
 }
 
 const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
-  console.log(post.metadata.live_url)
   return (
     <>
       <PostTitle>{post.title}</PostTitle>

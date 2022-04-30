@@ -28,12 +28,10 @@ interface PostsProps {
 
 const Posts: React.FC<PostsProps> = ({ allPosts }) => {
   const [filterCategory, setFilterCategory] = useState('All')
-  console.log(filterCategory)
 
   const filteredPosts: any = allPosts.filter(post => {
     return post.metadata.category === filterCategory
   })
-  console.log(filteredPosts)
 
   return (
     <PageContainer>

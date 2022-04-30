@@ -11,7 +11,6 @@ interface PostProps {
 }
 
 const MorePosts: React.FC = ({ posts }: any) => {
-  console.log(posts)
   return (
     <section>
       <h2 className="mb-8 text-xl font-bold tracking-tighter leading-tight">
