@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { HOME_OG_IMAGE_URL } from '@/lib/constants'
 
 const Meta: React.VFC = () => {
   return (
@@ -36,7 +35,7 @@ const Meta: React.VFC = () => {
         name="description"
         content="Stefan Kudla is a software developer from Las Vegas, Nevada."
       />
-      <meta property="og:image" content={HOME_OG_IMAGE_URL} />
+      <meta property="og:image" content="" />
     </Head>
   )
 }

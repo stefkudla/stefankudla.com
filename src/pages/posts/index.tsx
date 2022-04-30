@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import PageContainer from '@/components/PageContainer'
-import { getAllPostsForHome } from '@/lib/api'
+import { getAllPosts } from '@/lib/api'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
@@ -33,12 +33,10 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
     post => post.metadata.category === filterCategory
   )
 
-  console.log(typeof filteredPosts)
-
   return (
     <PageContainer>
       <Head>
-        <title>Posts</title>
+        <title>Posts | Stefan Kudla</title>
       </Head>
       <span className="flex justify-between items-center mb-8 ">
         <h1 className="text-4xl font-bold text-fore-primary">Posts</h1>
@@ -60,6 +58,7 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
       </span>
       <PostList
         allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
+        bucketType="posts"
         home={false}
       />
     </PageContainer>
@@ -67,7 +66,7 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
 }
 
 export async function getStaticProps({ preview }: { preview: boolean }) {
-  const allPosts = (await getAllPostsForHome(preview)) || []
+  const allPosts = (await getAllPosts(preview, 'posts')) || []
   return {
     props: { allPosts },
   }
