@@ -29,7 +29,7 @@ interface PostsProps {
 const Works: React.FC<PostsProps> = ({ allPosts }) => {
   const [filterCategory, setFilterCategory] = useState('All')
 
-  const filteredPosts: object[] = allPosts.filter(
+  const filteredPosts: any = allPosts.filter(
     work => work.metadata.category === filterCategory
   )
 
