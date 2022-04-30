@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import ErrorPage from 'next/error'
 import PageContainer from '../../components/PageContainer'
 import PostBody from '../../components/PostBody'
 import PostHeader from '../../components/PostHeader'
@@ -8,6 +7,7 @@ import PostTitle from '../../components/PostTitle'
 import Head from 'next/head'
 import markdownToHtml from '@/lib/markdownToHtml'
 import AlertPreview from '../../components/AlertPreview'
+import PageNotFound from '../404'
 
 interface PostTypes {
   post: {
@@ -28,10 +28,9 @@ interface PostTypes {
 }
 
 const Post: React.FC<PostTypes> = ({ post }) => {
-  console.log(typeof post)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
-    return <ErrorPage statusCode={404} />
+    return <PageNotFound />
   }
   return (
     <PageContainer>
@@ -50,12 +49,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             {post.status === 'draft' ? (
               <AlertPreview preview={true} />
             ) : undefined}
-            <PostHeader
-              title={post.title}
-              coverImage={post.metadata.cover_image}
-              date={post.metadata.published_date || post.created_at}
-              category={post.metadata.category}
-            />
+            <PostHeader post={post} />
             <PostBody content={post.content} />
           </article>
         </>
