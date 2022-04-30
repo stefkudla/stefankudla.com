@@ -1,31 +1,64 @@
 import Date from './Date'
 import CoverImage from './CoverImage'
 import PostTitle from './PostTitle'
+import { BiLinkExternal } from 'react-icons/bi'
 
 interface PostHeaderProps {
-  title: string
-  coverImage: {
-    imgix_url: string
+  post: {
+    title: string
+    metadata: {
+      cover_image: {
+        imgix_url: string
+      }
+      live_url?: string
+      repo_url?: string
+      category: string
+    }
+    created_at: string
   }
-  date: string
-  category: string
 }
 
-const PostHeader: React.FC<PostHeaderProps> = ({
-  title,
-  coverImage,
-  date,
-  category,
-}) => {
+const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
+  console.log(post.metadata.live_url)
   return (
     <>
-      <PostTitle>{title}</PostTitle>
+      <PostTitle>{post.title}</PostTitle>
       <div className="mb-8 md:mb-16 sm:mx-0">
-        <CoverImage title={title} url={coverImage.imgix_url} />
+        <CoverImage
+          title={post.title}
+          url={post.metadata.cover_image.imgix_url}
+        />
       </div>
-      <div className="flex justify-between pb-8 border-b border-back-subtle">
-        <Date dateString={date} formatStyle="LLLL dd, yyyy" />
-        <p className="text-sm text-fore-subtle">{category}</p>
+      <div className="flex flex-row justify-between sm:items-center pb-8 border-b">
+        <div className="sm:flex items-center gap-x-2">
+          <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" />
+          {post.metadata.live_url ? (
+            <>
+              <a
+                href={post.metadata.live_url}
+                target="_blank"
+                className="flex items-center text-accent hover:text-gray-500 text-sm md:ml-4 w-fit"
+              >
+                Live Site
+                <span>
+                  <BiLinkExternal />
+                </span>
+              </a>
+
+              <a
+                href={post.metadata.repo_url}
+                target="_blank"
+                className="flex items-center text-accent hover:text-gray-500 text-sm"
+              >
+                Github Repo
+                <span>
+                  <BiLinkExternal />
+                </span>
+              </a>
+            </>
+          ) : undefined}
+        </div>
+        <p className="text-sm text-fore-subtle">{post.metadata.category}</p>
       </div>
     </>
   )
