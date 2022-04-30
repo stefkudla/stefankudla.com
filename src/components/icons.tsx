@@ -6,9 +6,12 @@ import {
   GiToolbox,
   GiFizzingFlask,
   GiLetterBomb,
+  GiHomeGarage,
+  GiWireframeGlobe,
 } from 'react-icons/gi'
 import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
+import { BiLinkExternal } from 'react-icons/bi'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
   return <GiStripedSun className={styles} />
@@ -54,7 +57,7 @@ export const ForwardArrowIcon = ({ styles }: { styles?: string }) => {
   return <MdArrowForward className={styles} />
 }
 
-export const MenuIcon = ({ styles }: { styles?: string }) => {
+export const MenuIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +76,7 @@ export const MenuIcon = ({ styles }: { styles?: string }) => {
   )
 }
 
-export const CloseIcon = ({ styles }: { styles?: string }) => {
+export const CloseIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -90,4 +93,16 @@ export const CloseIcon = ({ styles }: { styles?: string }) => {
       />
     </svg>
   )
+}
+
+export const HomeIcon = ({ styles }: { styles?: string }) => {
+  return <GiHomeGarage className={styles} />
+}
+
+export const GlobeIcon = ({ styles }: { styles?: string }) => {
+  return <GiWireframeGlobe className={styles} />
+}
+
+export const ExternalLinkIcon = ({ styles }: { styles?: string }) => {
+  return <BiLinkExternal className={styles} />
 }
