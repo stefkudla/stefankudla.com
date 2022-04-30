@@ -36,9 +36,9 @@ export async function getAllPostsWithSlug() {
   return data.objects
 }
 
-export async function getAllPostsForHome(preview) {
+export async function getAllPosts(preview, bucketType) {
   const params = {
-    type: 'posts',
+    type: bucketType,
     props: 'title,slug,metadata,created_at',
     sort: '-created_at',
     ...(preview && { status: 'all' }),
@@ -60,7 +60,7 @@ export async function getPostAndMorePosts(slug, preview) {
     ...(preview && { status: 'all' }),
   }
   const object = await bucket.getObject(singleObjectParams).catch(error => {
-    // Don't throw if an slug doesn't exist
+    // Don't throw if a slug doesn't exist
     if (is404(error)) return
     throw error
   })
