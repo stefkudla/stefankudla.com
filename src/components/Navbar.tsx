@@ -46,16 +46,18 @@ const Navbar: React.VFC = () => {
             <Logo />
           </div>
         ) : (
-          <div className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary bg-opacity-70 overflow-hidden z-40">
+          <ul className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary bg-opacity-70 overflow-hidden z-40">
             {routes.map(route => (
-              <Link href={route.path}>
-                <a className="text-xl tracking-widest text-fore-secondary">
-                  {route.label}
-                </a>
-              </Link>
+              <li key={route.path}>
+                <Link href={route.path}>
+                  <a className="text-xl tracking-widest text-fore-secondary">
+                    {route.label}
+                  </a>
+                </Link>
+              </li>
             ))}
             <ThemeChanger />
-          </div>
+          </ul>
         )}
       </nav>
     </>
