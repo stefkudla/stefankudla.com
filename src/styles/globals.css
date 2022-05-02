@@ -7,12 +7,12 @@
 @font-face {
   font-family: 'Public Sans';
   font-style: normal;
-  src: url('../../public/fonts/PublicSans-VariableFont_wght.ttf');
+  src: url('../../public/fonts/PublicSans-VariableFont_wght.woff2');
 }
 @font-face {
   font-family: 'Public Sans';
   font-style: italic;
-  src: url('../../public/fonts/PublicSans-Italic-VariableFont_wght.ttf');
+  src: url('../../public/fonts/PublicSans-Italic-VariableFont_wght.woff2');
 }
 
 :root {
