@@ -36,20 +36,6 @@ const Meta: React.VFC = () => {
         content="Stefan Kudla is a software developer from Las Vegas, Nevada."
       />
       <meta property="og:image" content="" />
-      <link
-        rel="preload"
-        href="/fonts/PublicSans-VariableFont_wght.ttf"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="preload"
-        href="/fonts/PublicSans-Italic-VariableFont_wght.ttf"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
     </Head>
   )
 }
