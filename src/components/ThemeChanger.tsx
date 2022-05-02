@@ -29,9 +29,9 @@ const ThemeChanger = ({ styles }: StylesProps) => {
       className={styles}
     >
       {resolvedTheme === 'dark' ? (
-        <MoonIcon styles="text-2xl sm:text-xl group-hover:-translate-y-1 transition-transform group-hover:rotate-12" />
+        <span className="block w-4 h-4 bg-white rounded-full group-hover:-translate-y-1 transition-transform" />
       ) : (
-        <SunIcon styles="text-2xl sm:text-xl group-hover:-translate-y-1 transition-transform group-hover:rotate-12" />
+        <span className="block w-4 h-4 bg-black rounded-full group-hover:-translate-y-1 transition-transform" />
       )}
     </button>
   )
