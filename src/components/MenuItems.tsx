@@ -36,7 +36,7 @@ const MenuItems: React.VFC = () => {
               className={
                 route.path === currentRoute
                   ? 'text-fore-primary transition-colors font-bold tracking-wide'
-                  : 'text-fore-subtle transition-colors font-light tracking-wide nav--item'
+                  : 'text-fore-subtle transition-colors tracking-wide nav--item'
               }
               onClick={removeFocus}
             >

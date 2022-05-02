@@ -9,8 +9,8 @@ const Logo: React.VFC = () => {
         className="flex items-center border-white group focus-visible:outline-accent"
       >
         <div className="overflow-hidden transition ease-in-out rounded-full  hover:opacity-60">
-          <span className="font-light text-sm">stefankudla</span>
-          <span className="font-light text-sm text-accent">.com</span>
+          <span className="text-sm">stefankudla</span>
+          <span className="text-sm text-accent">.com</span>
         </div>
       </a>
     </Link>
