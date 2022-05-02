@@ -12,7 +12,7 @@ const WritingsSection: React.FC<WritingsSectionProps> = ({ posts }) => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <PencilIcon />
         </div>
-        <h2 className="text-xl text-accent font-semibold">Posts</h2>
+        <h4 className="text-xl text-accent font-semibold">Posts</h4>
       </span>
       <PostList allPosts={posts} bucketType="posts" home={true} />
     </section>

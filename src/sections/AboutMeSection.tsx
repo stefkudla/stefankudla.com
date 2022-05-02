@@ -2,10 +2,13 @@ import React from 'react'
 
 const AboutMeSection: React.VFC = () => {
   return (
-    <section className="flex flex-col mt-24">
-      <h2 className="text-3xl font-bold mb-8 text-fore-primary">About Me</h2>
-      <p className="text-fore-primary mb-8">
-        I'm a 24 year old self-taught software developer.
+    <section className="mt-24">
+      <h3 className="text-3xl mb-8 text-fore-primary border-b border-b-slate-200 dark:border-b-gray-600 w-fit">
+        About Me
+      </h3>
+      <p className="text-fore-primary mb-8 ">
+        I'm a 24 year old self-taught software developer based in Las Vegas,
+        Nevada.
       </p>
       <p className="text-fore-primary mb-8">
         Coming from a background of audio engineering and music production, I

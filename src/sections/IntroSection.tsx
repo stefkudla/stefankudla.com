@@ -1,16 +1,17 @@
+import MeshBackground from '@/components/MeshBackground'
 import React from 'react'
 
 const IntroSection: React.VFC = () => {
   return (
-    <section>
-      <h1 className="text-4xl font-bold mb-8 text-fore-primary">
+    <section className="h-64 sm:h-96 w-full flex flex-col justify-center">
+      <MeshBackground />
+      <h1 className="text-5xl max-w-2xl mb-8 text-fore-primary">
         Hi there, I'm Stefan Kudla.
       </h1>
-      <p className="text-fore-primary">
-        I'm a Czech American software developer based in Las Vegas, Nevada.{' '}
-        Having a passion for creating, I learned to code so that I could build
-        web experiences that make people's lives easier.
-      </p>
+      <h2 className="text-2xl">
+        I'm a software developer with a passion for building <br /> modern web
+        apps.
+      </h2>
     </section>
   )
 }

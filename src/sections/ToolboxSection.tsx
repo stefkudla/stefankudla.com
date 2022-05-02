@@ -10,7 +10,7 @@ const TechSection: React.VFC = () => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <ToolboxIcon />
         </div>
-        <h2 className="text-xl text-accent font-semibold">Toolbox</h2>
+        <h4 className="text-xl text-accent font-semibold">Toolbox</h4>
       </span>
       <ul className="grid grid-cols-2 sm:grid-cols-4 gap-6">
         {devIcons.map(icon => (
