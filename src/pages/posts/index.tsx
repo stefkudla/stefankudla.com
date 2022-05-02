@@ -39,7 +39,7 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
         <title>Posts | Stefan Kudla</title>
       </Head>
       <span className="flex justify-between items-center mb-8 ">
-        <h1 className="text-4xl font-bold text-fore-primary">Posts</h1>
+        <h1 className="text-4xl text-fore-primary">Posts</h1>
         <ul className="flex gap-x-4">
           {categories.map(category => (
             <li

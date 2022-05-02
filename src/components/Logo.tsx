@@ -8,11 +8,9 @@ const Logo: React.VFC = () => {
         aria-label="Website logo, go back to homepage."
         className="flex items-center border-white group focus-visible:outline-accent"
       >
-        <div className="overflow-hidden transition-transform ease-in-out rounded-full  group-hover:-translate-y-1">
-          <div className="inline text-base font-semibold">
-            <span className="text-fore-subtle">stefankudla</span>
-            <span className="text-accent">.com</span>
-          </div>
+        <div className="overflow-hidden transition ease-in-out rounded-full  hover:opacity-60">
+          <span className="font-light text-sm">stefankudla</span>
+          <span className="font-light text-sm text-accent">.com</span>
         </div>
       </a>
     </Link>
