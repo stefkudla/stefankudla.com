@@ -112,6 +112,32 @@
   transition: transform 150ms ease-in-out;
 }
 
+.minimal--border {
+  position: relative;
+}
+.minimal--border::before {
+  content: '';
+  position: absolute;
+  background: var(--color-accent);
+  top: 50%;
+  left: 0;
+  width: 6px;
+  height: 2px;
+  margin: 0 -0.5rem;
+  border-radius: 5px;
+}
+.minimal--border::after {
+  content: '';
+  position: absolute;
+  background: var(--color-accent);
+  top: 50%;
+  right: 0;
+  width: 6px;
+  height: 2px;
+  margin: 0 -0.5rem;
+  border-radius: 5px;
+}
+
 /* End Custom Classes */
 
 @layer base {
