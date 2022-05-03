@@ -35,10 +35,7 @@ const Meta: React.VFC = () => {
         name="description"
         content="Stefan Kudla is a software developer from Las Vegas, Nevada."
       />
-      <meta
-        property="og:image"
-        content="/public/images/stefan_kudla_ogImage.jpg"
-      />
+      <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
     </Head>
   )
 }
