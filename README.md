@@ -76,7 +76,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://brainwave2.netlify.app)
+[![stefankudla.com Screen Shot][website-screenshot]](https://stefankudla.com/)
 
 <p align="center">My new and improved Portfolio site which I converted from my old WordPress website. This has been the largest project I have worked on to date. There was a lot of researching, planning, and deep coffee coding sessions involved.</p>
 
@@ -161,4 +161,4 @@ Website Link: [stefankudla.com](https://stefankudla.com/)
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/stefankudla/
-[product-screenshot]: src/assets/images/pathways-snippet.png
+[website-screenshot]: /public/images/stefankudla-snippet.png
