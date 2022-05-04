@@ -14,7 +14,7 @@ const Footer: React.VFC = () => {
         </span>
         <span className="flex gap-x-4">
           <a
-            href="mailto:stefankudla@gmail.com"
+            href="mailto:stefan@stefankudla.com"
             className="group cursor-pointer"
           >
             <EmailIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
