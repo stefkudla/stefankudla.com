@@ -5,6 +5,7 @@ import Logo from './Logo'
 import { routes } from './MenuItems'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 
 const Navbar: React.VFC = () => {
   const [navOpen, setNavOpen] = useState(false)
@@ -24,7 +25,6 @@ const Navbar: React.VFC = () => {
 
   useEffect(() => {
     if (navOpen) {
-      // scrollTo(0, 0)
       setNavOpen(!navOpen)
     }
   }, [currentPage])
