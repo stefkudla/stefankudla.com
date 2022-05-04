@@ -14,7 +14,7 @@ const ContactSection: React.VFC = () => {
         I'm currently looking for new opportunities.
       </p>
       <a
-        href="mailto:stefankudla@stefankudla.com"
+        href="mailto:stefan@stefankudla.com"
         className="text-white px-16 py-3.5 mt-8 text-2xl bg-gradient-to-r from-accent to-violet-400 rounded"
       >
         Say hello
