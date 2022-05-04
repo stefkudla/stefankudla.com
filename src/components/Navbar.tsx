@@ -24,7 +24,7 @@ const Navbar: React.VFC = () => {
 
   useEffect(() => {
     if (navOpen) {
-      scrollTo(0, 0)
+      // scrollTo(0, 0)
       setNavOpen(!navOpen)
     }
   }, [currentPage])
@@ -49,7 +49,7 @@ const Navbar: React.VFC = () => {
           <ul className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary bg-opacity-70 overflow-hidden z-40">
             {routes.map(route => (
               <li key={route.path}>
-                <Link href={route.path}>
+                <Link href={route.path} scroll={false}>
                   <a className="text-xl tracking-widest text-fore-secondary">
                     {route.label}
                   </a>

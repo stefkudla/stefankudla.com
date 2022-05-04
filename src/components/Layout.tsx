@@ -24,7 +24,11 @@ const Layout = ({ children, router }: LayoutProps) => {
     <>
       <Meta />
       <Header />
-      <AnimatePresence exitBeforeEnter initial={true}>
+      <AnimatePresence
+        exitBeforeEnter
+        initial={true}
+        onExitComplete={() => window.scrollTo(0, 0)}
+      >
         <motion.div
           key={router.route}
           variants={variants}

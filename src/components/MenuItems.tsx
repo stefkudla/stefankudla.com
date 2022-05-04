@@ -31,7 +31,7 @@ const MenuItems: React.VFC = () => {
     <>
       <div className="relative items-center justify-start flex-grow hidden space-x-6 sm:flex">
         {routes.map(route => (
-          <Link key={route.path} href={route.path}>
+          <Link key={route.path} href={route.path} scroll={false}>
             <a
               className={
                 route.path === currentRoute

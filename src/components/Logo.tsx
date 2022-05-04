@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Logo: React.VFC = () => {
   return (
-    <Link href="/">
+    <Link href="/" scroll={false}>
       <a
         aria-label="Website logo, go back to homepage."
         className="flex items-center border-white group focus-visible:outline-accent"
