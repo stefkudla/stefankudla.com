@@ -27,7 +27,7 @@
 <br />
 <div align="center">
   <a href="https://stefankudla.com/">
-    <img src="/public/images/stefan_kudla_logo_round.png" alt="Stefan Kudla's Logo">
+    <img src="/public/images/stefan_kudla_logo_round.png" alt="Stefan Kudla's Logo" width="96" height="96">
   </a>
 
 <h3 align="center">stefankudla.com</h3>
