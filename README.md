@@ -1,136 +1,163 @@
-# A statically generated blog example using Next.js and Cosmic
+<div id="top"></div>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/basic-features/pages) feature using [Cosmic](https://cosmicjs.com/) as the data source.
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url] -->
+<!-- [![MIT License][license-shield]][license-url] -->
 
-## Demo
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-[https://cosmic-next-blog.vercel.app/](https://cosmic-next-blog.vercel.app/)
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://stefankudla.com/">
+    <img src="/public/images/stefan_kudla_logo_round.png" alt="Stefan Kudla's Logo">
+  </a>
 
-## Deploy your own
+<h3 align="center">stefankudla.com</h3>
 
-Once you have access to [the environment variables you'll need](#step-3-set-up-environment-variables), deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+  <p align="center">
+    This is my new portoflio site built with the Jamstack, more specifically, typescript, Next.js, Tailwind, and Cosmic.js!
+    <br />
+    <a href="https://github.com/stefkudla/stefankudla.com"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://stefankudla.com/">View Live Site</a>
+    ·
+    <a href="https://github.com/stefkudla/stefankudla.com/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/stefkudla/stefankudla.com/issues">Request Feature</a>
+  </p>
+</div>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic&project-name=cms-cosmic&repository-name=cms-cosmic&env=COSMIC_BUCKET_SLUG,COSMIC_READ_KEY,COSMIC_PREVIEW_SECRET&envDescription=Required%20to%20connect%20the%20app%20with%20Cosmic&envLink=https://vercel.link/cms-cosmic-env)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+<!--     <li><a href="#usage">Usage</a></li> -->
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+<!--     <li><a href="#license">License</a></li> -->
+    <li><a href="#contact">Contact</a></li>
+<!--     <li><a href="#acknowledgments">Acknowledgments</a></li> -->
+  </ol>
+</details>
 
-### Related examples
+<!-- ABOUT THE PROJECT -->
 
-- [WordPress](/examples/cms-wordpress)
-- [DatoCMS](/examples/cms-datocms)
-- [Sanity](/examples/cms-sanity)
-- [TakeShape](/examples/cms-takeshape)
-- [Prismic](/examples/cms-prismic)
-- [Contentful](/examples/cms-contentful)
-- [Strapi](/examples/cms-strapi)
-- [Agility CMS](/examples/cms-agilitycms)
-- [ButterCMS](/examples/cms-buttercms)
-- [Storyblok](/examples/cms-storyblok)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent)
-- [Ghost](/examples/cms-ghost)
-- [Umbraco Heartcore](/examples/cms-umbraco-heartcore)
-- [Blog Starter](/examples/blog-starter)
-- [Builder.io](/examples/cms-builder-io)
+## About The Project
 
-## How to use
+[![Product Name Screen Shot][product-screenshot]](https://brainwave2.netlify.app)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+<p align="center">My new and improved Portfolio site which I converted from my old WordPress website. This has been the largest project I have worked on to date. There was a lot of researching, planning, and deep coffee coding sessions involved.</p>
 
-```bash
-npx create-next-app --example cms-cosmic cms-cosmic-app
-# or
-yarn create next-app --example cms-cosmic cms-cosmic-app
-# or
-pnpm create next-app -- --example cms-cosmic cms-cosmic-app
-```
+<p align="center">I learned that when it comes to building a project, your limitations vanish where your fear ends. I jumped all in with this one and pushed through all of the struggles, while learning so much about production level programming. Cheers!
+</p>
 
-## Configuration
+<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
-### Step 1. Create an account and a project on Cosmic
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-First, [create an account on Cosmic](https://cosmicjs.com).
+### Built With
 
-### Step 2. Install the Next.js Static Blog app
+- [Next.js](https://reactjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Cosmic.js](https://www.cosmicjs.com/)
+- [Node.js](https://nodejs.org/en/)
 
-After creating an account, install the [Next.js Static Blog](https://www.cosmicjs.com/apps/nextjs-static-blog) app from the Cosmic App Marketplace.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### Step 3. Set up environment variables
+<!-- ROADMAP -->
 
-Go to the **Settings** menu at the sidebar and click **Basic Settings**.
+## Roadmap
 
-Next, copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+- [x] Planning and research: Find a solid Jamstack configuration.
 
-```bash
-cp .env.local.example .env.local
-```
+<p align="left">Big shoutout to <a href="https://www.youtube.com/watch?v=2ZDmjecLSnU">Dev World</a>. He inspired me to go the CosmicJs Route</p>
 
-Then set each variable on `.env.local`:
+- [x] Fork NextJs/CosmicJs [example](https://www.npmjs.com/package/next-themes) from Vercel
+- [x] Build out the home page with a minimalist and readable layout.
+<p align="left">I took a lot of inspiration from a few awesome dev websites:
+<ul>
+<li><a href="https://www.rida.dev/">Rida.dev</a></li>
+<li><a href="https://jeffjadulco.com/">jeffjadulco.com</a></li>
+<li><a href="https://www.craftz.dog/">craftz.dog</a></li>
+</ul>
+</p>
 
-- `COSMIC_BUCKET_SLUG` should be the **Bucket slug** key under **API Access**.
-- `COSMIC_READ_KEY` should be the **Read Key** under **API Access**.
-- `COSMIC_PREVIEW_SECRET` can be any random string (but avoid spaces) - this is used for [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode).
+- [x] Import WordPress Posts using Cosmicjs WordPress Importer extension
+- [x] Create a Posts and Works page to house all of my blog posts and projects, use getStaticProps to fetch all the data from Cosmicjs
+- [x] Create <[slug]> pages for posts and pages and convert the markdown to HTML as well as add styles
+- [x] Implement dark mode using [next-themes](https://www.npmjs.com/package/next-themes)
+  - [] Fix flash on page reload when dark mode is enabled
+- [x] Deploy production site on Vercel
+  - [x] add CNAME records to current server
+  - [x] enjoy the benefits of Github repo CI with Vercel :D
+- [x] Implement basic SEO, sitemap, google search console verification
+- [x] Add simple page transitions using [Framer Motion](https://www.framer.com/motion/)
+- [] Create an About page
+  - [] Implement Spotify API
+  - [] Personalized content about my coffee setup and WFH setup
+- [] Implement a table of contents on post and work pages
 
-Your `.env.local` file should look like this:
+<!-- See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues). -->
 
-```bash
-COSMIC_BUCKET_SLUG=...
-COSMIC_READ_KEY=...
-COSMIC_PREVIEW_SECRET=...
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### Step 4. Run Next.js in development mode
+<!-- LICENSE -->
+<!-- ## License
 
-```bash
-npm install
-npm run dev
+Distributed under the MIT License. See `LICENSE.txt` for more information. -->
 
-# or
+<!-- CONTACT -->
 
-yarn install
-yarn dev
-```
+## Contact
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+Stefan Kudla - [LinkedIn](https://www.linkedin.com/in/stefankudla/) - stefan@stefankudla.com
 
-### Step 5. Try preview mode
+Website Link: [stefankudla.com](https://stefankudla.com/)
 
-To add the ability to preview content from your Cosmic dashboard go to **Posts > Edit Settings** and scroll down to the "Preview Link" section. (Screenshot below)
+<!-- ACKNOWLEDGMENTS -->
+<!-- ## Acknowledgments
 
-![Image](https://cdn.cosmicjs.com/14e6c0f0-a07b-11ea-829b-5b458b05d525-preview-link.png)
+* []()
+* []()
+* []() -->
 
-Add your live URL or localhost development URL which includes your chosen preview secret and `[object_slug]` shortcode. It should look like the following:
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-```
-http://localhost:3000/api/preview?secret=<secret>&slug=[object_slug]
-```
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-- `<secret>` is the string you entered for `COSMIC_PREVIEW_SECRET`.
-- `[object_slug]` shortcode will automatically be converted to the post's `slug` attribute.
-
-On Cosmic, go to one of the posts you've created and:
-
-- **Update the title**. For example, you can add `[Draft]` in front of the title.
-- Click **Save Draft**, but **DO NOT** click **Publish**. By doing this, the post will be in the draft state.
-
-Now, if you go to the post page directly on localhost, you won't see the updated title. However, if you use the **Preview Mode**, you'll be able to see the change ([Documentation](https://nextjs.org/docs/advanced-features/preview-mode)).
-
-Next, click the Preview Link button on the Post to see the updated title. (Screenshot below)
-
-<img src="https://cdn.cosmicjs.com/80f42680-a07a-11ea-829b-5b458b05d525-preview-button.png" width="300" />
-
-To exit preview mode, you can click on **Click here to exit preview mode** at the top.
-
-### Step 6. Deploy on Vercel
-
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-#### Deploy Your Local Project
-
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic&project-name=cms-cosmic&repository-name=cms-cosmic&env=COSMIC_BUCKET_SLUG,COSMIC_READ_KEY,COSMIC_PREVIEW_SECRET&envDescription=Required%20to%20connect%20the%20app%20with%20Cosmic&envLink=https://vercel.link/cms-cosmic-env)
+[linkedin-url]: https://www.linkedin.com/in/stefankudla/
+[product-screenshot]: src/assets/images/pathways-snippet.png
