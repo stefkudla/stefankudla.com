@@ -29,7 +29,6 @@ interface PostTypes {
 }
 
 const Post: React.FC<PostTypes> = ({ post }) => {
-  console.log(post.metadata.cover_image.imgix_url)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <PageNotFound />
