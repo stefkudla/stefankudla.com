@@ -8,10 +8,10 @@ const IntroSection: React.VFC = () => {
       <h1 className="text-5xl max-w-2xl mb-8 text-fore-primary">
         Hi there, I'm Stefan Kudla.
       </h1>
-      <h2 className="text-2xl">
+      <p className="text-2xl">
         I'm a software developer with a passion for building <br /> modern web
         apps.
-      </h2>
+      </p>
     </section>
   )
 }
