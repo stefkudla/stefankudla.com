@@ -18,6 +18,7 @@ interface PostTypes {
       cover_image: {
         imgix_url: string
       }
+      excerpt: string
       published_date: string
       created_at: string
       category: string
@@ -28,6 +29,7 @@ interface PostTypes {
 }
 
 const Post: React.FC<PostTypes> = ({ post }) => {
+  console.log(post.metadata.cover_image.imgix_url)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <PageNotFound />
@@ -45,6 +47,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
                 property="og:image"
                 content={post.metadata.cover_image.imgix_url}
               />
+              <meta name="description" content={post.metadata.excerpt} />
             </Head>
             {post.status === 'draft' ? (
               <AlertPreview preview={true} />
