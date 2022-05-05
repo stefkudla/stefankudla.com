@@ -31,11 +31,6 @@ const Meta: React.VFC = () => {
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <meta
-        name="description"
-        content="Stefan Kudla is a software developer from Las Vegas, Nevada."
-      />
-      <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
     </Head>
   )
 }

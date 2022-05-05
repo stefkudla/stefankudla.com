@@ -19,6 +19,11 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
     <PageContainer>
       <Head>
         <title>Stefan Kudla | Software Developer</title>
+        <meta
+          name="description"
+          content="Stefan Kudla is a software developer from Las Vegas, Nevada."
+        />
+        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
       </Head>
       <IntroSection />
       <AboutMeSection />
