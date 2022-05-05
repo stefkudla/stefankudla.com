@@ -21,10 +21,6 @@ interface PostsProps {
 }
 
 const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
-  useEffect(() => {
-    console.log('list changed')
-  }, [allPosts])
-
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -35,12 +31,12 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
       },
     },
   }
-
   const item = {
     hidden: { opacity: 0 },
     show: { opacity: 1 },
     exit: { opacity: 0 },
   }
+
   return (
     <AnimatePresence>
       <motion.ul
