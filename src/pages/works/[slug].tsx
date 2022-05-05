@@ -8,25 +8,7 @@ import Head from 'next/head'
 import markdownToHtml from '@/lib/markdownToHtml'
 import AlertPreview from '../../components/AlertPreview'
 import PageNotFound from '../404'
-
-interface PostTypes {
-  post: {
-    slug: string
-    title: string
-    status: string
-    metadata: {
-      cover_image: {
-        imgix_url: string
-      }
-      excerpt: string
-      published_date: string
-      created_at: string
-      category: string
-    }
-    content: string
-    created_at: string
-  }
-}
+import { PostTypes } from '../../types/post'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
   const router = useRouter()
