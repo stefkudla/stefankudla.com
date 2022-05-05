@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://stefankudla.com/sitemap.xml
