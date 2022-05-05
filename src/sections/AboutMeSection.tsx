@@ -7,8 +7,7 @@ const AboutMeSection: React.VFC = () => {
         About Me
       </h3>
       <p className="text-fore-primary mb-8 ">
-        I'm a 24 year old self-taught software developer based in Las Vegas,
-        Nevada.
+        I'm a software developer based in Las Vegas, Nevada.
       </p>
       <p className="text-fore-primary mb-8">
         Coming from a background of audio engineering and music production, I
