@@ -36,6 +36,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
               <a
                 href={post.metadata.live_url}
                 target="_blank"
+                rel="noreferrer"
                 className="flex items-center text-accent hover:text-gray-500 text-sm md:ml-4 w-fit"
               >
                 Live Site
@@ -47,6 +48,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
               <a
                 href={post.metadata.repo_url}
                 target="_blank"
+                rel="noreferrer"
                 className="flex items-center text-accent hover:text-gray-500 text-sm"
               >
                 Github Repo
