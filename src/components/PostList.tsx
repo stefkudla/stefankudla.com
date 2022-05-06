@@ -67,9 +67,7 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
                   <h3 className="text-xl font-bold mb-1 group-hover:text-accent transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-fore-subtle">
-                    {post.metadata.excerpt}
-                  </p>
+                  <p className="text-fore-subtle">{post.metadata.excerpt}</p>
                 </div>
                 {home ? (
                   <Date

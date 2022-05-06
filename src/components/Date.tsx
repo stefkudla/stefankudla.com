@@ -8,7 +8,7 @@ interface DateProps {
 export const Date: React.FC<DateProps> = ({ dateString, formatStyle }) => {
   const date = parseISO(dateString)
   return (
-    <time dateTime={dateString} className="text-sm text-fore-subtle">
+    <time dateTime={dateString} className="text-fore-subtle">
       {format(date, formatStyle)}
     </time>
   )
