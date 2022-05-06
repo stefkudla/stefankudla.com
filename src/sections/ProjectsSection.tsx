@@ -14,7 +14,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ posts }) => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <FlaskIcon />
         </div>
-        <h4 className="text-xl text-accent font-semibold">Works</h4>
+        <Link href="/works" scroll={false}>
+          <h4 className="text-xl text-accent font-semibold cursor-pointer hover:opacity-70 transition-opacity">
+            Works
+          </h4>
+        </Link>
       </span>
       <PostList allPosts={posts} bucketType="works" home={true} />
     </section>
