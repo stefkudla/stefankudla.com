@@ -24,10 +24,6 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
           content="Stefan Kudla is a software developer from Las Vegas, Nevada."
         />
         <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
-        />
       </Head>
       <IntroSection />
       <AboutMeSection />
