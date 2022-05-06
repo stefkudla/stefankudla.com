@@ -1,4 +1,5 @@
 import Imgix from 'react-imgix'
+import cn from 'classnames'
 
 interface CoverImageProps {
   title: string
@@ -19,7 +20,7 @@ const CoverImage: React.FC<CoverImageProps> = ({ title, url }) => {
       }}
       htmlAttributes={{
         src: `${url}?auto=format,compress&q=1&blur=500&w=auto`,
-        alt: `Cover Image for ${title}`,
+        alt: `${title}`,
       }}
     />
   )
