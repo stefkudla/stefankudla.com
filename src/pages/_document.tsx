@@ -6,7 +6,7 @@ const Document = () => {
     <Html lang="en">
       <Head />
       <Meta />
-      <body className="transition">
+      <body>
         <Main />
         <NextScript />
       </body>

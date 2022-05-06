@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { MoonIcon, SunIcon } from './icons'
 
 interface StylesProps {
   styles?: string
@@ -8,8 +7,7 @@ interface StylesProps {
 
 const ThemeChanger = ({ styles }: StylesProps) => {
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
 
   useEffect(() => setMounted(true), [])
 
