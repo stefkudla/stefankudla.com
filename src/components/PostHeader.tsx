@@ -11,6 +11,7 @@ interface PostHeaderProps {
       cover_image: {
         imgix_url: string
       }
+      published_date?: string
       live_url?: string
       repo_url?: string
       category: string
@@ -39,7 +40,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
       </div>
       <div className="flex flex-row justify-between sm:items-center pb-8 border-b">
         <div className="sm:flex items-center gap-x-2">
-          <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" />
+          <Date
+            dateString={post.metadata.published_date || post.created_at}
+            formatStyle="LLLL dd, yyyy"
+          />
           {post.metadata.live_url ? (
             <>
               <a
