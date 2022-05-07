@@ -7,7 +7,9 @@ const AlertPreview: any = ({ preview }: any) => {
         <>
           This page is a draft.{' '}
           <Link href="/api/exit-preview">
-            <span className="underline hover:text-cyan duration-200 transition-colors"></span>
+            <span className="underline hover:text-cyan duration-200 transition-colors cursor-pointer">
+              click here
+            </span>
           </Link>{' '}
           to exit preview mode.
         </>
