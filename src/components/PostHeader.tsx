@@ -2,7 +2,6 @@ import Date from './Date'
 import CoverImage from './CoverImage'
 import PostTitle from './PostTitle'
 import { BiLinkExternal } from 'react-icons/bi'
-import Image from 'next/image'
 
 interface PostHeaderProps {
   post: {
@@ -25,11 +24,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
     <>
       <PostTitle>{post.title}</PostTitle>
       <div className="flex justify-center mb-8">
-        <Image
+        <img
           src="/images/stefan_kudla_logo_round.png"
-          width={54}
-          height={54}
-          alt="stefan kudla's logo"
+          className="w-[54px] h-[54px]"
+          alt="Stefan Kudla's Logo"
         />
       </div>
       <div className="mb-8 md:mb-16 sm:mx-0">
