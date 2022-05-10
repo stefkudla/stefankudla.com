@@ -59,7 +59,7 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
               <a
                 className={
                   home
-                    ? 'group flex items-center justify-between px-8 py-5 -my-5 -mx-7 hover:bg-back-subtle transition-colors border-b-2'
+                    ? 'group flex flex-col lg:flex-row lg:items-center lg:justify-between px-8 py-5 -my-5 -mx-7 hover:bg-back-subtle transition-colors border-b-2'
                     : 'group flex flex-col justify-center gap-y-6'
                 }
               >
@@ -67,7 +67,9 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
                   <h3 className="text-xl font-bold mb-1 group-hover:text-accent transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-fore-subtle">{post.metadata.excerpt}</p>
+                  <p className="text-fore-subtle mb-3 lg:mb-0 lg:pr-6">
+                    {post.metadata.excerpt}
+                  </p>
                 </div>
                 {home ? (
                   <Date
