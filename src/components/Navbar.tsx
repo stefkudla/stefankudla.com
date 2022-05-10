@@ -8,6 +8,18 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 const Navbar: React.VFC = () => {
+  const animateNavContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { duration: 0.25, type: 'easeInOut', delayChildren: 0.25 },
+    },
+  }
+  const animateNavItem = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  }
+
   const [navOpen, setNavOpen] = useState(false)
   const currentPage = useRouter()
 
@@ -46,18 +58,25 @@ const Navbar: React.VFC = () => {
             <Logo />
           </div>
         ) : (
-          <ul className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary bg-opacity-70 overflow-hidden z-40">
+          <motion.ul
+            variants={animateNavContainer}
+            initial="hidden"
+            animate="show"
+            className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary overflow-hidden z-40"
+          >
             {routes.map(route => (
-              <li key={route.path}>
+              <motion.li variants={animateNavItem} key={route.path}>
                 <Link href={route.path} scroll={false}>
                   <a className="text-xl tracking-widest text-fore-secondary">
                     {route.label}
                   </a>
                 </Link>
-              </li>
+              </motion.li>
             ))}
-            <ThemeChanger />
-          </ul>
+            <motion.div variants={animateNavItem}>
+              <ThemeChanger />
+            </motion.div>
+          </motion.ul>
         )}
       </nav>
     </>
