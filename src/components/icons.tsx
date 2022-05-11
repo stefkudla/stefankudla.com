@@ -12,6 +12,7 @@ import {
 import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
 import { BiLinkExternal } from 'react-icons/bi'
+import { IoIosPaper } from 'react-icons/io'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
   return <GiStripedSun className={styles} />
@@ -105,4 +106,8 @@ export const GlobeIcon = ({ styles }: { styles?: string }) => {
 
 export const ExternalLinkIcon = ({ styles }: { styles?: string }) => {
   return <BiLinkExternal className={styles} />
+}
+
+export const PaperIcon = ({ styles }: { styles?: string }) => {
+  return <IoIosPaper className={styles} />
 }
