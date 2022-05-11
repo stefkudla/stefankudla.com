@@ -1,6 +1,6 @@
 import React from 'react'
 import MenuItems from './MenuItems'
-import { GithubIcon, LinkedinIcon, EmailIcon } from './icons'
+import SocialIcons from './SocialIcons'
 
 const Footer: React.VFC = () => {
   return (
@@ -12,26 +12,7 @@ const Footer: React.VFC = () => {
         <span className="text-xs">
           &copy; 2022 Stefan Kudla. All Rights Reserved.
         </span>
-        <span className="flex gap-x-4">
-          <a
-            href="mailto:stefan@stefankudla.com"
-            className="group cursor-pointer"
-          >
-            <EmailIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
-          </a>
-          <a
-            href="https://github.com/stefkudla"
-            className="group cursor-pointer "
-          >
-            <GithubIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/stefankudla/"
-            className="group cursor-pointer"
-          >
-            <LinkedinIcon styles="text-2xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
-          </a>
-        </span>
+        <SocialIcons />
       </div>
     </footer>
   )
