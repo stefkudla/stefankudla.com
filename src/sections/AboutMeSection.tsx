@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import React from 'react'
+import { ForwardArrowIcon } from '@/components/icons'
 
 const AboutMeSection: React.VFC = () => {
   return (
@@ -21,6 +23,14 @@ const AboutMeSection: React.VFC = () => {
         challenges to solve. I'm a problem solver at heart, and there seems to
         be an endless bank of tasks to hack away at.
       </p>
+      <Link href="/about">
+        <a className="flex items-center text-accent underline underline-offset-2 cursor-pointer hover:opacity-70 transition hover:translate-x-1 w-fit">
+          <span className="mr-1">
+            <ForwardArrowIcon />
+          </span>
+          Learn more
+        </a>
+      </Link>
     </section>
   )
 }
