@@ -6,7 +6,6 @@ import SetupSection from '@/sections/SetupSection'
 import BrewSection from '@/sections/BrewSection'
 import { getAllProducts } from '@/lib/api'
 import { ProductProps } from '@/types/product'
-import TopTracksSection from '@/sections/TopTracksSection'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
