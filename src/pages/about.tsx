@@ -21,10 +21,10 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
           <div className="mt-12 md:mt-0 flex flex-col gap-y-8 pr-20">
             <p>I love solving problems!</p>
             <p>
-              My name is Stefan Kudla. I'm the son of a Czechoslovakian man who
-              defected from a soviet state and met a Seattle born woman here in
-              the US. I'm a constant student of life who's passionate about
-              bettering my skillset every single day!
+              My name is Stefan Kudla. I&apos;m the son of a Czechoslovakian man
+              who defected from a soviet state and met a Seattle born woman here
+              in the US. I&apos;m a constant student of life who&apos;s
+              passionate about bettering my skillset every single day!
             </p>
             <p>
               I dedicate this site to my parents. I owe it to them for showing
