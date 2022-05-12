@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import PageContainer from '@/components/PageContainer'
-import { getAllPosts } from '@/lib/api'
+import { getAllPosts } from '@/lib/cosmic'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
