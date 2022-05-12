@@ -27,9 +27,9 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
       </Head>
       <IntroSection />
       <AboutMeSection />
-      <WritingsSection posts={allPosts} />
       <ToolboxSection />
       <ProjectsSection posts={allWorks} />
+      <WritingsSection posts={allPosts} />
       <ContactSection />
     </PageContainer>
   )
