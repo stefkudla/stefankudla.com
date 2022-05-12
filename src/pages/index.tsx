@@ -8,7 +8,6 @@ import ToolboxSection from '@/sections/ToolboxSection'
 import ProjectsSection from '@/sections/ProjectsSection'
 import ContactSection from '@/sections/ContactSection'
 import Head from 'next/head'
-import TopTracks from '@/components/TopTracks'
 
 interface IndexProps {
   allPosts: [{}]
