@@ -8,6 +8,8 @@ import {
   GiLetterBomb,
   GiHomeGarage,
   GiWireframeGlobe,
+  GiDesk,
+  GiCoffeePot,
 } from 'react-icons/gi'
 import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
@@ -110,4 +112,12 @@ export const ExternalLinkIcon = ({ styles }: { styles?: string }) => {
 
 export const PaperIcon = ({ styles }: { styles?: string }) => {
   return <IoIosPaper className={styles} />
+}
+
+export const DeskSetupIcon: IconType = () => {
+  return <GiDesk className="text-2xl text-accent" />
+}
+
+export const CoffeePotIcon: IconType = () => {
+  return <GiCoffeePot className="text-2xl text-accent" />
 }
