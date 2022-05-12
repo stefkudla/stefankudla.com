@@ -20,6 +20,10 @@ export const routes: RouteTypes[] = [
     path: '/works',
     label: 'Works',
   },
+  {
+    path: '/about',
+    label: 'About',
+  },
 ]
 
 const MenuItems: React.VFC = () => {
