@@ -74,3 +74,12 @@ export async function getPostAndMorePosts(slug, preview) {
     morePosts,
   }
 }
+
+export async function getAllProducts() {
+  const params = {
+    type: 'products',
+    props: 'title,metadata',
+  }
+  const data = await bucket.getObjects(params)
+  return data.objects
+}
