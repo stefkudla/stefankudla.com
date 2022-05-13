@@ -20,18 +20,15 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
               className="rounded-md w-full"
             />
           </div>
-          <div className="flex-1 mt-12 md:mt-0 flex flex-col gap-y-8 pr-20">
+          <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
             <p>I love solving problems!</p>
             <p>
-              My name is Stefan Kudla. I&apos;m the son of a Czechoslovakian man
-              who defected from a soviet state and met a Seattle born woman here
-              in the US. I&apos;m a constant student of life who&apos;s
-              passionate about bettering my skillset every single day!
+              My name is Stefan Kudla. Originally from rainy Seattle,
+              Washington, I now reside in the dry valley of Las Vegas, Nevada.
+              When I&apos;m not writing code, you can usually find me brushing
+              my teeth with coffee or looking for the best view atop a mountain.
             </p>
-            <p>
-              I dedicate this site to my parents. I owe it to them for showing
-              me a beautiful world in which the possibilites are endless.
-            </p>
+            <p>Get in touch to create something awesome together!</p>
             <div className="flex items-center md:mt-6">
               <a
                 href="/Stefan_Kudla_Resume.pdf"
