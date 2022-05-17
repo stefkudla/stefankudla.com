@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getTopTracks } from '../../lib/spotify'
+import { TopTracks } from '@/lib/types'
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,11 +9,19 @@ export default async function handler(
   const response = await getTopTracks()
   const { items } = await response.json()
 
-  const tracks = items.slice(0, 10).map(track => ({
-    artist: track.artists.map(_artist => _artist.name).join(', '),
-    songUrl: track.external_urls.spotify,
-    title: track.name,
-  }))
+  const tracks = items
+    .slice(0, 10)
+    .map(
+      (track: {
+        artists: any[]
+        external_urls: { spotify: any }
+        name: any
+      }) => ({
+        artist: track.artists.map(_artist => _artist.name).join(', '),
+        songUrl: track.external_urls.spotify,
+        title: track.name,
+      })
+    )
 
   res.setHeader(
     'Cache-Control',
