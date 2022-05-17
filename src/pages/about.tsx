@@ -6,6 +6,7 @@ import SetupSection from '@/sections/SetupSection'
 import BrewSection from '@/sections/BrewSection'
 import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
+import TopTracksSection from '@/sections/TopTracksSection'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
@@ -46,6 +47,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       </section>
       <SetupSection allProducts={allProducts} />
       <BrewSection allProducts={allProducts} />
+      <TopTracksSection />
     </>
   )
 }
