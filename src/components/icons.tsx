@@ -10,11 +10,13 @@ import {
   GiWireframeGlobe,
   GiDesk,
   GiCoffeePot,
+  GiHeadphones,
 } from 'react-icons/gi'
 import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
 import { BiLinkExternal } from 'react-icons/bi'
 import { IoIosPaper } from 'react-icons/io'
+import { SiAngellist } from 'react-icons/si'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
   return <GiStripedSun className={styles} />
@@ -50,6 +52,10 @@ export const TwitterIcon = ({ styles }: { styles?: string }) => {
 
 export const LinkedinIcon = ({ styles }: { styles?: string }) => {
   return <FiLinkedin className={styles} />
+}
+
+export const AngellistIcon = ({ styles }: { styles?: string }) => {
+  return <SiAngellist className={styles} />
 }
 
 export const EmailIcon = ({ styles }: { styles?: string }) => {
@@ -120,4 +126,8 @@ export const DeskSetupIcon: IconType = () => {
 
 export const CoffeePotIcon: IconType = () => {
   return <GiCoffeePot className="text-2xl text-accent" />
+}
+
+export const HeadphonesIcon: IconType = () => {
+  return <GiHeadphones className="text-2xl text-accent" />
 }
