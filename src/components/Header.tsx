@@ -3,6 +3,7 @@ import MenuItems from './MenuItems'
 import ThemeChanger from './ThemeChanger'
 import Logo from './Logo'
 import Navbar from './Navbar'
+import CurrentlyPlaying from './CurrentlyPlaying'
 
 const Header: React.VFC = () => {
   return (
@@ -14,6 +15,7 @@ const Header: React.VFC = () => {
         >
           <Logo />
           <MenuItems />
+          <CurrentlyPlaying />
           <ThemeChanger
             styles={
               'hidden transition-transform ease-in-out focus:outline-none sm:block hover:text-accent group focus-visible:outline-accent'
