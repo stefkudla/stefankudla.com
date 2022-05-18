@@ -89,7 +89,7 @@
 
 ### Built With
 
-- [Next.js](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Cosmic.js](https://www.cosmicjs.com/)
@@ -107,7 +107,7 @@
 
 - [x] Fork NextJs/CosmicJs [example](https://www.npmjs.com/package/next-themes) from Vercel
 - [x] Build out the home page with a minimalist and readable layout.
-<p align="left">I took a lot of inspiration from a few awesome dev websites:
+<p align="left">I got inspiration from a few awesome dev websites:
 <ul>
 <li><a href="https://www.rida.dev/">Rida.dev</a></li>
 <li><a href="https://jeffjadulco.com/">jeffjadulco.com</a></li>
@@ -119,16 +119,19 @@
 - [x] Create a Posts and Works page to house all of my blog posts and projects, use getStaticProps to fetch all the data from Cosmicjs
 - [x] Create <[slug]> pages for posts and pages and convert the markdown to HTML as well as add styles
 - [x] Implement dark mode using [next-themes](https://www.npmjs.com/package/next-themes)
-  - [] Fix flash on page reload when dark mode is enabled
+  - [x] Fix flash on page reload when dark mode is enabled | ~ Fixed 05/05/22 ~
 - [x] Deploy production site on Vercel
   - [x] add CNAME records to current server
   - [x] enjoy the benefits of Github repo CI with Vercel :D
 - [x] Implement basic SEO, sitemap, google search console verification
 - [x] Add simple page transitions using [Framer Motion](https://www.framer.com/motion/)
-- [] Create an About page
-  - [] Implement Spotify API
-  - [] Personalized content about my coffee setup and WFH setup
+- [x] Create an About page
+  - [x] Personalized content about my coffee setup and WFH setup
+- [x] Implement Spotify API
+  - [x] Display track that I'm currently listening to in top menu | ~ Shipped 05/17/22 ~
+  - [x] Display my top ten most listened to tracks on the about page | ~ Shipped 05/15/22 ~
 - [] Implement a table of contents on post and work pages
+- [] Improve page render time and first contentful paint
 
 <!-- See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues). -->
 
