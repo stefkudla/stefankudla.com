@@ -16,6 +16,7 @@ import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
 import { MdAlternateEmail, MdArrowForward } from 'react-icons/md'
 import { BiLinkExternal } from 'react-icons/bi'
 import { IoIosPaper } from 'react-icons/io'
+import { FaSpotify } from 'react-icons/fa'
 
 export const SunIcon = ({ styles }: { styles?: string }) => {
   return <GiStripedSun className={styles} />
@@ -125,4 +126,8 @@ export const CoffeePotIcon: IconType = () => {
 
 export const HeadphonesIcon: IconType = () => {
   return <GiHeadphones className="text-2xl text-accent" />
+}
+
+export const SpotifyIcon: IconType = () => {
+  return <FaSpotify className="h-5 w-5" />
 }
