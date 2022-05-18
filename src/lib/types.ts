@@ -7,3 +7,12 @@ export type Song = {
 export type TopTracks = {
   tracks: Song[]
 }
+
+export type CurrentlyPlayingTrack = {
+  isPlaying: boolean
+  trackUrl: string
+  album: string
+  albumImageUrl: string
+  title: string
+  artist: string
+}
