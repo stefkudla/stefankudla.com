@@ -39,7 +39,8 @@ export async function getAllPostsWithSlug() {
 export async function getAllPosts(preview, bucketType) {
   const params = {
     type: bucketType,
-    props: 'title,slug,metadata,created_at',
+    props:
+      'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at',
     sort: '-created_at',
     ...(preview && { status: 'all' }),
   }
