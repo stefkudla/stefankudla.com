@@ -28,6 +28,7 @@ const CurrentlyPlaying: React.FC = () => {
                 width="36"
                 height="36"
                 layout="raw"
+                alt={`Cover art for the song ${data.title}`}
               />
             </div>
             <div className="flex flex-col pl-2">
