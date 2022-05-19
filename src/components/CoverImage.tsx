@@ -1,5 +1,4 @@
 import Imgix from 'react-imgix'
-import cn from 'classnames'
 
 type CoverImageProps = {
   title: string

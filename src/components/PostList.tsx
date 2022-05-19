@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Date from './Date'
 import Link from 'next/link'
 import { ForwardArrowIcon } from './icons'
