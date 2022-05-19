@@ -5,9 +5,9 @@ import { ForwardArrowIcon } from '@/components/icons'
 const AboutMeSection: React.VFC = () => {
   return (
     <section className="mt-24">
-      <h3 className="text-3xl mb-8 text-fore-primary border-b border-b-slate-200 dark:border-b-gray-600 w-fit">
+      <h2 className="text-3xl mb-8 text-fore-primary border-b border-b-slate-200 dark:border-b-gray-600 w-fit">
         About Me
-      </h3>
+      </h2>
       <p className="text-fore-primary mb-8 ">
         I'm a software developer based in Las Vegas, Nevada.
       </p>
