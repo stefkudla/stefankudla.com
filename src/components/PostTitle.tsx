@@ -1,5 +1,7 @@
+import { ReactNode } from 'react'
+
 interface props {
-  children: string
+  children: ReactNode
 }
 
 const PostTitle: React.FC<props> = ({ children }) => {
