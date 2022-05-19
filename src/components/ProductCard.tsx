@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 interface ProductCardProps {
@@ -21,7 +22,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       >
         <div className="w-[230px] h-[270px] border rounded-md">
           <div className="flex justify-center items-center bg-back-secondary h-3/5 rounded-t-md">
-            <img src={imgPath} className="w-[130px]" />
+            <Image
+              src={imgPath}
+              width={130}
+              height={130}
+              alt={productName}
+              layout="raw"
+            />
           </div>
           <div className="p-5 bg-white dark:bg-slate-900 rounded-b-md h-2/5">
             <h4 className="font-bold text-sm">{productName}</h4>

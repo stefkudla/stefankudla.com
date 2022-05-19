@@ -7,6 +7,7 @@ import BrewSection from '@/sections/BrewSection'
 import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
+import Image from 'next/image'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
@@ -15,10 +16,14 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
         <h1 className="text-4xl mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
           <div className="flex-1">
-            <img
+            <Image
               src="/images/stefan_kudla_spain_coast_square.png"
               alt="Stefan Kudla on the coast of Spain"
-              className="rounded-md w-full"
+              width={1000}
+              height={1000}
+              quality={75}
+              layout="raw"
+              className="rounded-md"
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">

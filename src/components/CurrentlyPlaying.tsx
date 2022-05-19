@@ -23,7 +23,12 @@ const CurrentlyPlaying: React.FC = () => {
             rel="noopener noreferrer"
           >
             <div className="flex items-center">
-              <Image src={data.albumImageUrl} width="36" height="36" />
+              <Image
+                src={data.albumImageUrl}
+                width="36"
+                height="36"
+                layout="raw"
+              />
             </div>
             <div className="flex flex-col pl-2">
               <span>{data.title}</span>
