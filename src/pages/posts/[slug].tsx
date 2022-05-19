@@ -9,6 +9,7 @@ import markdownToHtml from '@/lib/markdownToHtml'
 import AlertPreview from '../../components/AlertPreview'
 import PageNotFound from '../404'
 import { PostTypes } from '../../types/post'
+import Loader from '@/components/Loader'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
   const router = useRouter()
@@ -18,7 +19,11 @@ const Post: React.FC<PostTypes> = ({ post }) => {
   return (
     <PageContainer>
       {router.isFallback ? (
-        <PostTitle>Loading…</PostTitle>
+        <PostTitle>
+          <div className="flex justify-center items-center">
+            <Loader />
+          </div>
+        </PostTitle>
       ) : (
         <>
           <article className="border-b border-back-subtle py-8 mb-8">
