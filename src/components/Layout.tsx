@@ -27,7 +27,11 @@ const Layout = ({ children, router }: LayoutProps) => {
       <AnimatePresence
         exitBeforeEnter
         initial={true}
-        onExitComplete={() => window.scrollTo(0, 0)}
+        onExitComplete={() => {
+          if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0 })
+          }
+        }}
       >
         <motion.div
           key={router.route}
