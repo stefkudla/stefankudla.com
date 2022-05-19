@@ -8,6 +8,7 @@ const SocialIcons = () => {
         href="mailto:stefan@stefankudla.com"
         className="group cursor-pointer"
         aria-label="Email"
+        title="Email"
       >
         <EmailIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
       </a>
@@ -15,6 +16,7 @@ const SocialIcons = () => {
         href="https://github.com/stefkudla"
         className="group cursor-pointer"
         aria-label="Github"
+        title="Github"
       >
         <GithubIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
       </a>
@@ -22,6 +24,7 @@ const SocialIcons = () => {
         href="https://www.linkedin.com/in/stefankudla/"
         className="group cursor-pointer"
         aria-label="Linkedin"
+        title="Linkedin"
       >
         <LinkedinIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
       </a>
