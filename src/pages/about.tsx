@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { PaperIcon } from '@/components/icons'
+import { PaperIcon } from '@/configs/icons'
 import SocialIcons from '@/components/SocialIcons'
 import SetupSection from '@/sections/SetupSection'
 import BrewSection from '@/sections/BrewSection'
@@ -23,7 +23,10 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
               height={1000}
               quality={75}
               layout="raw"
+              sizes="100vw"
               className="rounded-md"
+              placeholder="blur"
+              blurDataURL="/images/stefan_kudla_spain_coast_square.png"
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
