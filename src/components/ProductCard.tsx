@@ -27,6 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               width={130}
               height={130}
               alt={productName}
+              quality={75}
               layout="raw"
             />
           </div>
