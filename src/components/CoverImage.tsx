@@ -1,4 +1,4 @@
-import Imgix from 'react-imgix'
+import Image from 'next/image'
 
 type CoverImageProps = {
   title: string
@@ -7,20 +7,14 @@ type CoverImageProps = {
 
 const CoverImage: React.FC<CoverImageProps> = ({ title, url }) => {
   return (
-    <Imgix
+    <Image
       src={url}
-      className="lazyload shadow-small w-full
-        hover:shadow-medium transition-shadow duration-200"
+      width="1200"
+      height="630"
+      alt={`Cover image for ${title}`}
+      quality={75}
+      layout="raw"
       sizes="100vw"
-      attributeConfig={{
-        src: 'data-src',
-        srcSet: 'data-srcset',
-        sizes: 'data-sizes',
-      }}
-      htmlAttributes={{
-        src: `${url}?auto=format,compress&q=1&blur=500&w=auto`,
-        alt: `${title}`,
-      }}
     />
   )
 }
