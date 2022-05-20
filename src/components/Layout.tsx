@@ -3,8 +3,6 @@ import Footer from './Footer'
 import Meta from './Meta'
 import Header from './Header'
 import { motion, AnimatePresence } from 'framer-motion'
-import 'lazysizes'
-import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 interface LayoutProps {
   children: React.ReactNode
