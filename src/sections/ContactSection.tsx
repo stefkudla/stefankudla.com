@@ -1,5 +1,5 @@
 import React from 'react'
-import { LetterIcon } from '@/components/icons'
+import { LetterIcon } from '@/configs/icons'
 
 const ContactSection: React.VFC = () => {
   return (

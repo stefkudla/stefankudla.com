@@ -1,7 +1,7 @@
 import MeshBackground from '@/components/MeshBackground'
 import SocialIcons from '@/components/SocialIcons'
 import React from 'react'
-import { PaperIcon } from '@/components/icons'
+import { PaperIcon } from '@/configs/icons'
 
 const IntroSection: React.VFC = () => {
   return (

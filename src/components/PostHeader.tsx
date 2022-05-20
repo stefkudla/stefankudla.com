@@ -1,7 +1,7 @@
 import Date from './Date'
 import CoverImage from './CoverImage'
 import PostTitle from './PostTitle'
-import { BiLinkExternal } from 'react-icons/bi'
+import { ExternalLinkIcon } from '@/configs/icons'
 import Image from 'next/image'
 
 interface PostHeaderProps {
@@ -55,7 +55,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
               >
                 Live Site
                 <span>
-                  <BiLinkExternal />
+                  <ExternalLinkIcon />
                 </span>
               </a>
 
@@ -67,7 +67,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
               >
                 Github Repo
                 <span>
-                  <BiLinkExternal />
+                  <ExternalLinkIcon />
                 </span>
               </a>
             </>

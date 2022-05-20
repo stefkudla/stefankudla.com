@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { HomeIcon } from '../components/icons'
+import { HomeIcon } from '@/configs/icons'
 
 const PageNotFound: React.VFC = () => {
   return (

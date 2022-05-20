@@ -1,6 +1,6 @@
 import React from 'react'
 import PostList from '@/components/PostList'
-import { FlaskIcon } from '@/components/icons'
+import { FlaskIcon } from '@/configs/icons'
 import Link from 'next/link'
 
 interface ProjectsSectionProps {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CoffeePotIcon } from '@/components/icons'
+import { CoffeePotIcon } from '@/configs/icons'
 import ProductCard from '@/components/ProductCard'
 import { ProductProps } from '@/types/product'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Date from './Date'
 import Link from 'next/link'
-import { ForwardArrowIcon } from './icons'
+import { ForwardArrowIcon } from '@/configs/icons'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface PostsProps {
@@ -80,7 +80,7 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
                   <p className="flex items-center text-fore-subtle text-sm">
                     Read more
                     <span className="group hidden group-hover:block ml-2">
-                      <ForwardArrowIcon styles="text-lg text-fore-subtle group-hover:text-accent" />
+                      <ForwardArrowIcon />
                     </span>
                   </p>
                 )}

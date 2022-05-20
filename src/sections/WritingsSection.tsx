@@ -1,5 +1,5 @@
 import PostList from '@/components/PostList'
-import { PencilIcon } from '@/components/icons'
+import { PencilIcon } from '@/configs/icons'
 import Link from 'next/link'
 
 interface WritingsSectionProps {

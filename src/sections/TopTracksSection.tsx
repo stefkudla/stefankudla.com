@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeadphonesIcon } from '@/components/icons'
+import { HeadphonesIcon } from '@/configs/icons'
 import TopTracks from '@/components/TopTracks'
 
 const TopTracksSection: React.VFC = () => {

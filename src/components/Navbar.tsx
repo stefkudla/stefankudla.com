@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CloseIcon, MenuIcon } from './icons'
+import { CloseIcon, MenuIcon } from '@/configs/icons'
 import ThemeChanger from './ThemeChanger'
 import Logo from './Logo'
 import { routes } from './MenuItems'

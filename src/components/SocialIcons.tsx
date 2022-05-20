@@ -1,5 +1,5 @@
 import React from 'react'
-import { EmailIcon, GithubIcon, LinkedinIcon } from '@/components/icons'
+import { EmailIcon, GithubIcon, LinkedinIcon } from '@/configs/icons'
 
 const SocialIcons = () => {
   return (
@@ -10,7 +10,7 @@ const SocialIcons = () => {
         aria-label="Email"
         title="Email"
       >
-        <EmailIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
+        <EmailIcon />
       </a>
       <a
         href="https://github.com/stefkudla"
@@ -18,7 +18,7 @@ const SocialIcons = () => {
         aria-label="Github"
         title="Github"
       >
-        <GithubIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
+        <GithubIcon />
       </a>
       <a
         href="https://www.linkedin.com/in/stefankudla/"
@@ -26,7 +26,7 @@ const SocialIcons = () => {
         aria-label="Linkedin"
         title="Linkedin"
       >
-        <LinkedinIcon styles="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform" />
+        <LinkedinIcon />
       </a>
     </span>
   )

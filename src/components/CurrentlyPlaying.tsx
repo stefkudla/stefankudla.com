@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { SpotifyIcon } from './icons'
+import { SpotifyIcon } from '@/configs/icons'
 import fetcher from '@/lib/fetcher'
 import Image from 'next/image'
 import { CurrentlyPlayingTrack } from '@/lib/types'

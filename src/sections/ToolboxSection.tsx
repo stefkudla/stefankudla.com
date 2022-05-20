@@ -1,4 +1,4 @@
-import { ToolboxIcon } from '@/components/icons'
+import { ToolboxIcon } from '@/configs/icons'
 import React from 'react'
 import DevIcon from '@/components/DevIcon'
 import { devIcons } from '@/configs/dev-icons'

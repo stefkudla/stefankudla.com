@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { ForwardArrowIcon } from '@/components/icons'
+import { ForwardArrowIcon } from '@/configs/icons'
 
 const AboutMeSection: React.VFC = () => {
   return (

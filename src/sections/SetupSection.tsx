@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeskSetupIcon } from '@/components/icons'
+import { DeskSetupIcon } from '@/configs/icons'
 import ProductCard from '@/components/ProductCard'
 import { ProductProps } from '@/types/product'
 
