@@ -15,15 +15,14 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <section>
         <h1 className="text-4xl mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
-          <div className="flex-1">
+          <div className="relative -z-10 flex-1">
             <Image
               src="/images/stefan_kudla_spain_coast_square.png"
               alt="Stefan Kudla on the coast of Spain"
-              width={1000}
-              height={1000}
+              width={600}
+              height={600}
               quality={75}
-              layout="raw"
-              sizes="100vw"
+              layout="responsive"
               className="rounded-md"
               placeholder="blur"
               blurDataURL="/images/stefan_kudla_spain_coast_square.png"
