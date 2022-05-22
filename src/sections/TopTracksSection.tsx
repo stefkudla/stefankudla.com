@@ -12,7 +12,7 @@ const TopTracksSection: React.VFC = () => {
         <h4 className="text-xl text-accent font-semibold">Top Tracks</h4>
       </span>
       <p className="mb-12 text-fore-subtle">
-        These are my top Spotify tracks over the last few months:
+        These are my top Spotify tracks over the last few months
       </p>
       <TopTracks />
     </section>

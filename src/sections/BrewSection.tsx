@@ -16,8 +16,7 @@ const BrewSection: React.FC<ProductProps> = ({ allProducts }) => {
         <h4 className="text-xl text-accent font-semibold">Brew</h4>
       </span>
       <p className="mb-12 text-fore-subtle">
-        I'm a <i>massive</i> coffee nerd and need to make more money just to
-        spend it all on more equipment...
+        What I'm using to dial in that perfect cup of coffee
       </p>
       <ul className="flex flex-wrap justify-start md:justify-between gap-8 md:gap-16">
         {coffeeProducts.map(product => (
