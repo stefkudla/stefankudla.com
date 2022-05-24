@@ -1,5 +1,4 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: 'jit',
@@ -24,35 +23,9 @@ module.exports = {
           subtle: 'var(--color-back-subtle)',
           accent: 'var(--color-back-accent)',
         },
-        mesh: {
-          background: 'var(--color-mesh)',
-        },
-        teal: colors.teal,
       },
       fontFamily: {
         sans: ['Public Sans', ...fontFamily.sans],
-      },
-      letterSpacing: {
-        widestest: '0.2em',
-      },
-      backgroundSize: {
-        200: '150%',
-      },
-      outline: {
-        accent: ['2px dotted var(--color-accent)', '2px'],
-      },
-      animation: {
-        'blob-spin': 'blobbing 25s linear infinite',
-      },
-      keyframes: {
-        blobbing: {
-          from: {
-            transform: 'rotate(0deg)',
-          },
-          to: {
-            transform: 'rotate(360deg)',
-          },
-        },
       },
     },
   },
