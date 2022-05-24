@@ -1,6 +1,5 @@
 import PostList from '@/components/PostList'
 import { PencilIcon } from '@/configs/icons'
-import Link from 'next/link'
 
 interface WritingsSectionProps {
   posts: any
@@ -13,11 +12,7 @@ const WritingsSection: React.FC<WritingsSectionProps> = ({ posts }) => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <PencilIcon />
         </div>
-        <Link href="/posts" scroll={false}>
-          <h4 className="text-xl text-accent font-semibold cursor-pointer hover:opacity-70 transition-opacity">
-            Posts
-          </h4>
-        </Link>
+        <h4 className="text-xl text-accent font-semibold">Posts</h4>
       </span>
       <PostList allPosts={posts} bucketType="posts" home={true} />
     </section>

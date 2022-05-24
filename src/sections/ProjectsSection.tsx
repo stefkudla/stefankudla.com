@@ -1,7 +1,6 @@
 import React from 'react'
 import PostList from '@/components/PostList'
 import { FlaskIcon } from '@/configs/icons'
-import Link from 'next/link'
 
 interface ProjectsSectionProps {
   posts: any
@@ -14,11 +13,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ posts }) => {
         <div className="bg-back-subtle p-2 mr-4 rounded-full">
           <FlaskIcon />
         </div>
-        <Link href="/works" scroll={false}>
-          <h4 className="text-xl text-accent font-semibold cursor-pointer hover:opacity-70 transition-opacity">
-            Works
-          </h4>
-        </Link>
+        <h4 className="text-xl text-accent font-semibold">Works</h4>
       </span>
       <PostList allPosts={posts} bucketType="works" home={true} />
     </section>
