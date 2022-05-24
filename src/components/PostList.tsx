@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ForwardArrowIcon } from '@/configs/icons'
 import { motion, AnimatePresence } from 'framer-motion'
 
-interface PostsProps {
+type PostsProps = {
   allPosts: [
     {
       title: string
