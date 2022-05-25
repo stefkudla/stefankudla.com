@@ -8,10 +8,14 @@ import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
+import Head from 'next/head'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
     <>
+      <Head>
+        <title>About | Stefan Kudla</title>
+      </Head>
       <section>
         <h1 className="text-4xl mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
