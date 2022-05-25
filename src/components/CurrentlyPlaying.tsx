@@ -22,12 +22,11 @@ const CurrentlyPlaying: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="flex items-center">
+            <div className="flex items-center relative">
               <Image
                 src={data.albumImageUrl}
                 width="36"
                 height="36"
-                layout="raw"
                 alt={`Cover art for the song ${data.title}`}
               />
             </div>
