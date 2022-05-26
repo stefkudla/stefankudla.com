@@ -24,14 +24,24 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
   return (
     <>
       <PostTitle>{post.title}</PostTitle>
-      <div className="flex justify-center mb-8 -z-50">
-        <Image
-          src="/images/stefan_kudla_logo_round.png"
-          width={46}
-          height={46}
-          alt="Stefan Kudla Icon"
-          layout="raw"
-        />
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center relative">
+          <Image
+            src="/images/avatar_4.png"
+            width={30}
+            height={30}
+            alt="Stefan Kudla"
+            className="rounded-full"
+          />
+          <p className="ml-2 text-sm">
+            Stefan Kudla |{' '}
+            <Date
+              dateString={post.metadata.published_date || post.created_at}
+              formatStyle="LLLL dd, yyyy"
+            />
+          </p>
+        </div>
+        <p className="text-sm">{post.metadata.category}</p>
       </div>
       <div className="mb-8 md:mb-16 sm:mx-0">
         <CoverImage
@@ -41,10 +51,6 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
       </div>
       <div className="flex flex-row justify-between sm:items-center pb-8 border-b">
         <div className="sm:flex items-center gap-x-2">
-          <Date
-            dateString={post.metadata.published_date || post.created_at}
-            formatStyle="LLLL dd, yyyy"
-          />
           {post.metadata.live_url ? (
             <>
               <a
@@ -73,7 +79,6 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
             </>
           ) : undefined}
         </div>
-        <p className="text-fore-subtle">{post.metadata.category}</p>
       </div>
     </>
   )
