@@ -1,53 +1,38 @@
-import React from 'react'
 import Date from './Date'
 import Link from 'next/link'
 import { ForwardArrowIcon } from '@/configs/icons'
 import { motion, AnimatePresence } from 'framer-motion'
+import { PostListTypes } from '@/types/post'
 
-type PostsProps = {
-  allPosts: [
-    {
-      title: string
-      slug: string
-      created_at: string
-      metadata: {
-        excerpt: string
-        published_date: string
-      }
-    }
-  ]
-  bucketType: string
-  home?: boolean
+const postContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.24,
+      transition: { ease: [0.17, 0.67, 0.83, 0.67] },
+    },
+  },
 }
 
-const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.24,
-        transition: { ease: [0.17, 0.67, 0.83, 0.67] },
-      },
-    },
-  }
-  const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1 },
-    exit: { opacity: 0 },
-  }
+const postItem = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+  exit: { opacity: 0 },
+}
 
-  return (
+const PostList: React.FC<PostListTypes> = ({ allPosts, bucketType, home }) => (
+  <>
     <AnimatePresence>
       <motion.ul
-        variants={container}
+        variants={postContainer}
         initial="hidden"
         animate="show"
         className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : undefined}
       >
         {allPosts.map(post => (
           <motion.li
-            variants={item}
+            variants={postItem}
             className={
               home
                 ? 'py-5'
@@ -90,6 +75,6 @@ const PostList: React.FC<PostsProps> = ({ allPosts, bucketType, home }) => {
         ))}
       </motion.ul>
     </AnimatePresence>
-  )
-}
+  </>
+)
 export default PostList

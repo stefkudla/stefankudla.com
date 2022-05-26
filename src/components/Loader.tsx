@@ -1,7 +1,6 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, Transition, Variants } from 'framer-motion'
 
-const loaderContainerVariants = {
+const loaderContainerVariants: Variants = {
   start: {
     transition: {
       staggerChildren: 0.2,
@@ -14,7 +13,7 @@ const loaderContainerVariants = {
   },
 }
 
-const loaderVariants = {
+const loaderVariants: Variants = {
   start: {
     y: '0%',
     opacity: '100%',
@@ -25,39 +24,37 @@ const loaderVariants = {
   },
 }
 
-const loadingCircleTransition = {
+const loadingCircleTransition: Transition = {
   duration: 0.5,
-  yoyo: Infinity,
+  repeat: Infinity,
+  repeatType: 'reverse',
   ease: 'easeInOut',
 }
 
-const Loader = () => {
-  return (
-    <>
-      <motion.div
-        variants={loaderContainerVariants}
-        initial="start"
-        animate="end"
-        className="flex gap-x-2"
-      >
-        <motion.span
-          variants={loaderVariants}
-          transition={loadingCircleTransition}
-          className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
-        />
-        <motion.span
-          variants={loaderVariants}
-          transition={loadingCircleTransition}
-          className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
-        />
-        <motion.span
-          variants={loaderVariants}
-          transition={loadingCircleTransition}
-          className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
-        />
-      </motion.div>
-    </>
-  )
-}
-
+const Loader: React.FC = () => (
+  <>
+    <motion.div
+      variants={loaderContainerVariants}
+      initial="start"
+      animate="end"
+      className="flex gap-x-2"
+    >
+      <motion.span
+        variants={loaderVariants}
+        transition={loadingCircleTransition}
+        className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
+      />
+      <motion.span
+        variants={loaderVariants}
+        transition={loadingCircleTransition}
+        className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
+      />
+      <motion.span
+        variants={loaderVariants}
+        transition={loadingCircleTransition}
+        className="w-2.5 h-2.5 rounded-full bg-slate-600 dark:bg-slate-200"
+      />
+    </motion.div>
+  </>
+)
 export default Loader

@@ -28,6 +28,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
               quality={85}
               layout="responsive"
               className="rounded-md"
+              priority
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">

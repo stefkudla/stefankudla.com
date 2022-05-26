@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
-interface StylesProps {
-  styles?: string
-}
-
-const ThemeChanger = ({ styles }: StylesProps) => {
+const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
   const [mounted, setMounted] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
 

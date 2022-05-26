@@ -1,13 +1,8 @@
-import React, { MouseEvent, MouseEventHandler } from 'react'
+import { MouseEvent } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-interface RouteTypes {
-  path: string
-  label: string
-}
-
-export const routes: RouteTypes[] = [
+export const routes: { path: string; label: string }[] = [
   {
     path: '/',
     label: 'Home',
@@ -26,7 +21,7 @@ export const routes: RouteTypes[] = [
   },
 ]
 
-const MenuItems: React.VFC = () => {
+const MenuItems: React.FC = () => {
   const removeFocus = (e: MouseEvent<HTMLAnchorElement>) => {
     e.currentTarget.blur()
   }
