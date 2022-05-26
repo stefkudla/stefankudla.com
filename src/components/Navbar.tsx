@@ -6,18 +6,24 @@ import { routes } from './MenuItems'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
+import CurrentlyPlaying from './CurrentlyPlaying'
 
 const Navbar: React.VFC = () => {
   const animateNavContainer = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { duration: 0.25, type: 'easeInOut', delayChildren: 0.25 },
+      transition: {
+        duration: 0.05,
+        type: 'easeInOut',
+        delayChildren: 0.05,
+        staggerChildren: 0.02,
+      },
     },
   }
   const animateNavItem = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1 },
+    hidden: { opacity: 0, x: -15 },
+    show: { opacity: 1, x: 0 },
   }
 
   const [navOpen, setNavOpen] = useState(false)
@@ -58,25 +64,35 @@ const Navbar: React.VFC = () => {
             <Logo />
           </div>
         ) : (
-          <motion.ul
-            variants={animateNavContainer}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col gap-y-28 h-screen w-full justify-center items-center bg-back-primary overflow-hidden z-40"
-          >
-            {routes.map(route => (
-              <motion.li variants={animateNavItem} key={route.path}>
-                <Link href={route.path} scroll={false}>
-                  <a className="text-xl tracking-widest text-fore-secondary">
-                    {route.label}
-                  </a>
-                </Link>
-              </motion.li>
-            ))}
-            <motion.div variants={animateNavItem}>
+          <div className="flex flex-col z-40 h-screen w-full bg-back-primary overflow-hidden px-4 pt-16 mb-12">
+            <motion.ul
+              variants={animateNavContainer}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col gap-y-12"
+            >
+              {routes.map(route => (
+                <motion.li
+                  variants={animateNavItem}
+                  key={route.path}
+                  className="border-b border-b-slate-400 border-opacity-30 pb-2"
+                >
+                  <Link href={route.path} scroll={false}>
+                    <a className="text-fore-secondary">{route.label}</a>
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
+            <motion.div
+              variants={animateNavItem}
+              initial="hidden"
+              animate="show"
+              className="flex justify-between mt-12"
+            >
+              <CurrentlyPlaying />
               <ThemeChanger />
             </motion.div>
-          </motion.ul>
+          </div>
         )}
       </nav>
     </>
