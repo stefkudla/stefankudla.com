@@ -11,7 +11,7 @@ const CurrentlyPlaying: React.FC = () => {
   )
   return (
     <>
-      <div className="hidden md:flex items-center">
+      <div className="flex items-center">
         <span className="pr-3">
           <SpotifyIcon />
         </span>
