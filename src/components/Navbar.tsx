@@ -43,7 +43,7 @@ const Navbar: React.VFC = () => {
 
   return (
     <>
-      <nav className="fixed top-0 h-12 w-full sm:hidden backdrop-filter backdrop-blur-sm bg-opacity-30">
+      <nav className="fixed top-0 h-12 w-full sm:hidden backdrop-filter backdrop-blur-sm bg-opacity-30 z-50">
         <button
           className="absolute top-3 right-2 z-50"
           aria-label={!navOpen ? 'Open Menu' : 'Close Menu'}
