@@ -1,21 +1,18 @@
-import MeshBackground from '@/components/MeshBackground'
 import SocialIcons from '@/components/SocialIcons'
 import React from 'react'
 import { PaperIcon } from '@/configs/icons'
+import Image from 'next/image'
 
-const IntroSection: React.VFC = () => {
-  return (
-    <section className="h-80 sm:h-96 w-full flex flex-col justify-center">
-      <MeshBackground />
-      <div className="flex-1 flex flex-col justify-center">
-        <h1 className="text-5xl max-w-2xl mb-8 text-fore-primary">
-          Hi there, I'm Stefan Kudla.
-        </h1>
-        <p>
-          I'm a software developer with a passion for building <br /> modern web
-          apps.
-        </p>
-      </div>
+const IntroSection: React.VFC = () => (
+  <section className="w-full flex flex-col-reverse md:flex-row justify-start">
+    <div className="flex-1 flex flex-col gap-y-4">
+      <h1 className="text-3xl md:text-5xl max-w-2xl text-fore-primary">
+        Hi, I&apos;m Stefan Kudla
+      </h1>
+      <p className="mb-4">
+        I'm a software developer with a passion for building <br /> modern web
+        apps.
+      </p>
       <div className="flex items-center">
         <a
           href="/Stefan_Kudla_Resume.pdf"
@@ -28,8 +25,17 @@ const IntroSection: React.VFC = () => {
         </a>
         <SocialIcons />
       </div>
-    </section>
-  )
-}
+    </div>
+    <div className="w-[80px] sm:w-[186px] relative mb-6 sm:mb-0">
+      <Image
+        alt="Stefan Kudla"
+        height={186}
+        width={186}
+        src="/images/avatar_4.png"
+        className="rounded-full"
+      />
+    </div>
+  </section>
+)
 
 export default IntroSection
