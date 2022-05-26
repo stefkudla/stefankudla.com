@@ -6,7 +6,7 @@ import Image from 'next/image'
 const IntroSection: React.VFC = () => (
   <section className="w-full flex flex-col-reverse md:flex-row justify-start">
     <div className="flex-1 flex flex-col gap-y-4">
-      <h1 className="text-3xl md:text-5xl max-w-2xl text-fore-primary">
+      <h1 className="text-3xl md:text-5xl font-bold max-w-2xl text-fore-primary">
         Hi, I&apos;m Stefan Kudla
       </h1>
       <p className="mb-4">
