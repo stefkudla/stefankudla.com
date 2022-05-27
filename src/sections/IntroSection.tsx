@@ -9,10 +9,10 @@ const IntroSection: React.VFC = () => (
       <h1 className="text-3xl md:text-5xl font-bold max-w-2xl text-fore-primary">
         Hi, I&apos;m Stefan Kudla
       </h1>
-      <p className="mb-4">
+      <h2 className="mb-4">
         I'm a software developer with a passion for building <br /> modern web
         apps.
-      </p>
+      </h2>
       <div className="flex items-center">
         <a
           href="/Stefan_Kudla_Resume.pdf"
