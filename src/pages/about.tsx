@@ -17,7 +17,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
         <title>About | Stefan Kudla</title>
       </Head>
       <section>
-        <h1 className="text-4xl mb-12">About Me</h1>
+        <h1 className="text-2xl md:text-3xl mb-12 font-bold">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
           <div className="flex-1 relative">
             <Image
