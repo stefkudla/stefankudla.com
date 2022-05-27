@@ -14,7 +14,12 @@ const Footer: React.FC = () => (
       </span>
       <span className="flex items-center text-sm">
         Powered by
-        <a href="https://www.cosmicjs.com/" target="_blank" className="ml-2">
+        <a
+          href="https://www.cosmicjs.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="ml-2"
+        >
           <CosmicIcon />
         </a>
       </span>
