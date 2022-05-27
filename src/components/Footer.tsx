@@ -1,16 +1,23 @@
+import { CosmicIcon } from '@/configs/icons'
 import MenuItems from './MenuItems'
 import SocialIcons from './SocialIcons'
 
 const Footer: React.FC = () => (
-  <footer className="flex flex-col justify-end max-w-2xl px-4 lg:px-0 py-8 mx-auto">
-    <div className="mb-1">
+  <footer className="flex flex-col items-center md:items-stretch max-w-2xl mx-auto gap-y-6 py-12 px-6 md:px-0">
+    <div className="flex flex-col items-center md:flex-row md:justify-between gap-y-6 md:gap-y-0">
       <MenuItems />
+      <SocialIcons />
     </div>
-    <div className="flex justify-between items-center">
-      <span className="text-xs">
+    <div className="flex flex-col-reverse md:flex-row items-center md:justify-between gap-y-6 md:gap-y-0">
+      <span className="text-sm">
         &copy; 2022 Stefan Kudla. All Rights Reserved.
       </span>
-      <SocialIcons />
+      <span className="flex items-center text-sm">
+        Powered by
+        <a href="https://www.cosmicjs.com/" target="_blank" className="ml-2">
+          <CosmicIcon />
+        </a>
+      </span>
     </div>
   </footer>
 )
