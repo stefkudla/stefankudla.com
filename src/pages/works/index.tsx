@@ -4,7 +4,7 @@ import { getAllPosts } from '@/lib/cosmic'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
-const categories = [
+const categories: { name: string }[] = [
   {
     name: 'All',
   },
@@ -39,14 +39,16 @@ const Works: React.FC<PostsProps> = ({ allPosts }) => {
         <title>Works | Stefan Kudla</title>
       </Head>
       <span className="flex justify-between items-center mb-8 ">
-        <h1 className="text-4xl text-fore-primary">Works</h1>
+        <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">
+          Works
+        </h1>
         <ul className="flex gap-x-4">
           {categories.map(category => (
             <li
               className={
                 category.name === filterCategory
                   ? 'cursor-pointer font-bold filter--active transition'
-                  : 'cursor-pointer hover:text-slate-500 transition'
+                  : 'cursor-pointer text-fore-subtle transition'
               }
               onClick={() => setFilterCategory(category.name)}
               key={category.name}
