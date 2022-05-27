@@ -37,6 +37,8 @@ const Works: React.FC<PostsProps> = ({ allPosts }) => {
     <PageContainer>
       <Head>
         <title>Works | Stefan Kudla</title>
+        <meta name="description" content="The works of Stefan Kudla" />
+        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
       </Head>
       <span className="flex justify-between items-center mb-8 ">
         <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">

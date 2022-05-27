@@ -15,6 +15,8 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
     <>
       <Head>
         <title>About | Stefan Kudla</title>
+        <meta name="description" content="About Stefan Kudla" />
+        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
       </Head>
       <section>
         <h1 className="text-2xl md:text-3xl mb-12 font-bold">About Me</h1>
