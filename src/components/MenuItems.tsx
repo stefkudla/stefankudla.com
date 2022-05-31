@@ -30,7 +30,7 @@ const MenuItems: React.FC = () => {
     <>
       <div className="relative items-center justify-start flex-grow hidden space-x-6 md:flex">
         {routes.map(route => (
-          <Link key={route.path} href={route.path} scroll={false}>
+          <Link key={route.path} href={route.path}>
             <a
               className={
                 route.path === currentRoute

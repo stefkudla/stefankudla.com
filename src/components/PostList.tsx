@@ -15,7 +15,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, bucketType, home }) => (
           }
           key={post.title}
         >
-          <Link href={`/${bucketType}/${post.slug}`} scroll={false}>
+          <Link href={`/${bucketType}/${post.slug}`}>
             <a
               className={
                 home

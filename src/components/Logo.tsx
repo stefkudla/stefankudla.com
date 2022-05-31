@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const Logo: React.FC = () => (
-  <Link href="/" scroll={false}>
+  <Link href="/">
     <a
       aria-label="Website logo, go back to homepage."
       className="flex items-center border-white group focus-visible:outline-accent"
