@@ -132,6 +132,7 @@
   - [x] Display my top ten most listened to tracks on the about page | ~ Shipped 05/15/22 ~
 - [] Implement a table of contents on post and work pages
 - [] Improve page render time and first contentful paint
+- [] Fix scroll to top bug
 
 <!-- See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues). -->
 
