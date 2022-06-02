@@ -17,6 +17,23 @@ export interface PostTypes {
   }
 }
 
+export interface PostsTypes {
+  allPosts: [
+    {
+      metadata: {
+        category: {
+          title: string
+        }
+      }
+    }
+  ]
+  allCategories: [
+    {
+      title: string
+    }
+  ]
+}
+
 export interface PostHeaderTypes {
   post: {
     title: string
@@ -27,7 +44,9 @@ export interface PostHeaderTypes {
       published_date?: string
       live_url?: string
       repo_url?: string
-      category: string
+      category: {
+        title: string
+      }
     }
     created_at: string
   }
