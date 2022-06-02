@@ -10,7 +10,9 @@ export interface PostTypes {
       excerpt: string
       published_date: string
       created_at: string
-      category: string
+      category: {
+        title: string
+      }
     }
     content: string
     created_at: string
