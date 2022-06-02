@@ -1,36 +1,15 @@
 import { useState } from 'react'
 import PageContainer from '@/components/PageContainer'
-import { getAllPosts } from '@/lib/cosmic'
+import { getAllPosts, getAllCategories } from '@/lib/cosmic'
+import { PostsTypes } from '@/types/post'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
-const categories: { name: string }[] = [
-  {
-    name: 'All',
-  },
-  {
-    name: 'Perspective',
-  },
-  {
-    name: 'Freelance',
-  },
-]
-
-interface PostsProps {
-  allPosts: [
-    {
-      metadata: {
-        category: string
-      }
-    }
-  ]
-}
-
-const Posts: React.FC<PostsProps> = ({ allPosts }) => {
+const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
   const [filterCategory, setFilterCategory] = useState('All')
 
   const filteredPosts: any = allPosts.filter(post => {
-    return post.metadata.category === filterCategory
+    return post.metadata.category.title === filterCategory
   })
 
   return (
@@ -40,26 +19,36 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
         <meta name="description" content="Blog posts written by Stefan Kudla" />
         <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
       </Head>
-      <span className="flex justify-between items-center mb-8 ">
-        <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">
-          Posts
-        </h1>
-        <ul className="flex gap-x-4">
-          {categories.map(category => (
-            <li
-              className={
-                category.name === filterCategory
-                  ? 'cursor-pointer font-bold filter--active transition'
-                  : 'cursor-pointer text-fore-subtle transition'
-              }
-              onClick={() => setFilterCategory(category.name)}
-              key={category.name}
-            >
-              {category.name}
-            </li>
-          ))}
-        </ul>
-      </span>
+
+      <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">
+        Posts
+      </h1>
+      <ul className="flex flex-wrap gap-y-2 sm:gap-y-0 gap-x-4 my-4">
+        <li
+          className={
+            'All' === filterCategory
+              ? 'cursor-pointer font-bold filter--active transition'
+              : 'cursor-pointer text-fore-subtle transition'
+          }
+          onClick={() => setFilterCategory('All')}
+          key={'All'}
+        >
+          All
+        </li>
+        {allCategories.map(category => (
+          <li
+            className={
+              category.title === filterCategory
+                ? 'cursor-pointer font-bold filter--active transition'
+                : 'cursor-pointer text-fore-subtle transition hover:text-accent'
+            }
+            onClick={() => setFilterCategory(category.title)}
+            key={category.title}
+          >
+            {category.title}
+          </li>
+        ))}
+      </ul>
       <PostList
         allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
         bucketType="posts"
@@ -70,9 +59,11 @@ const Posts: React.FC<PostsProps> = ({ allPosts }) => {
 }
 
 export async function getStaticProps({ preview }: { preview: boolean }) {
+  const allCategories = (await getAllCategories()) || []
   const allPosts = (await getAllPosts(preview, 'posts')) || []
   return {
-    props: { allPosts },
+    props: { allPosts, allCategories },
+    revalidate: 60,
   }
 }
 export default Posts

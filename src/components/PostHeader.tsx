@@ -25,7 +25,7 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
           />
         </p>
       </div>
-      <p className="text-sm">{post.metadata.category}</p>
+      <p className="text-sm">{post.metadata.category.title}</p>
     </div>
     <div className="mb-8 md:mb-16 sm:mx-0">
       <CoverImage
