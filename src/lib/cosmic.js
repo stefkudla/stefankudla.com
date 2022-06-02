@@ -84,3 +84,12 @@ export async function getAllProducts() {
   const data = await bucket.getObjects(params)
   return data.objects
 }
+
+export async function getAllCategories() {
+  const params = {
+    type: 'categories',
+    props: 'title',
+  }
+  const data = await bucket.getObjects(params)
+  return data.objects
+}
