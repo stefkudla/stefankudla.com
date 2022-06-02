@@ -9,7 +9,8 @@ const AboutMeSection: React.FC = () => {
         About Me
       </h3>
       <p className="text-fore-primary mb-8 ">
-        I'm a software developer based in Las Vegas, Nevada.
+        I love working with jamstack and headless architecture. I am currently
+        building with TypeScript, React, Nextjs, Tailwind, and Nodejs.
       </p>
       <p className="text-fore-primary mb-8">
         Coming from a background in audio engineering and music production, I
@@ -19,9 +20,10 @@ const AboutMeSection: React.FC = () => {
         solution.
       </p>
       <p className="text-fore-primary mb-8">
-        My favorite part about coding is that there are so many different
-        challenges to solve. I'm a problem solver at heart, and there seems to
-        be an endless bank of tasks to hack away at.
+        My favorite part about coding is the constant innovation of
+        architectures, libraries, and frameworks. I think web development is
+        experiencing a major breakthrough with headless architecture and
+        jamstack, and want to be involved in any way I can.
       </p>
       <Link href="/about">
         <a className="flex items-center text-accent underline underline-offset-2 cursor-pointer hover:opacity-70 transition hover:translate-x-1 w-fit">
