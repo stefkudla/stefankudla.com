@@ -42,7 +42,7 @@ const Works: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
             className={
               category.title === filterCategory
                 ? 'cursor-pointer font-bold filter--active transition'
-                : 'cursor-pointer text-fore-subtle transition'
+                : 'cursor-pointer text-fore-subtle transition hover:text-accent'
             }
             onClick={() => setFilterCategory(category.title)}
             key={category.title}
