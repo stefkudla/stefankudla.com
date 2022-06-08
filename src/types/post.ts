@@ -8,7 +8,6 @@ export interface PostTypes {
         imgix_url: string
       }
       excerpt: string
-      published_date: string
       created_at: string
       category: {
         title: string
@@ -29,7 +28,24 @@ export interface PostsTypes {
       }
     }
   ]
-  allCategories: [
+  allPostCategories: [
+    {
+      title: string
+    }
+  ]
+}
+
+export interface WorksTypes {
+  allPosts: [
+    {
+      metadata: {
+        category: {
+          title: string
+        }
+      }
+    }
+  ]
+  allWorkCategories: [
     {
       title: string
     }
@@ -62,10 +78,9 @@ export interface PostListTypes {
       created_at: string
       metadata: {
         excerpt: string
-        published_date: string
       }
     }
   ]
-  bucketType: string
+  postType: string
   home?: boolean
 }
