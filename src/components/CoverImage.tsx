@@ -7,10 +7,11 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
   <div className="relative">
     <Image
       src={url}
-      width="1200"
-      height="630"
+      width="100%"
+      height="75%"
       alt={`Cover image for ${title}`}
       layout="responsive"
+      objectFit="contain"
       priority
     />
   </div>
