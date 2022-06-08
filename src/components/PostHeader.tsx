@@ -24,12 +24,7 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
         </p>
       </div>
     </div>
-    <div className="mb-8 md:mb-16 sm:mx-0">
-      <CoverImage
-        title={post.title}
-        url={post.metadata.cover_image.imgix_url}
-      />
-    </div>
+    <CoverImage title={post.title} url={post.metadata.cover_image.imgix_url} />
     <div className="flex flex-row justify-between sm:items-center pb-8 border-b">
       <div className="sm:flex items-center gap-x-2">
         {post.metadata.live_url ? (
