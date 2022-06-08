@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ForwardArrowIcon } from '@/configs/icons'
 import { PostListTypes } from '@/types/post'
 
-const PostList: React.FC<PostListTypes> = ({ allPosts, bucketType, home }) => (
+const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => (
   <>
     <ul className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : undefined}>
       {allPosts.map(post => (
@@ -15,7 +15,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, bucketType, home }) => (
           }
           key={post.title}
         >
-          <Link href={`/${bucketType}/${post.slug}`}>
+          <Link href={`/${postType}/${post.slug}`}>
             <a
               className={
                 home
@@ -33,7 +33,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, bucketType, home }) => (
               </div>
               {home ? (
                 <Date
-                  dateString={post.metadata.published_date || post.created_at}
+                  dateString={post.created_at}
                   formatStyle="LLLL, yyyy"
                 ></Date>
               ) : (
