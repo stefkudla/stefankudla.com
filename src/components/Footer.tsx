@@ -3,7 +3,7 @@ import MenuItems from './MenuItems'
 import SocialIcons from './SocialIcons'
 
 const Footer: React.FC = () => (
-  <footer className="flex flex-col items-center md:items-stretch max-w-2xl mx-auto gap-y-6 py-12 px-6 md:px-0">
+  <footer className="flex flex-col items-center md:items-stretch max-w-screen-lg mx-auto gap-y-6 py-12 px-6 md:px-12 lg:px-20">
     <div className="flex flex-col items-center md:flex-row md:justify-between gap-y-6 md:gap-y-0">
       <MenuItems />
       <SocialIcons />
