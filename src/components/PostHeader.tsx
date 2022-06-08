@@ -19,13 +19,10 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
         />
         <p className="ml-2 text-sm">
           Stefan Kudla |{' '}
-          <Date
-            dateString={post.metadata.published_date || post.created_at}
-            formatStyle="LLLL dd, yyyy"
-          />
+          <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" /> |{' '}
+          {post.metadata.category.title}
         </p>
       </div>
-      <p className="text-sm">{post.metadata.category.title}</p>
     </div>
     <div className="mb-8 md:mb-16 sm:mx-0">
       <CoverImage
