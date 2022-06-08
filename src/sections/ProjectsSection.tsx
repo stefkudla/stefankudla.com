@@ -15,7 +15,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ posts }) => {
         </div>
         <h4 className="text-xl text-accent font-semibold">Works</h4>
       </span>
-      <PostList allPosts={posts} bucketType="works" home={true} />
+      <PostList allPosts={posts} postType="works" home={true} />
     </section>
   )
 }
