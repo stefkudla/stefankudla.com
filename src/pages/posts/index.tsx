@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { getAllPosts, getAllCategories } from '@/lib/cosmic'
+import { getAllPosts, getAllPostCategories } from '@/lib/cosmic'
 import { PostsTypes } from '@/types/post'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
-const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
+const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
   const [filterCategory, setFilterCategory] = useState('All')
 
   const filteredPosts: any = allPosts.filter(post => {
@@ -34,7 +34,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
         >
           All
         </li>
-        {allCategories.map(category => (
+        {allPostCategories.map(category => (
           <li
             className={
               category.title === filterCategory
@@ -50,7 +50,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
       </ul>
       <PostList
         allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
-        bucketType="posts"
+        postType="posts"
         home={false}
       />
     </>
@@ -58,10 +58,10 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
 }
 
 export async function getStaticProps({ preview }: { preview: boolean }) {
-  const allCategories = (await getAllCategories()) || []
+  const allPostCategories = (await getAllPostCategories()) || []
   const allPosts = (await getAllPosts(preview, 'posts')) || []
   return {
-    props: { allPosts, allCategories },
+    props: { allPosts, allPostCategories },
     revalidate: 60,
   }
 }

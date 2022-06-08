@@ -1,13 +1,10 @@
 import { useState } from 'react'
-import { getAllPosts, getAllCategories } from '@/lib/cosmic'
-import { PostsTypes } from '@/types/post'
+import { getAllPosts, getAllWorkCategories } from '@/lib/cosmic'
+import { WorksTypes } from '@/types/post'
 import PostList from '@/components/PostList'
 import Head from 'next/head'
 
-const Works: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
-  const worksCategories = allCategories.filter(
-    category => category.title === 'Freelance' || category.title === 'Personal'
-  )
+const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
   const [filterCategory, setFilterCategory] = useState('All')
 
   const filteredPosts: any = allPosts.filter(
@@ -36,7 +33,7 @@ const Works: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
         >
           All
         </li>
-        {worksCategories.map(category => (
+        {allWorkCategories.map(category => (
           <li
             className={
               category.title === filterCategory
@@ -52,7 +49,7 @@ const Works: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
       </ul>
       <PostList
         allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
-        bucketType="works"
+        postType="works"
         home={false}
       />
     </>
@@ -61,9 +58,9 @@ const Works: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
 
 export async function getStaticProps({ preview }: { preview: boolean }) {
   const allPosts = (await getAllPosts(preview, 'works')) || []
-  const allCategories = (await getAllCategories()) || []
+  const allWorkCategories = (await getAllWorkCategories()) || []
   return {
-    props: { allPosts, allCategories },
+    props: { allPosts, allWorkCategories },
   }
 }
 export default Works
