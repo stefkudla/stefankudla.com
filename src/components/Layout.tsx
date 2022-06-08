@@ -9,17 +9,13 @@ type LayoutProps = {
   }
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, router }) => (
+const Layout: React.FC<LayoutProps> = ({ children }) => (
   <>
     <Meta />
     <Header />
-    <div>
-      <div className="flex flex-col min-h-screen">
-        <div className="container flex-grow max-w-screen-lg px-5 m-auto mt-16 sm:px-12 md:px-20">
-          {children}
-        </div>
-      </div>
-    </div>
+    <main className="flex flex-col min-h-screen container flex-grow max-w-screen-lg px-5 m-auto mt-16 md:px-12 lg:px-24">
+      {children}
+    </main>
     <Footer />
   </>
 )

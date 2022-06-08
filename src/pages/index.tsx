@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import { getAllPosts } from '@/lib/cosmic'
-import PageContainer from '@/components/PageContainer'
 import IntroSection from '@/sections/IntroSection'
 import AboutMeSection from '@/sections/AboutMeSection'
 import WritingsSection from '@/sections/WritingsSection'
@@ -16,7 +15,7 @@ interface IndexProps {
 
 const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
   return (
-    <PageContainer>
+    <>
       <Head>
         <title>Stefan Kudla | Software Developer</title>
         <meta
@@ -31,7 +30,7 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
       <ProjectsSection posts={allWorks} />
       <WritingsSection posts={allPosts} />
       <ContactSection />
-    </PageContainer>
+    </>
   )
 }
 

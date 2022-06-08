@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import PageContainer from '@/components/PageContainer'
 import { getAllPosts, getAllCategories } from '@/lib/cosmic'
 import { PostsTypes } from '@/types/post'
 import PostList from '@/components/PostList'
@@ -13,7 +12,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
   })
 
   return (
-    <PageContainer>
+    <>
       <Head>
         <title>Posts | Stefan Kudla</title>
         <meta name="description" content="Blog posts written by Stefan Kudla" />
@@ -54,7 +53,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allCategories }) => {
         bucketType="posts"
         home={false}
       />
-    </PageContainer>
+    </>
   )
 }
 

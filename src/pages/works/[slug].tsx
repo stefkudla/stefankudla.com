@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import PageContainer from '@/components/PageContainer'
 import PostBody from '@/components/PostBody'
 import PostHeader from '@/components/PostHeader'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/cosmic'
@@ -17,7 +16,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
     return <PageNotFound />
   }
   return (
-    <PageContainer>
+    <>
       {router.isFallback ? (
         <PostTitle>
           <div className="flex justify-center items-center">
@@ -43,7 +42,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
           </article>
         </>
       )}
-    </PageContainer>
+    </>
   )
 }
 export default Post
