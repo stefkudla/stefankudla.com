@@ -36,9 +36,9 @@ export async function getAllPostsWithSlug() {
   return data.objects
 }
 
-export async function getAllPosts(preview, bucketType) {
+export async function getAllPosts(preview, postType) {
   const params = {
-    type: bucketType,
+    type: postType,
     props:
       'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at',
     sort: '-created_at',
@@ -85,9 +85,18 @@ export async function getAllProducts() {
   return data.objects
 }
 
-export async function getAllCategories() {
+export async function getAllPostCategories() {
   const params = {
-    type: 'categories',
+    type: 'post-categories',
+    props: 'title',
+  }
+  const data = await bucket.getObjects(params)
+  return data.objects
+}
+
+export async function getAllWorkCategories() {
+  const params = {
+    type: 'work-categories',
     props: 'title',
   }
   const data = await bucket.getObjects(params)
