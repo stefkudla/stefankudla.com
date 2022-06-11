@@ -25,8 +25,9 @@ const CurrentlyPlaying: React.FC = () => {
             <div className="flex items-center relative">
               <Image
                 src={data.albumImageUrl}
-                width="36"
-                height="36"
+                width={36}
+                height={36}
+                quality={35}
                 alt={`Cover art for the song ${data.title}`}
               />
             </div>
