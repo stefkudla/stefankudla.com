@@ -12,8 +12,7 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
         alt={`Cover image for ${title}`}
         layout="fill"
         objectFit="contain"
-        placeholder="blur"
-        blurDataURL={`${url}?auto=format,compress&q=1&blur=500&w=300`}
+        priority
       />
     </div>
   )
