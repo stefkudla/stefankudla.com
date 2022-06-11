@@ -36,11 +36,12 @@ export async function getAllPostsWithSlug() {
   return data.objects
 }
 
-export async function getAllPosts(preview, postType) {
+export async function getAllPosts(preview, postType, postCount) {
   const params = {
     type: postType,
     props:
       'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at',
+    limit: postCount,
     sort: '-created_at',
     ...(preview && { status: 'all' }),
   }

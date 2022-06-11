@@ -37,8 +37,8 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
 type preview = any
 
 export async function getStaticProps({ preview }: preview) {
-  const allPosts = (await getAllPosts(preview, 'posts')) || []
-  const allWorks = (await getAllPosts(preview, 'works')) || []
+  const allPosts = (await getAllPosts(preview, 'posts', 3)) || []
+  const allWorks = (await getAllPosts(preview, 'works', 3)) || []
   return {
     props: { allPosts, allWorks },
   }
