@@ -4,6 +4,7 @@ import PostTitle from './PostTitle'
 import { ExternalLinkIcon } from '@/configs/icons'
 import Image from 'next/image'
 import { PostHeaderTypes } from '@/types/post'
+import avatar from '../../public/images/avatar_4.png'
 
 const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
   <>
@@ -11,9 +12,9 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
     <div className="flex items-center justify-between mb-8">
       <div className="flex items-center relative">
         <Image
-          src="/images/avatar_4.png"
-          width={30}
-          height={30}
+          src={avatar}
+          width={42}
+          height={42}
           alt="Stefan Kudla"
           className="rounded-full"
         />

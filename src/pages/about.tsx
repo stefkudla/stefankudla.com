@@ -9,6 +9,7 @@ import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
 import Head from 'next/head'
+import avatar from '../../public/images/portrait_4.png'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
@@ -23,14 +24,12 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
           <div className="flex-1 relative">
             <Image
-              src="/images/portrait_4.png"
+              src={avatar}
               alt="Stefan Kudla"
-              width={400}
-              height={400}
               quality={85}
               layout="responsive"
               className="rounded-md"
-              priority
+              placeholder="blur"
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
