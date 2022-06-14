@@ -19,11 +19,18 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
       <Head>
         <title>Stefan Kudla | Software Developer</title>
         <meta
-          name="description"
+          property="og:description"
           content="Stefan Kudla is a software developer from Las Vegas, Nevada."
         />
         <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@stefankudla" />
+        <meta name="twitter:title" content="Stefan Kudla" />
+        <meta
+          name="twitter:description"
+          content="Software Engineer from Las Vegas, Nevada"
+        />
+        <meta name="twitter:image" content="/images/stefan_kudla_ogImage.jpg" />
       </Head>
       <IntroSection />
       <AboutMeSection />
