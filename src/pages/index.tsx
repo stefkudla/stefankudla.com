@@ -32,7 +32,7 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
         />
         <meta
           name="twitter:image"
-          content="/public/images/stefan_kudla_ogImage.jpg"
+          content="https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg"
         />
       </Head>
       <IntroSection />
