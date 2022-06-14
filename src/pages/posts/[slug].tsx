@@ -41,7 +41,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
               <meta property="og:description" content={post.metadata.excerpt} />
               <meta
                 property="og:image"
-                content={`${post.metadata.cover_image.imgix_url}?auto=format,compress&q=30`}
+                content={post.metadata.cover_image.imgix_url}
               />
               <meta name="twitter:card" content="summary_large_image" />
               <meta name="twitter:site" content="@stefankudla" />
