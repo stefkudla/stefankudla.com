@@ -22,7 +22,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <section>
         <h1 className="text-2xl md:text-3xl mb-12 font-bold">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
-          <div className="flex-1 relative">
+          <div className="flex-1">
             <Image
               src={avatar}
               alt="Stefan Kudla"
@@ -30,6 +30,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
               layout="responsive"
               className="rounded-md"
               placeholder="blur"
+              priority
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">

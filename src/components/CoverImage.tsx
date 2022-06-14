@@ -5,13 +5,15 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
   url,
 }) => {
   return (
-    <div className="relative w-full pb-[80%]">
+    <div className="relative w-full my-4 pb-[55%]">
       <Image
         src={url}
         quality={60}
         alt={`Cover image for ${title}`}
         layout="fill"
-        objectFit="contain"
+        objectFit="cover"
+        placeholder="blur"
+        blurDataURL={`${url}?auto=format,compress&q=1&blur=500&w=2`}
         priority
       />
     </div>

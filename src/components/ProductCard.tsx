@@ -15,8 +15,14 @@ const ProductCard: React.FC<ProductCardTypes> = ({
 }) => (
   <a href={productLink} className="hover:opacity-70 w-auto transition-opacity">
     <div className="w-[230px] h-[270px] border rounded-md">
-      <div className="flex justify-center items-center bg-back-secondary h-3/5 rounded-t-md relative">
-        <Image src={imgPath} width={130} height={130} alt={productName} />
+      <div className="flex justify-center items-center bg-back-secondary h-3/5 rounded-t-md">
+        <Image
+          src={imgPath}
+          width={130}
+          height={130}
+          quality={25}
+          alt={productName}
+        />
       </div>
       <div className="p-5 bg-white dark:bg-slate-900 rounded-b-md h-2/5">
         <h4 className="font-bold text-sm">{productName}</h4>

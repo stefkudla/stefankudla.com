@@ -17,6 +17,7 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
           height={42}
           alt="Stefan Kudla"
           className="rounded-full"
+          placeholder="blur"
         />
         <p className="ml-2 text-sm">
           Stefan Kudla |{' '}
