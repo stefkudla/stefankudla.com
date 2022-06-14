@@ -30,6 +30,10 @@ const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
           name="twitter:description"
           content="Software Engineer from Las Vegas, Nevada"
         />
+        <meta
+          name="twitter:image"
+          content="/public/images/stefan_kudla_ogImage.jpg"
+        />
       </Head>
       <IntroSection />
       <AboutMeSection />
