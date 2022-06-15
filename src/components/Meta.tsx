@@ -40,6 +40,7 @@ export const PageMeta: React.FC<{ title: string; description: string }> = ({
   return (
     <Head>
       <title>{title}</title>
+      <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
@@ -65,6 +66,7 @@ export const PostMeta: React.FC<{
   return (
     <Head>
       <title>{title}</title>
+      <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta
         property="og:url"
