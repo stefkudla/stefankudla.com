@@ -17,6 +17,8 @@ const Footer: React.FC = () => (
         <a
           href="https://www.cosmicjs.com/"
           target="_blank"
+          aria-label="Cosmic"
+          title="Cosmic"
           rel="noreferrer"
           className="ml-2"
         >
