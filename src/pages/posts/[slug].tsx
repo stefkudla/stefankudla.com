@@ -3,11 +3,11 @@ import PostBody from '@/components/PostBody'
 import PostHeader from '@/components/PostHeader'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/cosmic'
 import PostTitle from '@/components/PostTitle'
-import Head from 'next/head'
 import markdownToHtml from '@/lib/markdownToHtml'
 import AlertPreview from '@/components/AlertPreview'
 import PageNotFound from '../404'
 import { PostTypes } from '@/types/post'
+import { PostMeta } from '@/components/Meta'
 import Loader from '@/components/Loader'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
@@ -25,36 +25,14 @@ const Post: React.FC<PostTypes> = ({ post }) => {
         </PostTitle>
       ) : (
         <>
+          <PostMeta
+            title={post.title}
+            description={post.metadata.excerpt}
+            slug={post.slug}
+            page="posts"
+            imageUrl={post.metadata.cover_image.imgix_url}
+          />
           <article className="border-b border-back-subtle py-8 mb-8">
-            <Head>
-              <title>{post.title}</title>
-              <meta property="og:title" content={post.title} />
-              <meta
-                property="og:url"
-                content={`https://stefankudla.com/posts/${post.slug}`}
-              />
-              <meta property="og:type" content="article" />
-              <meta
-                property="og:image"
-                content={post.metadata.cover_image.imgix_url}
-              />
-              <meta property="og:description" content={post.metadata.excerpt} />
-              <meta
-                property="og:image"
-                content={post.metadata.cover_image.imgix_url}
-              />
-              <meta name="twitter:card" content="summary_large_image" />
-              <meta name="twitter:site" content="@stefankudla" />
-              <meta name="twitter:title" content={post.title} />
-              <meta
-                name="twitter:description"
-                content={post.metadata.excerpt}
-              />
-              <meta
-                name="twitter:image"
-                content={post.metadata.cover_image.imgix_url}
-              />
-            </Head>
             {post.status === 'draft' ? (
               <AlertPreview preview={true} />
             ) : undefined}

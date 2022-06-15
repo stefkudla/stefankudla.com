@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { getAllPosts, getAllWorkCategories } from '@/lib/cosmic'
 import { WorksTypes } from '@/types/post'
 import PostList from '@/components/PostList'
-import Head from 'next/head'
+import { PageMeta } from '@/components/Meta'
 
 const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
   const [filterCategory, setFilterCategory] = useState('All')
@@ -13,11 +13,11 @@ const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
 
   return (
     <>
-      <Head>
-        <title>Works | Stefan Kudla</title>
-        <meta name="description" content="The works of Stefan Kudla" />
-        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
-      </Head>
+      {/* PostMeta component already includes next/Head  */}
+      <PageMeta
+        title="Works | Stefan Kudla"
+        description="The works of Stefan Kudla"
+      />
       <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">
         Works
       </h1>

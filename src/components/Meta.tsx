@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const Meta: React.FC = () => (
+export const Meta: React.FC = () => (
   <Head>
     <link
       rel="apple-touch-icon"
@@ -32,4 +32,53 @@ const Meta: React.FC = () => (
     <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
   </Head>
 )
-export default Meta
+
+export const PageMeta: React.FC<{ title: string; description: string }> = ({
+  title,
+  description,
+}) => {
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@stefankudla" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta
+        name="twitter:image"
+        content="https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg"
+      />
+    </Head>
+  )
+}
+
+export const PostMeta: React.FC<{
+  title: string
+  description: string
+  slug: string
+  page: string
+  imageUrl: string
+}> = ({ title, description, slug, page, imageUrl }) => {
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta property="og:title" content={title} />
+      <meta
+        property="og:url"
+        content={`https://stefankudla.com/${page}/${slug}`}
+      />
+      <meta property="og:type" content="article" />
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={imageUrl} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@stefankudla" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={imageUrl} />
+    </Head>
+  )
+}

@@ -6,35 +6,18 @@ import WritingsSection from '@/sections/WritingsSection'
 import ToolboxSection from '@/sections/ToolboxSection'
 import ProjectsSection from '@/sections/ProjectsSection'
 import ContactSection from '@/sections/ContactSection'
-import Head from 'next/head'
+import { PageMeta } from '@/components/Meta'
 
-interface IndexProps {
-  allPosts: [{}]
-  allWorks: [{}]
-}
-
-const Index: NextPage<IndexProps> = ({ allPosts, allWorks }) => {
+const Index: NextPage<{ allPosts: Object[]; allWorks: Object[] }> = ({
+  allPosts,
+  allWorks,
+}) => {
   return (
     <>
-      <Head>
-        <title>Stefan Kudla | Software Developer</title>
-        <meta
-          property="og:description"
-          content="Stefan Kudla is a software developer from Las Vegas, Nevada."
-        />
-        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@stefankudla" />
-        <meta name="twitter:title" content="Stefan Kudla" />
-        <meta
-          name="twitter:description"
-          content="Software Engineer from Las Vegas, Nevada"
-        />
-        <meta
-          name="twitter:image"
-          content="https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg"
-        />
-      </Head>
+      <PageMeta
+        title="Stefan Kudla | Software Developer"
+        description="Stefan Kudla is a software developer pushing forth web development with cutting-edge technologies"
+      />
       <IntroSection />
       <AboutMeSection />
       <ToolboxSection />

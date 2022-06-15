@@ -8,17 +8,13 @@ import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
-import Head from 'next/head'
 import avatar from '../../public/images/portrait_4.png'
+import { PageMeta } from '@/components/Meta'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
     <>
-      <Head>
-        <title>About | Stefan Kudla</title>
-        <meta name="description" content="About Stefan Kudla" />
-        <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
-      </Head>
+      <PageMeta title="About | Stefan Kudla" description="About Stefan Kudla" />
       <section>
         <h1 className="text-2xl md:text-3xl mb-12 font-bold">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">

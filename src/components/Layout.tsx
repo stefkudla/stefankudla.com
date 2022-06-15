@@ -1,6 +1,6 @@
 import Footer from './Footer'
-import Meta from './Meta'
 import Header from './Header'
+import { Meta } from './Meta'
 
 type LayoutProps = {
   children: React.ReactNode
