@@ -30,7 +30,7 @@ const AboutMeSection: React.FC = () => {
           <span className="mr-1">
             <ForwardArrowIcon />
           </span>
-          Learn more
+          About Stefan
         </a>
       </Link>
     </section>
