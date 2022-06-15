@@ -35,6 +35,7 @@ const IntroSection: React.VFC = () => (
         width={186}
         className="rounded-full"
         priority
+        placeholder="blur"
       />
     </div>
   </section>
