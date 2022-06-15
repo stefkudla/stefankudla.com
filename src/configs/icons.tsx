@@ -165,7 +165,7 @@ export const GithubIcon = () => {
       height="1em"
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform"
+      className="text-xl text-fore-subtle group-hover:-translate-y-1 transition-transform"
     >
       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
     </svg>
@@ -184,7 +184,7 @@ export const LinkedinIcon = () => {
       height="1em"
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform"
+      className="text-xl text-fore-subtle group-hover:-translate-y-1 transition-transform"
     >
       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
       <rect x="2" y="9" width="4" height="12"></rect>
@@ -203,7 +203,7 @@ export const EmailIcon = () => {
       height="1em"
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-xl text-fore-subtle group-hover:-translate-y-2 transition-transform"
+      className="text-xl text-fore-subtle group-hover:-translate-y-1 transition-transform"
     >
       <path fill="none" d="M0 0h24v24H0z"></path>
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h5v-2h-5c-4.34 0-8-3.66-8-8s3.66-8 8-8 8 3.66 8 8v1.43c0 .79-.71 1.57-1.5 1.57s-1.5-.78-1.5-1.57V12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.38 0 2.64-.56 3.54-1.47.65.89 1.77 1.47 2.96 1.47 1.97 0 3.5-1.6 3.5-3.57V12c0-5.52-4.48-10-10-10zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"></path>
