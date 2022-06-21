@@ -1,9 +1,10 @@
-import Cosmic from 'cosmicjs'
+const Cosmic = require('cosmicjs')
+const api = Cosmic()
 
 const BUCKET_SLUG = process.env.COSMIC_BUCKET_SLUG
 const READ_KEY = process.env.COSMIC_READ_KEY
 
-const bucket = Cosmic().bucket({
+const bucket = api.bucket({
   slug: BUCKET_SLUG,
   read_key: READ_KEY,
 })
@@ -12,14 +13,14 @@ const is404 = error => /not found/i.test(error.message)
 
 export async function getPreviewPostBySlug(slug) {
   const params = {
-    slug,
+    query: { slug },
+    status: 'any',
     props: 'slug',
-    status: 'all',
   }
 
   try {
-    const data = await bucket.getObject(params)
-    return data.object
+    const data = await bucket.getObjects(params)
+    return data.objects[0]
   } catch (error) {
     // Don't throw if an slug doesn't exist
     if (is404(error)) return
@@ -29,7 +30,7 @@ export async function getPreviewPostBySlug(slug) {
 
 export async function getAllPostsWithSlug() {
   const params = {
-    type: 'posts',
+    query: { type: 'posts' },
     props: 'title,slug,metadata,created_at',
   }
   const data = await bucket.getObjects(params)
@@ -38,12 +39,12 @@ export async function getAllPostsWithSlug() {
 
 export async function getAllPosts(preview, postType, postCount) {
   const params = {
-    type: postType,
+    query: { type: postType },
+    ...(preview && { status: 'any' }),
     props:
-      'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at',
+      'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at,status',
     limit: postCount,
     sort: '-created_at',
-    ...(preview && { status: 'all' }),
   }
   const data = await bucket.getObjects(params)
   return data.objects
@@ -51,17 +52,17 @@ export async function getAllPosts(preview, postType, postCount) {
 
 export async function getPostAndMorePosts(slug, preview) {
   const singleObjectParams = {
-    slug,
+    query: { slug: slug },
+    ...(preview && { status: 'any' }),
     props: 'slug,title,metadata,created_at',
-    ...(preview && { status: 'all' }),
   }
   const moreObjectParams = {
-    type: 'posts',
+    query: { type: 'posts' },
+    ...(preview && { status: 'any' }),
     limit: 3,
     props: 'title,slug,metadata,created_at',
-    ...(preview && { status: 'all' }),
   }
-  const object = await bucket.getObject(singleObjectParams).catch(error => {
+  const data = await bucket.getObjects(singleObjectParams).catch(error => {
     // Don't throw if a slug doesn't exist
     if (is404(error)) return
     throw error
@@ -72,14 +73,14 @@ export async function getPostAndMorePosts(slug, preview) {
     .slice(0, 2)
 
   return {
-    post: object?.object,
+    post: data?.objects[0],
     morePosts,
   }
 }
 
 export async function getAllProducts() {
   const params = {
-    type: 'products',
+    query: { type: 'products' },
     props: 'title,metadata',
   }
   const data = await bucket.getObjects(params)
@@ -88,7 +89,7 @@ export async function getAllProducts() {
 
 export async function getAllPostCategories() {
   const params = {
-    type: 'post-categories',
+    query: { type: 'post-categories' },
     props: 'title',
   }
   const data = await bucket.getObjects(params)
@@ -97,7 +98,7 @@ export async function getAllPostCategories() {
 
 export async function getAllWorkCategories() {
   const params = {
-    type: 'work-categories',
+    query: { type: 'work-categories' },
     props: 'title',
   }
   const data = await bucket.getObjects(params)
