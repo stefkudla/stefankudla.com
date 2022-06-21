@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
+    "preinstall": "npx only-allow pnpm",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.mjs",
     "start": "next start",
