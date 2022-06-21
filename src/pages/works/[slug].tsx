@@ -33,9 +33,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             imageUrl={post.metadata.cover_image.imgix_url}
           />
           <article className="border-b border-back-subtle py-8 mb-8">
-            {post.status === 'draft' ? (
-              <AlertPreview preview={true} />
-            ) : undefined}
+            {post.status === 'draft' && <AlertPreview />}
             <PostHeader post={post} />
             <PostBody content={post.content} />
           </article>
