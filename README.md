@@ -130,9 +130,10 @@
 - [x] Implement Spotify API
   - [x] Display track that I'm currently listening to in top menu | ~ Shipped 05/17/22 ~
   - [x] Display my top ten most listened to tracks on the about page | ~ Shipped 05/15/22 ~
+- [x] Migrate from npm to pnpm
+- [x] Improve page render time and first contentful paint
+- [x] Fix scroll to top bug
 - [] Implement a table of contents on post and work pages
-- [] Improve page render time and first contentful paint
-- [] Fix scroll to top bug
 
 <!-- See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues). -->
 
