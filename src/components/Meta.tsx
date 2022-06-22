@@ -43,7 +43,10 @@ export const PageMeta: React.FC<{ title: string; description: string }> = ({
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content="/images/stefan_kudla_ogImage.jpg" />
+      <meta
+        property="og:image"
+        content="https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg"
+      />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@stefankudla" />
       <meta name="twitter:title" content={title} />
