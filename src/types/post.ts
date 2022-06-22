@@ -75,6 +75,7 @@ export interface PostListTypes {
     {
       title: string
       slug: string
+      status: string
       created_at: string
       metadata: {
         excerpt: string
