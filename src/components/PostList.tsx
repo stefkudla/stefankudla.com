@@ -51,7 +51,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => {
                       <ForwardArrowIcon />
                     </span>
                     {post.status === 'draft' && (
-                      <span className="absolute right-2 top-2 bg-back-subtle px-3 py-1 rounded text-accent">
+                      <span className="absolute right-1 top-1 bg-back-subtle px-3 py-1 rounded text-accent">
                         Draft
                       </span>
                     )}
