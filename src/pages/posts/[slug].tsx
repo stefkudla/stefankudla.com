@@ -3,7 +3,6 @@ import PostBody from '@/components/PostBody'
 import PostHeader from '@/components/PostHeader'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/cosmic'
 import PostTitle from '@/components/PostTitle'
-import markdownToHtml from '@/lib/markdownToHtml'
 import AlertPreview from '@/components/AlertPreview'
 import PageNotFound from '../404'
 import { PostTypes } from '@/types/post'
@@ -35,7 +34,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
           <article className="border-b border-back-subtle py-8 mb-8">
             {post.status === 'draft' && <AlertPreview />}
             <PostHeader post={post} />
-            <PostBody content={post.content} />
+            <PostBody content={post.metadata.content} />
           </article>
         </>
       )}
@@ -52,14 +51,12 @@ export async function getStaticProps({
   preview: boolean | null
 }) {
   const data = await getPostAndMorePosts(params.slug, preview)
-  const content = await markdownToHtml(data.post?.metadata?.content || '')
 
   return {
     props: {
       preview,
       post: {
         ...data.post,
-        content,
       },
       morePosts: data.morePosts || [],
     },
