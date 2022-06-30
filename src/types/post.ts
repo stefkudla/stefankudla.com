@@ -4,6 +4,7 @@ export interface PostTypes {
     title: string
     status: string
     metadata: {
+      content: string
       cover_image: {
         imgix_url: string
       }
