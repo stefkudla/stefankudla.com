@@ -8,12 +8,14 @@ const IntroSection: React.VFC = () => (
   <section className="w-full flex flex-col-reverse md:flex-row justify-start">
     <div className="flex-1 flex flex-col gap-y-4">
       <h1 className="text-3xl md:text-5xl font-bold max-w-2xl text-fore-primary">
-        Hi, I&apos;m Stefan Kudla
+        Stefan Kudla
       </h1>
-      <h2 className="mb-4 max-w-lg">
-        I'm a software developer with a passion for designing and developing
-        jamstack web apps.
+      <h2 className="max-w-lg">
+        Developer Experience Engineer at <strong>Cosmic</strong>
       </h2>
+      <p className="my-2">
+        Helping companies deliver a better developer experience to their users.
+      </p>
       <div className="flex items-center">
         <a
           href="/Stefan_Kudla_Resume.pdf"
