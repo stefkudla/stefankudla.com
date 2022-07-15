@@ -6,7 +6,7 @@ const TopTracksSection: React.VFC = () => {
   return (
     <section className="mt-24 pb-12">
       <span className="flex items-center mb-8">
-        <div className="bg-back-subtle p-2 mr-4 rounded-full">
+        <div className="icon-border">
           <HeadphonesIcon />
         </div>
         <h4 className="text-xl text-accent font-semibold">Top Tracks</h4>

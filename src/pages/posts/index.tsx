@@ -61,7 +61,6 @@ export async function getStaticProps({ preview }: { preview: boolean }) {
   const allPosts = (await getAllPosts(preview, 'posts')) || []
   return {
     props: { allPosts, allPostCategories },
-    revalidate: 60,
   }
 }
 export default Posts

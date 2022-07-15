@@ -10,7 +10,7 @@ const BrewSection: React.FC<ProductProps> = ({ allProducts }) => {
   return (
     <section className="mt-24">
       <span className="flex items-center mb-8">
-        <div className="bg-back-subtle p-2 mr-4 rounded-full">
+        <div className="icon-border">
           <CoffeePotIcon />
         </div>
         <h4 className="text-xl text-accent font-semibold">Brew</h4>

@@ -142,6 +142,18 @@
   border-radius: 5px;
 }
 
+.icon-border {
+  @apply shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner bg-back-subtle p-2 mr-4 rounded-full;
+}
+
+.resume-btn {
+  @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner;
+}
+
+.shadow-gradient {
+  @apply from-accent to-violet-400;
+}
+
 /* End Custom Classes */
 
 @layer base {

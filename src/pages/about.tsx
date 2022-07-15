@@ -39,10 +39,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
             </p>
             <p>Get in touch to create something awesome together!</p>
             <div className="flex items-center md:mt-6">
-              <a
-                href="/Stefan_Kudla_Resume.pdf"
-                className="flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors"
-              >
+              <a href="/Stefan_Kudla_Resume.pdf" className="resume-btn">
                 <span className="mr-2">
                   <PaperIcon />
                 </span>

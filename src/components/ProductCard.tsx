@@ -13,8 +13,8 @@ const ProductCard: React.FC<ProductCardTypes> = ({
   description,
   productLink,
 }) => (
-  <a href={productLink} className="hover:opacity-70 w-auto transition-opacity">
-    <div className="w-[230px] h-[270px] border rounded-md">
+  <a href={productLink} className="hover:opacity-100 w-auto transition-opacity">
+    <div className="w-[230px] h-[270px] border rounded-md shadow-md hover:shadow-lg shadow-slate-300 hover:shadow-slate-300 transition dark:shadow-accent">
       <div className="flex justify-center items-center bg-back-secondary h-3/5 rounded-t-md">
         <Image
           src={imgPath}

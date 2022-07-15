@@ -3,9 +3,9 @@ import { LetterIcon } from '@/configs/icons'
 
 const ContactSection: React.VFC = () => {
   return (
-    <section className="group h-72 flex flex-col items-center justify-center my-32">
+    <section className="h-72 flex flex-col items-center justify-center my-32">
       <h3 className="text-3xl flex items-center gap-x-2 font-bold">
-        <span className="bg-back-subtle p-1 rounded-full">
+        <span className="icon-border">
           <LetterIcon />
         </span>{' '}
         Get in touch
@@ -16,7 +16,7 @@ const ContactSection: React.VFC = () => {
       </p>
       <a
         href="mailto:stefan@stefankudla.com"
-        className="text-white px-16 py-3.5 mt-8 text-xl bg-gradient-to-r from-accent to-violet-400 rounded hover:from-pink-500 hover:to-yellow-500"
+        className="group text-white px-16 py-3.5 mt-8 text-xl bg-gradient-to-r from-accent to-violet-400 rounded-md hover:from-pink-500 hover:to-yellow-500 shadow-slate-400 shadow-md hover:shadow-accent transition hover:shadow-lg w-fit"
       >
         Say hello
       </a>
