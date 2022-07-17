@@ -51,9 +51,9 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
           </div>
         </div>
       </section>
+      <TopTracksSection />
       <SetupSection allProducts={allProducts} />
       <BrewSection allProducts={allProducts} />
-      <TopTracksSection />
       <ContactSection />
     </>
   )
