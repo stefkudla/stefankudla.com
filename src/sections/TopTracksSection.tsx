@@ -1,4 +1,3 @@
-import React from 'react'
 import { HeadphonesIcon } from '@/configs/icons'
 import TopTracks from '@/components/TopTracks'
 
@@ -12,7 +11,8 @@ const TopTracksSection: React.VFC = () => {
         <h4 className="text-xl text-accent font-semibold">Top Tracks</h4>
       </span>
       <p className="mb-12 text-fore-subtle">
-        These are my top Spotify tracks over the last few months
+        These are my top <span className="text-[#1DB954]">Spotify</span> tracks
+        over the last month.
       </p>
       <TopTracks />
     </section>
