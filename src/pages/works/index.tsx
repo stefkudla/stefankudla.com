@@ -18,9 +18,7 @@ const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
         title="Works | Stefan Kudla"
         description="The works of Stefan Kudla"
       />
-      <h1 className="text-2xl md:text-3xl text-fore-primary font-bold">
-        Works
-      </h1>
+      <h1>Works</h1>
       <ul className="flex gap-x-4 my-4">
         <li
           className={

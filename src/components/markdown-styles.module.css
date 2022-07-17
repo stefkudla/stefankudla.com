@@ -10,7 +10,7 @@
 }
 
 .markdown h2 {
-  @apply text-fore-primary text-2xl font-bold mt-12 mb-4 leading-snug;
+  @apply text-fore-primary text-2xl font-bold mt-2 mb-4 leading-snug;
 }
 
 .markdown h3 {
@@ -22,8 +22,10 @@
 }
 
 .markdown ul li {
-  @apply list-disc list-inside mb-2 bg-back-subtle p-2 rounded text-[16px] md:text-[18px] font-semibold;
+  @apply list-disc list-inside mb-2 bg-back-subtle p-2 rounded text-[16px] md:text-[18px] font-semibold shadow-md;
 }
+
+/* Add shadows to list items */
 
 .markdown ol li {
   @apply list-decimal list-inside mb-2 bg-back-subtle p-2 rounded text-[16px] md:text-[18px] font-semibold;

@@ -4,9 +4,6 @@
 @import '@fontsource/public-sans/600.css';
 @import '@fontsource/public-sans/700.css';
 @import url('https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css');
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
 
 :root {
   --tw-bg-opacity: 1;
@@ -45,7 +42,7 @@
 
   --color-back-primary: hsla(228, 10%, 11%);
   --color-back-secondary: hsla(221, 39%, 8%);
-  --color-back-subtle: hsla(221, 39%, 16%);
+  --color-back-subtle: hsla(221, 39%, 20%);
 
   --color-accent: hsla(201, 100%, 63%);
   --color-second-accent: hsla(243, 78%, 68%);
@@ -62,99 +59,6 @@
 }
 
 /* End Theme Classes */
-
-/* Custom Classes */
-
-.nav--item {
-  position: relative;
-}
-.nav--item::after,
-.nav--item:focus::after {
-  content: '';
-  position: absolute;
-  height: 2px;
-  background: linear-gradient(
-    200deg,
-    var(--color-accent),
-    var(--color-second-accent)
-  );
-  border-radius: 50px;
-  bottom: -1.5px;
-  left: 0;
-  right: 0;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 150ms ease-in-out;
-}
-
-.nav--item:hover:after,
-.nav--item:focus::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-.filter--active {
-  position: relative;
-  z-index: -1;
-}
-
-.filter--active::after,
-.filter--active:focus::after {
-  content: '';
-  position: absolute;
-  height: 2px;
-  background: linear-gradient(
-    200deg,
-    var(--color-accent),
-    var(--color-second-accent)
-  );
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transform: scaleX(1);
-  transform-origin: right;
-  transition: transform 150ms ease-in-out;
-}
-
-.minimal--border {
-  position: relative;
-}
-.minimal--border::before {
-  content: '';
-  position: absolute;
-  background: var(--color-accent);
-  top: 50%;
-  left: 0;
-  width: 6px;
-  height: 2px;
-  margin: 0 -0.5rem;
-  border-radius: 5px;
-}
-.minimal--border::after {
-  content: '';
-  position: absolute;
-  background: var(--color-accent);
-  top: 50%;
-  right: 0;
-  width: 6px;
-  height: 2px;
-  margin: 0 -0.5rem;
-  border-radius: 5px;
-}
-
-.icon-border {
-  @apply shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner bg-back-subtle p-2 mr-4 rounded-full;
-}
-
-.resume-btn {
-  @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner;
-}
-
-.shadow-gradient {
-  @apply from-accent to-violet-400;
-}
-
-/* End Custom Classes */
 
 @layer base {
   ::-moz-selection {
@@ -177,8 +81,116 @@
     @apply overflow-x-hidden antialiased;
   }
 
+  h1 {
+    @apply text-3xl md:text-5xl font-bold text-fore-primary mb-6;
+  }
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  h4 {
+  }
+
+  p {
+  }
+
   .full-width-container {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
   }
+
+  /* Custom Classes */
+  .nav--item {
+    position: relative;
+  }
+  .nav--item::after,
+  .nav--item:focus::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(
+      200deg,
+      var(--color-accent),
+      var(--color-second-accent)
+    );
+    border-radius: 50px;
+    bottom: -1.5px;
+    left: 0;
+    right: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 150ms ease-in-out;
+  }
+
+  .nav--item:hover:after,
+  .nav--item:focus::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .filter--active {
+    position: relative;
+    z-index: -1;
+  }
+
+  .filter--active::after,
+  .filter--active:focus::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(
+      200deg,
+      var(--color-accent),
+      var(--color-second-accent)
+    );
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: transform 150ms ease-in-out;
+  }
+
+  .minimal--border {
+    position: relative;
+  }
+  .minimal--border::before {
+    content: '';
+    position: absolute;
+    background: var(--color-accent);
+    top: 50%;
+    left: 0;
+    width: 6px;
+    height: 2px;
+    margin: 0 -0.5rem;
+    border-radius: 5px;
+  }
+  .minimal--border::after {
+    content: '';
+    position: absolute;
+    background: var(--color-accent);
+    top: 50%;
+    right: 0;
+    width: 6px;
+    height: 2px;
+    margin: 0 -0.5rem;
+    border-radius: 5px;
+  }
+
+  .icon-border {
+    @apply shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner bg-back-subtle p-2 mr-4 rounded-full;
+  }
+
+  .resume-btn {
+    @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner;
+  }
 }
+
+/* End Custom Classes */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';

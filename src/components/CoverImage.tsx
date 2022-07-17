@@ -5,7 +5,7 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
   url,
 }) => {
   return (
-    <div className="relative w-full my-4 pb-[55%]">
+    <div className="relative w-full pb-[80%] md:pb-[70%] -z-20 border-back-subtle border border-b-0 shadow-lg rounded-t-md">
       <Image
         src={url}
         quality={60}
@@ -15,6 +15,7 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
         placeholder="blur"
         blurDataURL={`${url}?auto=format,compress&q=1&blur=500&w=2`}
         priority
+        className="rounded-t-md"
       />
     </div>
   )

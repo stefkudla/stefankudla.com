@@ -4,13 +4,13 @@ import { LetterIcon } from '@/configs/icons'
 const ContactSection: React.VFC = () => {
   return (
     <section className="h-72 flex flex-col items-center justify-center my-32">
-      <h3 className="text-3xl flex items-center gap-x-2 font-bold">
+      <h3 className="text-3xl flex items-center gap-x-2 font-bold mb-6">
         <span className="icon-border">
           <LetterIcon />
         </span>{' '}
         Get in touch
       </h3>
-      <p className="text-fore-subtle my-3 text-center">
+      <p className="max-w-lg text-fore-subtle my-3 text-center">
         While I'm always looking for new opportunities, I'm currently looking
         for an awesome team to code with.
       </p>

@@ -21,8 +21,8 @@ const Index: NextPage<{ allPosts: Object[]; allWorks: Object[] }> = ({
       <IntroSection />
       <AboutMeSection />
       <ToolboxSection />
-      <ProjectsSection posts={allWorks} />
       <WritingsSection posts={allPosts} />
+      <ProjectsSection posts={allWorks} />
       <ContactSection />
     </>
   )

@@ -10,13 +10,14 @@ import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
 import avatar from '../../public/images/portrait_4.png'
 import { PageMeta } from '@/components/Meta'
+import ContactSection from '@/sections/ContactSection'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
     <>
       <PageMeta title="About | Stefan Kudla" description="About Stefan Kudla" />
       <section>
-        <h1 className="text-2xl md:text-3xl mb-12 font-bold">About Me</h1>
+        <h1 className="mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b pb-12">
           <div className="flex-1">
             <Image
@@ -53,6 +54,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <SetupSection allProducts={allProducts} />
       <BrewSection allProducts={allProducts} />
       <TopTracksSection />
+      <ContactSection />
     </>
   )
 }

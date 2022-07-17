@@ -31,7 +31,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             page="posts"
             imageUrl={post.metadata.cover_image.imgix_url}
           />
-          <article className="border-b border-back-subtle py-8 mb-8">
+          <article className="border-b border-back-subtle py-8">
             {post.status === 'draft' && <AlertPreview />}
             <PostHeader post={post} />
             <PostBody content={post.metadata.content} />

@@ -6,58 +6,63 @@ import Image from 'next/image'
 import { PostHeaderTypes } from '@/types/post'
 import avatar from '../../public/images/avatar_4.png'
 
-const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => (
-  <>
-    <PostTitle>{post.title}</PostTitle>
-    <div className="flex items-center justify-between mb-8">
-      <div className="flex items-center relative">
-        <Image
-          src={avatar}
-          width={42}
-          height={42}
-          alt="Stefan Kudla"
-          className="rounded-full"
-          placeholder="blur"
-        />
-        <p className="ml-2 text-sm">
-          Stefan Kudla |{' '}
-          <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" /> |{' '}
-          {post.metadata.category.title}
-        </p>
+const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => {
+  return (
+    <>
+      <div className="mb-2 border-b-back-subtle border-b pb-4">
+        <PostTitle>{post.title}</PostTitle>
+        <div className="flex items-center relative">
+          <Image
+            src={avatar}
+            width={42}
+            height={42}
+            alt="Stefan Kudla"
+            className="rounded-full"
+            placeholder="blur"
+          />
+          <p className="ml-2 text-sm">
+            Stefan Kudla |{' '}
+            <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" /> |{' '}
+            <span className="text-saccent">{post.metadata.category.title}</span>
+          </p>
+        </div>
       </div>
-    </div>
-    <CoverImage title={post.title} url={post.metadata.cover_image.imgix_url} />
-    <div className="flex flex-row justify-between sm:items-center pb-8 border-b">
-      <div className="sm:flex items-center gap-x-2">
-        {post.metadata.live_url ? (
-          <>
-            <a
-              href={post.metadata.live_url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center text-accent hover:text-gray-500 text-sm md:ml-4 w-fit"
-            >
-              Live Site
-              <span>
-                <ExternalLinkIcon />
-              </span>
-            </a>
+      <div className="flex flex-row justify-between sm:items-center pb-8">
+        <div className="sm:flex items-start gap-x-2">
+          {post.metadata.live_url ? (
+            <>
+              <a
+                href={post.metadata.live_url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center text-accent hover:text-gray-500 text-sm w-fit my-2 md:my-0"
+              >
+                Live Site
+                <span>
+                  <ExternalLinkIcon />
+                </span>
+              </a>
 
-            <a
-              href={post.metadata.repo_url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center text-accent hover:text-gray-500 text-sm"
-            >
-              Github Repo
-              <span>
-                <ExternalLinkIcon />
-              </span>
-            </a>
-          </>
-        ) : undefined}
+              <a
+                href={post.metadata.repo_url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center text-accent hover:text-gray-500 text-sm"
+              >
+                Github Repo
+                <span>
+                  <ExternalLinkIcon />
+                </span>
+              </a>
+            </>
+          ) : null}
+        </div>
       </div>
-    </div>
-  </>
-)
+      <CoverImage
+        title={post.title}
+        url={post.metadata.cover_image.imgix_url}
+      />
+    </>
+  )
+}
 export default PostHeader

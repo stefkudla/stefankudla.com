@@ -49,6 +49,7 @@ const components: object = {
         style={materialOceanic}
         language={match[1]}
         showLineNumbers={true}
+        className="shadow rounded-md"
         PreTag="div"
         {...props}
       >
@@ -63,7 +64,7 @@ const components: object = {
 }
 
 const PostBody: React.FC<{ content: string }> = ({ content }) => (
-  <div className="max-w-2xl mx-auto">
+  <div className="max-w-4xl mx-auto px-3 md:px-8 py-8 rounded-b-md border-back-subtle border-b border-l border-r shadow-md -mt-14 bg-white dark:bg-back-secondary">
     <ReactMarkdown
       className={markdownStyles['markdown']}
       components={components}

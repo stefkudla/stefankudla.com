@@ -2,6 +2,7 @@ import useSWR from 'swr'
 
 import fetcher from '@/lib/fetcher'
 import { TopTracks } from '@/lib/types'
+import Link from 'next/link'
 
 const TopTracks: React.FC = () => {
   const { data } = useSWR<TopTracks>('/api/top-tracks', fetcher)
@@ -15,19 +16,16 @@ const TopTracks: React.FC = () => {
       {data.tracks.map((track, index) => (
         <li
           key={index}
-          className="list-decimal mb-4 pl-0 pb-2 border-b border-b-back-subtle"
+          className="group list-decimal mb-4 border-b border-b-back-subtle hover:bg-back-subtle transition-colors shadow-md marker:hover:text-[#1DB954]"
         >
-          <a
-            href={track.songUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent transition-colors"
-          >
-            {track.title}
-          </a>
-          <span className="block text-fore-subtle text-sm font-light">
-            {track.artist}
-          </span>
+          <Link href={track.songUrl} target="_blank" rel="noopener noreferrer">
+            <a className="block p-3 hover:text-[#1DB954]  transition-colors">
+              {track.title}
+              <span className="block text-fore-subtle text-sm font-light">
+                {track.artist}
+              </span>
+            </a>
+          </Link>
         </li>
       ))}
     </ol>
