@@ -3,6 +3,7 @@ import { getAllPosts, getAllWorkCategories } from '@/lib/cosmic'
 import { WorksTypes } from '@/types/post'
 import PostList from '@/components/PostList'
 import { PageMeta } from '@/components/Meta'
+import CategoryFilter from '@/components/CategoryFilter'
 
 const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
   const [filterCategory, setFilterCategory] = useState('All')
@@ -13,38 +14,16 @@ const Works: React.FC<WorksTypes> = ({ allPosts, allWorkCategories }) => {
 
   return (
     <>
-      {/* PostMeta component already includes next/Head  */}
       <PageMeta
         title="Works | Stefan Kudla"
         description="The works of Stefan Kudla"
       />
       <h1>Works</h1>
-      <ul className="flex gap-x-4 my-4">
-        <li
-          className={
-            'All' === filterCategory
-              ? 'cursor-pointer font-bold filter--active transition'
-              : 'cursor-pointer text-fore-subtle transition'
-          }
-          onClick={() => setFilterCategory('All')}
-          key={'All'}
-        >
-          All
-        </li>
-        {allWorkCategories.map(category => (
-          <li
-            className={
-              category.title === filterCategory
-                ? 'cursor-pointer font-bold filter--active transition'
-                : 'cursor-pointer text-fore-subtle transition hover:text-accent'
-            }
-            onClick={() => setFilterCategory(category.title)}
-            key={category.title}
-          >
-            {category.title}
-          </li>
-        ))}
-      </ul>
+      <CategoryFilter
+        categories={allWorkCategories}
+        handleSelection={setFilterCategory}
+        selected={filterCategory}
+      />
       <PostList
         allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
         postType="works"
