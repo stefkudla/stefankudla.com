@@ -7,8 +7,29 @@ import Link from 'next/link'
 const TopTracks: React.FC = () => {
   const { data } = useSWR<TopTracks>('/api/top-tracks', fetcher)
 
+  const mockArray = new Array(10).fill({
+    title: 'Loading...',
+    artist: 'Loading...',
+  })
+
   if (!data) {
-    return null
+    return (
+      <ol className="pl-5 grid grid-rows-4">
+        {mockArray.map((track, index) => (
+          <li
+            key={index}
+            className="group list-decimal mb-4 border-b border-b-back-subtle hover:bg-back-subtle transition-colors shadow-md"
+          >
+            <p className="block p-3 animate-pulse">
+              {track.title}
+              <span className="block text-fore-subtle text-sm font-light">
+                {track.artist}
+              </span>
+            </p>
+          </li>
+        ))}
+      </ol>
+    )
   }
 
   return (

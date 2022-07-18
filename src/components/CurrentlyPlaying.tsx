@@ -11,36 +11,42 @@ const CurrentlyPlaying: React.FC = () => {
   )
   return (
     <>
-      <div className="flex items-center">
-        <span className="pr-3">
-          <SpotifyIcon />
-        </span>
+      <div className="flex items-center md:justify-end flex-nowrap md:h-10 w-full">
         {data?.isPlaying ? (
-          <a
-            className="flex hover:opacity-60 transition-opacity"
-            href={data.trackUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="flex items-center relative">
-              <Image
-                src={data.albumImageUrl}
-                width={36}
-                height={36}
-                quality={35}
-                alt={`Cover art for the song ${data.title}`}
-              />
-            </div>
-            <div className="flex flex-col pl-2">
-              <span>{data.title}</span>
-              <span className="text-xs text-fore-subtle">{data.artist}</span>
-            </div>
-          </a>
+          <>
+            <span className="pr-3">
+              <SpotifyIcon color="#1DB954" />
+            </span>
+            <a
+              className="flex hover:opacity-60 transition-opacity"
+              href={data.trackUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative h-10 w-10 shadow-md">
+                <Image
+                  src={data.albumImageUrl}
+                  alt={`Cover art for the song ${data.title}`}
+                  quality={35}
+                  layout="fill"
+                />
+              </div>
+              <div className="flex flex-col pl-2">
+                <span>{data.title}</span>
+                <span className="text-xs text-fore-subtle">{data.artist}</span>
+              </div>
+            </a>
+          </>
         ) : (
           <>
-            <p>Not playing </p>
-            <span className="mx-2">{' - '}</span>
-            <p className="text-fore-subtle">Spotify</p>
+            <span className="pr-3">
+              <SpotifyIcon />
+            </span>
+            <div className="flex">
+              <p>Not playing </p>
+              <span className="mx-2">{' - '}</span>
+              <p className="text-fore-subtle">Spotify</p>
+            </div>
           </>
         )}
       </div>
