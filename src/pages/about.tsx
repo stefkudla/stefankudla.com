@@ -33,10 +33,10 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
             <p>I love solving problems!</p>
             <p>
-              My name is Stefan Kudla. Originally from rainy Seattle,
-              Washington, I now reside in the dry valley of Las Vegas, Nevada.
-              When I&apos;m not writing code, you can usually find me brushing
-              my teeth with coffee or looking for the best view atop a mountain.
+              My name is Stefan Kudla. I&apos;m a Software Engineer, Music
+              Producer, and Tech Blogger. When I&apos;m not creating, you can
+              usually find me brushing my teeth with coffee or looking for the
+              best view atop a mountain.
             </p>
             <p>Get in touch to create something awesome together!</p>
             <div className="flex items-center md:mt-6">
