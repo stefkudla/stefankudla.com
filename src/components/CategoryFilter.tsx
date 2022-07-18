@@ -9,27 +9,23 @@ const CategoryFilter: React.FC<FilterTypes> = ({
   selected,
 }) => {
   return (
-    <ul className="flex flex-wrap gap-y-2 sm:gap-y-0 gap-x-4 my-4">
-      <li
-        className={
-          'All' === selected
-            ? 'cursor-pointer font-bold filter--active transition'
-            : 'cursor-pointer text-fore-subtle transition'
-        }
-        key={'All'}
-      >
-        <button onClick={() => handleSelection('All')}>All</button>
+    <ul className="flex flex-wrap gap-2 sm:gap-y-0 my-4 ">
+      <li key={'All'}>
+        <button
+          className={'All' === selected ? 'filter-item-active' : 'filter-item'}
+          onClick={() => handleSelection('All')}
+        >
+          All
+        </button>
       </li>
       {categories.map(category => (
-        <li
-          className={
-            category.title === selected
-              ? 'cursor-pointer font-bold filter--active transition'
-              : 'cursor-pointer text-fore-subtle transition hover:text-accent'
-          }
-          key={category.title}
-        >
-          <button onClick={() => handleSelection(category.title)}>
+        <li key={category.title}>
+          <button
+            className={
+              category.title === selected ? 'filter-item-active' : 'filter-item'
+            }
+            onClick={() => handleSelection(category.title)}
+          >
             {category.title}
           </button>
         </li>

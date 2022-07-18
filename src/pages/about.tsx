@@ -18,7 +18,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <PageMeta title="About | Stefan Kudla" description="About Stefan Kudla" />
       <section>
         <h1 className="mb-12">About Me</h1>
-        <div className="flex flex-col md:flex-row-reverse border-b pb-12">
+        <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">
           <div className="flex-1">
             <Image
               src={avatar}

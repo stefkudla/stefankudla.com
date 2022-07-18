@@ -125,33 +125,9 @@
     transition: transform 150ms ease-in-out;
   }
 
-  .nav--item:hover:after,
-  .nav--item:focus::after {
+  .nav--item:hover:after {
     transform: scaleX(1);
     transform-origin: left;
-  }
-
-  .filter--active {
-    position: relative;
-    z-index: -1;
-  }
-
-  .filter--active::after,
-  .filter--active:focus::after {
-    content: '';
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(
-      200deg,
-      var(--color-accent),
-      var(--color-second-accent)
-    );
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transform: scaleX(1);
-    transform-origin: right;
-    transition: transform 150ms ease-in-out;
   }
 
   .minimal--border {
@@ -185,7 +161,23 @@
   }
 
   .resume-btn {
-    @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner;
+    @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner focus:outline-none focus:ring focus:ring-fore-primary;
+  }
+
+  .filter-item {
+    @apply cursor-default border-2 rounded-md border-accent px-4 py-[2px] shadow-md hover:shadow-lg hover:opacity-80 md:transition focus:outline-none focus:ring focus:ring-fore-primary;
+  }
+
+  .filter-item-active {
+    @apply cursor-default border-2 rounded-md border-accent px-4 py-[2px] shadow-sm bg-accent text-white hover:cursor-default;
+  }
+
+  .post-card {
+    @apply flex flex-col justify-start gap-y-6 p-8 h-full active:shadow-lg focus:shadow-lg;
+  }
+
+  .post-card-home {
+    @apply flex flex-col lg:flex-row lg:items-center lg:justify-between px-8 py-5 -my-5 -mx-7 hover:bg-back-subtle transition-colors border-b border-b-back-subtle;
   }
 }
 
