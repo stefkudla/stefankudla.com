@@ -135,11 +135,11 @@ export const HeadphonesIcon = () => {
   )
 }
 
-export const SpotifyIcon = () => {
+export const SpotifyIcon = ({ color }: { color?: string }) => {
   return (
     <svg
-      stroke="currentColor"
-      fill="currentColor"
+      stroke={color || 'currentColor'}
+      fill={color || 'currentColor'}
       strokeWidth="0"
       viewBox="0 0 496 512"
       height="21px"
