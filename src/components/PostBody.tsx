@@ -7,8 +7,8 @@ import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typesc
 import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript'
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown'
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
-import Image from 'next/image'
 import { ReactNode } from 'react'
+import BlurImage from './BlurImage'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('typescript', typescript)
@@ -19,11 +19,11 @@ SyntaxHighlighter.registerLanguage('json', json)
 const components: object = {
   img: (image: { src: string; alt: string }) => {
     return (
-      <Image
+      <BlurImage
         src={image.src}
         alt={image.alt}
-        width={380}
-        height={260}
+        width={400}
+        height={300}
         quality={50}
         layout="responsive"
         objectFit="contain"

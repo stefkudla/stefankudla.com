@@ -11,6 +11,7 @@ import Image from 'next/image'
 import avatar from '../../public/images/portrait_4.png'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
+import BlurImage from '@/components/BlurImage'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
@@ -19,15 +20,12 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <section>
         <h1 className="mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">
-          <div className="flex-1">
-            <Image
+          <div className="flex-1 overflow-hidden rounded-md">
+            <BlurImage
               src={avatar}
               alt="Stefan Kudla"
-              quality={85}
               layout="responsive"
               className="rounded-md"
-              placeholder="blur"
-              priority
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">

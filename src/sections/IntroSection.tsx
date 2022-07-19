@@ -3,6 +3,7 @@ import React from 'react'
 import { PaperIcon } from '@/configs/icons'
 import Image from 'next/image'
 import avatar from '../../public/images/avatar_4.png'
+import BlurImage from '@/components/BlurImage'
 
 const IntroSection: React.VFC = () => (
   <section className="w-full flex flex-col-reverse md:flex-row justify-start">
@@ -24,16 +25,8 @@ const IntroSection: React.VFC = () => (
         <SocialIcons />
       </div>
     </div>
-    <div className="w-[80px] sm:w-[186px] relative mb-6 sm:mb-0">
-      <Image
-        src={avatar}
-        alt="Stefan Kudla"
-        height={186}
-        width={186}
-        className="rounded-full"
-        priority
-        placeholder="blur"
-      />
+    <div className="w-24 h-24 md:w-44 md:h-44 mb-6 md:mb-0 rounded-full overflow-hidden">
+      <BlurImage src={avatar} alt="Stefan Kudla" className="rounded-full" />
     </div>
   </section>
 )

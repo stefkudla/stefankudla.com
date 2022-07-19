@@ -5,21 +5,23 @@ import { ExternalLinkIcon } from '@/configs/icons'
 import Image from 'next/image'
 import { PostHeaderTypes } from '@/types/post'
 import avatar from '../../public/images/avatar_4.png'
+import BlurImage from './BlurImage'
 
 const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => {
   return (
     <>
       <div className="mb-2 border-b-back-subtle border-b pb-4">
         <PostTitle>{post.title}</PostTitle>
-        <div className="flex items-center relative">
-          <Image
-            src={avatar}
-            width={42}
-            height={42}
-            alt="Stefan Kudla"
-            className="rounded-full"
-            placeholder="blur"
-          />
+        <div className="flex items-center">
+          <div className="w-10 h-10 rounded-full overflow-hidden">
+            <BlurImage
+              src={avatar}
+              width={80}
+              height={80}
+              alt="Stefan Kudla"
+              className="rounded-full"
+            />
+          </div>
           <p className="ml-2 text-sm">
             Stefan Kudla |{' '}
             <Date dateString={post.created_at} formatStyle="LLLL dd, yyyy" /> |{' '}
