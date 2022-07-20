@@ -25,8 +25,14 @@ const IntroSection: React.VFC = () => (
         <SocialIcons />
       </div>
     </div>
-    <div className="w-24 h-24 md:w-44 md:h-44 mb-6 md:mb-0 rounded-full overflow-hidden">
-      <BlurImage src={avatar} alt="Stefan Kudla" className="rounded-full" />
+    <div className="relative w-24 h-24 md:w-44 md:h-44 mb-6 md:mb-0 rounded-full overflow-hidden">
+      <Image
+        src={avatar}
+        layout="fill"
+        alt="Stefan Kudla"
+        priority
+        className="rounded-full"
+      />
     </div>
   </section>
 )
