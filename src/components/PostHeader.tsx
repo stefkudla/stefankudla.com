@@ -20,7 +20,6 @@ const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => {
               height={80}
               alt="Stefan Kudla"
               className="rounded-full"
-              priority
             />
           </div>
           <p className="ml-2 text-sm">
