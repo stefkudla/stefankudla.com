@@ -6,12 +6,14 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
   url,
 }) => {
   return (
-    <div className="relative w-full pb-[80%] md:pb-[70%] -z-20 border-back-subtle border border-b-0 shadow-lg rounded-t-md overflow-hidden">
+    <div className="relative w-full -z-20 h-[220px] md:h-[540px] shadow-xl rounded-t-md overflow-hidden">
       <BlurImage
         src={url}
         alt={`Cover image for ${title}`}
         layout="fill"
-        className="rounded-md"
+        objectFit="cover"
+        objectPosition="center"
+        className="rounded-t-md"
       />
     </div>
   )
