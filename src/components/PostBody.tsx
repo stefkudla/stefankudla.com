@@ -7,7 +7,7 @@ import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typesc
 import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript'
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown'
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import BlurImage from './BlurImage'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
@@ -27,6 +27,7 @@ const components: object = {
         quality={50}
         layout="responsive"
         objectFit="contain"
+        objectPosition="center"
       />
     )
   },
@@ -63,14 +64,24 @@ const components: object = {
   },
 }
 
-const PostBody: React.FC<{ content: string }> = ({ content }) => (
-  <div className="max-w-4xl mx-auto px-3 md:px-8 py-8 rounded-b-md shadow-md bg-white dark:bg-back-secondary">
-    <ReactMarkdown
-      className={markdownStyles['markdown']}
-      components={components}
-    >
-      {content}
-    </ReactMarkdown>
-  </div>
-)
+const PostBody: React.FC<{ content: string }> = ({ content }) => {
+  const [hasMounted, setHasMounted] = useState(false)
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  if (!hasMounted) {
+    return null
+  }
+  return (
+    <div className="max-w-4xl mx-auto px-3 md:px-8 py-8 rounded-b-md shadow-md bg-white dark:bg-back-secondary">
+      <ReactMarkdown
+        className={markdownStyles['markdown']}
+        components={components}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+}
 export default PostBody
