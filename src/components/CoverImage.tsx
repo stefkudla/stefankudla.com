@@ -14,6 +14,7 @@ const CoverImage: React.FC<{ title: string; url: string }> = ({
         objectFit="cover"
         objectPosition="center"
         className="rounded-t-md"
+        priority
       />
     </div>
   )
