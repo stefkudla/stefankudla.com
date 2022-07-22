@@ -6,14 +6,20 @@ import Marquee from 'react-fast-marquee'
 import { CurrentlyPlayingTrack } from '@/lib/types'
 import BlurImage from './BlurImage'
 import coverArtPlacehlder from '../../public/images/cover-art-placeholder.png'
-import dancingPenguin from '../../public/images/dancing-penguin.gif'
-import dancingSquidward from '../../public/images/dancing-squidward.gif'
+import { useState } from 'react'
 
 const CurrentlyPlaying: React.FC = () => {
   const { data } = useSWR<CurrentlyPlayingTrack>(
     '/api/currently-playing',
     fetcher
   )
+  const [playMarquee, setPlayMarquee] = useState(true)
+  const handleMarquee = () => {
+    setPlayMarquee(false)
+    setTimeout(() => {
+      setPlayMarquee(true)
+    }, 5000)
+  }
 
   if (!data || !data?.isPlaying)
     return (
@@ -65,10 +71,12 @@ const CurrentlyPlaying: React.FC = () => {
             </div>
             <Marquee
               gradient={false}
+              play={playMarquee}
               className="overflow-hidden"
               delay={5}
-              speed={22}
+              speed={23}
               pauseOnHover={false}
+              onCycleComplete={handleMarquee}
               style={{
                 width: '165px',
                 marginLeft: '-8px',
@@ -79,30 +87,8 @@ const CurrentlyPlaying: React.FC = () => {
                 <span className="group-hover:text-[#1DB954] transition-colors">
                   {data.title}&nbsp;
                 </span>
-                <span className="text-xs text-fore-subtle pt-[1px] pr-16">
+                <span className="text-xs text-fore-subtle pt-[1px] pr-24">
                   - &nbsp;{data.artist}
-                </span>
-                <span className="mr-28">
-                  <Image
-                    src={dancingPenguin}
-                    alt="Gif of a dancing penguin"
-                    width={44}
-                    height={35}
-                  />
-                </span>
-                <span className="group-hover:text-[#1DB954] transition-colors">
-                  {data.title}&nbsp;
-                </span>
-                <span className="text-xs text-fore-subtle pt-[1px] pr-16">
-                  - &nbsp;{data.artist}
-                </span>
-                <span className="mr-28">
-                  <Image
-                    src={dancingSquidward}
-                    alt="Gif of a dancing Squidward"
-                    width={35}
-                    height={35}
-                  />
                 </span>
               </div>
             </Marquee>
