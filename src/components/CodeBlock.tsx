@@ -6,11 +6,14 @@ import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typesc
 import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript'
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown'
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
+import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css'
+
 SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('typescript', typescript)
 SyntaxHighlighter.registerLanguage('javascript', javascript)
 SyntaxHighlighter.registerLanguage('markdown', markdown)
 SyntaxHighlighter.registerLanguage('json', json)
+SyntaxHighlighter.registerLanguage('css', css)
 
 const CodeBlock = ({
   node,
@@ -34,7 +37,6 @@ const CodeBlock = ({
     <SyntaxHighlighter
       style={materialOceanic}
       language={match[1]}
-      showLineNumbers={true}
       className="shadow rounded-md"
       PreTag="div"
       {...props}
