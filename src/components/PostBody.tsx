@@ -20,6 +20,14 @@ const components: object = {
     )
   },
 
+  a: (a: { href: string; children: string }) => {
+    return (
+      <a href={a.href} rel="noopener noreferrer" target="_blank">
+        {a.children}
+      </a>
+    )
+  },
+
   code({
     node,
     inline,
