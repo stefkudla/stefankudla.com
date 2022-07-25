@@ -35,6 +35,7 @@ export async function getStaticProps({ preview }: preview) {
   const allWorks = (await getAllPosts(preview, 'works', 3)) || []
   return {
     props: { allPosts, allWorks },
+    revalidate: 180,
   }
 }
 export default Index
