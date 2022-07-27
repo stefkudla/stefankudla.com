@@ -8,7 +8,7 @@ import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
-import avatar from '../../public/images/portrait_4.png'
+import avatar from '../../public/images/avatar-july-2022-min.png'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
 
@@ -26,6 +26,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
               layout="responsive"
               className="rounded-md"
               priority
+              quality={100}
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">

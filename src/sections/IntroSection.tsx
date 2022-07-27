@@ -2,8 +2,7 @@ import SocialIcons from '@/components/SocialIcons'
 import React from 'react'
 import { PaperIcon } from '@/configs/icons'
 import Image from 'next/image'
-import avatar from '../../public/images/avatar_4.png'
-import BlurImage from '@/components/BlurImage'
+import avatar from '../../public/images/avatar-july-2022-min.png'
 
 const IntroSection: React.VFC = () => (
   <section className="w-full flex flex-col-reverse md:flex-row justify-start">

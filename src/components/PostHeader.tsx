@@ -4,7 +4,7 @@ import PostTitle from './PostTitle'
 import { ExternalLinkIcon } from '@/configs/icons'
 import Image from 'next/image'
 import { PostHeaderTypes } from '@/types/post'
-import avatar from '../../public/images/avatar_4.png'
+import avatar from '../../public/images/avatar-july-2022-min.png'
 import BlurImage from './BlurImage'
 
 const PostHeader: React.FC<PostHeaderTypes> = ({ post }) => {
