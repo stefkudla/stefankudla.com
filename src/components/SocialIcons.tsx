@@ -12,6 +12,7 @@ const SocialIcons: React.FC = () => (
     </a>
     <a
       href="https://github.com/stefkudla"
+      target="_blank"
       className="group cursor-pointer"
       aria-label="Github"
       title="Github"
@@ -20,6 +21,7 @@ const SocialIcons: React.FC = () => (
     </a>
     <a
       href="https://www.linkedin.com/in/stefankudla/"
+      target="_blank"
       className="group cursor-pointer"
       aria-label="Linkedin"
       title="Linkedin"
