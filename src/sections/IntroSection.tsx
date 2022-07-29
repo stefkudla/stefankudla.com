@@ -12,7 +12,8 @@ const IntroSection: React.VFC = () => (
         Developer Experience Engineer at <strong>Cosmic</strong>
       </h2>
       <p className="mb-2">
-        Helping companies deliver a better developer experience to their users.
+        Helping companies deliver a seamless developer experience to their
+        users.
       </p>
       <div className="flex items-center">
         <a href="/Stefan_Kudla_Resume.pdf" className="resume-btn">
