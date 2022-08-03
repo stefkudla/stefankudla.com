@@ -14,5 +14,5 @@ export const devIcons = [
   { iconName: 'devicon-git-plain', name: 'Git' },
   { iconName: 'devicon-graphql-plain', name: 'GraphQL' },
   { iconName: 'devicon-firebase-plain', name: 'Firebase' },
-  { iconName: 'devicon-figma-plain', name: 'Figma' },
+  { iconName: 'devicon-jest-plain', name: 'Jest' },
 ]
