@@ -11,6 +11,7 @@ const Document = () => {
         />
         <Script
           strategy="afterInteractive"
+          id="google-tag-manager"
           dangerouslySetInnerHTML={{
             __html: `
             window.dataLayer = window.dataLayer || [];
