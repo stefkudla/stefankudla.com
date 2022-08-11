@@ -19,7 +19,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => {
             <Link href={`/${postType}/${post.slug}`}>
               <a className={home ? 'group post-card-home' : 'group post-card'}>
                 <div className="max-w-2xl">
-                  <h3 className="text-xl font-bold mb-1 group-hover:text-accent transition-colors">
+                  <h2 className="text-xl font-bold mb-1 group-hover:text-accent transition-colors">
                     {post.title}
                     {post.status === 'draft' && home && (
                       <span className="text-fore-subtle ml-2">
@@ -27,7 +27,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => {
                         &#40;Draft&#41;
                       </span>
                     )}
-                  </h3>
+                  </h2>
                   <p className="text-fore-subtle mb-3 lg:mb-0">
                     {post.metadata.excerpt}
                   </p>
