@@ -11,8 +11,8 @@ const ContactSection: React.VFC = () => {
         Get in touch
       </h3>
       <p className="max-w-lg text-fore-subtle my-3 text-center">
-        While I'm always looking for new opportunities, I'm currently looking
-        for an awesome team to code with.
+        While I&apos;m always looking for new opportunities, I&apos;m currently
+        looking for an awesome team to code with.
       </p>
       <a
         href="mailto:stefan@stefankudla.com"
