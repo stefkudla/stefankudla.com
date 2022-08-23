@@ -1,6 +1,19 @@
 import { getPreviewPostBySlug } from '@/lib/cosmic'
 
-export default async function preview(req, res) {
+export default async function preview({
+  req,
+  res,
+}: {
+  req: { query: { secret: string; slug: string } }
+  res: {
+    status: (arg: number) => {
+      json: (arg: { message: string }) => string
+    }
+    setPreviewData: ({}) => void
+    writeHead: (arg0: number, arg1: { Location: string }) => void
+    end: () => void
+  }
+}): Promise<string | undefined> {
   // Check the secret and next parameters
   // This secret should only be known to this API route and the CMS
   if (
