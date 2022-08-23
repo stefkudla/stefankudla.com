@@ -12,7 +12,7 @@ const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => {
             className={
               home
                 ? 'py-5'
-                : 'flex flex-col bg-white dark:bg-gray-800 rounded-md shadow-md hover:shadow-lg dark:shadow-accent transition-all relative'
+                : 'flex flex-col bg-white dark:bg-gray-800 rounded-md shadow-md hover:shadow-lg dark:shadow-[#111] transition-all relative'
             }
             key={post.title}
           >

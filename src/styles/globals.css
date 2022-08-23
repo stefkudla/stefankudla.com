@@ -157,11 +157,11 @@
   }
 
   .icon-border {
-    @apply shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner bg-back-subtle p-2 mr-4 rounded-full;
+    @apply shadow-slate-400 shadow-md dark:shadow-[#111] bg-back-subtle p-2 mr-4 rounded-full;
   }
 
   .resume-btn {
-    @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-accent dark:shadow-inner focus:outline-none focus:ring focus:ring-fore-primary;
+    @apply flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors shadow-slate-400 shadow-md dark:shadow-[#111] focus:outline-none focus:ring focus:ring-fore-primary;
   }
 
   .filter-item {

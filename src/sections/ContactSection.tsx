@@ -16,7 +16,7 @@ const ContactSection: React.VFC = () => {
       </p>
       <a
         href="mailto:stefan@stefankudla.com"
-        className="group text-white px-16 py-3.5 mt-8 text-xl bg-gradient-to-r from-accent to-violet-400 rounded-md hover:from-pink-500 hover:to-yellow-500 shadow-slate-400 shadow-md hover:shadow-accent transition hover:shadow-lg w-fit"
+        className="group text-white px-16 py-3.5 mt-8 text-xl bg-gradient-to-r from-accent  to-violet-400 rounded-md hover:from-pink-500 hover:to-yellow-500 shadow-slate-400 shadow-md hover:shadow-accent transition hover:shadow-lg w-fit dark:shadow-[#111] dark:hover:shadow-zinc-600"
       >
         Say hello
       </a>

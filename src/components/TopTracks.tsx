@@ -37,7 +37,7 @@ const TopTracks: React.FC = () => {
       {data.tracks.map((track, index) => (
         <li
           key={index}
-          className="group list-decimal mb-4 border-b border-b-back-subtle hover:bg-back-subtle transition-colors shadow-md marker:hover:text-[#1DB954]"
+          className="group list-decimal pb-1 transition shadow-md hover:shadow-lg dark:shadow-[#111] marker:hover:text-[#1DB954] rounded-b"
         >
           <Link href={track.songUrl} target="_blank" rel="noopener noreferrer">
             <a className="block p-3 hover:text-[#1DB954]  transition-colors">
