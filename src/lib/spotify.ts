@@ -17,7 +17,7 @@ const getAccessToken = async () => {
     body: new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token,
-    }),
+    } as { grant_type: string; refresh_token: string }),
   })
   return response.json()
 }
