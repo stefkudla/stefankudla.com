@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getAllPosts, getAllPostCategories } from '@/lib/cosmic'
+import { getAllPosts, getCosmicObject } from '@/lib/cosmic'
 import { PostsTypes } from '@/types/post'
 import { PageMeta } from '@/components/Meta'
 import PostList from '@/components/PostList'
@@ -34,7 +34,8 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
 }
 
 export async function getStaticProps({ preview }: { preview: boolean }) {
-  const allPostCategories = (await getAllPostCategories()) || []
+  const allPostCategories =
+    (await getCosmicObject('post-categories', 'title')) || []
   const allPosts = (await getAllPosts(preview, 'posts')) || []
   return {
     props: { allPosts, allPostCategories },

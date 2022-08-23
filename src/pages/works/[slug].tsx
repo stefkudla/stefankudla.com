@@ -48,7 +48,7 @@ export async function getStaticProps({
   preview = null,
 }: {
   params: { slug: string }
-  preview: boolean | null
+  preview?: boolean | null
 }) {
   const data = await getPostAndMorePosts(params.slug, preview)
 

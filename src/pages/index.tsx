@@ -28,9 +28,7 @@ const Index: NextPage<{ allPosts: Object[]; allWorks: Object[] }> = ({
   )
 }
 
-type preview = any
-
-export async function getStaticProps({ preview }: preview) {
+export async function getStaticProps({ preview }: { preview?: boolean }) {
   const allPosts = (await getAllPosts(preview, 'posts', 3)) || []
   const allWorks = (await getAllPosts(preview, 'works', 3)) || []
   return {

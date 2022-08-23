@@ -10,7 +10,6 @@ import { PostMeta } from '@/components/Meta'
 import Loader from '@/components/Loader'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
-  console.log(post)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <PageNotFound />
@@ -50,7 +49,7 @@ export async function getStaticProps({
   preview = null,
 }: {
   params: { slug: string }
-  preview: boolean | null
+  preview?: boolean | null
 }) {
   const data = await getPostAndMorePosts(params.slug, preview)
 

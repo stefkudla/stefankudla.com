@@ -4,7 +4,7 @@ import { PaperIcon } from '@/configs/icons'
 import SocialIcons from '@/components/SocialIcons'
 import SetupSection from '@/sections/SetupSection'
 import BrewSection from '@/sections/BrewSection'
-import { getAllProducts } from '@/lib/cosmic'
+import { getCosmicObject } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
@@ -59,7 +59,8 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
 }
 
 export async function getStaticProps() {
-  const allProducts = (await getAllProducts()) || []
+  const allProducts =
+    (await getCosmicObject('products', 'title,metadata')) || []
   return {
     props: { allProducts },
   }
