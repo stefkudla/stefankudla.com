@@ -65,7 +65,8 @@ export const PostMeta: React.FC<{
   slug: string
   page: string
   imageUrl: string
-}> = ({ title, description, slug, page, imageUrl }) => {
+  canonical?: string
+}> = ({ title, description, slug, page, imageUrl, canonical }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -84,6 +85,7 @@ export const PostMeta: React.FC<{
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+      {canonical && <link rel="canonical" href={canonical}></link>}
     </Head>
   )
 }
