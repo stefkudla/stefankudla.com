@@ -10,6 +10,7 @@ import { PostMeta } from '@/components/Meta'
 import Loader from '@/components/Loader'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
+  console.log(post)
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <PageNotFound />
@@ -30,6 +31,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             slug={post.slug}
             page="posts"
             imageUrl={post.metadata.cover_image.imgix_url}
+            canonical={post.metadata.canonical}
           />
           <article className="border-b border-back-subtle py-8">
             {post.status === 'draft' && <AlertPreview />}

@@ -13,6 +13,7 @@ export interface PostTypes {
       category: {
         title: string
       }
+      canonical?: string
     }
     content: string
     created_at: string
@@ -66,6 +67,7 @@ export interface PostHeaderTypes {
       category: {
         title: string
       }
+      canonical?: string
     }
     created_at: string
   }
