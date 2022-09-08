@@ -1,4 +1,9 @@
-import { EmailIcon, GithubIcon, LinkedinIcon } from '@/configs/icons'
+import {
+  EmailIcon,
+  GithubIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from '@/configs/icons'
 
 const SocialIcons: React.FC = () => (
   <span className="flex gap-x-5">
@@ -29,6 +34,16 @@ const SocialIcons: React.FC = () => (
       title="Linkedin"
     >
       <LinkedinIcon />
+    </a>
+    <a
+      href="https://www.linkedin.com/in/stefankudla/"
+      target="_blank"
+      rel="noreferrer"
+      className="group cursor-pointer text-fore-subtle"
+      aria-label="Linkedin"
+      title="Linkedin"
+    >
+      <TwitterIcon />
     </a>
   </span>
 )
