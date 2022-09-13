@@ -78,9 +78,9 @@ export async function getSinglePost(slug: string, preview?: boolean | null) {
         'slug,title,metadata.cover_image.imgix_url,metadata.canonical,metadata.content,metadata.category,created_at'
       )
       .status(preview ? 'any' : 'published')
-    return data?.objects[0]
-  } catch (error) {
-    throw error
+    return data.objects[0]
+  } catch {
+    return null
   }
 }
 /*
