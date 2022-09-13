@@ -36,7 +36,7 @@ const SocialIcons: React.FC = () => (
       <LinkedinIcon />
     </a>
     <a
-      href="https://www.linkedin.com/in/stefankudla/"
+      href="https://twitter.com/stefankudla"
       target="_blank"
       rel="noreferrer"
       className="group cursor-pointer text-fore-subtle"
