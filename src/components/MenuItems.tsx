@@ -12,10 +12,6 @@ export const routes: { path: string; label: string }[] = [
     label: 'Posts',
   },
   {
-    path: '/works',
-    label: 'Works',
-  },
-  {
     path: '/about',
     label: 'About',
   },
