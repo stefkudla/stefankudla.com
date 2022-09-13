@@ -11,89 +11,110 @@ const bucket = api.bucket({
 
 const is404 = (error: any) => /not found/i.test(error.message)
 
-export async function getPreviewPostBySlug(slug: string) {
-  const params = {
-    query: { slug },
-    status: 'any',
-    props: 'slug',
-  }
-
+/*
+Get all posts
+*/
+export async function getAllPosts(preview?: boolean, postCount?: number) {
   try {
-    const data = await bucket.getObjects(params)
-    return data.objects[0]
+    const data = await bucket.objects
+      .find({
+        type: 'posts',
+      })
+      .props('title,slug,metadata.excerpt,metadata.category,created_at')
+      .limit(postCount)
+      .sort('-created_at')
+      .status(preview ? 'any' : 'published')
+    return data.objects
   } catch (error) {
-    if (is404(error)) return
     throw error
   }
 }
 
-export async function getAllPostsWithSlug() {
-  const params = {
-    query: { type: 'posts' },
-    props: 'title,slug,metadata,created_at',
-  }
-  const data = await bucket.getObjects(params)
-  return data.objects
-}
-
-export async function getAllPosts(
-  preview?: boolean,
-  postType?: string,
-  postCount?: number
-) {
-  const params = {
-    query: { type: postType },
-    ...(preview && { status: 'any' }),
-    props:
-      'title,slug,metadata.category,metadata.excerpt,metadata.published_date,created_at,status',
-    limit: postCount,
-    sort: '-created_at',
-  }
-  const data = await bucket.getObjects(params)
-  return data.objects
-}
-
-export async function getPostAndMorePosts(
-  slug: string,
-  preview?: boolean | null
-) {
-  const singleObjectParams = {
-    query: { slug: slug },
-    ...(preview && { status: 'any' }),
-    props: 'slug,title,metadata,created_at',
-  }
-  const moreObjectParams = {
-    query: { type: 'posts' },
-    ...(preview && { status: 'any' }),
-    limit: 3,
-    props: 'title,slug,metadata,created_at',
-  }
-  const data = await bucket
-    .getObjects(singleObjectParams)
-    .catch((error: unknown) => {
-      // Don't throw if a slug doesn't exist
-      if (is404(error)) return
-      throw error
-    })
-  const moreObjects = await bucket.getObjects(moreObjectParams)
-  const morePosts = moreObjects.objects
-    ?.filter(
-      ({ slug: object_slug }: { slug: { object_slug?: string } }) =>
-        object_slug !== slug
-    )
-    .slice(0, 2)
-
-  return {
-    post: data?.objects[0],
-    morePosts,
+/*
+Get all post paths
+*/
+export async function getAllPostPaths() {
+  try {
+    const data = await bucket.objects
+      .find({
+        type: 'posts',
+      })
+      .props('slug')
+      .status('published')
+    return data.objects
+  } catch (error) {
+    throw error
   }
 }
 
-export async function getCosmicObject(type: string, props: string) {
-  const params = {
-    query: { type: type },
-    props: props,
+/*
+Get all post categories
+*/
+
+export async function getAllPostCategories() {
+  try {
+    const data = await bucket.objects
+      .find({
+        type: 'post-categories',
+      })
+      .props('title')
+      .status('published')
+    return data.objects
+  } catch (error) {
+    throw error
   }
-  const data = await bucket.getObjects(params)
-  return data.objects
+}
+
+/*
+Get a single post via slug
+*/
+export async function getSinglePost(slug: string, preview?: boolean | null) {
+  try {
+    const data = await bucket.objects
+      .find({
+        slug: slug,
+      })
+      .props(
+        'slug,title,metadata.cover_image.imgix_url,metadata.canonical,metadata.content,metadata.category,created_at'
+      )
+      .status(preview ? 'any' : 'published')
+    return data?.objects[0]
+  } catch (error) {
+    throw error
+  }
+}
+/*
+Get a preview post via slug
+*/
+export async function getPreviewPostBySlug(slug: string) {
+  try {
+    const data = await bucket.objects
+      .find({
+        slug: slug,
+      })
+      .props('slug')
+      .status('any')
+    return data.objects[0]
+  } catch (error) {
+    throw error
+  }
+}
+/*
+Get all products
+*/
+
+export async function getAllProducts() {
+  try {
+    const data = await bucket.objects
+      .find({
+        type: 'products',
+      })
+      .props(
+        'title,metadata.category,metadata.product_link,metadata.description,metadata.product_image.imgix_url'
+      )
+      .status('published')
+    return data.objects
+  } catch (error) {
+    throw error
+  }
 }

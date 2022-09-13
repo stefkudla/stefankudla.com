@@ -4,14 +4,10 @@ import IntroSection from '@/sections/IntroSection'
 import AboutMeSection from '@/sections/AboutMeSection'
 import WritingsSection from '@/sections/WritingsSection'
 import ToolboxSection from '@/sections/ToolboxSection'
-import ProjectsSection from '@/sections/ProjectsSection'
 import ContactSection from '@/sections/ContactSection'
 import { PageMeta } from '@/components/Meta'
 
-const Index: NextPage<{ allPosts: Object[]; allWorks: Object[] }> = ({
-  allPosts,
-  allWorks,
-}) => {
+const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
   return (
     <>
       <PageMeta
@@ -19,20 +15,18 @@ const Index: NextPage<{ allPosts: Object[]; allWorks: Object[] }> = ({
         description="Stefan Kudla is a software developer pushing forth web development with cutting-edge technologies"
       />
       <IntroSection />
+      <WritingsSection posts={allPosts} />
       <AboutMeSection />
       <ToolboxSection />
-      <WritingsSection posts={allPosts} />
-      <ProjectsSection posts={allWorks} />
       <ContactSection />
     </>
   )
 }
 
 export async function getStaticProps({ preview }: { preview?: boolean }) {
-  const allPosts = (await getAllPosts(preview, 'posts', 3)) || []
-  const allWorks = (await getAllPosts(preview, 'works', 3)) || []
+  const allPosts = (await getAllPosts(preview, 3)) || []
   return {
-    props: { allPosts, allWorks },
+    props: { allPosts },
     revalidate: 180,
   }
 }

@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
 import PostBody from '@/components/PostBody'
 import PostHeader from '@/components/PostHeader'
-import { getAllPostsWithSlug, getPostAndMorePosts } from '@/lib/cosmic'
-import PostTitle from '@/components/PostTitle'
+import { getAllPostPaths, getSinglePost } from '@/lib/cosmic'
 import AlertPreview from '@/components/AlertPreview'
 import PageNotFound from '../404'
 import { PostTypes } from '@/types/post'
@@ -17,11 +16,9 @@ const Post: React.FC<PostTypes> = ({ post }) => {
   return (
     <>
       {router.isFallback ? (
-        <PostTitle>
-          <div className="flex justify-center items-center">
-            <Loader />
-          </div>
-        </PostTitle>
+        <div className="flex justify-center items-center">
+          <Loader />
+        </div>
       ) : (
         <>
           <PostMeta
@@ -44,6 +41,14 @@ const Post: React.FC<PostTypes> = ({ post }) => {
 }
 export default Post
 
+export async function getStaticPaths() {
+  const allPosts = (await getAllPostPaths()) || []
+  return {
+    paths: allPosts.map((post: { slug: string }) => `/posts/${post.slug}`),
+    fallback: true,
+  }
+}
+
 export async function getStaticProps({
   params,
   preview = null,
@@ -51,23 +56,12 @@ export async function getStaticProps({
   params: { slug: string }
   preview?: boolean | null
 }) {
-  const data = await getPostAndMorePosts(params.slug, preview)
+  const data = await getSinglePost(params.slug, preview)
 
   return {
     props: {
+      post: data,
       preview,
-      post: {
-        ...data.post,
-      },
-      morePosts: data.morePosts || [],
     },
-  }
-}
-
-export async function getStaticPaths() {
-  const allPosts = (await getAllPostsWithSlug()) || []
-  return {
-    paths: allPosts.map((post: { slug: string }) => `/posts/${post.slug}`),
-    fallback: true,
   }
 }
