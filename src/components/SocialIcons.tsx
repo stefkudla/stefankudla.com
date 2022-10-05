@@ -40,8 +40,8 @@ const SocialIcons: React.FC = () => (
       target="_blank"
       rel="noreferrer"
       className="group cursor-pointer text-fore-subtle"
-      aria-label="Linkedin"
-      title="Linkedin"
+      aria-label="Twitter"
+      title="Twitter"
     >
       <TwitterIcon />
     </a>
