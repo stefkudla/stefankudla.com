@@ -76,7 +76,9 @@ export const PostMeta: React.FC<{
       <meta property="og:title" content={title} />
       <meta
         property="og:url"
-        content={`https://stefankudla.com/${page}/${slug}`}
+        content={
+          canonical ? canonical : `https://stefankudla.com/${page}/${slug}`
+        }
       />
       <meta property="og:type" content="article" />
       <meta property="og:image" content={imageUrl} />
