@@ -75,7 +75,7 @@ export async function getSinglePost(slug: string, preview?: boolean | null) {
         slug: slug,
       })
       .props(
-        'slug,title,metadata.cover_image.imgix_url,metadata.canonical,metadata.content,metadata.category,created_at'
+        'slug,title,metadata.cover_image.imgix_url,metadata.canonical,metadata.content,metadata.category,created_at,metadata.excerpt'
       )
       .status(preview ? 'any' : 'published')
     return data.objects[0]
