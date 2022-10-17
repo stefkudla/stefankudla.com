@@ -17,6 +17,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
       <PageMeta
         title="Posts | Stefan Kudla"
         description="The blog posts of Stefan Kudla"
+        url="https://stefankudla.com/posts"
       />
       <h1 className="mb-6">Posts</h1>
       <CategoryFilter

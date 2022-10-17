@@ -15,7 +15,11 @@ import ContactSection from '@/sections/ContactSection'
 const About: NextPage<ProductProps> = ({ allProducts }) => {
   return (
     <>
-      <PageMeta title="About | Stefan Kudla" description="About Stefan Kudla" />
+      <PageMeta
+        title="About | Stefan Kudla"
+        description="About Stefan Kudla"
+        url="https://stefankudla.com/about"
+      />
       <section>
         <h1 className="mb-12">About Me</h1>
         <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">

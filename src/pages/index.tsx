@@ -12,7 +12,8 @@ const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
     <>
       <PageMeta
         title="Stefan Kudla | Software Developer"
-        description="Stefan Kudla is a software developer pushing forth web development with cutting-edge technologies"
+        description="Stefan Kudla - Software Developer, Technical Writer, and Content Creator"
+        url="https://stefankudla.com/"
       />
       <IntroSection />
       <WritingsSection posts={allPosts} />

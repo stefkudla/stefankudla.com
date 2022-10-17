@@ -33,16 +33,18 @@ export const Meta: React.FC = () => (
   </Head>
 )
 
-export const PageMeta: React.FC<{ title: string; description: string }> = ({
-  title,
-  description,
-}) => {
+export const PageMeta: React.FC<{
+  title: string
+  description: string
+  url: string
+}> = ({ title, description, url }) => {
   return (
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
+      <meta property="og:url" content={url} />
       <meta
         property="og:image"
         content="https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg"
