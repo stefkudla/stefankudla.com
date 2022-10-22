@@ -34,7 +34,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
-            <h2>I'm Stefan Kudla, a Freelance Software Developer</h2>
+            <h2>I&apos;m Stefan Kudla, a Freelance Software Developer</h2>
             <p>
               Software Developer, Music Producer, and Tech Content Creator. When
               I&apos;m not creating, you can usually find me brushing my teeth
