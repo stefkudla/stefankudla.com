@@ -7,7 +7,7 @@ import avatar from '../../public/images/avatar-july-2022-min.png'
 const IntroSection: React.VFC = () => (
   <section className="w-full flex flex-col-reverse md:flex-row justify-start">
     <div className="flex-1 flex flex-col gap-y-4">
-      <h1>Stefan Kudla</h1>
+      <h1>Stefan Kudla | Software Developer</h1>
       <h2 className="max-w-lg">
         Freelance Software Developer, Technical Content Creator and Developer
         Experience Engineer at <strong>Cosmic</strong>
