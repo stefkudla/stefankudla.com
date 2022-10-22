@@ -21,7 +21,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
         url="https://stefankudla.com/about"
       />
       <section>
-        <h1 className="mb-12">About Me</h1>
+        <h1 className="mb-12">About Stefan</h1>
         <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">
           <div className="flex-1 overflow-hidden rounded-md">
             <Image
@@ -34,12 +34,11 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
-            <p>I love solving problems!</p>
+            <h2>I'm Stefan Kudla, a Freelance Software Developer</h2>
             <p>
-              My name is Stefan Kudla. I&apos;m a Software Engineer, Music
-              Producer, and Tech Blogger. When I&apos;m not creating, you can
-              usually find me brushing my teeth with coffee or looking for the
-              best view atop a mountain.
+              Software Developer, Music Producer, and Tech Content Creator. When
+              I&apos;m not creating, you can usually find me brushing my teeth
+              with coffee or looking for the best view atop a mountain.
             </p>
             <p>Get in touch to create something awesome together!</p>
             <div className="flex items-center md:mt-6">
