@@ -12,7 +12,7 @@ const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
     <>
       <PageMeta
         title="Stefan Kudla | Software Developer"
-        description="Software Developer, Technical Writer and Content Creator"
+        description="Freelance Software Developer and Technical Content Writer"
         url="https://stefankudla.com/"
       />
       <IntroSection />
