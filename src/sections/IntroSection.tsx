@@ -9,12 +9,13 @@ const IntroSection: React.VFC = () => (
     <div className="flex-1 flex flex-col gap-y-4">
       <h1>Stefan Kudla | Software Developer</h1>
       <h2 className="max-w-lg">
-        Freelance Software Developer, Technical Content Creator and Developer
+        Freelance Software Developer, Technical Content Writer and Developer
         Experience Engineer at <strong>Cosmic</strong>
       </h2>
       <p className="mb-2">
-        I create and contribute to products, documentation, articles, and
-        software application templates.
+        Making an impact at start-ups by building product-based software
+        templates and writing SEO-rich technical articles, pages, and
+        documentation.
       </p>
       <div className="flex items-center">
         <a href="/Stefan_Kudla_Resume.pdf" className="resume-btn">
