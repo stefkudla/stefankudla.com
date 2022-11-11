@@ -7,6 +7,10 @@ import PageNotFound from '../404'
 import { PostTypes } from '@/types/post'
 import { PostMeta } from '@/components/Meta'
 import Loader from '@/components/Loader'
+import avatar from '../../../public/images/avatar_4.png'
+import Image from 'next/image'
+import SocialIcons from '@/components/SocialIcons'
+import Author from '@/components/Author'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
   const router = useRouter()
@@ -33,6 +37,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             {post.status === 'draft' && <AlertPreview />}
             <PostHeader post={post} />
             <PostBody content={post.metadata.content} />
+            <Author />
           </article>
         </>
       )}
