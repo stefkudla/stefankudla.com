@@ -47,7 +47,7 @@ const CodeBlock = ({
     <code className={className} {...props}>
       {children}
     </code>
-  )
+  );
 }
 
 export default CodeBlock

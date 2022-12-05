@@ -77,8 +77,8 @@ const Navbar: React.FC = () => {
                 key={route.path}
                 className="border-b border-b-slate-400 border-opacity-30 pb-2"
               >
-                <Link href={route.path}>
-                  <a className="text-fore-secondary">{route.label}</a>
+                <Link href={route.path} className="text-fore-secondary">
+                  {route.label}
                 </Link>
               </motion.li>
             ))}
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
         </div>
       )}
     </nav>
-  )
+  );
 }
 
 export default Navbar

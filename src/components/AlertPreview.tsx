@@ -6,15 +6,17 @@ const AlertPreview: React.FC = () => {
       <div className="py-2 text-center text-sm">
         <>
           This page is a draft.{' '}
-          <Link href="/api/exit-preview">
-            <a className="underline hover:text-accent transition-colors cursor-pointer">
+          <Link
+            href="/api/exit-preview"
+            className="underline hover:text-accent transition-colors cursor-pointer">
+            
               Click here
-            </a>
+            
           </Link>{' '}
           to exit preview mode.
         </>
       </div>
     </div>
-  )
+  );
 }
 export default AlertPreview

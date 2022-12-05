@@ -39,17 +39,21 @@ const TopTracks: React.FC = () => {
           key={index}
           className="group list-decimal pb-1 transition shadow-md hover:shadow-lg dark:shadow-[#111] marker:hover:text-[#1DB954] rounded-b"
         >
-          <Link href={track.songUrl} target="_blank" rel="noopener noreferrer">
-            <a className="block p-3 hover:text-[#1DB954]  transition-colors">
-              {track.title}
-              <span className="block text-fore-subtle text-sm font-light">
-                {track.artist}
-              </span>
-            </a>
+          <Link
+            href={track.songUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-3 hover:text-[#1DB954]  transition-colors">
+
+            {track.title}
+            <span className="block text-fore-subtle text-sm font-light">
+              {track.artist}
+            </span>
+
           </Link>
         </li>
       ))}
     </ol>
-  )
+  );
 }
 export default TopTracks
