@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import BlurImage from './BlurImage'
 
 const CoverImage: React.FC<{ title: string; url: string }> = ({

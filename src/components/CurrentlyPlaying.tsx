@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { SpotifyIcon } from '@/configs/icons'
 import fetcher from '@/lib/fetcher'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Marquee from 'react-fast-marquee'
 import { CurrentlyPlayingTrack } from '@/lib/types'
 import BlurImage from './BlurImage'

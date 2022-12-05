@@ -7,7 +7,7 @@ import BrewSection from '@/sections/BrewSection'
 import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
 import TopTracksSection from '@/sections/TopTracksSection'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import avatar from '../../public/images/avatar-july-2022-min.png'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
