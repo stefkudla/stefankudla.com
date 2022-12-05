@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 interface ProductCardTypes {
   imgPath: string
@@ -22,7 +22,10 @@ const ProductCard: React.FC<ProductCardTypes> = ({
           height={130}
           quality={25}
           alt={productName}
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
       </div>
       <div className="p-5 bg-white dark:bg-slate-900 rounded-b-md h-2/5">
         <h4 className="font-bold text-sm">{productName}</h4>

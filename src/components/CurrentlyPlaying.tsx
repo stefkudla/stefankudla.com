@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { SpotifyIcon } from '@/configs/icons'
 import fetcher from '@/lib/fetcher'
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Marquee from 'react-fast-marquee'
 import { CurrentlyPlayingTrack } from '@/lib/types'
 import BlurImage from './BlurImage'
@@ -35,7 +35,10 @@ const CurrentlyPlaying: React.FC = () => {
             width={80}
             height={80}
             priority
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </div>
         <div className="flex items-center whitespace-nowrap">
           <span>Not playing&nbsp;</span>
@@ -44,7 +47,7 @@ const CurrentlyPlaying: React.FC = () => {
           </span>
         </div>
       </div>
-    )
+    );
 
   return (
     <>

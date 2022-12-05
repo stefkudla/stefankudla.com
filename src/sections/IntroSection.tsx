@@ -1,7 +1,7 @@
 import SocialIcons from '@/components/SocialIcons'
 import React from 'react'
 import { PaperIcon } from '@/configs/icons'
-import Image from "next/legacy/image";
+import Image from 'next/image'
 import avatar from '../../public/images/avatar-july-2022-min.png'
 
 const IntroSection: React.VFC = () => (
@@ -30,10 +30,11 @@ const IntroSection: React.VFC = () => (
     <div className="relative w-24 h-24 md:w-44 md:h-44 mb-6 md:mb-0 rounded-full overflow-hidden">
       <Image
         src={avatar}
-        layout="fill"
         alt="Stefan Kudla"
         priority
         className="rounded-full"
+        sizes="100vw"
+        fill
       />
     </div>
   </section>
