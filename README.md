@@ -134,7 +134,8 @@
 - [x] Improve page render time and first contentful paint
 - [x] Fix scroll to top bug
 - [] Implement a table of contents on post and work pages
-- [] Testing branch
+- [x] Testing branch
+- [] Updating to Next.js 13 ...
 
 <!-- See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues). -->
 
