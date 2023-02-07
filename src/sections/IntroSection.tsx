@@ -18,7 +18,7 @@ const IntroSection: React.VFC = () => (
         documentation.
       </p>
       <div className="flex items-center">
-        <a href="/Stefan_Kudla_Resume.pdf" className="resume-btn">
+        <a href="/Resume-Stefan-Kudla.pdf" className="resume-btn">
           <span className="mr-2">
             <PaperIcon />
           </span>
