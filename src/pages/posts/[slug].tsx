@@ -8,6 +8,8 @@ import { PostTypes } from '@/types/post'
 import { PostMeta } from '@/components/Meta'
 import Loader from '@/components/Loader'
 import Author from '@/components/Author'
+import TableOfContents from '@/components/TableOfContents'
+import BlogLayout from '@/components/BlogLayout'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
   const router = useRouter()
@@ -15,7 +17,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
     return <PageNotFound />
   }
   return (
-    <>
+    <BlogLayout router={{ route: router.pathname }}>
       {router.isFallback ? (
         <div className="flex justify-center items-center">
           <Loader />
@@ -30,17 +32,23 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             imageUrl={post.metadata.cover_image.imgix_url}
             canonical={post.metadata.canonical}
           />
-          <article className="border-b border-back-subtle py-8">
+          <article className="border-b border-back-subtle py-8 w-full">
             {post.status === 'draft' && <AlertPreview />}
-            <PostHeader post={post} />
-            <PostBody content={post.metadata.content} />
-            <Author />
+            <div className="relative w-full flex">
+              <TableOfContents />
+              <div className="container mx-auto max-w-3xl px-4">
+                <PostHeader post={post} />
+                <PostBody content={post.metadata.content} />
+                <Author />
+              </div>
+            </div>
           </article>
         </>
       )}
-    </>
+    </BlogLayout>
   )
 }
+
 export default Post
 
 export async function getStaticPaths() {
