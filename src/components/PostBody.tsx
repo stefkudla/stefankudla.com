@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { ReactNode } from 'react'
 import BlurImage from './BlurImage'
 import CodeBlock from './CodeBlock'
+import remarkSlug from 'remark-slug'
 
 const components: object = {
   img: (image: { src: string; alt: string }) => {
@@ -21,8 +22,17 @@ const components: object = {
   },
 
   a: (a: { href: string; children: string }) => {
-    return (
-      <a href={a.href} rel="noopener noreferrer" target="_blank">
+    return a.href.charAt(0) === '#' ? (
+      <a href={a.href} className="hover:opacity-75 transition-opacity">
+        {a.children}
+      </a>
+    ) : (
+      <a
+        href={a.href}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="hover:opacity-75 transition-opacity"
+      >
         {a.children}
       </a>
     )
@@ -53,6 +63,7 @@ const PostBody: React.FC<{ content: string }> = ({ content }) => {
       <ReactMarkdown
         className={markdownStyles['markdown']}
         components={components}
+        remarkPlugins={[remarkSlug]}
       >
         {content}
       </ReactMarkdown>
