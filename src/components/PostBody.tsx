@@ -13,12 +13,13 @@ const components: object = {
       <BlurImage
         src={image.src}
         alt={image.alt}
-        width={400}
-        height={300}
-        quality={50}
+        width={1200}
+        height={900}
+        quality={60}
         layout="responsive"
         objectFit="contain"
         objectPosition="center"
+        className="aspect-video h-auto"
       />
     )
   },
