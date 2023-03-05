@@ -10,9 +10,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       attribute="class"
       disableTransitionOnChange
     >
-      <Layout router={router}>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </ThemeProvider>
   )
 }

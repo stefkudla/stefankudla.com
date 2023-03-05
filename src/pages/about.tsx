@@ -11,10 +11,13 @@ import Image from 'next/image'
 import avatar from '../../public/images/avatar-july-2022-min.png'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
+import Layout from '@/components/Layout'
+import { useRouter } from 'next/router'
 
 const About: NextPage<ProductProps> = ({ allProducts }) => {
+  const router = useRouter()
   return (
-    <>
+    <Layout router={{ route: router.pathname }}>
       <PageMeta
         title="About | Stefan Kudla"
         description="About Stefan Kudla"
@@ -61,7 +64,7 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
       <SetupSection allProducts={allProducts} />
       <BrewSection allProducts={allProducts} />
       <ContactSection />
-    </>
+    </Layout>
   )
 }
 
