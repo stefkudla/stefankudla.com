@@ -4,8 +4,11 @@ import { PostsTypes } from '@/types/post'
 import { PageMeta } from '@/components/Meta'
 import PostList from '@/components/PostList'
 import CategoryFilter from '@/components/CategoryFilter'
+import Layout from '@/components/Layout'
+import { useRouter } from 'next/router'
 
 const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
+  const router = useRouter()
   const [filterCategory, setFilterCategory] = useState('All')
 
   const filteredPosts: any = allPosts.filter(post => {
@@ -13,7 +16,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
   })
 
   return (
-    <>
+    <Layout router={{ route: router.pathname }}>
       <PageMeta
         title="Blog Posts | Stefan Kudla"
         description="Blog posts written by Stefan Kudla"
@@ -33,7 +36,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
         postType="posts"
         home={false}
       />
-    </>
+    </Layout>
   )
 }
 

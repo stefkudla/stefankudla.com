@@ -6,10 +6,17 @@ import WritingsSection from '@/sections/WritingsSection'
 import ToolboxSection from '@/sections/ToolboxSection'
 import ContactSection from '@/sections/ContactSection'
 import { PageMeta } from '@/components/Meta'
+import Layout from '@/components/Layout'
+import { useRouter } from 'next/router'
 
 const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
+  const router = useRouter()
   return (
-    <>
+    <Layout
+      router={{
+        route: router.pathname,
+      }}
+    >
       <PageMeta
         title="Stefan Kudla | Software Developer"
         description="Freelance Software Developer and Technical Content Writer"
@@ -20,7 +27,7 @@ const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
       <AboutMeSection />
       <ToolboxSection />
       <ContactSection />
-    </>
+    </Layout>
   )
 }
 
