@@ -2,11 +2,7 @@ import React from 'react'
 import { NextPage } from 'next'
 import { PaperIcon } from '@/configs/icons'
 import SocialIcons from '@/components/SocialIcons'
-import SetupSection from '@/sections/SetupSection'
-import BrewSection from '@/sections/BrewSection'
-import { getAllProducts } from '@/lib/cosmic'
 import { ProductProps } from '@/types/product'
-import TopTracksSection from '@/sections/TopTracksSection'
 import Image from 'next/image'
 import avatar from '../../public/images/avatar-july-2022-min.png'
 import { PageMeta } from '@/components/Meta'
@@ -14,7 +10,7 @@ import ContactSection from '@/sections/ContactSection'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
 
-const About: NextPage<ProductProps> = ({ allProducts }) => {
+const About: NextPage<ProductProps> = () => {
   const router = useRouter()
   return (
     <Layout router={{ route: router.pathname }}>
@@ -60,18 +56,9 @@ const About: NextPage<ProductProps> = ({ allProducts }) => {
           </div>
         </div>
       </section>
-      <TopTracksSection />
-      <SetupSection allProducts={allProducts} />
-      <BrewSection allProducts={allProducts} />
       <ContactSection />
     </Layout>
   )
 }
 
-export async function getStaticProps() {
-  const allProducts = (await getAllProducts()) || []
-  return {
-    props: { allProducts },
-  }
-}
 export default About

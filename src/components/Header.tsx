@@ -2,7 +2,6 @@ import MenuItems from './MenuItems'
 import ThemeChanger from './ThemeChanger'
 import Logo from './Logo'
 import Navbar from './Navbar'
-import CurrentlyPlaying from './CurrentlyPlaying'
 
 const Header: React.FC = () => (
   <header className="md:pt-4 container max-w-screen-lg m-auto md:px-12 lg:px-20">
@@ -12,7 +11,6 @@ const Header: React.FC = () => (
     >
       <Logo />
       <MenuItems />
-      <CurrentlyPlaying />
       <ThemeChanger
         styles={
           'hidden transition-transform ease-in-out focus:outline-none sm:block hover:text-accent group focus-visible:outline-accent'
