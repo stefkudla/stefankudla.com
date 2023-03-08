@@ -6,7 +6,6 @@ import { routes } from './MenuItems'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { motion, Variants } from 'framer-motion'
-import CurrentlyPlaying from './CurrentlyPlaying'
 
 const animateNavContainer: Variants = {
   hidden: { opacity: 0 },
@@ -89,13 +88,12 @@ const Navbar: React.FC = () => {
             animate="show"
             className="flex justify-between mt-12"
           >
-            <CurrentlyPlaying />
             <ThemeChanger />
           </motion.div>
         </div>
       )}
     </nav>
-  );
+  )
 }
 
 export default Navbar
