@@ -118,3 +118,17 @@ export async function getAllProducts() {
     throw error
   }
 }
+
+export async function getObjectsByType(type: string) {
+  try {
+    const data = await bucket.objects
+      .find({
+        type: type,
+      })
+      .props('title,slug,metadata')
+      .status('published')
+    return data.objects
+  } catch (error) {
+    throw error
+  }
+}
