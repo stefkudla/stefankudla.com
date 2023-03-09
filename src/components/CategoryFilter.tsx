@@ -1,3 +1,5 @@
+import cn from 'classnames'
+
 interface FilterTypes {
   categories: [category: { title: string }]
   handleSelection: Function
@@ -9,10 +11,13 @@ const CategoryFilter: React.FC<FilterTypes> = ({
   selected,
 }) => {
   return (
-    <ul className="flex flex-wrap gap-2 sm:gap-y-0 my-4 ">
+    <ul className="flex flex-wrap gap-2 sm:gap-y-0 mb-4">
       <li key={'All'}>
         <button
-          className={'All' === selected ? 'filter-item-active' : 'filter-item'}
+          className={cn(
+            'cursor-pointer',
+            'All' === selected ? 'filter-item-active' : 'filter-item'
+          )}
           onClick={() => handleSelection('All')}
         >
           All
@@ -21,9 +26,10 @@ const CategoryFilter: React.FC<FilterTypes> = ({
       {categories.map(category => (
         <li key={category.title}>
           <button
-            className={
+            className={cn(
+              'cursor-pointer',
               category.title === selected ? 'filter-item-active' : 'filter-item'
-            }
+            )}
             onClick={() => handleSelection(category.title)}
           >
             {category.title}

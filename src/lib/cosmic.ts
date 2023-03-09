@@ -132,3 +132,26 @@ export async function getObjectsByType(type: string) {
     throw error
   }
 }
+
+export async function getSingleObjectByType({
+  type,
+  slug,
+  props,
+}: {
+  type: string
+  slug: string
+  props?: string
+}): Promise<any> {
+  try {
+    const data = await bucket.objects
+      .find({
+        type: type,
+        slug: slug,
+      })
+      .props(props ?? 'title,slug,metadata')
+      .status('published')
+    return data.objects
+  } catch (error) {
+    throw error
+  }
+}

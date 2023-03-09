@@ -4,15 +4,19 @@ import Image from 'next/image'
 import { PageMeta } from '@/components/Meta'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
-import { getObjectsByType } from '@/lib/cosmic'
+import { getObjectsByType, getSingleObjectByType } from '@/lib/cosmic'
 import Link from 'next/link'
 import OutLinkIcon from '@/components/icons/OutlinkIcon'
-import { Project } from '@/types/project'
+import { Project, ProjectPageData } from '@/types/project'
 import DefaultImage from '/public/images/stefan_kudla_ogImage.jpg'
 import cn from 'classnames'
 
-const Projects: NextPage<{ data: Project[] }> = ({ data }) => {
+const Projects: NextPage<{
+  singlePageData: ProjectPageData
+  dynamicData: Project[]
+}> = ({ singlePageData, dynamicData }) => {
   const [toggled, setToggled] = useState(true)
+  console.log(singlePageData)
   const router = useRouter()
   return (
     <Layout router={{ route: router.pathname }}>
@@ -22,11 +26,12 @@ const Projects: NextPage<{ data: Project[] }> = ({ data }) => {
         url="https://stefankudla.com/projects"
       />
       <section>
-        <h1 className="mb-12">Projects</h1>
+        <h1 className="mb-6">{singlePageData.title}</h1>
+        <h2 className="text-lg mb-12">{singlePageData.metadata.subheading}</h2>
       </section>
       <section className="w-full">
         <ul className="flex flex-wrap justify-between gap-8 gap-y-12 w-full">
-          {data?.map(project => (
+          {dynamicData?.map(project => (
             <li
               key={project.slug}
               className="bg-back-subtle w-fit rounded overflow-hidden shadow-lg transition-all"
@@ -112,9 +117,14 @@ const Projects: NextPage<{ data: Project[] }> = ({ data }) => {
 }
 
 export async function getStaticProps() {
+  const singlePageData =
+    (await getSingleObjectByType({
+      type: 'projects-page',
+      slug: 'projects',
+    })) || []
   const data = (await getObjectsByType('projects')) || []
   return {
-    props: { data },
+    props: { singlePageData: singlePageData[0], dynamicData: data },
     revalidate: 5,
   }
 }
