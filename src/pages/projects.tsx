@@ -16,7 +16,6 @@ const Projects: NextPage<{
   dynamicData: Project[]
 }> = ({ singlePageData, dynamicData }) => {
   const [toggled, setToggled] = useState(true)
-  console.log(singlePageData)
   const router = useRouter()
   return (
     <Layout router={{ route: router.pathname }}>
