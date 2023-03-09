@@ -23,7 +23,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
         url="https://stefankudla.com/posts"
       />
       <h1 className="mb-6">Blog Posts</h1>
-      <h2 className="text-lg">
+      <h2 className="text-lg mb-12">
         Technical articles, guides and blog posts written by Stefan Kudla
       </h2>
       <CategoryFilter
