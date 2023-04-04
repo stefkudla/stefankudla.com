@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cosmicjs/sdk": "^1.0.5",
     "@fontsource/public-sans": "^4.5.9",
     "@next/env": "*",
     "classnames": "^2.3.2",
-    "cosmicjs": "^4.2.10",
     "date-fns": "2.28.0",
     "framer-motion": "^6.3.11",
     "next": "^13.0.6",

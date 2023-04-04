@@ -1,22 +1,19 @@
-const Cosmic = require('cosmicjs')
-const api = Cosmic()
+const { createBucketClient } = require('@cosmicjs/sdk')
 
-const BUCKET_SLUG = process.env.COSMIC_BUCKET_SLUG
-const READ_KEY = process.env.COSMIC_READ_KEY
+const BUCKET_SLUG = process.env.NEXT_PUBLIC_COSMIC_BUCKET_SLUG
+const READ_KEY = process.env.NEXT_PUBLIC_COSMIC_READ_KEY
 
-const bucket = api.bucket({
-  slug: BUCKET_SLUG,
-  read_key: READ_KEY,
+const cosmic = createBucketClient({
+  bucketSlug: BUCKET_SLUG,
+  readKey: READ_KEY,
 })
-
-const is404 = (error: any) => /not found/i.test(error.message)
 
 /*
 Get all posts
 */
 export async function getAllPosts(preview?: boolean, postCount?: number) {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: 'posts',
       })
@@ -35,7 +32,7 @@ Get all post paths
 */
 export async function getAllPostPaths() {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: 'posts',
       })
@@ -53,7 +50,7 @@ Get all post categories
 
 export async function getAllPostCategories() {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: 'post-categories',
       })
@@ -70,15 +67,15 @@ Get a single post via slug
 */
 export async function getSinglePost(slug: string, preview?: boolean | null) {
   try {
-    const data = await bucket.objects
-      .find({
+    const data = await cosmic.objects
+      .findOne({
         slug: slug,
       })
       .props(
         'slug,title,metadata.cover_image.imgix_url,metadata.canonical,metadata.content,metadata.category,created_at,metadata.excerpt'
       )
       .status(preview ? 'any' : 'published')
-    return data.objects[0]
+    return data.object
   } catch {
     return null
   }
@@ -88,13 +85,13 @@ Get a preview post via slug
 */
 export async function getPreviewPostBySlug(slug: string) {
   try {
-    const data = await bucket.objects
-      .find({
+    const data = await cosmic.objects
+      .findOne({
         slug: slug,
       })
       .props('slug')
       .status('any')
-    return data.objects[0]
+    return data.object
   } catch (error) {
     throw error
   }
@@ -105,7 +102,7 @@ Get all products
 
 export async function getAllProducts() {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: 'products',
       })
@@ -121,7 +118,7 @@ export async function getAllProducts() {
 
 export async function getObjectsByType(type: string) {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: type,
       })
@@ -143,7 +140,7 @@ export async function getSingleObjectByType({
   props?: string
 }): Promise<any> {
   try {
-    const data = await bucket.objects
+    const data = await cosmic.objects
       .find({
         type: type,
         slug: slug,
