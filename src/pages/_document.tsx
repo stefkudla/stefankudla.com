@@ -3,7 +3,7 @@ import { nunitoSans } from '@/fonts'
 
 const Document = () => {
   return (
-    <Html lang="en">
+    <Html lang="en" className={`${nunitoSans.className}`}>
       <Head />
       <Main />
       <NextScript />
