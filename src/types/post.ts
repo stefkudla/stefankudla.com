@@ -82,6 +82,9 @@ export interface PostListTypes {
       created_at: string
       metadata: {
         excerpt: string
+        category: {
+          title: string
+        }
       }
     }
   ]
