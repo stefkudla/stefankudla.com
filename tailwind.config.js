@@ -268,6 +268,8 @@ module.exports = {
         },
         card: {
           background: 'var(--color-card-background)',
+          text: 'var(--color-card-text)',
+          border: 'var(--color-card-border)',
         },
         back: {
           primary: 'var(--color-back-primary)',
