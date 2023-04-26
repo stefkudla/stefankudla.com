@@ -4,6 +4,7 @@ import { SunIcon, MoonIcon } from '@/configs/icons'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import CarrotDownIcon from '@/components/icons/CarrotDownIcon'
+import { oswald } from '@/fonts'
 
 const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
   const [mounted, setMounted] = useState(false)
@@ -14,7 +15,9 @@ const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
 
   if (!mounted)
     return (
-      <div className="flex gap-x-3 items-center group min-w-[96px] flex-shrink">
+      <div
+        className={`flex gap-x-3 items-center group min-w-[96px] flex-shrink ${oswald.className}`}
+      >
         <span className="md:opacity-0 group-hover:opacity-100 transition-opacity font-oswald font-bold text-gray-500 text-2xs min-w-[40px]">
           Loading
         </span>
@@ -29,7 +32,9 @@ const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
   }
 
   return (
-    <div className="flex gap-x-3 items-center group min-w-[96px] flex-shrink">
+    <div
+      className={`flex gap-x-3 items-center group min-w-[96px] flex-shrink ${oswald.className}`}
+    >
       <span className="md:opacity-0 group-hover:opacity-100 transition-opacity font-oswald font-bold text-gray-500 text-2xs min-w-[40px] text-end">
         {isDark ? 'Dark' : 'Light'}
       </span>
