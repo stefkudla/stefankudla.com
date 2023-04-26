@@ -41,63 +41,55 @@ const childVariants: Variants = {
 }
 
 const CtaSection = () => {
-  const container = useRef(null)
-  const isInView = useInView(container, {
-    once: true,
-    amount: 0.55,
-  })
-
   return (
     <SectionWrapper
       classNames="bg-back-primary dark:bg-back-subtle flex flex-col items-center gap-y-20"
       fullWidth
       innerPadding
     >
-      <motion.div
-        ref={container}
-        animate={isInView ? 'show' : 'hidden'}
-        className="flex flex-col items-center gap-y-20"
-      >
-        <motion.h2
-          variants={childVariants}
-          className="text-3xl font-oswald font-bold"
-        >
-          Why hire me?
-        </motion.h2>
-        <motion.div
-          variants={containerVariants}
-          className="flex items-center gap-8 flex-wrap md:flex-nowrap justify-center"
-        >
-          <motion.div variants={childVariants}>
-            <Card
-              icon={<FriendlyPeopleIcon />}
-              heading={'Reliable'}
-              content={
-                'You can trust that during our collaboration, I will communicate promptly and will never leave you hanging. Building long-lasting relationships is my end goal.'
-              }
-            />
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Card
-              icon={<PlugIcon />}
-              heading={'Developer and Designer'}
-              content={
-                'As both a developer and designer, I not only understand the visual aspect of creating a great website, but I’m knowledgable of the solution and how it’s built on the technical side. '
-              }
-            />
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Card
-              icon={<ConfigureIcon />}
-              heading={'Verstile'}
-              content={
-                'I am well versed in a range of website builders like WordPress, though mostly build websites custom HTML, CSS, and JavaScript, as well as frameworks like React and Next.js.'
-              }
-            />
+      <AnimationWrapper viewAmount={0.1}>
+        <motion.div className="flex flex-col items-center gap-y-20">
+          <motion.h2
+            variants={childVariants}
+            className="text-3xl font-oswald font-bold"
+          >
+            Why hire me?
+          </motion.h2>
+          <motion.div
+            variants={containerVariants}
+            className="flex items-center gap-8 flex-wrap md:flex-nowrap justify-center"
+          >
+            <motion.div variants={childVariants}>
+              <Card
+                icon={<FriendlyPeopleIcon />}
+                heading={'Reliable'}
+                content={
+                  'You can trust that during our collaboration, I will communicate promptly and will never leave you hanging. Building long-lasting relationships is my end goal.'
+                }
+              />
+            </motion.div>
+            <motion.div variants={childVariants}>
+              <Card
+                icon={<PlugIcon />}
+                heading={'Developer and Designer'}
+                content={
+                  'As both a developer and designer, I not only understand the visual aspect of creating a great website, but I’m knowledgable of the solution and how it’s built on the technical side. '
+                }
+              />
+            </motion.div>
+            <motion.div variants={childVariants}>
+              <Card
+                icon={<ConfigureIcon />}
+                heading={'Verstile'}
+                content={
+                  'I am well versed in a range of website builders like WordPress, though mostly build websites custom HTML, CSS, and JavaScript, as well as frameworks like React and Next.js.'
+                }
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
-      <AnimationWrapper>
+      </AnimationWrapper>
+      <AnimationWrapper viewAmount={0.3}>
         <h4 className="text-2xl font-bold">Trusted by</h4>
         <div className="flex flex-wrap gap-6 max-w-3xl w-full justify-center">
           <MiniCard
