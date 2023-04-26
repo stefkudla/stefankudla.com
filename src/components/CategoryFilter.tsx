@@ -1,37 +1,73 @@
 import cn from 'classnames'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { useState } from 'react'
 
 interface FilterTypes {
   categories: [category: { title: string }]
   handleSelection: Function
   selected: string
 }
+
+const Underline = () => {
+  return (
+    <motion.span
+      layoutId={`underline__category`}
+      layout
+      className="bg-accent"
+      style={{
+        width: '100%',
+        position: 'absolute',
+        bottom: '-5.5px',
+        left: 0,
+        height: '1.5px',
+      }}
+      transition={{
+        type: 'spring',
+        bounce: 0,
+        duration: 0.6,
+        ease: 'easeInOut',
+      }}
+    />
+  )
+}
+
 const CategoryFilter: React.FC<FilterTypes> = ({
   categories,
   handleSelection,
   selected,
 }) => {
+  const [isSelected, setIsSelected] = useState('All')
+
+  console.log(isSelected)
   return (
-    <ul className="flex flex-wrap gap-2 sm:gap-y-0 mb-4">
+    <ul className="flex flex-wrap gap-y-3 gap-x-8 sm:gap-y-0 border-b-[1.5px] border-b-gray-300 dark:border-b-dark-gray-400 w-full pb-1 font-bold text-lg text-fore-subtle">
       <li key={'All'}>
         <button
-          className={cn(
-            'cursor-pointer',
-            'All' === selected ? 'filter-item-active' : 'filter-item'
-          )}
-          onClick={() => handleSelection('All')}
+          className={cn('cursor-pointer relative', {
+            'text-fore-primary': selected === 'All',
+          })}
+          onClick={() => {
+            handleSelection('All')
+            setIsSelected('All')
+          }}
         >
-          All
+          {isSelected === selected && <Underline />}
+          View all
         </button>
       </li>
       {categories.map(category => (
         <li key={category.title}>
           <button
             className={cn(
-              'cursor-pointer',
-              category.title === selected ? 'filter-item-active' : 'filter-item'
+              'cursor-pointer relative',
+              category.title === selected ? 'text-fore-primary' : ''
             )}
-            onClick={() => handleSelection(category.title)}
+            onClick={() => {
+              handleSelection(category.title)
+              setIsSelected(category.title)
+            }}
           >
+            {isSelected === category.title && <Underline />}
             {category.title}
           </button>
         </li>

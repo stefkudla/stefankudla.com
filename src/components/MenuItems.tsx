@@ -1,9 +1,8 @@
-import { MouseEvent } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { oswald } from '@/fonts'
 import classNames from 'classnames'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 export const routes: { path: string; label: string }[] = [

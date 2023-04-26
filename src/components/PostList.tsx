@@ -1,61 +1,36 @@
 import Date from './Date'
 import Link from 'next/link'
-import { ForwardArrowIcon } from '@/configs/icons'
 import { PostListTypes } from '@/types/post'
 
-const PostList: React.FC<PostListTypes> = ({ allPosts, postType, home }) => {
-  return <>
-    <ul className={!home ? 'grid grid-cols-1 md:grid-cols-2 gap-8' : ''}>
+const PostList: React.FC<PostListTypes> = ({ allPosts }) => {
+  return (
+    <ul className="flex flex-wrap w-full gap-4  max-w-screen-lg">
       {allPosts.map(post => (
-        <li
-          className={
-            home
-              ? 'py-5'
-              : 'flex flex-col bg-white dark:bg-gray-800 rounded-md shadow-md hover:shadow-lg dark:shadow-[#111] transition-all relative'
-          }
-          key={post.title}
-        >
+        <li key={post.title} className="w-full md:w-auto">
           <Link
-            href={`/${postType}/${post.slug}`}
-            className={home ? 'group post-card-home' : 'group post-card'}>
+            href={`/posts/${post.slug}`}
+            className={`h-full group bg-card-background px-5 py-8 md:max-w-[330px] flex flex-col gap-y-8 rounded-lg border hover:border-accent border-card-border custom-shadow-md hover:custom-shadow-md-dark`}
+          >
+            <span className="font-oswald text-card-border uppercase font-semibold text-sm">
+              {post.metadata.category.title}
+            </span>
+            <h2 className="text-2xl text-card-text font-bold group-hover:underline">
+              {post.title}
+            </h2>
 
-            <div className="max-w-2xl">
-              <h2 className="text-xl font-bold mb-1 group-hover:text-accent transition-colors">
-                {post.title}
-                {post.status === 'draft' && home && (
-                  <span className="text-fore-subtle ml-2">
-                    {' '}
-                    &#40;Draft&#41;
-                  </span>
-                )}
-              </h2>
-              <p className="text-fore-subtle mb-3 lg:mb-0">
-                {post.metadata.excerpt}
-              </p>
-            </div>
-            {home ? (
-              <Date
-                dateString={post.created_at}
-                formatStyle="LLLL, yyyy"
-              ></Date>
-            ) : (
-              <p className="flex items-center text-fore-subtle text-sm">
-                Read more
-                <span className="group hidden group-hover:block ml-2">
-                  <ForwardArrowIcon />
-                </span>
-                {post.status === 'draft' && (
-                  <span className="absolute right-1 top-1 bg-back-subtle px-3 py-1 rounded text-accent">
-                    Draft
-                  </span>
-                )}
-              </p>
+            <span className="font-oswald text-card-border uppercase font-semibold text-sm">
+              <Date dateString={post.created_at} formatStyle="MMM dd, yyyy" />
+            </span>
+
+            {post.status === 'draft' && (
+              <span className="absolute right-1 top-1 bg-back-subtle px-3 py-1 rounded text-accent">
+                Draft
+              </span>
             )}
-
           </Link>
         </li>
       ))}
     </ul>
-  </>;
+  )
 }
 export default PostList
