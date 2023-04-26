@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRef } from 'react'
 
 const AlertPreview: React.FC = () => {
   return (
@@ -8,15 +9,14 @@ const AlertPreview: React.FC = () => {
           This page is a draft.{' '}
           <Link
             href="/api/exit-preview"
-            className="underline hover:text-accent transition-colors cursor-pointer">
-            
-              Click here
-            
+            className="underline hover:text-accent transition-colors cursor-pointer"
+          >
+            Click here
           </Link>{' '}
           to exit preview mode.
         </>
       </div>
     </div>
-  );
+  )
 }
 export default AlertPreview

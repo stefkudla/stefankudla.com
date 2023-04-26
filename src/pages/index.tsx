@@ -8,8 +8,20 @@ import ContactSection from '@/sections/ContactSection'
 import { PageMeta } from '@/components/Meta'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
+import ServicesSection from '@/sections/ServicesSection'
+import customSiteIcon from '@/assets/services/custom_website.png'
+import seoIcon from '@/assets/services/seo.png'
+import { Services } from '@/sections/ServicesSection'
+import { cosmic } from '@/lib/cosmic'
+import ProjectsSection from '@/sections/ProjectsSection'
+import FeaturedSection from '@/sections/FeaturedSection'
+import ImageMarquee from '@/sections/ImageMarquee'
+import CtaSection from '@/sections/CtaSection'
 
-const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
+const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
+  allPosts,
+  services,
+}) => {
   const router = useRouter()
   return (
     <Layout
@@ -23,18 +35,26 @@ const Index: NextPage<{ allPosts: Object[] }> = ({ allPosts }) => {
         url="https://stefankudla.com/"
       />
       <IntroSection />
-      <WritingsSection posts={allPosts} />
-      <AboutMeSection />
-      <ToolboxSection />
-      <ContactSection />
+      <ServicesSection
+        heading="Services"
+        text="I'm committed to providing my clients with high-quality services that deliver results. Here are some of the services I offer."
+        services={services}
+      />
+      <ImageMarquee />
+      <CtaSection />
     </Layout>
   )
 }
 
 export async function getStaticProps({ preview }: { preview?: boolean }) {
   const allPosts = (await getAllPosts(preview, 3)) || []
+
+  const services = await cosmic.objects
+    .find({ type: 'services' })
+    .props('slug,title,metadata')
+    .depth(1)
   return {
-    props: { allPosts },
+    props: { allPosts, services: services.objects },
     revalidate: 180,
   }
 }

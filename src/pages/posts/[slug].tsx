@@ -32,7 +32,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
             imageUrl={post.metadata.cover_image.imgix_url}
             canonical={post.metadata.canonical}
           />
-          <article className="border-b border-back-subtle py-8 w-full">
+          <article className="border-b border-back-subtle py-12 w-full">
             {post.status === 'draft' && <AlertPreview />}
             <div className="relative w-full flex">
               <TableOfContents />

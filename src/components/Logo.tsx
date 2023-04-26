@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 const Logo: React.FC = () => (
-  (<Link
+  <Link
     href="/"
     aria-label="Website logo, go back to homepage."
-    className="flex items-center border-white group focus-visible:outline-accent">
-
+    className="flex items-center text-accent border-white group focus-visible:outline-accent"
+  >
     <div className="transition ease-in-out rounded-full  hover:opacity-60 mr-8">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,6 @@ const Logo: React.FC = () => (
         </g>
       </svg>
     </div>
-
-  </Link>)
+  </Link>
 )
 export default Logo

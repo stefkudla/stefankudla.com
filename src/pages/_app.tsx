@@ -7,6 +7,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider
       defaultTheme="system"
+      enableSystem={true}
       attribute="class"
       disableTransitionOnChange
     >

@@ -45,6 +45,7 @@ const Navbar: React.FC = () => {
     if (navOpen) {
       setNavOpen(!navOpen)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage])
 
   return (

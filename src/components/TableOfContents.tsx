@@ -43,7 +43,7 @@ const TableOfContents = ({ wrapperClassNames }: TableofContentsProps) => {
     >
       <nav
         aria-label="Table of contents"
-        className="lg:h-screen max-w-full lg:sticky lg:top-4 text-sm z-20 text-gray-500 dark:text-dark-gray-500 px-2 ml-2 lg:w-[260px]"
+        className="lg:h-screen max-w-full lg:sticky lg:top-10 text-sm z-20 text-gray-500 dark:text-dark-gray-500 px-2 ml-2 lg:w-[260px]"
       >
         <span className="hidden lg:block text-xs py-1 px-2 text-gray-400 dark:text-dark-gray-400 uppercase font-semibold mb-2">
           Table of contents
@@ -55,6 +55,7 @@ const TableOfContents = ({ wrapperClassNames }: TableofContentsProps) => {
               const getRef = (element: HTMLLIElement) => {
                 refs.current[index] = element
               }
+
               return (
                 <li
                   key={section.topic + index}
