@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
               <motion.li
                 variants={animateNavItem}
                 key={route.path}
-                className="border-b border-b-slate-400 border-opacity-30 pb-2"
+                className="border-b border-b-back-subtle pb-2"
               >
                 <Link href={route.path} className="text-fore-secondary">
                   {route.label}

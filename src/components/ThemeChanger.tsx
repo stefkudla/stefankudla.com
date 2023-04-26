@@ -33,9 +33,9 @@ const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
 
   return (
     <div
-      className={`flex gap-x-3 items-center group min-w-[96px] flex-shrink ${oswald.className}`}
+      className={`flex flex-row-reverse md:flex-row gap-x-3 items-center group md:min-w-[96px] flex-shrink ${oswald.className}`}
     >
-      <span className="md:opacity-0 group-hover:opacity-100 transition-opacity font-oswald font-bold text-gray-500 text-2xs min-w-[40px] text-end">
+      <span className="md:opacity-0 group-hover:opacity-100 transition-opacity font-oswald font-bold text-gray-500 text-2xs md:min-w-[40px] md:text-end">
         {isDark ? 'Dark' : 'Light'}
       </span>
       <button
