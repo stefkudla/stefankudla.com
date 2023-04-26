@@ -35,7 +35,7 @@ const IntroSection: React.FC = () => (
       </motion.span>
       <motion.h1
         className={classNames(
-          'font-medium tracking-wide font-oswald max-w-lg md:leading-[1.2]'
+          'font-bold font-oswald max-w-lg md:leading-[1.2]'
         )}
         variants={child}
       >
