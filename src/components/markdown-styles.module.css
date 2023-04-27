@@ -18,11 +18,11 @@
 }
 
 .markdown p a {
-  @apply text-accent hover:text-opacity-70;
+  @apply underline hover:text-opacity-70;
 }
 
 .markdown ul li {
-  @apply list-disc list-inside mb-2 bg-back-subtle p-2 rounded text-[16px] md:text-[18px] font-semibold shadow-md;
+  @apply list-disc list-inside mb-2 rounded text-[16px] md:text-[18px];
 }
 
 /* Add shadows to list items */

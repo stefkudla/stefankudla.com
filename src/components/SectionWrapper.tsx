@@ -7,6 +7,7 @@ interface Props {
   classNames?: string
   children: React.ReactNode
   bgColor?: 'white' | 'off-white' | 'bg-subtle'
+  as?: 'section' | 'div'
 }
 
 const SectionWrapper: React.FC<Props> = ({
@@ -15,9 +16,10 @@ const SectionWrapper: React.FC<Props> = ({
   classNames,
   children,
   bgColor,
+  as,
 }) => {
-  const padding = typeof innerPadding === 'number' ? innerPadding : null
-  return (
+  const padding = innerPadding
+  return as === 'section' ? (
     <section
       className={cn(
         classNames,
@@ -34,6 +36,23 @@ const SectionWrapper: React.FC<Props> = ({
     >
       {children}
     </section>
+  ) : (
+    <div
+      className={cn(
+        classNames,
+        'h-auto py-20',
+        { 'w-screen': fullWidth },
+        { 'px-6': innerPadding },
+        { padding: typeof innerPadding === 'number' },
+        {
+          'bg-off-white': bgColor === 'off-white',
+          'bg-white': bgColor === 'white',
+          'bg-back-subtle': bgColor === 'bg-subtle',
+        }
+      )}
+    >
+      {children}
+    </div>
   )
 }
 

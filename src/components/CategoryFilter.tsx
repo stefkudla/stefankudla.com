@@ -38,7 +38,6 @@ const CategoryFilter: React.FC<FilterTypes> = ({
 }) => {
   const [isSelected, setIsSelected] = useState('All')
 
-  console.log(isSelected)
   return (
     <ul className="flex flex-wrap gap-y-3 gap-x-8 sm:gap-y-0 border-b-[1.5px] border-b-gray-300 dark:border-b-dark-gray-400 w-full pb-1 font-bold text-lg text-fore-subtle">
       <li key={'All'}>

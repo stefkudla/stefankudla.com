@@ -78,7 +78,7 @@ const components: object = {
 
 const PostBody: React.FC<{ content: string }> = ({ content }) => {
   return (
-    <div className="max-w-4xl mx-auto px-3 md:px-8 py-8 rounded-b-md shadow-md bg-white dark:bg-back-secondary">
+    <div className="max-w-4xl mx-auto px-px py-4 md:px-8 md:py-8 md:custom-shadow-md md:bg-card-background md:border rounded-lg border-card-border">
       <ReactMarkdown
         className={markdownStyles['markdown']}
         components={components}

@@ -87,10 +87,6 @@
     color: var(--color-back-primary);
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply overflow-x-hidden antialiased bg-back-primary text-fore-primary;
   }

@@ -10,6 +10,7 @@ import Loader from '@/components/Loader'
 import Author from '@/components/Author'
 import TableOfContents from '@/components/TableOfContents'
 import BlogLayout from '@/components/BlogLayout'
+import SectionWrapper from '@/components/SectionWrapper'
 
 const Post: React.FC<PostTypes> = ({ post }) => {
   const router = useRouter()
@@ -23,16 +24,23 @@ const Post: React.FC<PostTypes> = ({ post }) => {
           <Loader />
         </div>
       ) : (
-        <>
+        <SectionWrapper
+          as="div"
+          fullWidth
+          classNames="bg-gradient-to-b from-back-primary to-back-secondary"
+        >
           <PostMeta
             title={post.title}
             description={post.metadata.excerpt}
             slug={post.slug}
             page="posts"
             imageUrl={post.metadata.cover_image.imgix_url}
-            canonical={post.metadata.canonical}
+            canonical={
+              post.metadata.canonical ||
+              `https://stefankudla.com/posts/${post.slug}`
+            }
           />
-          <article className="border-b border-back-subtle py-12 w-full">
+          <article className="border-b border-back-subtle w-full">
             {post.status === 'draft' && <AlertPreview />}
             <div className="relative w-full flex">
               <TableOfContents />
@@ -43,7 +51,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
               </div>
             </div>
           </article>
-        </>
+        </SectionWrapper>
       )}
     </BlogLayout>
   )
