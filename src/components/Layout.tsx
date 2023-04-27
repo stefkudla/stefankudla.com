@@ -20,9 +20,9 @@ const Layout: React.FC<LayoutProps> = ({ children, classNames }) => (
     <Header />
     <AnimatePresence>
       <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 10, opacity: 0 }}
         className={cx(
           `flex flex-col font-sans justify-start items-center flex-grow container px-5 mx-auto md:px-12 lg:px-24`,
           oswald.variable,

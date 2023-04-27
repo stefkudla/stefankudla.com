@@ -33,10 +33,7 @@ const Header: React.FC = () => {
     <AnimatePresence>
       <motion.header
         className={classNames(
-          'md:py-6 md:px-12 lg:px-20 w-screen font-sans mx-auto bg-back-primary border-b border-transparent transition-colors'
-          // reached
-          //   ? 'md:border-gray-200 md:dark:border-dark-gray-300 '
-          //   : 'md:border-transparent'
+          'md:py-6 md:px-12 lg:px-20 w-screen font-sans mx-auto'
         )}
       >
         <nav

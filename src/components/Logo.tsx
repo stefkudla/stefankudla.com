@@ -6,7 +6,7 @@ const Logo: React.FC = () => (
     aria-label="Website logo, go back to homepage."
     className="flex items-center text-accent border-white group focus-visible:outline-accent"
   >
-    <div className="transition ease-in-out rounded-full  hover:opacity-60 mr-8">
+    <div className="transition ease-in-out rounded-full  hover:opacity-60">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.0"
