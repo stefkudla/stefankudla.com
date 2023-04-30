@@ -136,10 +136,6 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
                 <motion.button
                   aria-label="Close Modal"
                   onClick={() => setIsShowing(false)}
-                  whileHover={{
-                    scale: 1.1,
-                    transition: { duration: 0.6 },
-                  }}
                   whileTap={{ scale: 0.9 }}
                   className="relative flex justify-center items-center  h-[11px] w-[11px] bg-red-300 rounded-full cursor-default"
                 >
@@ -148,10 +144,6 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
                 <motion.button
                   aria-label="Minimze Modal"
                   onClick={() => setIsExpanded(false)}
-                  whileHover={{
-                    scale: 1.1,
-                    transition: { duration: 0.6 },
-                  }}
                   whileTap={{ scale: 0.9 }}
                   className="relative flex justify-center items-center  h-[11px] w-[11px] bg-yellow-300 rounded-full cursor-default"
                 >
@@ -160,10 +152,6 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
                 <motion.button
                   aria-label="Open Modal"
                   onClick={() => setIsExpanded(true)}
-                  whileHover={{
-                    scale: 1.1,
-                    transition: { duration: 0.6 },
-                  }}
                   whileTap={{ scale: 0.9 }}
                   className="relative flex justify-center items-center h-[11px] w-[11px] bg-green-300 rounded-full cursor-default"
                 >
