@@ -1,4 +1,3 @@
-import markdownStyles from './markdown-styles.module.css'
 import ReactMarkdown from 'react-markdown'
 import { ReactNode } from 'react'
 import BlurImage from './BlurImage'
@@ -80,7 +79,7 @@ const PostBody: React.FC<{ content: string }> = ({ content }) => {
   return (
     <div className="max-w-4xl mx-auto px-px py-4 md:px-8 md:py-8 md:custom-shadow-md md:bg-card-background md:border rounded-lg border-card-border">
       <ReactMarkdown
-        className={markdownStyles['markdown']}
+        className={`prose md:prose-lg prose-zinc prose-pre:bg-[#0C0C0E] dark:prose-invert`}
         components={components}
         remarkPlugins={[remarkSlug]}
       >

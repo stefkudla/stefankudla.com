@@ -1,20 +1,24 @@
 .markdown {
-  @apply text-lg leading-relaxed;
+  @apply text-lg;
+}
+
+.markdown:first-child {
+  @apply !mt-0;
 }
 
 .markdown p,
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply my-6 text-fore-secondary text-[16px] md:text-[18px];
+  @apply text-fore-secondary;
 }
 
 .markdown h2 {
-  @apply text-fore-primary text-2xl font-bold mt-8 mb-4 leading-snug scroll-mt-4;
+  @apply text-fore-primary font-bold text-xl sm:text-2xl !mt-16 !mb-4 scroll-mt-4;
 }
 
 .markdown h3 {
-  @apply text-fore-primary text-xl font-bold mt-8 mb-4 leading-snug;
+  @apply text-fore-primary text-lg font-semibold sm:text-xl mt-8 mb-4 leading-snug;
 }
 
 .markdown p a {
@@ -32,5 +36,5 @@
 }
 
 .markdown img {
-  @apply max-w-[xl] mx-auto my-12;
+  @apply max-w-[xl] mx-auto h-auto my-12;
 }

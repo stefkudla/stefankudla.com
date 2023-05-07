@@ -39,12 +39,6 @@
 
   --color-gradient-accent1: hsla(209, 62%, 50%, 1);
   --color-gradient-accent2: hsla(174, 59%, 56%, 1);
-
-  --color-code-background: hsla(210, 38%, 95%, 1);
-  --color-code-background-file: hsla(210, 38%, 90%, 1);
-  --color-code-line-hover: hsla(210, 38%, 90%, 1);
-  --color-code-word-highlight: hsla(210, 38%, 75%, 0.6);
-  --color-code-word-highlight-hover: hsla(210, 38%, 75%, 1);
 }
 
 .dark {
@@ -66,12 +60,6 @@
 
   --color-gradient-accent1: hsla(209, 62%, 50%, 1);
   --color-gradient-accent2: hsla(174, 59%, 56%, 1);
-
-  --color-code-background: hsla(221, 39%, 15%, 1);
-  --color-code-background-file: hsla(221, 39%, 13%, 1);
-  --color-code-line-hover: hsla(221, 39%, 13%, 1);
-  --color-code-word-highlight: hsla(211, 24%, 21%, 1);
-  --color-code-word-highlight-hover: hsl(220, 100%, 80%, 1);
 }
 
 /* End Theme Classes */
@@ -92,7 +80,7 @@
   }
 
   h1 {
-    @apply text-3xl md:text-5xl font-bold text-fore-primary;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-fore-primary;
   }
 
   .full-width-container {
