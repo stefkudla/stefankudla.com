@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 interface FilterTypes {
@@ -17,9 +17,9 @@ const Underline = () => {
       style={{
         width: '100%',
         position: 'absolute',
-        bottom: '-5.5px',
+        bottom: '-2px',
         left: 0,
-        height: '1.5px',
+        height: '2px',
       }}
       transition={{
         type: 'spring',
@@ -39,7 +39,7 @@ const CategoryFilter: React.FC<FilterTypes> = ({
   const [isSelected, setIsSelected] = useState('All')
 
   return (
-    <ul className="flex flex-wrap gap-y-3 gap-x-8 sm:gap-y-0 border-b-[1.5px] border-b-gray-300 dark:border-b-dark-gray-400 w-full pb-1 font-bold text-lg text-fore-subtle">
+    <ul className="flex flex-wrap gap-y-3 gap-x-8 sm:gap-y-0 border-b-[2px] border-b-gray-300 dark:border-b-dark-gray-400 w-full pb-0 font-bold text-lg text-fore-subtle">
       <li key={'All'}>
         <button
           className={cn('cursor-pointer relative', {
