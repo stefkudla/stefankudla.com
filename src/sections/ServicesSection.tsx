@@ -1,4 +1,3 @@
-import { ForwardArrowIcon } from '@/configs/icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import classNames from 'classnames'
@@ -8,13 +7,11 @@ import { Variants, motion, useInView } from 'framer-motion'
 import ExpandIcon from '@/components/icons/ExpandIcon'
 import MinimizeIcon from '@/components/icons/MinimizeIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AvatarQuoteMarks from '@/assets/images/avatar-quotemarks.png'
-import useScrollCounter from '@/hooks/useScrollCounter'
 import RenewIcon from '@/components/icons/RenewIcon'
 import ToolsIcon from '@/components/icons/ToolsIcon'
 import DesktopIcon from '@/components/icons/DesktopIcon'
-import ArrowRightIcon from '@/components/icons/ArrowRightIcon'
 
 export type Services = {
   slug: string
@@ -100,7 +97,6 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
   const [showElement, setShowElement] = useState(false)
 
   const ref = useRef(null)
-  const secondRef = useRef(null)
 
   const isInView = useInView(ref, {
     margin: '0px 0px 0px 0px',
@@ -115,7 +111,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
 
   return (
     <SectionWrapper
-      classNames="bg-gradient-to-b from-back-primary to-back-secondary"
+      classNames="bg-gradient-to-b from-back-primary via-back-primary to-back-secondary"
       fullWidth
       innerPadding
     >
@@ -163,7 +159,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
                 </motion.button>
               </div>
               <div className="flex items-stretch">
-                <h2 className="text-xl md:text-3xl font-bold px-3 pt-5 pb-2 font-oswald bg-accent selection:text-accent selection:bg-back-primary text-white rounded-t-2xl uppercase">
+                <h2 className="text-lg sm:text-xl md:text-3xl font-bold px-3 pt-5 pb-2 font-oswald bg-accent selection:text-accent selection:bg-back-primary text-white rounded-t-2xl uppercase">
                   Web Development Services
                 </h2>
                 <div className="bg-accent">
@@ -172,7 +168,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
                       href="/services"
                       className="text-xs sm:text-base whitespace-nowrap flex items-center gap-x-2 border-b-2 border-accent hover:opacity-75 z-20 w-full backdrop-blur-lg"
                     >
-                      Learn more{' '}
+                      All services{' '}
                       <span className="mb-1">
                         <ArrowTopRightIcon />
                       </span>
@@ -232,16 +228,17 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
             custom software, I can help you.
           </p>
         </motion.div>
-        <div className="flex items-center gap-8 flex-wrap lg:flex-nowrap justify-center">
+        <div className="flex items-stretch gap-8 flex-wrap lg:flex-nowrap justify-center">
           <div className="border border-gray-200 dark:border-dark-gray-100 flex flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5">
             <RenewIcon />
             <h3 className="font-bold text-2xl text-fore-primary">
               Website Redesign
             </h3>
             <p className="text-center text-fore-secondary text-xl">
-              I offer a wide range of services to help you build your online
-              vision to life. Whether you need a website, a web application, or
-              custom software, I can help you.
+              Is your website in need of an update? I can refresh and redesign
+              your website to give it a modern look and feel with your existing
+              branding, or give it a entirely new identity. The web is
+              constantly changing and your website deserves to keep up.
             </p>
           </div>
           <div className="flex border border-gray-200 dark:border-dark-gray-100 flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5">
@@ -250,19 +247,11 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
               Custom Websites
             </h3>
             <p className="text-center text-fore-secondary text-xl">
-              I offer a wide range of services to help you build your online
-              vision to life. Whether you need a website, a web application, or
-              custom software, I can help you.
+              By building a custom website from scratch, I&apos;m able to break
+              through the limitations that site builders like Wordpress and Wix
+              often come with. Your website will look, feel, and perform better
+              than your competitors.
             </p>
-            <Link
-              className="text-accent flex items-center gap-x-2 group transition-opacity hover:opacity-70 transform"
-              href={'/contact'}
-            >
-              Reach out{' '}
-              <span className="group-hover:translate-x-2 transition-transform">
-                <ArrowRightIcon />
-              </span>
-            </Link>
           </div>
           <div className="flex border border-gray-200 dark:border-dark-gray-100 flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5">
             <ToolsIcon />
@@ -270,12 +259,19 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
               Website Maintenance
             </h3>
             <p className="text-center text-fore-secondary text-xl">
-              I offer a wide range of services to help you build your online
-              vision to life. Whether you need a website, a web application, or
-              custom software, I can help you.
+              I offer ongoing support to maintain your website, ensuring that
+              everything is up to date and your users do not experience
+              unexpected issues. Let me handle your design and content updates
+              so you can focus on running your business.
             </p>
           </div>
         </div>
+        <Link
+          href="/services"
+          className="flex-1 w-fit !min-w-[214px] text-center whitespace-nowrap bg-accent px-8 py-2.5 sm:py-3.5 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base"
+        >
+          View Services
+        </Link>
       </div>
     </SectionWrapper>
   )
