@@ -62,9 +62,6 @@ importers:
       '@tailwindcss/nesting':
         specifier: 0.0.0-insiders.565cd3e
         version: 0.0.0-insiders.565cd3e(postcss@8.4.23)
-      '@tailwindcss/typography':
-        specifier: ^0.5.2
-        version: 0.5.2(tailwindcss@3.3.2)
       '@types/node':
         specifier: ^18.0.0
         version: 18.0.0
@@ -408,17 +405,6 @@ packages:
     dependencies:
       postcss: 8.4.23
       postcss-nested: 5.0.6(postcss@8.4.23)
-    dev: true
-
-  /@tailwindcss/typography@0.5.2(tailwindcss@3.3.2):
-    resolution: {integrity: sha512-coq8DBABRPFcVhVIk6IbKyyHUt7YTEC/C992tatFB+yEx5WGBQrCgsSFjxHUr8AWXphWckadVJbominEduYBqw==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || insiders'
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      tailwindcss: 3.3.2
     dev: true
 
   /@types/debug@4.1.7:
@@ -1992,14 +1978,6 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
-    dev: true
-
-  /lodash.castarray@4.4.0:
-    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
-    dev: true
-
-  /lodash.isplainobject@4.0.6:
-    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
 
   /lodash.merge@4.6.2:
