@@ -6,7 +6,6 @@ import { useTheme } from 'next-themes'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useFormspark } from '@formspark/use-formspark'
 import OutLinkIcon from './icons/OutlinkIcon'
-import GlassCard from './GlassCard'
 
 const FORMSPARK_FORM_ID = process.env.NEXT_PUBLIC_FORMSPARK_FORM_ID as string
 
