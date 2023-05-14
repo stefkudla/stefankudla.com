@@ -270,6 +270,11 @@ module.exports = {
           text: 'var(--color-card-text)',
           border: 'var(--color-card-border)',
         },
+        form: {
+          primary: 'var(--color-form-primary)',
+          secondary: 'var(--color-form-secondary)',
+          selection: 'var(--color-form-selection)',
+        },
         back: {
           primary: 'var(--color-back-primary)',
           secondary: 'var(--color-back-secondary)',
