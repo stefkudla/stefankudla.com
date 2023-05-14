@@ -60,7 +60,7 @@ const IntroSection: React.FC = () => (
           View Services
         </Link>
         <Link
-          href="mailto:stefan@stefankudla.com"
+          href="/contact"
           className="flex-1 w-full text-center bg-transparent border-accent border-2 px-8 py-2 sm:py-3 text-current dark:text-white font-bold rounded-lg hover:opacity-75 transition-opacity whitespace-nowrap text-sm sm:text-base"
         >
           Work with me

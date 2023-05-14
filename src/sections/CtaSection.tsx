@@ -64,7 +64,7 @@ const CtaSection = () => {
                 icon={<FriendlyPeopleIcon />}
                 heading={'Reliable'}
                 content={
-                  'You can trust that during our collaboration, I will communicate promptly and will never leave you hanging. Building long-lasting relationships is my end goal.'
+                  'You can trust that during our collaboration, I will communicate promptly and will never leave you hanging. Bringing value to your business is my top priority.'
                 }
               />
             </motion.div>
@@ -80,9 +80,9 @@ const CtaSection = () => {
             <motion.div variants={childVariants}>
               <Card
                 icon={<ConfigureIcon />}
-                heading={'Verstile'}
+                heading={'Versatile'}
                 content={
-                  'I am well versed in a range of website builders like WordPress, though mostly build websites custom HTML, CSS, and JavaScript, as well as frameworks like React and Next.js.'
+                  'I am well versed in a range of website builders like WordPress, though mostly build custom websites with HTML, CSS, and JavaScript, as well as frameworks like React and Next.js.'
                 }
               />
             </motion.div>

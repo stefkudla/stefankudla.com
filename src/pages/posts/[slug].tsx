@@ -40,7 +40,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
               `https://stefankudla.com/posts/${post.slug}`
             }
           />
-          <article className="border-b border-back-subtle w-full">
+          <article className="w-full">
             {post.status === 'draft' && <AlertPreview />}
             <div className="relative w-full flex">
               <TableOfContents />
