@@ -39,7 +39,7 @@ const MenuItems: React.FC = () => {
           key={route.path + index}
           href={route.path}
           className={classNames(
-            `${oswald.className} text-lg tracking-wide relative transition-all hover:opacity-50 dark:hover:opacity-70 py-1 rounded`
+            `${oswald.className} text-lg tracking-wide relative transition-all hover:opacity-50 dark:hover:opacity-70 py-1 rounded font-medium`
           )}
           onClick={() => setActiveRoute(currentRoute)}
         >

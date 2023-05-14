@@ -23,7 +23,7 @@ const MiniCard = ({
   }, [image.src, image.srcDark, resolvedTheme])
 
   return (
-    <div className="max-w-[220px] px-12 py-4 border rounded-lg border-[#CDD7E1] flex items-center justify-center">
+    <div className="max-w-[220px] h-20 px-12 py-4 border rounded-lg border-[#CDD7E1] flex items-center justify-center">
       <Image
         src={imgSrc}
         alt={image.alt}

@@ -39,6 +39,10 @@
 
   --color-gradient-accent1: hsla(209, 62%, 50%, 1);
   --color-gradient-accent2: hsla(174, 59%, 56%, 1);
+
+  --color-form-primary: #111111;
+  --color-form-secondary: #737373;
+  --color-form-selection: #111111;
 }
 
 .dark {
@@ -60,6 +64,10 @@
 
   --color-gradient-accent1: hsla(209, 62%, 50%, 1);
   --color-gradient-accent2: hsla(174, 59%, 56%, 1);
+
+  --color-form-primary: #ffffff;
+  --color-form-secondary: #aeb4ba;
+  --color-form-selection: #ffffff;
 }
 
 /* End Theme Classes */
@@ -213,6 +221,36 @@
 
   .custom-drop-shadow {
     filter: drop-shadow(5px 5px 13px #ffd33d);
+  }
+
+  .text-shadow {
+    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-dark {
+    text-shadow: var(--color-accent) 1px 0 10px;
+  }
+}
+
+@layer components {
+  .custom-radio input[type='radio'] {
+    @apply opacity-0 fixed w-0;
+  }
+
+  .custom-radio label {
+    @apply inline-block bg-transparent px-8 py-1 text-base border border-form-primary rounded;
+  }
+
+  .custom-radio input[type='radio']:focus + label {
+    @apply border-accent;
+  }
+
+  .custom-radio label:hover {
+    @apply bg-back-subtle;
+  }
+
+  input::file-selector-button {
+    @apply bg-transparent px-8 py-1 text-sm border border-form-secondary rounded;
   }
 }
 

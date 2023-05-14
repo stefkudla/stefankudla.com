@@ -121,7 +121,9 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
           initial="hidden"
           animate="show"
           variants={entrance}
-          className={classNames('min-h-[280px] w-fit z-10')}
+          className={classNames(
+            'min-h-[280px] w-full max-w-sm sm:max-w-none sm:w-fit z-10'
+          )}
         >
           <motion.div
             variants={entrance}
