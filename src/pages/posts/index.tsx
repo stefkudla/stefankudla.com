@@ -6,6 +6,7 @@ import PostList from '@/components/PostList'
 import CategoryFilter from '@/components/CategoryFilter'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
+import SectionWrapper from '@/components/SectionWrapper'
 
 const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
   const router = useRouter()
@@ -20,22 +21,30 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
       <PageMeta
         title="Blog Posts | Stefan Kudla"
         description="Blog posts written by Stefan Kudla"
-        url="https://stefankudla.com/posts"
+        url={router.basePath + router.pathname}
       />
-      <h1 className="mb-6">Blog Posts</h1>
-      <h2 className="text-lg mb-12">
-        Technical articles, guides and blog posts written by Stefan Kudla
-      </h2>
-      <CategoryFilter
-        categories={allPostCategories}
-        handleSelection={setFilterCategory}
-        selected={filterCategory}
-      />
-      <PostList
-        allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
-        postType="posts"
-        home={false}
-      />
+      <SectionWrapper
+        classNames="!py-0 bg-gradient-to-b from-back-primary via-back-subtle to-back-secondary"
+        innerPadding
+        fullWidth
+      >
+        <div className="max-w-screen-lg mx-auto flex flex-col items-start w-full text-start gap-y-12 py-20">
+          <h1 className="font-oswald font-bold">Blog Posts</h1>
+          <p className="text-lg max-w-sm text-fore-subtle font-bold">
+            Technical articles, guides and blog posts written by Stefan Kudla
+          </p>
+          <CategoryFilter
+            categories={allPostCategories}
+            handleSelection={setFilterCategory}
+            selected={filterCategory}
+          />
+          <PostList
+            allPosts={filterCategory === 'All' ? allPosts : filteredPosts}
+            postType="posts"
+            home={false}
+          />
+        </div>
+      </SectionWrapper>
     </Layout>
   )
 }

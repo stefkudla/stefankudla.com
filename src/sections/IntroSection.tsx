@@ -1,38 +1,72 @@
-import SocialIcons from '@/components/SocialIcons'
-import React from 'react'
-import { PaperIcon } from '@/configs/icons'
-import Image from 'next/image'
-import avatar from '../../public/images/avatar-july-2022-min.png'
+import classNames from 'classnames'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 
-const IntroSection: React.VFC = () => (
-  <section className="w-full flex flex-col-reverse md:flex-row justify-start">
-    <div className="flex-1 flex flex-col gap-y-4">
-      <h1>Stefan Kudla | Software Developer</h1>
-      <h2 className="max-w-lg">
-        Freelance Software Developer, Technical Content Writer and Developer
-        Experience Engineer at <strong>Cosmic</strong>
-      </h2>
-      <p className="mb-2">
-        Making an impact at start-ups by building product-based software
-        templates and writing SEO-rich technical articles, pages, and
-        documentation.
-      </p>
-      <div className="flex items-center">
-        <a href="mailto:stefankudla@gmail.com" className="resume-btn">
-          Contact me
-        </a>
-      </div>
-    </div>
-    <div className="relative w-24 h-24 md:w-44 md:h-44 mb-6 md:mb-0 rounded-full overflow-hidden">
-      <Image
-        src={avatar}
-        alt="Stefan Kudla"
-        priority
-        className="rounded-full"
-        sizes="100vw"
-        fill
-      />
-    </div>
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    bottom: 0,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+}
+
+const child = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
+}
+
+const IntroSection: React.FC = () => (
+  <section className="h-auto py-20">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="max-w-sm md:max-w-2xl flex flex-col items-start sm:items-center text-start sm:text-center gap-y-6"
+    >
+      <motion.span
+        className={classNames(
+          'text-sm md:text-lg tracking-wide font-medium text-fore-subtle uppercase font-oswald'
+        )}
+        variants={child}
+      >
+        Stefan Kudla
+      </motion.span>
+      <motion.h1
+        className={classNames(
+          'font-bold font-oswald max-w-lg md:leading-[1.2]'
+        )}
+        variants={child}
+      >
+        Freelance Web Developer and Designer
+      </motion.h1>
+      <motion.p
+        className="md:text-lg text-fore-primary max-w-xs md:max-w-md pr-2"
+        variants={child}
+      >
+        I&apos;m a Web Developer who specializes in designing and developing
+        custom websites. Let me bring your online vision to life.
+      </motion.p>
+      <motion.div
+        className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md"
+        variants={child}
+      >
+        <Link
+          href="/services"
+          className="flex-1 w-full text-center whitespace-nowrap bg-accent px-8 py-2.5 sm:py-3.5 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base"
+        >
+          View Services
+        </Link>
+        <Link
+          href="/contact"
+          className="flex-1 w-full text-center bg-transparent border-accent border-2 px-8 py-2 sm:py-3 text-current dark:text-white font-bold rounded-lg hover:opacity-75 transition-opacity whitespace-nowrap text-sm sm:text-base"
+        >
+          Work with me
+        </Link>
+      </motion.div>
+    </motion.div>
   </section>
 )
 

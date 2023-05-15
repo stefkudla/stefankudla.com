@@ -27,14 +27,15 @@ const AboutMeSection: React.FC = () => {
       </p>
       <Link
         href="/about"
-        className="flex items-center text-accent underline underline-offset-2 cursor-pointer hover:opacity-70 transition hover:translate-x-1 w-fit">
-
+        className="flex items-center text-accent underline underline-offset-2 cursor-pointer hover:opacity-70 transition hover:translate-x-1 w-fit"
+      >
         <span className="mr-1">
           <ForwardArrowIcon />
-        </span>About Stefan
+        </span>
+        About Stefan
       </Link>
     </section>
-  );
+  )
 }
 
 export default AboutMeSection

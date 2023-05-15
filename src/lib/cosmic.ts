@@ -3,7 +3,7 @@ const { createBucketClient } = require('@cosmicjs/sdk')
 const BUCKET_SLUG = process.env.NEXT_PUBLIC_COSMIC_BUCKET_SLUG
 const READ_KEY = process.env.NEXT_PUBLIC_COSMIC_READ_KEY
 
-const cosmic = createBucketClient({
+export const cosmic = createBucketClient({
   bucketSlug: BUCKET_SLUG,
   readKey: READ_KEY,
 })

@@ -1,30 +1,23 @@
 import { CosmicIcon } from '@/configs/icons'
 import MenuItems from './MenuItems'
 import SocialIcons from './SocialIcons'
+import { nunitoSans } from '@/fonts'
+import cn from 'classnames'
 
 const Footer: React.FC = () => (
-  <footer className="flex flex-col items-center md:items-stretch max-w-screen-lg mx-auto gap-y-6 py-12 px-6 md:px-12 lg:px-20">
-    <div className="flex flex-col items-center md:flex-row md:justify-between gap-y-6 md:gap-y-0">
-      <MenuItems />
-      <SocialIcons />
+  <footer
+    className={cn(
+      'bg-back-primary font-sans dark:bg-back-subtle flex flex-wrap justify-between items-end mx-auto gap-4  py-6 px-6 h-36 lg:px-20',
+      nunitoSans.variable
+    )}
+  >
+    <div className="flex flex-col-reverse md:flex-row items-center md:justify-between md:gap-y-0">
+      <span className="text-sm text-fore-secondary">
+        &copy; {new Date().getFullYear()} Stefan Kudla. All Rights Reserved.
+      </span>
     </div>
-    <div className="flex flex-col-reverse md:flex-row items-center md:justify-between gap-y-6 md:gap-y-0">
-      <span className="text-sm">
-        &copy; 2022 Stefan Kudla. All Rights Reserved.
-      </span>
-      <span className="flex items-center text-sm">
-        Powered by
-        <a
-          href="https://www.cosmicjs.com/"
-          target="_blank"
-          aria-label="Cosmic"
-          title="Cosmic"
-          rel="noreferrer"
-          className="ml-2"
-        >
-          <CosmicIcon />
-        </a>
-      </span>
+    <div className="flex flex-col items-center md:flex-row md:justify-between md:gap-y-0">
+      <SocialIcons />
     </div>
   </footer>
 )

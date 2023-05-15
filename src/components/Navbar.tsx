@@ -45,10 +45,11 @@ const Navbar: React.FC = () => {
     if (navOpen) {
       setNavOpen(!navOpen)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage])
 
   return (
-    <nav className="fixed top-0 h-12 w-full md:hidden backdrop-filter backdrop-blur-sm bg-opacity-30 z-50">
+    <nav className="fixed top-0 h-12 w-full md:hidden backdrop-filter bg-card-back backdrop-blur-sm bg-opacity-30 z-50">
       <button
         className="absolute top-3 right-2 z-50"
         aria-label={!navOpen ? 'Open Menu' : 'Close Menu'}
@@ -74,7 +75,7 @@ const Navbar: React.FC = () => {
               <motion.li
                 variants={animateNavItem}
                 key={route.path}
-                className="border-b border-b-slate-400 border-opacity-30 pb-2"
+                className="border-b border-b-back-subtle pb-2"
               >
                 <Link href={route.path} className="text-fore-secondary">
                   {route.label}

@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import materialOceanic from 'react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic'
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
 import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript'
 import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript'
@@ -35,9 +34,8 @@ const CodeBlock = ({
   const match = /language-(\w+)/.exec(className || '')
   return !inline && match ? (
     <SyntaxHighlighter
-      style={materialOceanic}
       language={match[1]}
-      className="shadow rounded-md"
+      className={`shadow rounded-md !bg-transparent`}
       PreTag="div"
       {...props}
     >
@@ -47,7 +45,7 @@ const CodeBlock = ({
     <code className={className} {...props}>
       {children}
     </code>
-  );
+  )
 }
 
 export default CodeBlock

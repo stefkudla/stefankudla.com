@@ -1,13 +1,12 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { nunitoSans } from '@/fonts'
 
 const Document = () => {
   return (
-    <Html lang="en">
+    <Html lang="en" className={`${nunitoSans.className}`}>
       <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
+      <Main />
+      <NextScript />
     </Html>
   )
 }
