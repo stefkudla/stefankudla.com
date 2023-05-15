@@ -137,7 +137,7 @@ const CtaSection = () => {
           href="/contact"
           className="bg-accent rounded-lg px-8 py-3.5 text-white flex items-center gap-x-2 hover:opacity-75 transition-opacity justify-center font-bold min-w-[214px]"
         >
-          <MailIcon /> Work with me
+          Work with me
         </Link>
       </AnimationWrapper>
     </SectionWrapper>

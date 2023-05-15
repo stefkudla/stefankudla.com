@@ -3,7 +3,7 @@ const CarrotDownIcon = () => {
     <svg
       stroke="currentColor"
       fill="currentColor"
-      stroke-width="0"
+      strokeWidth="0"
       viewBox="0 0 1024 1024"
       className="w-4 h-4"
       xmlns="http://www.w3.org/2000/svg"
