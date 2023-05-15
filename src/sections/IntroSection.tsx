@@ -47,7 +47,7 @@ const IntroSection: React.FC = () => (
         variants={child}
       >
         I&apos;m a Web Developer who specializes in designing and developing
-        custom websites. Let me bring your online vision to life.
+        custom websites. Let me bring your digital vision to life.
       </motion.p>
       <motion.div
         className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md"

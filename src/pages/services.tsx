@@ -19,7 +19,7 @@ const Services: NextPage<{ services: { title: string }[] }> = ({
     <Layout>
       <PageMeta
         title="Services | Stefan Kudla"
-        description="View the Web Development Services I offer"
+        description="I offer web development services that bring your digital vision to life. Contact me today."
         url="https://stefankudla.com/services"
       />
       <section className="h-auto pt-20">
@@ -28,7 +28,7 @@ const Services: NextPage<{ services: { title: string }[] }> = ({
             'font-bold font-oswald max-w-[725px] md:leading-[1.2] text-center'
           )}
         >
-          I Offer Web Development Services That Bring Your Online Vision{' '}
+          I Offer Web Development Services That Bring Your Digital Vision{' '}
           <motion.span
             initial={{ textShadow: 'none' }}
             animate={{

@@ -225,7 +225,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
             alt="Stefan Kudla avatar"
           />
           <p className="text-card-text">
-            I offer a wide range of services to help you bring your online
+            I offer a wide range of services to help you bring your digital
             vision to life. Whether you need a website, a web application, or
             custom software, I can help you.
           </p>
