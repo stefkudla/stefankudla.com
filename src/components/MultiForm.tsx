@@ -81,8 +81,11 @@ const ContactForm = () => {
                   id="service"
                   name="service"
                   multiple={false}
-                  className="outline-accent border rounded border-form-secondary mt-1 p-1"
+                  className="outline-accent border rounded border-form-secondary mt-2 p-1 min-w-[160px]"
                 >
+                  <option value="" disabled>
+                    Select a service
+                  </option>
                   {radioValues.map((value, index) => {
                     return (
                       <option key={value} value={value}>
@@ -140,32 +143,37 @@ const ContactForm = () => {
               placeholder="Tell me about your project"
               className="bg-transparent border border-form-secondary p-1 px-1.5 rounded min-h-[100px] focus:outline-accent focus:rounded"
             />
-            <button
-              type="submit"
-              disabled={submitting}
-              className="flex-1 w-fit min-w-[150px] text-center bg-transparent border-accent border-2 px-8 py-2.5 text-current dark:text-white font-bold rounded-lg hover:opacity-75 transition-opacity whitespace-nowrap text-sm sm:text-base focus:bg-gray-300 dark:focus:bg-gray-700 focus:!text-accent focus:outline-form-primary"
-            >
-              Submit
-            </button>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-fit min-w-[170px] text-center bg-transparent border-accent border-2 px-8 py-2.5 text-current dark:text-white font-bold rounded-lg hover:opacity-75 transition-opacity whitespace-nowrap text-sm sm:text-base focus:bg-gray-300 dark:focus:bg-gray-700 focus:!text-accent focus:outline-form-primary"
+              >
+                Submit
+              </button>
+              {message && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    transition: { duration: 0.5, delay: 0.4 },
+                  }}
+                >
+                  <p
+                    className={classNames(
+                      'font-semibold',
+                      error ? 'text-red-500' : 'text-green-500'
+                    )}
+                  >
+                    {message}
+                  </p>
+                </motion.div>
+              )}
+            </div>
           </Form>
         )}
       </Formik>
-      {message && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { delay: 0.4 } }}
-          className="absolute bottom-0"
-        >
-          <p
-            className={classNames(
-              'font-semibold',
-              error ? 'text-red-500' : 'text-green-500'
-            )}
-          >
-            {message}
-          </p>
-        </motion.div>
-      )}
     </motion.div>
   )
 }
@@ -250,7 +258,7 @@ const MultiForm = () => {
   const activeClass = 'text-form-primary underline font-bold'
   const [form, setForm] = useState('Form')
   return (
-    <div className="p-4 lg:px-12 bg-card-background rounded-lg lg:pt-6 lg:pb-10 w-full shadow min-h-[419px] lg:min-h-[547px] max-w-xl mx-auto lg:mx-0">
+    <div className="p-4 lg:px-12 bg-card-background rounded-lg lg:pt-6 lg:pb-10 w-full shadow min-h-[519px] lg:min-h-[547px] max-w-xl mx-auto lg:mx-0">
       <div className="flex items-center gap-x-4 lg:justify-end mb-4 md:mb-2 lg:mb-0">
         <button
           className={classNames(
