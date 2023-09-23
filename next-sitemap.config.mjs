@@ -3,6 +3,6 @@
 const config = {
   siteUrl: 'https://stefankudla.com',
   generateIndexSitemap: false,
-  generateRobotsTxt: true,
+  generateRobotsTxt: process.env.NEXT_PUBLIC_GENERATE_ROBOTS === 'true',
 }
 export default config
