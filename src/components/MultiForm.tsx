@@ -205,15 +205,10 @@ const CalendlyForm = () => {
   )
 }
 
-const InfoForm = () => {
+export const InfoForm = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="flex flex-col justify-start gap-y-4"
-    >
-      <h3 className="text-form-secondary">Contact info</h3>
+    <div className="flex flex-col justify-start gap-y-4">
+      <h3 className="text-form-primary text-lg font-bold">Contact info</h3>
       <div className="mt-2 flex flex-col gap-y-4">
         <span className="text-form-secondary">
           Name: <span className="text-form-primary">Stefan Kudla</span>
@@ -221,10 +216,10 @@ const InfoForm = () => {
         <span className="text-form-secondary flex items-center gap-x-1">
           Email:{' '}
           <a
-            href="mailto:stefan@stefankudla.com"
+            href="mailto:stefankudla@gmail.com"
             className="flex items-center gap-x-1 text-form-primary hover:underline"
           >
-            stefan@stefankudla.com
+            stefankudla@gmail.com
             <span className="block">
               <OutLinkIcon />
             </span>
@@ -236,7 +231,7 @@ const InfoForm = () => {
         <span className="text-form-secondary">
           Rates:{' '}
           <span className="text-form-primary">
-            Project and hourly rates available upon request
+            Project, Contract and hourly rates available upon request
           </span>
         </span>
         <span className="text-form-secondary">
@@ -250,7 +245,7 @@ const InfoForm = () => {
           <span className="text-form-primary">Eastern Daylight Time</span>
         </span>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

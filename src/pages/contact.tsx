@@ -5,6 +5,7 @@ import SectionWrapper from '@/components/SectionWrapper'
 import classNames from 'classnames'
 import { NextPage } from 'next'
 import React from 'react'
+import { InfoForm } from '@/components/MultiForm'
 
 const Contact: NextPage = () => {
   return (
@@ -31,7 +32,9 @@ const Contact: NextPage = () => {
           </span>
         </div>
         <div className="flex-1 flex flex-col lg:items-end w-full max-w-xl mx-auto lg:max-w-none">
-          <MultiForm />
+          <div className="p-4 lg:px-12 bg-card-background rounded-lg lg:pt-6 lg:pb-10 w-full shadow min-h-[519px] lg:min-h-[547px] max-w-xl mx-auto lg:mx-0">
+            <InfoForm />
+          </div>
           <span className="text-2xl font-oswald lg:hidden block mt-4">
             stefan@stefankudla.com
           </span>
