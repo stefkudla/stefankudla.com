@@ -231,18 +231,15 @@ export const InfoForm = () => {
         <span className="text-form-secondary">
           Rates:{' '}
           <span className="text-form-primary">
-            Project, Contract and hourly rates available upon request
+            Project and and hourly rates available upon request
           </span>
         </span>
         <span className="text-form-secondary">
-          Location:{' '}
-          <span className="text-form-primary">
-            Greater Washington D.C. Area
-          </span>
+          Location: <span className="text-form-primary">Las Vegas, Nevada</span>
         </span>
         <span className="text-form-secondary">
           Timezone:{' '}
-          <span className="text-form-primary">Eastern Daylight Time</span>
+          <span className="text-form-primary">Pacific Daylight Time</span>
         </span>
       </div>
     </div>
