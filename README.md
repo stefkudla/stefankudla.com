@@ -158,7 +158,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information. -->
 
 ## Contact
 
-Stefan Kudla - [LinkedIn](https://www.linkedin.com/in/stefankudla/) - stefan@stefankudla.com
+Stefan Kudla - [LinkedIn](https://www.linkedin.com/in/stefankudla/) - stefankudla@gmail.com
 
 Website Link: [stefankudla.com](https://stefankudla.com/)
 

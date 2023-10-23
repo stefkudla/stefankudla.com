@@ -28,7 +28,7 @@ const Contact: NextPage = () => {
             Need a Freelance Web Developer for your next project? Contact me
           </h1>
           <span className="text-2xl font-oswald hidden lg:block">
-            stefan@stefankudla.com
+            stefankudla@gmail.com
           </span>
         </div>
         <div className="flex-1 flex flex-col lg:items-end w-full max-w-xl mx-auto lg:max-w-none">
@@ -36,7 +36,7 @@ const Contact: NextPage = () => {
             <InfoForm />
           </div>
           <span className="text-2xl font-oswald lg:hidden block mt-4">
-            stefan@stefankudla.com
+            stefankudla@gmail.com
           </span>
         </div>
       </SectionWrapper>

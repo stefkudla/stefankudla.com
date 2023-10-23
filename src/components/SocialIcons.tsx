@@ -8,7 +8,7 @@ import {
 const SocialIcons: React.FC = () => (
   <span className="flex gap-x-5">
     <a
-      href="mailto:stefan@stefankudla.com"
+      href="mailto:stefankudla@gmail.com"
       className="group cursor-pointer"
       aria-label="Email"
       title="Email"
