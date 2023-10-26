@@ -28,11 +28,13 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
         innerPadding
         fullWidth
       >
-        <div className="max-w-screen-lg mx-auto flex flex-col items-start w-full text-start gap-y-12 py-20">
+        <div className="max-w-screen-lg mx-auto flex flex-col items-start w-full text-start gap-y-6 py-20">
           <h1 className="font-oswald font-bold">Blog Posts</h1>
           <p className="text-lg max-w-sm text-fore-subtle font-bold">
-            Technical articles, guides and blog posts written by Stefan Kudla
+            Technical articles, guides and blog posts written by{' '}
+            <span className="text-accent">Stefan Kudla</span>
           </p>
+          <div className="my-3"></div>
           <CategoryFilter
             categories={allPostCategories}
             handleSelection={setFilterCategory}

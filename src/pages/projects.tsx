@@ -30,26 +30,33 @@ const Projects: NextPage<{
         innerPadding
         fullWidth
       >
-        <div className="max-w-screen-xl mx-auto flex flex-col items-start w-full text-start gap-y-12 py-20 px-4 lg:px-0">
+        <div className="max-w-screen-xl mx-auto flex flex-col items-start w-full text-start gap-y-6 py-20 px-4 lg:px-0">
           <h1 className="font-oswald font-bold">{singlePageData.title}</h1>
-          <p className="text-lg max-w-sm text-fore-subtle font-bold">
+          <p className="text-lg max-w-md text-fore-subtle font-bold">
             {singlePageData.metadata.subheading}
           </p>
-          <ul className="flex flex-wrap gap-8 w-full">
+          <ul className="flex flex-wrap gap-8 w-full pt-8">
             {dynamicData?.map(project => (
               <li
                 key={project.slug}
                 className="bg-card-background border border-card-border w-fit rounded overflow-hidden shadow-lg transition-all max-w-[320px] md:max-w-none"
               >
-                <div>
-                  <Image
-                    src={project.metadata.image?.imgix_url || DefaultImage}
-                    alt={`${project.title} card image`}
-                    width={400}
-                    height={300}
-                    className="transition-all duration-200 aspect-video h-auto object-cover"
-                  />
-                </div>
+                <Link
+                  href={project.metadata.project_url}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  className="hover:grayscale transition-all duration-500"
+                >
+                  <div>
+                    <Image
+                      src={project.metadata.image?.imgix_url || DefaultImage}
+                      alt={`${project.title} card image`}
+                      width={400}
+                      height={300}
+                      className="transition-all duration-200 aspect-video h-auto object-cover"
+                    />
+                  </div>
+                </Link>
                 <div className="p-4">
                   <div className="flex items-end justify-between">
                     <Link
