@@ -43,11 +43,12 @@ const IntroSection: React.FC = () => (
         Freelance Web Developer and Designer
       </motion.h1>
       <motion.p
-        className="md:text-lg text-fore-primary max-w-xs md:max-w-md pr-2"
+        className="md:text-lg text-fore-primary max-w-xs md:max-w-lg pr-2 md:pr-0"
         variants={child}
       >
-        I&apos;m a Web Developer who specializes in designing and developing
-        custom websites. Let me bring your digital vision to life.
+        I&apos;m a Web Developer based in Las Vegas who specializes in designing
+        and developing custom websites. Let me bring your digital vision to
+        life.
       </motion.p>
       <motion.div
         className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md"
