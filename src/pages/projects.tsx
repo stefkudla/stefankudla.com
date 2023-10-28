@@ -35,7 +35,7 @@ const Projects: NextPage<{
           <p className="text-lg max-w-md text-fore-subtle font-bold">
             {singlePageData.metadata.subheading}
           </p>
-          <ul className="flex flex-wrap gap-8 w-full pt-8">
+          <ul className="gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pt-8">
             {dynamicData?.map(project => (
               <li
                 key={project.slug}
