@@ -19,7 +19,7 @@ const Card = ({
   }
 }) => {
   return (
-    <div className="flex border border-gray-200 dark:border-dark-gray-100 flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5">
+    <div className="flex border border-gray-200 dark:border-dark-gray-100 flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5 h-full">
       {icon && <span>{icon}</span>}
       <h3 className="font-bold text-2xl text-fore-primary text-center">
         {heading}

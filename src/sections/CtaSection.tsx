@@ -57,7 +57,7 @@ const CtaSection = () => {
           </motion.h2>
           <motion.div
             variants={containerVariants}
-            className="flex items-center gap-8 flex-wrap md:flex-nowrap justify-center"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-sm md:max-w-none"
           >
             <motion.div variants={childVariants}>
               <Card
