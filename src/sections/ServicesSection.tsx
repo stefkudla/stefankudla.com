@@ -230,7 +230,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
             custom software, I can help you.
           </p>
         </motion.div>
-        <div className="flex items-stretch gap-8 flex-wrap lg:flex-nowrap justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-sm md:max-w-none">
           <div className="border border-gray-200 dark:border-dark-gray-100 flex flex-col items-center gap-y-8 rounded-lg custom-shadow-md md:max-w-[420px] bg-card-background  py-20 px-5">
             <RenewIcon />
             <h3 className="font-bold text-2xl text-fore-primary">
