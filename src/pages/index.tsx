@@ -22,8 +22,8 @@ const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
       }}
     >
       <PageMeta
-        title="Stefan Kudla | Freelance Web Developer"
-        description="Freelance Web Developer based in the Washington D.C. Area"
+        title="Stefan Kudla | Software Engineer in Las Vegas"
+        description="Fullstack Software Engineer based in the Las Vegas"
         url="https://stefankudla.com/"
       />
       <IntroSection />

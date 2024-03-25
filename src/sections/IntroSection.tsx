@@ -36,19 +36,19 @@ const IntroSection: React.FC = () => (
       </motion.span>
       <motion.h1
         className={classNames(
-          'font-bold font-oswald max-w-lg md:leading-[1.2]'
+          'font-bold font-oswald max-w-2lg md:leading-[1.2]'
         )}
         variants={child}
       >
-        Freelance Web Developer and Designer
+        Professional Software Engineer and Web Designer
       </motion.h1>
       <motion.p
         className="md:text-lg text-fore-primary max-w-xs md:max-w-lg pr-2 md:pr-0"
         variants={child}
       >
-        I&apos;m a Web Developer based in Las Vegas who specializes in designing
-        and developing custom websites. Let me bring your digital vision to
-        life.
+        I&apos;m a Software Engineer based in Las Vegas who specializes in
+        designing and developing custom apps and websites. Let me bring your
+        digital vision to life.
       </motion.p>
       <motion.div
         className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md"
