@@ -23,7 +23,7 @@ const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
     >
       <PageMeta
         title="Stefan Kudla | Software Engineer in Las Vegas"
-        description="Fullstack Software Engineer based in the Las Vegas"
+        description="Fullstack Software Engineer based in Las Vegas"
         url="https://stefankudla.com/"
       />
       <IntroSection />
