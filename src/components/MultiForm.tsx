@@ -208,7 +208,7 @@ const CalendlyForm = () => {
 export const InfoForm = () => {
   return (
     <div className="flex flex-col justify-start gap-y-4">
-      <h3 className="text-form-primary text-lg font-bold">Contact info</h3>
+      <h1 className="text-form-primary text-lg font-bold">Contact info</h1>
       <div className="mt-2 flex flex-col gap-y-4">
         <span className="text-form-secondary">
           Name: <span className="text-form-primary">Stefan Kudla</span>
@@ -240,6 +240,15 @@ export const InfoForm = () => {
         <span className="text-form-secondary">
           Timezone:{' '}
           <span className="text-form-primary">Pacific Daylight Time</span>
+        </span>
+        <span className="text-form-secondary">
+          Skills:{' '}
+          <span className="text-form-primary">
+            JavaScript, TypeScript, React, Next.js, Node.js PostgreSQL, Tailwind
+            CSS, HTML, CSS, Git, Docker, Figma, Technical Project Management,
+            Technical Writing, Technical Lead, Technical Documentation, SaaS
+            Architecture
+          </span>
         </span>
       </div>
     </div>

@@ -238,6 +238,7 @@ module.exports = {
     fontFamily: {
       sans: ['var(--font-nunito-sans)', 'sans-serif'],
       oswald: ['var(--font-oswald)'],
+      mono: ['var(--font-mono)'],
     },
     fontSize: {
       '2xs': ['0.75rem', { lineHeight: '1.25rem' }],

@@ -1,37 +1,36 @@
 import MenuItems from './MenuItems'
-import ThemeChanger from './ThemeChanger'
 import Logo from './Logo'
 import Navbar from './Navbar'
-import { motion, AnimatePresence } from 'framer-motion'
-import useScrollCounter from '@/hooks/useScrollCounter'
 import classNames from 'classnames'
+import Link from 'next/link'
 
 const Header: React.FC = () => {
   return (
-    <AnimatePresence>
-      <motion.header
-        className={classNames('md:py-6 md:px-0 font-sans mx-auto')}
+    <header
+      className={classNames(
+        'md:py-6 md:px-0 font-sans mx-auto fixed top-0 w-full z-50'
+      )}
+    >
+      <nav
+        className={classNames(
+          'hidden md:grid grid-cols-3 justify-center items-center h-full w-full mt-auto text-sm  mx-auto  max-w-3xl border p-4 rounded-lg bg-back-secondary'
+        )}
+        aria-label="Main Navigation"
       >
-        <nav
-          className={classNames(
-            'hidden md:flex justify-between items-center h-full w-full mt-auto text-sm  mx-auto container'
-          )}
-          aria-label="Main Navigation"
-        >
-          <Logo />
+        <Logo />
 
-          <motion.div>
-            <MenuItems />
-          </motion.div>
-          <ThemeChanger
-            styles={
-              'hidden transition-transform ease-in-out focus:outline-none sm:block hover:text-accent group focus-visible:outline-accent'
-            }
-          />
-        </nav>
-        <Navbar />
-      </motion.header>
-    </AnimatePresence>
+        <div>
+          <MenuItems />
+        </div>
+        <Link
+          className="w-auto  text-center whitespace-nowrap bg-accent text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base py-2 px-4 place-self-end"
+          href="/contact"
+        >
+          Contact me
+        </Link>
+      </nav>
+      <Navbar />
+    </header>
   )
 }
 export default Header

@@ -23,11 +23,7 @@ const Posts: React.FC<PostsTypes> = ({ allPosts, allPostCategories }) => {
         description="Blog posts written by Stefan Kudla"
         url={router.basePath + router.pathname}
       />
-      <SectionWrapper
-        classNames="!py-0 bg-gradient-to-b from-back-primary via-back-subtle to-back-secondary"
-        innerPadding
-        fullWidth
-      >
+      <SectionWrapper classNames="!py-0  max-w-3xl" innerPadding fullWidth>
         <div className="max-w-screen-lg mx-auto flex flex-col items-start w-full text-start gap-y-6 py-20">
           <h1 className="font-oswald font-bold">Blog Posts</h1>
           <p className="text-lg max-w-sm text-fore-subtle font-bold">

@@ -27,12 +27,7 @@ const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
         url="https://stefankudla.com/"
       />
       <IntroSection />
-      <ServicesSection
-        heading="Services"
-        text="I'm committed to providing my clients with high-quality services that deliver results. Here are some of the services I offer."
-        services={services}
-      />
-      <ImageMarquee />
+
       <CtaSection />
     </Layout>
   )

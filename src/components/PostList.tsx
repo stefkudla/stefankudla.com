@@ -4,12 +4,12 @@ import { PostListTypes } from '@/types/post'
 
 const PostList: React.FC<PostListTypes> = ({ allPosts }) => {
   return (
-    <ul className="flex flex-wrap w-full gap-4  max-w-screen-lg">
+    <ul className="grid grid-cols-1 w-full gap-4  max-w-screen-lg">
       {allPosts.map(post => (
         <li key={post.title} className="w-full md:w-auto">
           <Link
             href={`/posts/${post.slug}`}
-            className={`h-full group bg-card-background px-5 py-8 md:max-w-[330px] flex flex-col gap-y-8 rounded-lg border hover:border-accent border-card-border custom-shadow-md hover:custom-shadow-md-dark`}
+            className={`h-full group bg-card-background px-5 py-8 w-full flex flex-col gap-y-8 rounded-lg border hover:border-accent border-card-border custom-shadow-md hover:custom-shadow-md-dark`}
           >
             <span className="font-oswald text-card-border uppercase font-semibold text-sm">
               {post.metadata.category.title}
