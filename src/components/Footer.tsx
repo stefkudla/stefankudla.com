@@ -7,7 +7,7 @@ import cn from 'classnames'
 const Footer: React.FC = () => (
   <footer
     className={cn(
-      'bg-back-primary font-sans dark:bg-back-subtle flex flex-wrap justify-between items-end mx-auto gap-4  py-6 px-6 h-36 lg:px-20',
+      'bg-back-primary font-sans flex flex-wrap justify-between items-end mx-auto gap-4  py-6 px-6 h-36 lg:px-20',
       nunitoSans.variable
     )}
   >

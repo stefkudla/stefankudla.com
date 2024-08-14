@@ -4,7 +4,7 @@ import OutLinkIcon from './icons/OutlinkIcon'
 
 const Author = () => {
   return (
-    <section className="bg-card-background border-card-border border p-6 md:px-8 md:py-12 my-12 rounded-md shadow-sm">
+    <section className="bg-card-background border-card-border border p-6 md:px-8 md:py-12 my-12 rounded-md shadow-sm dark:border-gray-500">
       <h3 className="text-2xl font-bold">
         About <span className="text-accent">Stefan Kudla</span>
       </h3>

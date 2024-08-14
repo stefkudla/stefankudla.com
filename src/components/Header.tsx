@@ -8,12 +8,12 @@ const Header: React.FC = () => {
   return (
     <header
       className={classNames(
-        'md:py-6 md:px-0 font-sans mx-auto fixed top-0 w-full z-50'
+        'md:py-4 md:px-0 font-sans mx-auto fixed top-0 w-full z-50'
       )}
     >
       <nav
         className={classNames(
-          'hidden md:grid grid-cols-3 justify-center items-center h-full w-full mt-auto text-sm  mx-auto  max-w-3xl border p-4 rounded-lg bg-back-secondary'
+          'hidden md:grid grid-cols-3 justify-center items-center h-full w-full mt-auto text-sm  mx-auto  max-w-3xl border dark:border-gray-500 p-1.5 rounded-xl bg-back-secondary'
         )}
         aria-label="Main Navigation"
       >

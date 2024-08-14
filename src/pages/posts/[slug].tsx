@@ -24,11 +24,7 @@ const Post: React.FC<PostTypes> = ({ post }) => {
           <Loader />
         </div>
       ) : (
-        <SectionWrapper
-          as="div"
-          fullWidth
-          classNames="bg-gradient-to-b from-back-primary to-back-secondary"
-        >
+        <SectionWrapper as="div" fullWidth>
           <PostMeta
             title={post.title}
             description={post.metadata.excerpt}
