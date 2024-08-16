@@ -334,103 +334,27 @@ const IntroSection: React.FC = () => (
             <Link
               href="https://www.sitemapcompare.com/"
               target="_blank"
-              className="flex items-start gap-4 transition-colors p-2 hover:bg-card-background rounded-md"
+              className="flex gap-4 transition-colors p-2 hover:bg-card-background rounded-md items-center -ml-2"
             >
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13.3585 4.98486H3.52865C2.9493 4.98486 2.39369 5.21502 1.98403 5.62468C1.57438 6.03434 1.34424 6.58995 1.34424 7.16927V24.6445C1.34424 25.2238 1.57438 25.7794 1.98403 26.1891C2.39369 26.5988 2.9493 26.8289 3.52865 26.8289H16.635C17.2144 26.8289 17.77 26.5988 18.1797 26.1891C18.5893 25.7794 18.8194 25.2238 18.8194 24.6445V10.4459L13.3585 4.98486Z"
-                  fill="white"
-                  stroke="black"
-                  strokeWidth="2.1844"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12.2664 4.98486V9.35368C12.2664 9.93303 12.4965 10.4886 12.9061 10.8983C13.3158 11.3079 13.8714 11.5381 14.4507 11.5381H18.8196"
-                  stroke="black"
-                  strokeWidth="2.1844"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M7.89754 12.6304H5.71313"
-                  stroke="black"
-                  strokeWidth="2.1844"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M14.4507 16.999H5.71313"
-                  stroke="black"
-                  strokeWidth="2.1844"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M14.4507 21.3677H5.71313"
-                  stroke="black"
-                  strokeWidth="2.1844"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <mask
-                  id="mask0_86_78"
-                  maskUnits="userSpaceOnUse"
-                  x="10"
-                  y="0"
-                  width="20"
+              <span className="bg-[#facc15] rounded p-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
                   height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide stroke-black lucide-file-diff size-6 fill-[#FFF9EB]"
                 >
-                  <path
-                    d="M26.5488 0H13.3304C11.5362 0 10.0818 1.45444 10.0818 3.24859V20.3878C10.0818 22.1819 11.5362 23.6364 13.3304 23.6364H26.5488C28.343 23.6364 29.7974 22.1819 29.7974 20.3878V3.24859C29.7974 1.45444 28.343 0 26.5488 0Z"
-                    fill="white"
-                  />
-                </mask>
-                <g mask="url(#mask0_86_78)">
-                  <path
-                    d="M23.1043 1.3999H13.2745C12.6951 1.3999 12.1395 1.63005 11.7299 2.0397C11.3202 2.44935 11.0901 3.00497 11.0901 3.58432V21.0595C11.0901 21.6389 11.3202 22.1945 11.7299 22.6041C12.1395 23.0138 12.6951 23.2439 13.2745 23.2439H26.3809C26.9602 23.2439 27.5158 23.0138 27.9255 22.6041C28.3352 22.1945 28.5653 21.6389 28.5653 21.0595V6.8609L23.1043 1.3999Z"
-                    fill="white"
-                    stroke="#FACC14"
-                    strokeWidth="2.1844"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M22.0122 1.3999V5.7687C22.0122 6.34805 22.2423 6.90366 22.652 7.31332C23.0617 7.72298 23.6173 7.95311 24.1966 7.95311H28.5654"
-                    stroke="#FACC14"
-                    strokeWidth="2.1844"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M17.6434 9.04541H15.459"
-                    stroke="#FACC14"
-                    strokeWidth="2.1844"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M24.1966 13.4146H15.459"
-                    stroke="#FACC14"
-                    strokeWidth="2.1844"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M24.1966 17.7832H15.459"
-                    stroke="#FACC14"
-                    strokeWidth="2.1844"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
-              </svg>
+                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                  <path d="M9 10h6"></path>
+                  <path d="M12 13V7"></path>
+                  <path d="M9 17h6"></path>
+                </svg>
+              </span>
 
               <div>
                 <h3 className="font-medium font-oswald">Sitemap Compare</h3>
