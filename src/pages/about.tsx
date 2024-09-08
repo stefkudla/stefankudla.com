@@ -4,7 +4,7 @@ import { PaperIcon } from '@/configs/icons'
 import SocialIcons from '@/components/SocialIcons'
 import { ProductProps } from '@/types/product'
 import Image from 'next/image'
-import avatar from '../../public/images/avatar-july-2022-min.png'
+import avatar from '../../public/images/stefan-kudla-2024.jpg'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
 import Layout from '@/components/Layout'
@@ -20,14 +20,13 @@ const About: NextPage<ProductProps> = () => {
         url="https://stefankudla.com/about"
       />
       <section>
-        <h1 className="mb-12">About Stefan</h1>
+        <h1 className="my-12">About Stefan</h1>
         <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">
           <div className="flex-1 overflow-hidden rounded-md">
             <Image
               src={avatar}
-              alt="Stefan Kudla"
+              alt="Portrait of Stefan Kudla"
               className="rounded-md"
-              priority
               quality={100}
               sizes="100vw"
               style={{
@@ -37,7 +36,9 @@ const About: NextPage<ProductProps> = () => {
             />
           </div>
           <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
-            <h2>I&apos;m Stefan Kudla, a Software Engineer based in Las Vegas</h2>
+            <h2>
+              I&apos;m Stefan Kudla, a Software Engineer based in Las Vegas
+            </h2>
             <p>
               Software Developer, Music Producer, and Tech Content Creator. When
               I&apos;m not creating, you can usually find me brushing my teeth
@@ -56,7 +57,6 @@ const About: NextPage<ProductProps> = () => {
           </div>
         </div>
       </section>
-      <ContactSection />
     </Layout>
   )
 }
