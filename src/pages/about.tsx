@@ -28,7 +28,7 @@ const About: NextPage<ProductProps> = () => {
             Software Developer, Designer
           </h3>
         </div>
-        <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12">
+        <div className="flex flex-col md:flex-row-reverse border-b border-b-back-subtle pb-12 gap-6 md:gap-16">
           <div className="flex-1 overflow-hidden rounded-md">
             <Image
               src={avatar}
@@ -44,7 +44,7 @@ const About: NextPage<ProductProps> = () => {
               }}
             />
           </div>
-          <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8 pr-20">
+          <div className="flex-1 mt-12 md:mt-0 flex flex-col justify-start gap-y-8">
             <p>
               I&apos;m a Czech-American Software Developer and Designer based in
               Las Vegas, Nevada, with extensive experience across diverse tech
