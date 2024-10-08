@@ -4,7 +4,7 @@ import { PaperIcon } from '@/configs/icons'
 import SocialIcons from '@/components/SocialIcons'
 import { ProductProps } from '@/types/product'
 import Image from 'next/image'
-import avatar from '../../public/images/stefan-kudla-2024-min.jpg'
+import avatar from '../../public/images/sk-portrait-min.jpg'
 import { PageMeta } from '@/components/Meta'
 import ContactSection from '@/sections/ContactSection'
 import Layout from '@/components/Layout'
@@ -25,8 +25,10 @@ const About: NextPage<ProductProps> = () => {
           <div className="flex-1 overflow-hidden rounded-md">
             <Image
               src={avatar}
-              alt="Portrait of Stefan Kudla"
+              alt="Portrait of Stefan Kudla, Software Developer in Las Vegas"
               className="rounded-md"
+              placeholder="blur"
+              priority
               quality={100}
               sizes="100vw"
               style={{
