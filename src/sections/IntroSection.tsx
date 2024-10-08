@@ -16,9 +16,8 @@ const IntroSection: React.FC = () => (
         <br className="md:hidden" /> Architect.
       </h1>
       <p className="md:text-lg text-fore-primary max-w-xs md:max-w-lg pr-2 md:pr-0">
-        I&apos;m a dedicated Full Stack Developer with a passion for solving
-        problems and building systems. I work with early stage startups to bring
-        products from ideation to launch.
+        I&apos;m a dedicated Full Stack Developer and Designer with a passion
+        for solving problems and building systems.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md">
         <Link

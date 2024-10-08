@@ -17,6 +17,10 @@ export const routes: { path: string; label: string }[] = [
     path: '/posts',
     label: 'Posts',
   },
+  {
+    path: '/about',
+    label: 'About',
+  },
 ]
 
 const MenuItems: React.FC = () => {
