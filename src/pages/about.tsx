@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 
 const About: NextPage<ProductProps> = () => {
   const router = useRouter()
+
   return (
     <Layout router={{ route: router.pathname }}>
       <PageMeta
@@ -29,7 +30,7 @@ const About: NextPage<ProductProps> = () => {
               className="rounded-md"
               placeholder="blur"
               priority
-              quality={100}
+              quality={90}
               sizes="100vw"
               style={{
                 width: '100%',
