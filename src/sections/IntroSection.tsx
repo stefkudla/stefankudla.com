@@ -482,6 +482,7 @@ const IntroSection: React.FC = () => (
                   <path d="M9 17h6"></path>
                 </svg>
               </span>
+              <span className="hidden" />
 
               <div>
                 <h3 className="font-medium font-oswald">Sitemap Compare</h3>
