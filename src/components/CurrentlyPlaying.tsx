@@ -20,21 +20,6 @@ const CurrentlyPlaying: React.FC = () => {
     }, 5000)
   }
 
-  if (!currentlyPlaying && !topTracks)
-    return (
-      <div className="py-3 px-1 rounded-lg w-full max-w-full sm:max-w-xs bg-gray-200 dark:bg-gray-700">
-        <div className="flex items-center w-full">
-          <div className="group flex">
-            <div className="w-16 h-16 bg-gray-300 dark:bg-gray-500 shadow-md mx-2 transition-all rounded-md"></div>
-            <div className="flex items-center">
-              <span className="text-lg font-bold">Not playing&nbsp;</span>
-              <span className="text-fore-subtle pt-[1px]">- &nbsp;Spotify</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-
   if (!currentlyPlaying && topTracks?.tracks.length)
     return (
       <div className="py-3 px-1 rounded-lg w-full max-w-xs bg-gray-200 dark:bg-gray-900 border-purple-300 dark:border-purple-600 border border-transparent">
@@ -136,6 +121,20 @@ const CurrentlyPlaying: React.FC = () => {
         </div>
       </div>
     )
+
+  return (
+    <div className="py-3 px-1 rounded-lg w-full max-w-full sm:max-w-xs bg-gray-200 dark:bg-gray-700">
+      <div className="flex items-center w-full">
+        <div className="group flex">
+          <div className="w-16 h-16 bg-gray-300 dark:bg-gray-500 shadow-md mx-2 transition-all rounded-md"></div>
+          <div className="flex items-center">
+            <span className="text-lg font-bold">Not playing&nbsp;</span>
+            <span className="text-fore-subtle pt-[1px]">- &nbsp;Spotify</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default CurrentlyPlaying
