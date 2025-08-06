@@ -7,8 +7,8 @@ import { Analytics } from '@vercel/analytics/react'
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider
-      defaultTheme="system"
-      enableSystem={true}
+      defaultTheme="dark"
+      enableSystem={false}
       attribute="class"
       disableTransitionOnChange
     >

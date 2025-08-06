@@ -15,10 +15,12 @@ export default async function handler(
         artists: any[]
         external_urls: { spotify: any }
         name: any
+        album: { images: { url: string }[] }
       }) => ({
         artist: track.artists.map(_artist => _artist.name).join(', '),
         songUrl: track.external_urls.spotify,
         title: track.name,
+        image: track.album?.images?.[0]?.url,
       })
     )
 

@@ -10,10 +10,6 @@ export const routes: { path: string; label: string }[] = [
     label: 'Home',
   },
   {
-    path: '/projects',
-    label: 'Projects',
-  },
-  {
     path: '/posts',
     label: 'Posts',
   },

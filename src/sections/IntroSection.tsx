@@ -3,9 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import EuronetLogo from '../../public/images/logos/euronet_worldwide_logo.jpeg'
+import CurrentlyPlaying from '@/components/CurrentlyPlaying'
 
 const IntroSection: React.FC = () => (
-  <section className="h-auto md:py-20">
+  <section className="h-auto md:py-8">
     <div className="max-w-sm md:max-w-3xl flex flex-col items-start text-start gap-y-6">
       <p className="font-bold text-4xl md:leading-[1.2] font-oswald opacity-20 dark:opacity-40 relative top-8">
         Stefan Kudla
@@ -18,8 +19,8 @@ const IntroSection: React.FC = () => (
         Software Developer, Designer,
         <br className="md:hidden" /> Architect.
       </h1>
-      <p className="md:text-2xl font-semibold text-fore-primary pr-2 md:pr-0 flex items-center gap-2">
-        Fullstack Developer at{' '}
+      <p className="md:text-2xl font-semibold text-fore-primary pr-2 md:pr-0 flex flex-wrap items-center gap-2">
+        Senior Full Stack Developer at{' '}
         <Link
           href="https://www.euronetworldwide.com/"
           target="_blank"
@@ -38,24 +39,53 @@ const IntroSection: React.FC = () => (
           </span>
         </Link>
       </p>
-      <div className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-sm md:max-w-md">
-        <Link
-          href="/projects"
-          className="flex-1 w-full  whitespace-nowrap bg-accent px-8 py-2.5 sm:py-3.5 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base text-center"
-        >
-          View Projects
-        </Link>
+      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm md:max-w-md">
         <Link
           href="/contact"
-          className="flex-1 w-full  bg-transparent border-accent border-2 px-8 py-2 sm:py-3 text-current dark:text-white font-bold rounded-lg hover:opacity-75 transition-opacity whitespace-nowrap text-sm sm:text-base text-center"
+          className="w-full md:w-fit whitespace-nowrap bg-accent px-4 py-2 sm:py-2 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base text-center"
         >
-          Work with me
+          Contact Me
         </Link>
       </div>
-      <div className=" space-y-12 pt-12">
-        <div className="space-y-4">
+
+      <div className=" space-y-12 pt-8">
+        <div className="space-y-10">
+          <div className="space-y-4">
+            <div className="space-y-4">
+              <h2 className="font-mono text-sm uppercase">Today</h2>
+              <p>
+                I&apos;m currently a Senior Full Stack Developer at Euronet
+                Worldwide, building the forefront of cashless gaming technology
+                with{' '}
+                <Link
+                  href={'https://www.markertrax.com/moolah-play'}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="underline font-semibold"
+                >
+                  MoolahPlay
+                </Link>
+                , powered by Euronet&apos;s{' '}
+                <Link
+                  href={
+                    'https://www.euronetworldwide.com/products-and-solutions/ren/'
+                  }
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="underline font-semibold"
+                >
+                  Ren
+                </Link>{' '}
+                platform
+              </p>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h2 className="font-mono text-sm uppercase">Now Playing</h2>
+            <CurrentlyPlaying />
+          </div>
           <h2 className="font-mono text-sm uppercase">Clients</h2>
-          <div className="flex flex-row gap-8 items-center">
+          <div className="flex flex-col sm:flex-row gap-8 sm:items-center">
             <div>
               <Link
                 href="https://tribe-in.com/"
@@ -223,90 +253,15 @@ const IntroSection: React.FC = () => (
                 </svg>
               </Link>
             </div>
-            <div>
-              <Link
-                href="https://www.cosmicjs.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  width="31"
-                  height="31"
-                  viewBox="0 0 31 31"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="transition-colors hover:text-[#28ABE2] text-[#9E9E9E]"
-                >
-                  <g clipPath="url(#clip0_86_35)">
-                    <path
-                      d="M12.1165 19.6926C12.85 20.3297 13.5272 20.9668 14.2608 21.546C13.6965 21.9514 13.1887 22.299 12.6808 22.6465C12.0601 22.1252 11.4393 21.546 10.8186 20.9668C11.4393 20.7352 11.8908 20.2718 12.1165 19.6926Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M10.3136 16.7321C11.6715 16.7285 12.7752 17.8277 12.7788 19.1871C12.7823 20.5466 11.6844 21.6517 10.3265 21.6553C8.96857 21.6589 7.86487 20.5597 7.86134 19.2002C7.85774 17.8407 8.95566 16.7357 10.3136 16.7321Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M12.4874 5.47697C8.99999 3.56765 5.9854 3.09027 4.6259 4.403C2.73441 6.25268 4.44857 11.0857 8.58621 15.9784C7.936 16.1575 7.40401 16.6348 7.1085 17.2314C1.07936 10.4294 -1.63966 3.56765 1.02024 1.00196C3.20728 -1.14606 8.468 0.285954 14.2607 4.10467C13.6696 4.52234 13.0785 4.99966 12.4874 5.47697Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M16.4652 21.7803C16.642 22.4348 17.1135 22.9703 17.7029 23.2679C10.7484 29.0397 3.67595 31.5984 1.0238 29.0397C-1.15686 26.8976 0.257622 21.8397 4.20638 16.2464C4.67788 16.8415 5.14937 17.377 5.62086 17.972C3.67595 21.3638 3.14552 24.2794 4.50107 25.648C6.44599 27.4926 11.3967 25.767 16.4652 21.7803Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M21.4812 20.1846C21.2517 19.5878 20.7353 19.1104 20.1616 18.8717C21.0222 17.9766 21.8253 17.1411 22.5138 16.246C22.9154 16.7831 23.317 17.3202 23.6038 17.8573C22.9728 18.633 22.2269 19.4088 21.4812 20.1846Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M19.6699 17.7233C21.0423 17.7233 22.1287 18.804 22.1287 20.1849C22.1287 21.5658 21.0423 22.6465 19.6699 22.6465C18.2976 22.6465 17.2112 21.5658 17.2112 20.1849C17.2112 18.864 18.2976 17.7233 19.6699 17.7233Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M26.3937 25.6144C28.2929 23.7668 26.5717 18.9391 22.4171 14.0518C23.07 13.8731 23.6042 13.3962 23.9009 12.8002C29.8953 19.5947 32.6255 26.5084 29.9547 29.0712C27.7587 31.1573 22.4765 29.7269 16.7195 25.9124C17.313 25.4952 17.9065 25.0184 18.5 24.5416C22.0017 26.4488 25.0286 26.9256 26.3937 25.6144Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M19.3047 10.8306C18.4617 9.9987 17.5625 9.2263 16.7195 8.51323C17.2815 8.09736 17.7873 7.74083 18.3493 7.38436C19.1361 8.0379 19.8667 8.75096 20.6535 9.52337C20.0353 9.76103 19.5857 10.2364 19.3047 10.8306Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M21.1586 13.2993C19.8007 13.3031 18.6968 12.2041 18.6931 10.8446C18.6894 9.4851 19.7872 8.37995 21.1451 8.37623C22.503 8.37244 23.6068 9.47146 23.6106 10.8309C23.6143 12.1904 22.5165 13.2956 21.1586 13.2993Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M10.8182 11.159C9.95769 12.0541 9.15449 12.8896 8.46603 13.7847C8.06443 13.2476 7.66283 12.7105 7.37598 12.1735C8.06443 11.3977 8.75289 10.6219 9.49872 9.84613C9.7282 10.4429 10.1872 10.9203 10.8182 11.159Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M26.7876 13.7847C26.3177 13.1918 25.8478 12.6581 25.3778 12.0653C27.3163 8.68566 27.8449 5.83966 26.4351 4.47594C24.4967 2.63797 19.5624 4.35738 14.5107 8.27063C14.3344 7.61841 13.8645 7.08476 13.2771 6.78835C20.2673 1.03706 27.3163 -1.57175 29.9596 0.977783C32.133 3.17157 30.7232 8.27063 26.7876 13.7847Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M13.7753 9.83323C13.7789 11.1927 12.681 12.2977 11.3231 12.3013C9.96509 12.3049 8.86145 11.2057 8.85792 9.84621C8.85433 8.48669 9.9523 7.38172 11.3102 7.37812C12.6681 7.37457 13.7718 8.47372 13.7753 9.83323Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_86_35">
-                      <rect
-                        width="31"
-                        height="30.0312"
-                        fill="white"
-                        transform="matrix(1 0 0 -1 0 30.0312)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </Link>
-            </div>
           </div>
         </div>
         <div className="space-y-4">
           <div className="space-y-4">
-            <h2 className="font-mono text-sm uppercase">Publications</h2>
+            <h2 className="font-mono text-sm uppercase">
+              Publications & Documentation
+            </h2>
           </div>
-          <div className="flex flex-row gap-8 items-center">
+          <div className="flex flex-col sm:flex-row gap-8 sm:items-center">
             <Link
               href="https://www.imgix.com/blog/headless-cms-image-cdn-for-web-performance-cosmic"
               target="_blank"

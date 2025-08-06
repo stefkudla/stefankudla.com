@@ -4,10 +4,8 @@ import IntroSection from '@/sections/IntroSection'
 import { PageMeta } from '@/components/Meta'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
-import ServicesSection from '@/sections/ServicesSection'
 import { Services } from '@/sections/ServicesSection'
 import { cosmic } from '@/lib/cosmic'
-import ImageMarquee from '@/sections/ImageMarquee'
 import CtaSection from '@/sections/CtaSection'
 
 const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({

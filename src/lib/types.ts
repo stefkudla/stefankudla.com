@@ -2,6 +2,7 @@ export type Song = {
   songUrl: string
   artist: string
   title: string
+  image: string
 }
 
 export type TopTracks = {
