@@ -20,58 +20,7 @@ const CurrentlyPlaying: React.FC = () => {
     }, 5000)
   }
 
-  if (!currentlyPlaying && topTracks?.tracks.length)
-    return (
-      <div className="py-3 px-1 rounded-lg w-full max-w-xs bg-gray-200 dark:bg-gray-900 border-purple-300 dark:border-purple-600 border border-transparent">
-        <div className="flex items-center w-full">
-          <>
-            <a
-              className="group flex hover:opacity-75 transition-opacity"
-              href={topTracks.tracks[0].songUrl}
-              aria-label={`Open${topTracks.tracks[0].title} by ${topTracks.tracks[0].artist} on Spotify`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="w-16 h-16 bg-gray-300  shadow-md mx-2 transition-all rounded-md">
-                <BlurImage
-                  src={topTracks.tracks[0].image}
-                  alt={`Cover art for the song ${topTracks.tracks[0].title}`}
-                  quality={50}
-                  width={100}
-                  height={100}
-                  className="rounded-md"
-                />
-              </div>
-              <Marquee
-                gradient={false}
-                play={playMarquee}
-                className="overflow-hidden"
-                delay={5}
-                speed={23}
-                pauseOnHover={false}
-                onCycleComplete={handleMarquee}
-                style={{
-                  width: '235px',
-                  marginLeft: '-8px',
-                  paddingLeft: '8px',
-                }}
-              >
-                <div className="flex items-center">
-                  <span className="group-hover:text-[#1DB954] text-lg transition-colors font-bold">
-                    {topTracks.tracks[0].title}&nbsp;
-                  </span>
-                  <span className="text-fore-subtle pt-[1px] pr-24">
-                    - &nbsp;{topTracks.tracks[0].artist}
-                  </span>
-                </div>
-              </Marquee>
-            </a>
-          </>
-        </div>
-      </div>
-    )
-
-  if (currentlyPlaying)
+  if (currentlyPlaying && currentlyPlaying.isPlaying)
     return (
       <div className="py-3 px-1 rounded-lg w-full max-w-xs bg-gray-200 dark:bg-gray-900 border-purple-300 dark:border-purple-600 border border-transparent">
         <div className="flex items-center w-full">
@@ -113,6 +62,57 @@ const CurrentlyPlaying: React.FC = () => {
                   </span>
                   <span className="text-fore-subtle pt-[1px] pr-24">
                     - &nbsp;{currentlyPlaying.artist}
+                  </span>
+                </div>
+              </Marquee>
+            </a>
+          </>
+        </div>
+      </div>
+    )
+
+  if (topTracks?.tracks.length && !currentlyPlaying?.isPlaying)
+    return (
+      <div className="py-3 px-1 rounded-lg w-full max-w-xs bg-gray-200 dark:bg-gray-900 border-purple-300 dark:border-purple-600 border border-transparent">
+        <div className="flex items-center w-full">
+          <>
+            <a
+              className="group flex hover:opacity-75 transition-opacity"
+              href={topTracks.tracks[0].songUrl}
+              aria-label={`Open${topTracks.tracks[0].title} by ${topTracks.tracks[0].artist} on Spotify`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="w-16 h-16 bg-gray-300  shadow-md mx-2 transition-all rounded-md">
+                <BlurImage
+                  src={topTracks.tracks[0].image}
+                  alt={`Cover art for the song ${topTracks.tracks[0].title}`}
+                  quality={50}
+                  width={100}
+                  height={100}
+                  className="rounded-md"
+                />
+              </div>
+              <Marquee
+                gradient={false}
+                play={playMarquee}
+                className="overflow-hidden"
+                delay={5}
+                speed={23}
+                pauseOnHover={false}
+                onCycleComplete={handleMarquee}
+                style={{
+                  width: '235px',
+                  marginLeft: '-8px',
+                  paddingLeft: '8px',
+                }}
+              >
+                <div className="flex items-center">
+                  <span className="group-hover:text-[#1DB954] text-lg transition-colors font-bold">
+                    {topTracks.tracks[0].title}&nbsp;
+                  </span>
+                  <span className="text-fore-subtle pt-[1px] pr-24">
+                    - &nbsp;{topTracks.tracks[0].artist}
                   </span>
                 </div>
               </Marquee>
