@@ -16,7 +16,7 @@ interface TimelineProps {
   title?: string;
   description?: string;
   /** Pass a scrollable ancestor ref when the timeline lives inside a scroll container (e.g. a modal). */
-  scrollContainerRef?: React.RefObject<HTMLElement>;
+  scrollContainerRef?: React.RefObject<HTMLElement | null>;
 }
 
 export const Timeline = ({
