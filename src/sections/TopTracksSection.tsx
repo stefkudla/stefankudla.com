@@ -1,7 +1,7 @@
 import { HeadphonesIcon } from '@/configs/icons'
 import TopTracks from '@/components/TopTracks'
 
-const TopTracksSection: React.VFC = () => {
+const TopTracksSection: React.FC = () => {
   return (
     <section className="mt-24 pb-12">
       <span className="flex items-center mb-8">

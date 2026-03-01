@@ -8,7 +8,7 @@ import { getObjectsByType, getSingleObjectByType } from '@/lib/cosmic'
 import Link from 'next/link'
 import OutLinkIcon from '@/components/icons/OutlinkIcon'
 import { Project, ProjectPageData } from '@/types/project'
-import DefaultImage from '/public/images/stefan_kudla_ogImage.jpg'
+const DefaultImage = '/images/stefan_kudla_ogImage.jpg'
 import cn from 'classnames'
 import SectionWrapper from '@/components/SectionWrapper'
 

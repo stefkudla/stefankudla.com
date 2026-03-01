@@ -49,8 +49,8 @@ const Services: NextPage<{ services: { title: string }[] }> = ({
                 transition: {
                   delay: 0.7,
                   duration: 0.9,
-                  type: 'spring',
-                  spring: 0.6,
+                  type: 'spring' as const,
+                  stiffness: 60,
                   damping: 20,
                 },
               }}
@@ -77,8 +77,8 @@ const Services: NextPage<{ services: { title: string }[] }> = ({
                 transition: {
                   delay: 0.7,
                   duration: 0.9,
-                  type: 'spring',
-                  spring: 0.6,
+                  type: 'spring' as const,
+                  stiffness: 60,
                   damping: 20,
                 },
               }}

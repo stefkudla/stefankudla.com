@@ -9,7 +9,7 @@ const Card = ({
   content,
   link,
 }: {
-  icon?: JSX.Element
+  icon?: React.ReactNode
   heading: string
   content: string
   link?: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { LetterIcon } from '@/configs/icons'
 
-const ContactSection: React.VFC = () => {
+const ContactSection: React.FC = () => {
   return (
     <section className="h-72 flex flex-col items-center justify-center my-32">
       <h3 className="text-3xl flex items-center gap-x-2 font-bold mb-6">

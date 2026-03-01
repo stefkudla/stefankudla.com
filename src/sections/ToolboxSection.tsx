@@ -3,7 +3,7 @@ import React from 'react'
 import DevIcon from '@/components/DevIcon'
 import { devIcons } from '@/configs/dev-icons'
 
-const TechSection: React.VFC = () => {
+const TechSection: React.FC = () => {
   return (
     <section className="py-24">
       <span className="flex items-center mb-8">
