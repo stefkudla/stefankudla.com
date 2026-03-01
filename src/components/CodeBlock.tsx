@@ -15,16 +15,13 @@ SyntaxHighlighter.registerLanguage('json', json)
 SyntaxHighlighter.registerLanguage('css', css)
 
 const CodeBlock = ({
-  node,
-  inline,
   className,
   children,
   ...props
 }: {
-  node: object
-  inline: boolean
-  className: string
+  className?: string
   children: ReactNode
+  [key: string]: unknown
 }) => {
   const [hasMounted, setHasMounted] = useState(false)
   useEffect(() => {
@@ -32,7 +29,7 @@ const CodeBlock = ({
   }, [])
   if (!hasMounted) return null
   const match = /language-(\w+)/.exec(className || '')
-  return !inline && match ? (
+  return match ? (
     <SyntaxHighlighter
       language={match[1]}
       className={`shadow rounded-md !bg-transparent`}

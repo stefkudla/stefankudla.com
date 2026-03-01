@@ -1,5 +1,14 @@
 module.exports = {
   images: {
-    domains: ['imgix.cosmicjs.com', 'i.scdn.co'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'imgix.cosmicjs.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+      },
+    ],
   },
 }

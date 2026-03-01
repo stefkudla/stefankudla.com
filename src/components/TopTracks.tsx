@@ -1,11 +1,11 @@
 import useSWR from 'swr'
 
 import fetcher from '@/lib/fetcher'
-import { TopTracks } from '@/lib/types'
+import type { TopTracks as TopTracksData } from '@/lib/types'
 import Link from 'next/link'
 
 const TopTracks: React.FC = () => {
-  const { data } = useSWR<TopTracks>('/api/top-tracks', fetcher)
+  const { data } = useSWR<TopTracksData>('/api/top-tracks', fetcher)
 
   const mockArray = new Array(10).fill({
     title: 'Loading...',

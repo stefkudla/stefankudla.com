@@ -210,7 +210,7 @@ const ServicesSection: React.FC<Props> = ({ heading, text, services }) => {
             opacity: showElement ? 1 : 0,
             y: showElement ? 0 : -100,
             transition: {
-              type: 'intertia',
+              type: 'inertia',
               duration: 0.5,
             },
             offset: 0.5,

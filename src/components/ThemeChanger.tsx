@@ -13,7 +13,7 @@ const ThemeChanger: React.FC<{ styles?: string }> = ({ styles }) => {
   useEffect(() => setMounted(true), [])
 
   const spring = {
-    type: 'spring',
+    type: 'spring' as const,
     stiffness: 700,
     damping: 30,
   }

@@ -2,7 +2,7 @@ import ReactMarkdown from 'react-markdown'
 import { ReactNode } from 'react'
 import BlurImage from './BlurImage'
 import CodeBlock from './CodeBlock'
-import remarkSlug from 'remark-slug'
+import rehypeSlug from 'rehype-slug'
 import HashIcon from '@/components/icons/HashIcon'
 import cn from 'classnames'
 
@@ -57,18 +57,16 @@ const components: object = {
   },
 
   code({
-    node,
-    inline,
     className,
     children,
+    ...props
   }: {
-    node: object
-    inline: boolean
-    className: string
+    className?: string
     children: ReactNode
+    [key: string]: unknown
   }) {
     return (
-      <CodeBlock node={node} inline={inline} className={className}>
+      <CodeBlock className={className} {...props}>
         {children}
       </CodeBlock>
     )
@@ -78,13 +76,14 @@ const components: object = {
 const PostBody: React.FC<{ content: string }> = ({ content }) => {
   return (
     <div className="max-w-4xl mx-auto px-px py-4 md:px-8 md:py-8 md:custom-shadow-md md:bg-card-background md:border dark:border-gray-500 rounded-lg border-card-border">
-      <ReactMarkdown
-        className={`prose md:prose-lg prose-zinc prose-pre:bg-[#0C0C0E] dark:prose-invert`}
-        components={components}
-        remarkPlugins={[remarkSlug]}
-      >
-        {content}
-      </ReactMarkdown>
+      <div className="prose md:prose-lg prose-zinc prose-pre:bg-[#0C0C0E] dark:prose-invert">
+        <ReactMarkdown
+          components={components}
+          rehypePlugins={[rehypeSlug]}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
     </div>
   )
 }
