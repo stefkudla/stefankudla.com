@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import EuronetLogo from '../../public/images/logos/euronet_worldwide_logo.jpeg'
-import CurrentlyPlaying from '@/components/CurrentlyPlaying'
 
 const IntroSection: React.FC = () => (
   <section className="h-auto md:py-8">
@@ -19,13 +18,13 @@ const IntroSection: React.FC = () => (
         Software Developer, Designer,
         <br className="md:hidden" /> Architect.
       </h1>
-      <p className="md:text-2xl font-semibold text-fore-primary pr-2 md:pr-0 flex flex-wrap items-center gap-2">
-        Senior Full Stack Developer at{' '}
+      <div className="md:text-2xl font-semibold text-fore-primary pr-2 md:pr-0">
+        <p>Lead Full Stack Developer at</p>
         <Link
           href="https://www.euronetworldwide.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 group"
+          className="flex items-center gap-1 group mt-2"
         >
           <Image
             src={EuronetLogo}
@@ -38,11 +37,11 @@ const IntroSection: React.FC = () => (
             Euronet Worldwide
           </span>
         </Link>
-      </p>
+      </div>
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm md:max-w-md">
         <Link
           href="/contact"
-          className="w-full md:w-fit whitespace-nowrap bg-accent px-4 py-2 sm:py-2 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-sm sm:text-base text-center"
+          className="w-full md:w-fit whitespace-nowrap bg-accent px-6 py-3 text-white font-bold rounded-lg hover:opacity-75 transition-opacity text-base text-center"
         >
           Contact Me
         </Link>
@@ -54,7 +53,7 @@ const IntroSection: React.FC = () => (
             <div className="space-y-4">
               <h2 className="font-mono text-sm uppercase">Today</h2>
               <p>
-                I&apos;m currently a Senior Full Stack Developer at Euronet
+                I&apos;m currently a Lead Full Stack Developer at Euronet
                 Worldwide, building the forefront of cashless gaming technology
                 with{' '}
                 <Link
@@ -79,10 +78,6 @@ const IntroSection: React.FC = () => (
                 platform
               </p>
             </div>
-          </div>
-          <div className="space-y-4">
-            <h2 className="font-mono text-sm uppercase">Now Playing</h2>
-            <CurrentlyPlaying />
           </div>
           <h2 className="font-mono text-sm uppercase">Clients</h2>
           <div className="flex flex-col sm:flex-row gap-8 sm:items-center">

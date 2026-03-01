@@ -51,7 +51,7 @@
   --color-fore-subtle: hsla(214, 20%, 69%);
 
   --color-back-primary: #05070f;
-  --color-back-secondary: #1e2233;
+  --color-back-secondary: #141414;
   --color-back-subtle: #1a1d2d;
 
   --color-accent: hsla(221, 100%, 55%, 1);
@@ -259,3 +259,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

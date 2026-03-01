@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
 interface FilterTypes {
   categories: [category: { title: string }]
@@ -8,70 +7,51 @@ interface FilterTypes {
   selected: string
 }
 
-const Underline = () => {
-  return (
-    <motion.span
-      layoutId={`underline__category`}
-      layout
-      className="bg-accent"
-      style={{
-        width: '100%',
-        position: 'absolute',
-        bottom: '-2px',
-        left: 0,
-        height: '2px',
-      }}
-      transition={{
-        type: 'spring',
-        bounce: 0,
-        duration: 0.6,
-        ease: 'easeInOut',
-      }}
-    />
-  )
-}
-
 const CategoryFilter: React.FC<FilterTypes> = ({
   categories,
   handleSelection,
   selected,
 }) => {
-  const [isSelected, setIsSelected] = useState('All')
+  const allCategories = [{ title: 'All' }, ...categories]
 
   return (
-    <ul className="flex flex-wrap gap-y-3 gap-x-8 sm:gap-y-0 md:border-b-[2px] border-b-gray-300 dark:border-b-dark-gray-400 w-full pb-0 font-bold text-lg text-fore-subtle">
-      <li key={'All'}>
-        <button
-          className={cn('cursor-pointer relative', {
-            'text-fore-primary': selected === 'All',
-          })}
-          onClick={() => {
-            handleSelection('All')
-            setIsSelected('All')
-          }}
-        >
-          {isSelected === selected && <Underline />}
-          View all
-        </button>
-      </li>
-      {categories.map(category => (
-        <li key={category.title}>
-          <button
-            className={cn(
-              'cursor-pointer relative',
-              category.title === selected ? 'text-fore-primary' : ''
-            )}
-            onClick={() => {
-              handleSelection(category.title)
-              setIsSelected(category.title)
-            }}
-          >
-            {isSelected === category.title && <Underline />}
-            {category.title}
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div className="w-full">
+      <ul className="flex flex-wrap gap-2 md:gap-3">
+        {allCategories.map(category => {
+          const isActive =
+            category.title === 'All'
+              ? selected === 'All'
+              : selected === category.title
+
+          return (
+            <li key={category.title}>
+              <button
+                className={cn(
+                  'relative cursor-pointer rounded-full px-4 py-1.5 md:px-5 md:py-2 text-sm md:text-base font-semibold whitespace-nowrap transition-colors',
+                  isActive ? 'text-white' : 'text-fore-subtle hover:text-fore-primary'
+                )}
+                onClick={() => handleSelection(category.title)}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="category-pill"
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{
+                      type: 'spring',
+                      bounce: 0.15,
+                      duration: 0.5,
+                    }}
+                  />
+                )}
+                <span className="relative z-10">
+                  {category.title === 'All' ? 'All' : category.title}
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
 export default CategoryFilter
