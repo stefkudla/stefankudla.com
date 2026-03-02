@@ -11,6 +11,8 @@ interface GlowingEffectProps {
   spread?: number;
   variant?: "default" | "white";
   glow?: boolean;
+  /** When true, glow is always visible (e.g. on mobile where there's no hover). */
+  alwaysActive?: boolean;
   className?: string;
   disabled?: boolean;
   movementDuration?: number;
@@ -24,6 +26,7 @@ const GlowingEffect = memo(
     spread = 20,
     variant = "default",
     glow = false,
+    alwaysActive = false,
     className,
     movementDuration = 2,
     borderWidth = 1,
@@ -36,6 +39,10 @@ const GlowingEffect = memo(
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
         if (!containerRef.current) return;
+        if (alwaysActive) {
+          containerRef.current.style.setProperty("--active", "1");
+          return;
+        }
 
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -94,8 +101,28 @@ const GlowingEffect = memo(
           });
         });
       },
-      [inactiveZone, proximity, movementDuration]
+      [alwaysActive, inactiveZone, proximity, movementDuration]
     );
+
+    /** When alwaysActive (e.g. mobile), rotate the glow angle so the whole border animates. */
+    const alwaysActiveLoopRef = useRef<number>(0);
+    useEffect(() => {
+      if (!alwaysActive || !containerRef.current) return;
+      const el = containerRef.current;
+      el.style.setProperty("--active", "1");
+      const duration = 8000; // full rotation in ms (slower)
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = ((now - start) % duration) / duration;
+        const angle = t * 360;
+        el.style.setProperty("--start", String(angle));
+        alwaysActiveLoopRef.current = requestAnimationFrame(tick);
+      };
+      alwaysActiveLoopRef.current = requestAnimationFrame(tick);
+      return () => {
+        cancelAnimationFrame(alwaysActiveLoopRef.current);
+      };
+    }, [alwaysActive]);
 
     useEffect(() => {
       if (disabled) return;
@@ -134,7 +161,7 @@ const GlowingEffect = memo(
               "--blur": `${blur}px`,
               "--spread": spread,
               "--start": "0",
-              "--active": "0",
+              "--active": alwaysActive ? "1" : "0",
               "--glowingeffect-border-width": `${borderWidth}px`,
               "--repeating-conic-gradient-times": "5",
               "--gradient":

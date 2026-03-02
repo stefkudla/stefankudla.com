@@ -5,10 +5,13 @@ import {
   motion,
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export interface TimelineEntry {
   title: string;
   content: React.ReactNode;
+  /** Optional icon: image { src, alt } or a React node (e.g. accent-colored logo). */
+  icon?: { src: string; alt: string } | React.ReactNode;
 }
 
 interface TimelineProps {
@@ -72,8 +75,27 @@ export const Timeline = ({
             className="flex justify-start pt-10 md:pt-24 md:gap-8"
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start md:w-60 shrink-0">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-back-primary dark:bg-back-secondary flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-back-subtle border border-back-subtle p-2" />
+              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-back-primary dark:bg-back-secondary flex items-center justify-center ring-2 ring-back-subtle overflow-hidden p-1">
+                {item.icon ? (
+                  typeof item.icon === 'object' &&
+                  item.icon !== null &&
+                  'src' in item.icon &&
+                  'alt' in item.icon ? (
+                    <Image
+                      src={item.icon.src}
+                      alt={item.icon.alt}
+                      width={32}
+                      height={32}
+                      className="rounded-full object-cover w-full h-full min-w-0 min-h-0"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:min-w-0 [&_svg]:min-h-0">
+                      {item.icon}
+                    </div>
+                  )
+                ) : (
+                  <div className="h-4 w-4 rounded-full bg-back-subtle border border-back-subtle p-2" />
+                )}
               </div>
               <h3 className="hidden md:block md:pl-20 text-lg font-bold text-fore-subtle whitespace-nowrap">
                 {item.title}

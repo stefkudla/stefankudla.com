@@ -14,25 +14,20 @@ const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
 }) => {
   const router = useRouter()
   return (
-    <>
-      <div className="absolute inset-0 z-0 h-full bg-gradient-to-b from-[#0f1022] via-[#161a3a] to-[#05070f]" />
-      <div className="relative z-[1]">
-        <Layout
-          router={{
-            route: router.pathname,
-          }}
-        >
-          <PageMeta
-            title="Stefan Kudla | Software Engineer in Las Vegas"
-            description="Fullstack Software Engineer based in Las Vegas"
-            url="https://stefankudla.com/"
-          />
-          <IntroSection />
+    <Layout
+      router={{
+        route: router.pathname,
+      }}
+    >
+      <PageMeta
+        title="Stefan Kudla | Software Engineer in Las Vegas"
+        description="Fullstack Software Engineer based in Las Vegas"
+        url="https://stefankudla.com/"
+      />
+      <IntroSection />
 
-          <CtaSection />
-        </Layout>
-      </div>
-    </>
+      <CtaSection />
+    </Layout>
   )
 }
 

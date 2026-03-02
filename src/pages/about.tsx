@@ -8,24 +8,17 @@ import { PageMeta } from '@/components/Meta'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
 import { Timeline, type TimelineEntry } from '@/components/ui/timeline'
+import { LogoIcon } from '@/components/Logo'
 
 const workHistory: TimelineEntry[] = [
   {
     title: 'Sep 2024 — Present',
+    icon: { src: '/images/logos/euronet_worldwide_logo.jpeg', alt: 'Euronet Worldwide logo' },
     content: (
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <Image
-            src="/images/logos/euronet_worldwide_logo.jpeg"
-            alt="Euronet Worldwide logo"
-            width={40}
-            height={40}
-            className="rounded"
-          />
-          <h4 className="text-lg font-semibold text-fore-primary">
-            Euronet Worldwide
-          </h4>
-        </div>
+        <h4 className="text-lg font-semibold text-fore-primary mb-4">
+          Euronet Worldwide
+        </h4>
         <p className="text-sm text-fore-subtle mb-4">
           Now leading a team of engineers on a white-label React Native
           platform that serves multiple casino operators. Built a CLI tool to
@@ -48,20 +41,12 @@ const workHistory: TimelineEntry[] = [
   },
   {
     title: 'Nov 2023 — Aug 2024',
+    icon: { src: '/images/logos/strictly-logo.png', alt: 'Strictly logo' },
     content: (
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <Image
-            src="/images/logos/strictly-logo.png"
-            alt="Strictly logo"
-            width={40}
-            height={40}
-            className="rounded"
-          />
-          <h4 className="text-lg font-semibold text-fore-primary">
-            Strictly
-          </h4>
-        </div>
+        <h4 className="text-lg font-semibold text-fore-primary mb-4">
+          Strictly
+        </h4>
         <p className="text-sm text-fore-subtle mb-4">
           Led development of a SaaS website builder on Next.js and TypeScript.
           Integrated AI-powered content generation so users could create site
@@ -78,20 +63,12 @@ const workHistory: TimelineEntry[] = [
   },
   {
     title: 'Jun 2022 — Oct 2023',
+    icon: { src: '/images/logos/cosmic-logo.png', alt: 'Cosmic logo' },
     content: (
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <Image
-            src="/images/logos/cosmic-logo.png"
-            alt="Cosmic logo"
-            width={40}
-            height={40}
-            className="rounded"
-          />
-          <h4 className="text-lg font-semibold text-fore-primary">
-            Cosmic
-          </h4>
-        </div>
+        <h4 className="text-lg font-semibold text-fore-primary mb-4">
+          Cosmic
+        </h4>
         <p className="text-sm text-fore-subtle mb-4">
           Software engineer at a headless CMS company. Built serverless apps
           with Node.js and React, shipped reusable component libraries, and
@@ -108,6 +85,7 @@ const workHistory: TimelineEntry[] = [
   },
   {
     title: 'Feb 2022 — Sep 2023',
+    icon: <LogoIcon className="w-full h-full text-accent" />,
     content: (
       <div>
         <h4 className="text-lg font-semibold text-fore-primary mb-4">
@@ -128,20 +106,12 @@ const workHistory: TimelineEntry[] = [
   },
   {
     title: 'May 2021 — Jul 2022',
+    icon: { src: '/images/logos/projex-logo.png', alt: 'Projex logo' },
     content: (
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <Image
-            src="/images/logos/projex-logo.png"
-            alt="Projex logo"
-            width={40}
-            height={40}
-            className="rounded"
-          />
-          <h4 className="text-lg font-semibold text-fore-primary">
-            Software Projex
-          </h4>
-        </div>
+        <h4 className="text-lg font-semibold text-fore-primary mb-4">
+          Software Projex
+        </h4>
         <p className="text-sm text-fore-subtle mb-4">
           WordPress developer who rebuilt a learning management platform and
           brought sales up to $2–4k/month. Shipped a storefront with

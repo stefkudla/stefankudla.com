@@ -11,14 +11,16 @@ import {
 } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const BottomTabBar: React.FC = () => {
   const { pathname } = useRouter()
   const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
   const navRef = useRef<HTMLElement>(null)
-  const isDark = resolvedTheme === 'dark'
+  const isDark = mounted ? resolvedTheme === 'dark' : true
 
   // --- Specular highlight tracking ---
   const pointerX = useMotionValue(0)

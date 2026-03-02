@@ -66,8 +66,8 @@ const NowPlayingPill: React.FC = () => {
 
   if (!track) {
     return (
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 dark:bg-white/5 ring-1 ring-white/20 dark:ring-white/10">
-        <Music className="h-4 w-4 text-fore-subtle" />
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 dark:bg-white/5 ring-1 ring-white/20 dark:ring-white/10">
+        <Music className="h-5 w-5 text-fore-subtle" />
       </span>
     )
   }
@@ -79,14 +79,14 @@ const NowPlayingPill: React.FC = () => {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={`${isLive ? 'Now playing' : 'Recently played'}: ${track.title} by ${track.artist}`}
-        className="flex items-center gap-1.5 rounded-full bg-white/10 dark:bg-white/5 ring-1 ring-white/20 dark:ring-white/10 pl-0.5 pr-2.5 py-0.5 transition-transform hover:scale-105 active:scale-95"
+        className="flex h-10 items-center gap-1.5 rounded-full bg-white/10 dark:bg-white/5 ring-1 ring-white/20 dark:ring-white/10 pl-0.5 pr-2.5 py-0.5 transition-transform hover:scale-105 active:scale-95"
       >
         <Image
           src={track.art}
           alt={`Album art for ${track.title}`}
-          width={28}
-          height={28}
-          className="rounded-full"
+          width={32}
+          height={32}
+          className="rounded-full h-8 w-8 shrink-0"
           unoptimized
         />
         {isLive ? (
