@@ -1,5 +1,4 @@
 import Footer from './Footer'
-import Header from './Header'
 import { Meta } from './Meta'
 import cn from 'classnames'
 import { nunitoSans, oswald } from '@/fonts'
@@ -15,10 +14,9 @@ const BlogLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Meta />
-      <Header />
       <main
         className={cn(
-          'font-sans flex flex-col min-h-screen m-auto w-full pt-20',
+          'font-sans flex flex-col min-h-screen m-auto w-full pt-6 pb-24',
           nunitoSans.variable,
           oswald.variable
         )}

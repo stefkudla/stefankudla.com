@@ -300,6 +300,20 @@ module.exports = {
       gap: {
         15: '60px',
       },
+      keyframes: {
+        equalizer: {
+          '0%, 100%': { transform: 'scaleY(0.3)' },
+          '50%': { transform: 'scaleY(1)' },
+        },
+        'popover-in': {
+          '0%': { opacity: '0', transform: 'translateY(-6px) scale(0.97)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+      },
+      animation: {
+        equalizer: 'equalizer 0.8s ease-in-out infinite',
+        'popover-in': 'popover-in 0.2s ease-out',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

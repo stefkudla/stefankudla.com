@@ -1,5 +1,3 @@
-import { CosmicIcon } from '@/configs/icons'
-import MenuItems from './MenuItems'
 import SocialIcons from './SocialIcons'
 import { nunitoSans } from '@/fonts'
 import cn from 'classnames'
@@ -7,7 +5,7 @@ import cn from 'classnames'
 const Footer: React.FC = () => (
   <footer
     className={cn(
-      'bg-back-primary font-sans flex flex-wrap justify-between items-end mx-auto gap-4  py-6 px-6 h-36 lg:px-20',
+      'bg-back-primary font-sans flex flex-wrap justify-between items-end mx-auto gap-4 py-6 px-6 h-36 lg:px-20 mb-20 md:mb-24',
       nunitoSans.variable
     )}
   >
