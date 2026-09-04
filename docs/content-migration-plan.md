@@ -26,6 +26,28 @@ picked up half-finished.
   something that changes the plan.
 - **Slugs are permanent.** Never rename, move, or delete a file under `content/posts/`
   once it exists. See T-11.
+- **Nothing pushes to `main`.** Branch and PR only, without exception.
+
+### Parallel agents: one git worktree each, no exceptions
+
+This was learned the hard way on 2026-09-03. Four agents were given separate branch *names* but
+shared a single working directory. `git checkout -b` does not isolate: every agent's checkout
+moved HEAD for all of them, so all seven commits piled onto one branch, and one agent silently
+reverted another's `.gitignore` edit after reading a stale copy.
+
+**Branch names are not isolation. A working directory is.** Before dispatching parallel agents:
+
+```bash
+WT=/Users/stefankudla/Documents/code/.stefankudla-worktrees
+git worktree add "$WT/<agent-name>" -b <branch> main
+# ...agent works only inside $WT/<agent-name>, runs its own `bun install`...
+git worktree remove "$WT/<agent-name>"     # after its branch is verified
+```
+
+Each worktree has its own HEAD, index and files, sharing one object database — verified here.
+Give every agent an absolute path to its own worktree and tell it never to `cd` out of it.
+Keep file-level partitioning as well: worktrees prevent branch collisions, partitioning
+prevents two agents editing the same file and one overwriting the other's work.
 
 ---
 
@@ -626,3 +648,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-03 | Claude | **Stefan flagged the Vercel-deploy post as his top page.** Confirmed: 69% of blog traffic. Added §1 protection block (anchor IDs, image risk, staleness-notice exception) and opened D-10. |
 | 2026-09-03 | Claude | Found `/publications` and `/tools` — live 404s still taking traffic, absent from the original plan's URL list. Added to §1; redirects folded into T-21. |
 | 2026-09-03 | Claude | **Process note:** the four agents shared one working directory, so per-agent branches did not isolate and all commits piled onto one branch. Untangled by cherry-picking into clean branches (safety tags `backup/agent-pileup`, `backup/salvage`). File-level partitioning held — no content conflicts. **Future parallel work must use isolated git worktrees.** |
+| 2026-09-03 | Claude | Isolation fix verified and written into §"How to use this document": worktree pattern proven (checkout in a worktree leaves the main repo's HEAD untouched), and a no-push-to-`main` rule added. All four branches re-verified with a full `next build` + `tsc`, each passing standalone. Zero duplicated commits remain; nothing was lost. |
