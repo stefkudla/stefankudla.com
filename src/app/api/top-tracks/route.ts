@@ -1,10 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getTopTracks } from '../../lib/spotify'
+import { NextResponse } from 'next/server'
+import { getTopTracks } from '@/lib/spotify'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
   const response = await getTopTracks()
   const { items } = await response.json()
 
@@ -24,10 +23,12 @@ export default async function handler(
       })
     )
 
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=86400, stale-while-revalidate=43200'
+  return NextResponse.json(
+    { tracks },
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=43200',
+      },
+    }
   )
-
-  return res.status(200).json({ tracks })
 }

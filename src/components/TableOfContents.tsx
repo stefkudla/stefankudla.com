@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react'
 import { useIntersectionObserver } from '@/utils/TableOfContents'
 import cn from 'classnames'

@@ -1,13 +1,12 @@
-import '@/styles/globals.css'
-import '@/styles/code-theme.css'
+'use client'
+
 import { useState } from 'react'
-import { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
 import { Analytics } from '@vercel/analytics/react'
 import Header from '@/components/Header'
 import AboutSheet from '@/components/AboutSheet'
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const SiteChrome: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [aboutSheetOpen, setAboutSheetOpen] = useState(false)
 
   return (
@@ -18,7 +17,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       disableTransitionOnChange
     >
       <Header onAboutOpen={() => setAboutSheetOpen(true)} />
-      <Component {...pageProps} />
+      {children}
       <AboutSheet
         isOpen={aboutSheetOpen}
         onClose={() => setAboutSheetOpen(false)}
@@ -28,4 +27,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   )
 }
 
-export default MyApp
+export default SiteChrome

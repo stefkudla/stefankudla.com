@@ -1,30 +1,30 @@
 import React from 'react'
-import { NextPage } from 'next'
 import SocialIcons from '@/components/SocialIcons'
-import { ProductProps } from '@/types/product'
 import Image from 'next/image'
-import avatar from '../../public/images/sk-portrait-min.jpg'
-import { PageMeta } from '@/components/Meta'
+import avatar from '../../../public/images/sk-portrait-min.jpg'
 import Layout from '@/components/Layout'
-import { useRouter } from 'next/router'
+import { pageMetadata } from '@/lib/metadata'
 import { Timeline, type TimelineEntry } from '@/components/ui/timeline'
 import { LogoIcon } from '@/components/Logo'
 
 const workHistory: TimelineEntry[] = [
   {
     title: 'Sep 2024 — Present',
-    icon: { src: '/images/logos/euronet_worldwide_logo.jpeg', alt: 'Euronet Worldwide logo' },
+    icon: {
+      src: '/images/logos/euronet_worldwide_logo.jpeg',
+      alt: 'Euronet Worldwide logo',
+    },
     content: (
       <div>
         <h4 className="text-lg font-semibold text-fore-primary mb-4">
           Euronet Worldwide
         </h4>
         <p className="text-sm text-fore-subtle mb-4">
-          Now leading a team of engineers on a white-label React Native
-          platform that serves multiple casino operators. Built a CLI tool to
-          automate multi-platform builds and releases, and migrated the content
-          system to a hybrid i18n + headless CMS architecture so non-engineering
-          teams could update content on their own.
+          Now leading a team of engineers on a white-label React Native platform
+          that serves multiple casino operators. Built a CLI tool to automate
+          multi-platform builds and releases, and migrated the content system to
+          a hybrid i18n + headless CMS architecture so non-engineering teams
+          could update content on their own.
         </p>
         <p className="text-sm text-fore-subtle mb-4">
           Before that, built a self-service onboarding platform that cut
@@ -66,9 +66,7 @@ const workHistory: TimelineEntry[] = [
     icon: { src: '/images/logos/cosmic-logo.png', alt: 'Cosmic logo' },
     content: (
       <div>
-        <h4 className="text-lg font-semibold text-fore-primary mb-4">
-          Cosmic
-        </h4>
+        <h4 className="text-lg font-semibold text-fore-primary mb-4">Cosmic</h4>
         <p className="text-sm text-fore-subtle mb-4">
           Software engineer at a headless CMS company. Built serverless apps
           with Node.js and React, shipped reusable component libraries, and
@@ -98,8 +96,7 @@ const workHistory: TimelineEntry[] = [
         </p>
         <p className="text-sm text-fore-subtle">
           Managed vendor workflows through Notion and GitHub, and published
-          educational resources to help developers adopt clients&apos;
-          products.
+          educational resources to help developers adopt clients&apos; products.
         </p>
       </div>
     ),
@@ -114,29 +111,28 @@ const workHistory: TimelineEntry[] = [
         </h4>
         <p className="text-sm text-fore-subtle mb-4">
           WordPress developer who rebuilt a learning management platform and
-          brought sales up to $2–4k/month. Shipped a storefront with
-          WooCommerce payment integration and built custom features with
-          JavaScript, CSS, and PHP.
+          brought sales up to $2–4k/month. Shipped a storefront with WooCommerce
+          payment integration and built custom features with JavaScript, CSS,
+          and PHP.
         </p>
         <p className="text-sm text-fore-subtle">
-          Also handled tech support, helping a few customers per week to
-          improve retention.
+          Also handled tech support, helping a few customers per week to improve
+          retention.
         </p>
       </div>
     ),
   },
 ]
 
-const About: NextPage<ProductProps> = () => {
-  const router = useRouter()
+export const metadata = pageMetadata({
+  title: 'About | Stefan Kudla',
+  description: 'About Stefan Kudla',
+  url: 'https://stefankudla.com/about',
+})
 
+const About: React.FC = () => {
   return (
-    <Layout router={{ route: router.pathname }}>
-      <PageMeta
-        title="About | Stefan Kudla"
-        description="About Stefan Kudla"
-        url="https://stefankudla.com/about"
-      />
+    <Layout>
       <section>
         <div className="my-12">
           <h1 className="text-3xl font-oswald">About Stefan</h1>

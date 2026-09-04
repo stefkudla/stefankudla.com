@@ -1,3 +1,5 @@
+'use client'
+
 import { User } from 'lucide-react'
 import { routes } from './MenuItems'
 import { FloatingDock, type DockItem } from './ui/floating-dock'

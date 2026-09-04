@@ -1,20 +1,19 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 import { getCurrentlyPlaying } from '@/lib/spotify'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
   const response = await getCurrentlyPlaying()
 
   if (response.status === 204 || response.status > 400) {
-    return res.status(200).json({ isPlaying: false })
+    return NextResponse.json({ isPlaying: false })
   }
 
   const track = await response.json()
 
   if (track.item === null) {
-    return res.status(200).json({ isPlaying: false })
+    return NextResponse.json({ isPlaying: false })
   }
 
   const isPlaying = track.is_playing
@@ -26,12 +25,12 @@ export default async function handler(
   const albumImageUrl = track.item.album.images[0].url
   const trackUrl = track.item.external_urls.spotify
 
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=60, stale-while-revalidate=30'
+  return NextResponse.json(
+    { isPlaying, title, artist, album, albumImageUrl, trackUrl },
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
+      },
+    }
   )
-
-  return res
-    .status(200)
-    .json({ isPlaying, title, artist, album, albumImageUrl, trackUrl })
 }

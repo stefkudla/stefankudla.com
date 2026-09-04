@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRef } from 'react'
 
 const AlertPreview: React.FC = () => {
   return (

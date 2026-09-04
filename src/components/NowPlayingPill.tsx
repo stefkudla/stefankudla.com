@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import useSWR from 'swr'
