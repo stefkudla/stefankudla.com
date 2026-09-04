@@ -20,5 +20,20 @@ real posts are imported.
 - `/posts/[slug]` prefers a local post over Cosmic, which is the bridge T-20
   crosses for real.
 
-Syntax highlighting, heading anchors and local images are deliberately **not**
-here yet — those are T-13 and T-14.
+## What highlighting looks like
+
+Shiki runs at build time, so the colours below are in the server HTML and cost
+no client JavaScript:
+
+```tsx
+export const postMetadata = ({ title, canonical }: PostMeta): Metadata => ({
+  title,
+  alternates: { canonical },
+})
+```
+
+```bash
+bun run validate:content
+```
+
+Local images are deliberately not here yet — that is T-14.
