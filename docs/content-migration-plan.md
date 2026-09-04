@@ -3,9 +3,9 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **12 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
+**Status:** in progress · **13 / 32 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
 **Last updated:** 2026-09-04
-**Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
+**Verified against:** commit `f0a106d`, Cosmic bucket `stefankudlacom-production`, live site
 
 > **T-12, T-13 and T-14's pipeline have landed** — schema, loader, validate script,
 > build-time highlighting, and colocated images copied to `public/` with real dimensions.
@@ -13,6 +13,13 @@ reviewed and published by an agent through a pull request.
 > merged and working. Next up: **T-15** (notes), **T-16** (feed, needs D-02), **T-17** (draft
 > gate) and **T-18** (`AGENTS.md`). Still open and blocking smaller items: D-03 (bio copy →
 > T-05) and D-04 (the four dead images → T-03).
+
+> **Stage 6 added 2026-09-04** — discoverability for search engines and AI assistants, **T-26
+> … T-32**, from an external playbook audited against this repo and against live production
+> HTML. **T-26, T-27, T-31 and T-32 depend on nothing** and can fill any gap in Stage 3. The
+> verified findings are in §1 "Discoverability surface"; the two real defects are **no
+> `canonical` on any of the six static routes** and **zero JSON-LD site-wide**. **D-11 is
+> answered.**
 
 ### Work in flight
 
@@ -188,6 +195,54 @@ Plus static routes: `/`, `/about`, `/contact`, `/posts`, `/projects`, `/services
 
 Minor while in there: `[Vercel](http://vercel.com)` uses `http`.
 
+### Discoverability surface
+
+Audited 2026-09-04 against the working tree **and against live production HTML**, using an SEO
+and AI-assistant playbook handed over from another project's session. That playbook is written
+for a local-business marketing site — `LocalBusiness`, `areaServed`, licences, opening hours.
+**None of that applies to a personal site and none of it was translated.** The equivalents that
+do apply are `Person`, `WebSite`, `ProfilePage` and `BlogPosting`. Stage 6 holds what survived.
+
+Metadata comes from two helpers in `src/lib/metadata.ts` — `pageMetadata` for the six static
+routes, `postMetadata` for posts. **They are not equivalent, and the gap is in `pageMetadata`.**
+
+| | `pageMetadata` (6 static routes) | `postMetadata` (posts) |
+|---|---|---|
+| Unique `<title>`, under 60 chars | ✅ | ✅ |
+| `<meta name="description">` | ⚠️ present but **18–45 chars** | ✅ ~140 |
+| Self-referencing `canonical` | ❌ **absent** — sets `openGraph.url` only | ✅ |
+| `og:site_name` / `og:locale` / `og:type` | ❌ none | `og:type: article` only |
+| `og:image` | ⚠️ Cosmic-hosted | ⚠️ Cosmic-hosted (the cover) |
+| `og:image:width` / `height` / `alt` | ❌ | ❌ |
+| `twitter:card` / `twitter:image` | ✅ | ✅ |
+| One `<h1>` per route | ✅ | ✅ |
+
+The five short descriptions, verbatim: `About Stefan Kudla` (18), `The work of Stefan Kudla`
+(24), `Need a Web Developer? Contact me.` (33), `Blog posts written by Stefan Kudla` (34),
+`Fullstack Software Engineer based in Las Vegas` (45). `/services` is the only one at a usable
+length (93). Google renders roughly 155.
+
+Site-level, every line below verified against production, not inferred from source:
+
+- **No JSON-LD anywhere.** `grep -r 'ld+json' src content public` returns nothing. Not one
+  structured-data node on any route.
+- **No `/llms.txt`, no `/llms-full.txt`**, and no `robots.txt` group naming any AI agent.
+- `robots.txt` **is** served — so `NEXT_PUBLIC_GENERATE_ROBOTS=true` is set in Vercel, which
+  `next-sitemap.config.mjs` gates on. It is next-sitemap's default: `Allow: /`, a `Host` line, a
+  `Sitemap` line, and **no `Disallow` for `/api/`**.
+- **`<link rel="alternate" type="application/rss+xml" href="/feed.xml">` is on every page and
+  `/feed.xml` returns 404.** §2.5 recorded this against the Pages Router; it survived T-25 and is
+  still live. The link now lives at `src/app/layout.tsx:26` and `src/lib/metadata.ts:49`, not the
+  deleted `Meta.tsx:33`. See T-16.
+- The site OG image at `imgix.cosmicjs.com/19acc550-…-stefankudlaogImage.jpg` **is alive** (HTTP
+  200, 67,209 bytes, 1200×630), and `public/images/stefan_kudla_ogImage.jpg` is a byte-identical
+  copy already committed. Swapping the constant is a pure substitution — **T-27**, pulled out of
+  T-22 because it removes a decommission risk and waits for nothing.
+- `/contact`'s only `<h1>` is `Contact info`, a form-step label inside `MultiForm.tsx:213`.
+- `AboutSheet` mounts on every page from `site-chrome.tsx`, but its content sits inside an
+  `AnimatePresence` gated on `isOpen` — so **none of that bio text reaches server HTML**.
+  Crawlers and assistants never see it. Relevant to D-06.
+
 ---
 
 ## 2. Corrections to the original implementation plan
@@ -330,6 +385,11 @@ Header's "About me" button doesn't link it; it opens `AboutSheet`, a client-side
 in `src/app/site-chrome.tsx` that duplicates much of the page's content. Adding About to the nav
 without resolving this ships two competing Abouts.
 
+**Audit note (2026-09-04):** the drawer's content is inside an `AnimatePresence` gated on
+`isOpen`, so it is absent from server HTML entirely. Whichever way this goes, the bio that
+crawlers and assistants actually read is the one on `/about` — the drawer contributes nothing to
+discoverability. See §1 "Discoverability surface".
+
 **Decision:** _(unanswered)_
 
 ### D-07 · `/services` — 301 to `/contact`, or rewrite?
@@ -412,6 +472,26 @@ Tech labels as a separate free `tags` array were considered and **deferred** —
 things to maintain until the archive is past ~25 posts.
 
 **Decision:** ✅ Option A, genre axis: `tutorial` · `essay` · `project`. Stefan, 2026-09-04.
+
+### D-11 · AI crawler policy — training as well as citation?
+
+> **Status:** ✅ **ANSWERED 2026-09-04 — allow everything, named explicitly.**
+> Stefan's call. Today's `Allow: /` already admits every one of these, so naming them changes no
+> behaviour; the point is that the decision becomes readable instead of being inferred from an
+> omission. **T-31** writes the groups.
+
+The playbook splits AI crawlers by what they do with a page, and a site can answer differently
+for each:
+
+- **Training** — `GPTBot`, `ClaudeBot`, `Google-Extended`, `Applebot-Extended`, `CCBot`,
+  `anthropic-ai`, `meta-externalagent`, `Amazonbot`.
+- **Citation / retrieval** — `OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`,
+  `PerplexityBot`, `Perplexity-User`, `DuckAssistBot`, `Applebot`, `Bingbot`.
+
+Allowing only the second means the site can be cited in assistant answers without being used as
+training data. That is the split this decision declines.
+
+**Decision:** ✅ Allow both, with every agent named in `robots.txt`. Stefan, 2026-09-04.
 
 ---
 
@@ -731,8 +811,13 @@ Ordered by real dependency, not by report order.
 
 - [ ] **T-16 · Feed**
   Full content, not excerpts. Posts and notes merged, `<category>` distinguishing them.
-  - Path per D-02. Fix or keep `src/components/Meta.tsx:33` so autodiscovery points at the feed
-    that actually exists.
+  - Path per D-02. Fix or keep the autodiscovery link so it points at the feed that actually
+    exists. **`Meta.tsx:33` no longer exists** — T-25 moved the link to `src/app/layout.tsx:26`
+    and `src/lib/metadata.ts:49`, so there are two places to change now, not one.
+  - **Audit note (2026-09-04):** re-verified against production — the link is on every page and
+    `/feed.xml` 404s. Until D-02 is answered and this ships, every crawled page advertises a dead
+    feed. Deleting the two `<link>`s in the meantime is a one-line alternative, and is worth
+    deciding rather than defaulting into.
   - **Done when:** the feed validates, contains full post bodies, excludes drafts in production,
     and the `<link rel="alternate">` on every page resolves to HTTP 200.
   - *Blocked by: T-12, D-02*
@@ -823,15 +908,18 @@ Ordered by real dependency, not by report order.
     `priority: 0.7` — every current entry carries the build timestamp, which search engines
     discount.
   - `/services` per D-07.
-  - `Article` JSON-LD on post pages.
+  - ~~`Article` JSON-LD on post pages.~~ **Superseded by T-28**, which builds the whole linked
+    graph rather than one node type on one route. Do not ship a second, unlinked `Article` here.
   - **Done when:** every sitemap URL has a `lastmod` matching its content date, no `changefreq`
-    remains, and the JSON-LD validates.
+    remains, and the JSON-LD from T-28 validates.
   - *Blocked by: T-20, D-07*
 
 - [ ] **T-22 · Cut the remaining Cosmic surfaces**
   Not in the original plan, and required before the bucket can be cancelled. After T-20 the
   posts are local but Cosmic still serves the OG image, the header badge, and three pages.
-  - `src/components/Meta.tsx:51,59` — hardcoded imgix OG image on every non-post page.
+  - ~~`src/components/Meta.tsx:51,59` — hardcoded imgix OG image on every non-post page.~~
+    **Moved to T-27.** The file is `src/lib/metadata.ts:3` since T-25, the replacement is already
+    committed to `public/`, and the change depends on nothing — it should not wait for T-20.
   - `RecentPostsBadge` → `/api/recent-posts` (client-side, fires on every page).
   - `/projects`, `/services`, `/api/preview`, `/api/exit-preview`.
   - Then remove `@cosmicjs/sdk`, `src/lib/cosmic.ts`, and the Cosmic env vars.
@@ -860,6 +948,126 @@ Ordered by real dependency, not by report order.
   - **Done when:** all ten are removed, `tsc --noEmit` passes, `bun run build` succeeds, and no
     rendered page changes.
   - *Blocked by: D-06, T-22*
+
+---
+
+### Stage 6 · Discoverability — search engines and AI assistants
+
+Added 2026-09-04 from an external SEO and AI-assistant playbook, audited against this repo and
+live production HTML (§1 "Discoverability surface"). Independent of the Cosmic migration except
+where a ticket says otherwise, so these can fill any gap in Stage 3. Two rules carried over from
+the playbook, both worth repeating because they are how this work goes wrong:
+
+**Never widen a factual claim.** Structured data and `llms.txt` are machine-readable assertions,
+and an agent writing them is one step away from inventing a job title, a founding date or a
+social profile. Everything comes from what the site already says, or it is left out and handed
+back.
+
+**Every claim gets a test.** Each ticket ships its own guard; T-32 covers what spans them.
+
+- [ ] **T-26 · Canonicals and complete OG tags on the six static routes**
+  `pageMetadata` sets `openGraph.url` but never `alternates.canonical`, so `/`, `/about`,
+  `/contact`, `/posts`, `/projects` and `/services` have shipped without a canonical for the
+  site's whole life. `postMetadata` has always been correct — this is a gap in one helper, not a
+  site-wide failure.
+  - Add `alternates.canonical` (absolute, self-referencing), `og:site_name`, `og:locale: en_US`,
+    `og:type: website`, and `width`/`height`/`alt` on the image in **both** `openGraph.images`
+    and `twitter.images`.
+  - Keep `postMetadata`'s output byte-identical. The two helpers may share the image object;
+    they must not be merged into one.
+  - **Done when:** every route in `tests/route-manifest.ts` carries exactly one canonical
+    matching its own URL in built HTML, and the homepage `<title>` is untouched — it holds
+    whatever Search Console history the site has.
+  - *Blocked by: nothing*
+
+- [ ] **T-27 · Bring the share image into the repo**
+  `SITE_OG_IMAGE` at `src/lib/metadata.ts:3` points at `imgix.cosmicjs.com`. The identical file
+  is already committed at `public/images/stefan_kudla_ogImage.jpg` — 1200×630, 67,209 bytes,
+  verified byte-for-byte against the live URL. Every non-post page's social card dies with the
+  bucket otherwise.
+  - **Done when:** no `imgix.cosmicjs.com` URL remains in `src/lib/metadata.ts`, `og:image` on a
+    static route resolves to the local file, and the card renders in a validator.
+  - *Blocked by: nothing*
+
+- [ ] **T-28 · JSON-LD graph**
+  The site has **zero** structured data today. Build the graphs as pure functions returning plain
+  objects, with a small component serialising them — testable without rendering a page. Escape
+  `<` as `\u003c` in the serialised JSON.
+  - **Site graph**, rendered once from the root layout: `Person` (name, url, image, `jobTitle`,
+    `address` as locality and region only, `sameAs`) and `WebSite` with `publisher` → the person.
+  - **Page graph**, once per route: `WebPage` / `ProfilePage` / `ContactPage` with `url`, `name`,
+    `description`, `inLanguage`, `dateModified`, `isPartOf` → the website. `BlogPosting` on
+    posts, read from frontmatter — `headline`, `datePublished` (`date`), `dateModified`
+    (`updated ?? date`), `author` → the person, `image` → the cover. `BreadcrumbList` on every
+    route except `/`.
+  - Cross-reference by `@id`: `https://stefankudla.com/#person`, `/#website`,
+    `<page-url>#webpage`, `<page-url>#breadcrumb`. Two scripts sharing `@id`s are stitched back
+    together by every consumer that matters.
+  - **Nothing invented.** `sameAs` comes from the profile links `SocialIcons` already renders;
+    `jobTitle` from copy already on the site. Anything neither supplies goes to the hand-back
+    list below, not into the graph.
+  - **Done when:** the graph validates in the Schema.org validator and Google's Rich Results
+    Test, every `@id` reference resolves within the two scripts, a `BlogPosting`'s dates match
+    its frontmatter, and `/` has no breadcrumb.
+  - *Blocked by: T-26 (shares the helper), D-06 (what `/about` is), D-07 (whether `/services`
+    still exists)*
+
+- [ ] **T-29 · Page descriptions at a usable length**
+  Five of the six static descriptions are 18–45 characters. They are accurate and far too thin —
+  too thin to earn a click, and too thin to tell an assistant anything it can repeat. Target
+  ~155.
+  - These are Stefan's voice, not an agent's — same class as D-03. **Draft, don't ship:** put
+    candidates in the PR body for him to pick or rewrite.
+  - Enforce a floor and ceiling wherever the strings live, so a future one-liner fails instead of
+    quietly shipping.
+  - **Done when:** all six are Stefan-approved, unique site-wide, and 120–165 characters.
+  - *Blocked by: nothing to draft — Stefan's approval to land*
+
+- [ ] **T-30 · `/llms.txt` and `/llms-full.txt`**
+  Per llmstxt.org. Rendered from the content layer, so they can never say something the site does
+  not — no second copy of any fact.
+  - `/llms.txt`: one-line description, key facts (email, location, links), a `## Pages` list of
+    every route as `[headline](absolute-url): description`, a `## Posts` list, and a pointer to
+    `llms-full.txt`.
+  - `/llms-full.txt`: the same header, then every page as Markdown — `#` headline, URL, lead,
+    `##` sections — separated by `---`.
+  - Both served as `text/plain; charset=utf-8`, statically generated, drafts excluded in
+    production exactly the way the sitemap excludes them.
+  - **Done when:** both routes return 200 with the right content type, every route in
+    `tests/route-manifest.ts` appears in `llms.txt` exactly once, and post bodies come from the
+    loader rather than a duplicate render path.
+  - *Blocked by: T-20 — half the posts still come from Cosmic, and a file listing only the local
+    half is worse than no file. The `llms.txt` index alone could ship earlier if T-20 stalls.*
+
+- [ ] **T-31 · Name the AI crawlers in `robots.txt`**
+  Per **D-11** (answered: allow everything, named). `robots.txt` is generated by `next-sitemap`
+  as a `postbuild` step, gated on `NEXT_PUBLIC_GENERATE_ROBOTS` — so this is
+  `robotsTxtOptions.policies` in `next-sitemap.config.mjs`, not a new route.
+  - One `Allow: /` group per agent across D-11's two lists. Behaviour is unchanged; the decision
+    becomes readable.
+  - Add `Disallow: /api/` to the wildcard group while in here. Six API routes are crawlable
+    today and none of them are content.
+  - **Done when:** the generated file names every agent in D-11, `/api/` is disallowed, the
+    `Sitemap:` line survives, and `/` is still allowed for the wildcard.
+  - *Blocked by: nothing*
+
+- [ ] **T-32 · Metadata guard test**
+  The cross-cutting half of the playbook's test list — what none of the tickets above owns alone.
+  - Every route in the manifest has a unique path, title and description.
+  - The homepage title is pinned **exactly**: `Stefan Kudla | Software Engineer in Las Vegas`.
+    It is the one string on the site with search history worth protecting.
+  - No title over 65 characters; no description under 120 or over 165.
+  - Exactly one `og:image` and one `twitter:image` per built page. Next merges a route's
+    `openGraph` object over the parent's **wholesale**, so a child that sets `openGraph` without
+    an image silently loses it. Count the tags in built HTML; do not trust the convention.
+  - **Done when:** the suite fails on a deliberately duplicated description and on a removed
+    canonical — both negative-tested before the PR, the way T-11 was.
+  - *Blocked by: T-26, T-29*
+
+**Hand back to Stefan** — list these in the PR that lands T-28. Do not invent them: the `sameAs`
+profile URLs beyond what the site already links · whether `jobTitle` reads "Software Engineer" or
+the fuller Euronet title · which of `/about` and the drawer is the canonical bio (D-06) · whether
+`/services` survives (D-07).
 
 ---
 
@@ -905,6 +1113,8 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-12** done on `t12-content-loader`. Zod schemas for posts and notes, `gray-matter` parsing, a loader that throws naming file and field, and `bun run validate:content` reporting every problem at once — both verified against a deliberately malformed post. `/posts/[slug]` prefers local content and falls back to Cosmic; the proof post renders at its route. Build 22 pages, sitemap still 17 URLs, tests 5/5, tsc clean, lint unchanged. `tests/route-manifest.ts` repointed at colocated directories, unioned with the snapshot while Cosmic still serves posts — **T-20 must delete that half.** |
 | 2026-09-04 | Claude | **T-13** done on `t13-mdx-highlighting`. `rehype-pretty-code` + Shiki at build time, themed to a one-for-one port of the existing Prism palette, zero highlighter in the client bundle. `rehype-autolink-headings` proved unnecessary — `rehype-slug` plus a shared `PostHeading` gives MDX and Cosmic byte-identical heading markup. Traps recorded in T-13: an inline Shiki theme needs a `tokenColors` key or rehype-pretty-code reads it as a map of named themes, and a broken MDX render does **not** fail the build while the proof post is a draft — it 500s at request time. One CI-only failure worth remembering: `formik`'s nested `@types/react` 18 breaks the MDX component types, a `package.json` `overrides` pin fixes it locally but **Vercel's install ignores it**, so the fix is a typed escape hatch in the component map, not a dependency pin. |
 | 2026-09-04 | Claude | **T-14 built** on `t14-images` (left unticked — D-05 unanswered). `prebuild`/`predev` script copies colocated images to `public/content/posts/<slug>/` and writes a manifest of width, height, blur placeholder and `animated` from `sharp`; `MdxImage` renders them through the modern `next/image`, GIFs `unoptimized`. Decided the T-14 side question: new content uses the current `next/image` API, `BlurImage`'s `next/legacy/image` stays with `PostBody` until T-20. Trap recorded: `sharp`'s `height` on an animated GIF is all frames stacked — use `pageHeight`, or the image renders 59× too tall. |
+| 2026-09-04 | Claude | **Stage 6 added** — discoverability, **T-26 … T-32**, from an external SEO and AI-assistant playbook audited against the repo and against live production HTML. Findings in §1 "Discoverability surface". Two real defects: **no `alternates.canonical` on any of the six static routes** (`pageMetadata` sets only `openGraph.url`) and **zero JSON-LD site-wide**. Also confirmed live: `/feed.xml` still 404s behind an autodiscovery link on every page (T-16, and `Meta.tsx:33` is now two files); the Cosmic OG image is alive and byte-identical to a copy already committed to `public/`, so it left T-22 as **T-27**; five static descriptions are 18–45 chars; `AboutSheet`'s bio never reaches server HTML (D-06). The playbook's local-business half — `LocalBusiness`, `areaServed`, licences, hours — does not apply to a personal site and was dropped rather than translated. |
+| 2026-09-04 | Stefan | **D-11 answered: allow every AI crawler, named explicitly.** No behaviour change from today's `Allow: /`; the point is that the decision is recorded rather than inferred from an omission. T-31 writes the groups. |
 | 2026-09-04 | Claude | **T-17** done on `t17-draft-gate`. `draftsAreVisible` gates every collection reader on `VERCEL_ENV !== 'production'`; drafts 404 in production, render at their real URL on previews and locally, and never enter the sitemap because they are never prerendered. Verified with a production-env build and a preview-env build side by side. |
 | 2026-09-04 | Claude | **T-15** done on `t15-notes`. `/notes` is a reverse-chronological stream rendering each note in full, with `/notes/<slug>` permalinks; two test notes (one untitled) verified newest-first, linked, and absent from `/posts`. Both are drafts, so production shows an empty state until a real note lands. |
 | 2026-09-04 | Claude | **T-18** done on `t18-agents-md`. `AGENTS.md` + `content/_templates/` + `bun run new:post`/`new:note`. Acceptance tested for real: a fresh agent given only `AGENTS.md` wrote a valid post first try. The first run exposed four gaps — the scaffold's non-existent default cover, a sentence-case/title-case contradiction, draft `date` semantics, and flat-vs-directory for image-free posts — all fixed before the second run, which needed nothing outside the document. |
