@@ -1,0 +1,305 @@
+{
+  "summary": {
+    "generated_at": "2026-09-04T06:16:45.040Z",
+    "total_references": 32,
+    "downloaded": 28,
+    "dead": 4,
+    "truncated": 0,
+    "gif_count": 5,
+    "total_bytes": 29601820
+  },
+  "assets": [
+    {
+      "url": "https://imgix.cosmicjs.com/550d8230-5c5c-11ef-b1ea-f56c65dfade9-marque-cover.png",
+      "local_path": "assets/cosmic-archive/how-to-create-a-marquee-with-framer-motion-and-react/550d8230-5c5c-11ef-b1ea-f56c65dfade9-marque-cover.png",
+      "post_slug": "how-to-create-a-marquee-with-framer-motion-and-react",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 3053281,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/b499ce20-5c5c-11ef-b1ea-f56c65dfade9-marquee-images.gif",
+      "local_path": "assets/cosmic-archive/how-to-create-a-marquee-with-framer-motion-and-react/b499ce20-5c5c-11ef-b1ea-f56c65dfade9-marquee-images.gif",
+      "post_slug": "how-to-create-a-marquee-with-framer-motion-and-react",
+      "source": "content",
+      "content_type": "image/gif",
+      "bytes": 4314409,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/a388d380-5c5a-11ef-b1ea-f56c65dfade9-CleanShot-2024-08-16-at-22.35.432x.png",
+      "local_path": "assets/cosmic-archive/simple-scroll-animations-with-html-and-javascript-quick-guide/a388d380-5c5a-11ef-b1ea-f56c65dfade9-CleanShot-2024-08-16-at-22.35.432x.png",
+      "post_slug": "simple-scroll-animations-with-html-and-javascript-quick-guide",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 2189344,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/cb871600-5c58-11ef-b1ea-f56c65dfade9-scrolling-example.gif",
+      "local_path": "assets/cosmic-archive/simple-scroll-animations-with-html-and-javascript-quick-guide/cb871600-5c58-11ef-b1ea-f56c65dfade9-scrolling-example.gif",
+      "post_slug": "simple-scroll-animations-with-html-and-javascript-quick-guide",
+      "source": "content",
+      "content_type": "image/gif",
+      "bytes": 555441,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/28d4ba40-5b61-11ef-b1ea-f56c65dfade9-sitemap-compare-cover.png",
+      "local_path": "assets/cosmic-archive/i-built-a-free-sitemap-comparison-tool/28d4ba40-5b61-11ef-b1ea-f56c65dfade9-sitemap-compare-cover.png",
+      "post_slug": "i-built-a-free-sitemap-comparison-tool",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 604545,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/606f7db0-c4ef-11ec-bf80-e74645a81647-jUwvjOmCTWc.jpg",
+      "local_path": "assets/cosmic-archive/heres-why-all-musicians-need-a-website-in-2022/606f7db0-c4ef-11ec-bf80-e74645a81647-jUwvjOmCTWc.jpg",
+      "post_slug": "heres-why-all-musicians-need-a-website-in-2022",
+      "source": "cover_image",
+      "content_type": "image/jpeg",
+      "bytes": 1063652,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/94180f90-c4f1-11ec-bf80-e74645a81647-p0j-mE6mGo4.jpg",
+      "local_path": "assets/cosmic-archive/creativity-and-software-development-is-a-wonderful-combination/94180f90-c4f1-11ec-bf80-e74645a81647-p0j-mE6mGo4.jpg",
+      "post_slug": "creativity-and-software-development-is-a-wonderful-combination",
+      "source": "cover_image",
+      "content_type": "image/jpeg",
+      "bytes": 1763579,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/e5329510-0de6-11ed-b476-13ceb56f12f2-how-im-using-cosmic-to-optimize-my-website-min.jpg",
+      "local_path": "assets/cosmic-archive/how-im-using-cosmic-to-optimize-my-website/e5329510-0de6-11ed-b476-13ceb56f12f2-how-im-using-cosmic-to-optimize-my-website-min.jpg",
+      "post_slug": "how-im-using-cosmic-to-optimize-my-website",
+      "source": "cover_image",
+      "content_type": "image/jpeg",
+      "bytes": 646406,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/c74de620-f96f-11ec-b2b1-473235369c53-my-cosmic-dashboard-min.png",
+      "local_path": "assets/cosmic-archive/how-im-using-cosmic-to-optimize-my-website/c74de620-f96f-11ec-b2b1-473235369c53-my-cosmic-dashboard-min.png",
+      "post_slug": "how-im-using-cosmic-to-optimize-my-website",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 40959,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/c7b43720-f971-11ec-b2b1-473235369c53-100-performance.png",
+      "local_path": "assets/cosmic-archive/how-im-using-cosmic-to-optimize-my-website/c7b43720-f971-11ec-b2b1-473235369c53-100-performance.png",
+      "post_slug": "how-im-using-cosmic-to-optimize-my-website",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 30041,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/aafe7660-0527-11ed-b7be-d956591ad437-image-bucket.png",
+      "local_path": null,
+      "post_slug": "how-im-using-cosmic-to-optimize-my-website",
+      "source": "content",
+      "content_type": null,
+      "bytes": null,
+      "status": "dead",
+      "http_status": 403
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/7319c080-c4f2-11ec-8f72-47cb4f396052-freelance-web-dev.jpg",
+      "local_path": "assets/cosmic-archive/how-i-started-freelancing-as-a-web-developer-in-2022/7319c080-c4f2-11ec-8f72-47cb4f396052-freelance-web-dev.jpg",
+      "post_slug": "how-i-started-freelancing-as-a-web-developer-in-2022",
+      "source": "cover_image",
+      "content_type": "image/jpeg",
+      "bytes": 224082,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/ce0385f0-22f6-11ed-8337-95a76fda76ff-how-to-use-next-image-with-a-headless-cms.png",
+      "local_path": "assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/ce0385f0-22f6-11ed-8337-95a76fda76ff-how-to-use-next-image-with-a-headless-cms.png",
+      "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 2014788,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/8af090a0-0d11-11ed-9aaf-759d06f2d7b5-imgix-url-screen.png",
+      "local_path": "assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/8af090a0-0d11-11ed-9aaf-759d06f2d7b5-imgix-url-screen.png",
+      "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 381401,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/87625240-0acb-11ed-b7be-d956591ad437-design-systems-tailwind.png",
+      "local_path": "assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/87625240-0acb-11ed-b7be-d956591ad437-design-systems-tailwind.png",
+      "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 223316,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/0ebcd220-0e0e-11ed-b569-c7971f032df6-blur-placeholder-next.gif",
+      "local_path": null,
+      "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
+      "source": "content",
+      "content_type": null,
+      "bytes": null,
+      "status": "dead",
+      "http_status": 403
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/ac715ea0-0deb-11ed-b476-13ceb56f12f2-image-settings.gif",
+      "local_path": null,
+      "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
+      "source": "content",
+      "content_type": null,
+      "bytes": null,
+      "status": "dead",
+      "http_status": 403
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/87625240-0acb-11ed-b7be-d956591ad437-design-systems-tailwind.png",
+      "local_path": "assets/cosmic-archive/coding-your-design-system-with-tailwind-css/87625240-0acb-11ed-b7be-d956591ad437-design-systems-tailwind.png",
+      "post_slug": "coding-your-design-system-with-tailwind-css",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 223316,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/a9a734b0-0a12-11ed-b7be-d956591ad437-StyleGuide.png",
+      "local_path": "assets/cosmic-archive/coding-your-design-system-with-tailwind-css/a9a734b0-0a12-11ed-b7be-d956591ad437-StyleGuide.png",
+      "post_slug": "coding-your-design-system-with-tailwind-css",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 70927,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/ffcac510-23f2-11ed-8337-95a76fda76ff-building-react-components-from-headless-cms-markdown-hashnode.png",
+      "local_path": "assets/cosmic-archive/building-react-components-from-headless-cms-markdown/ffcac510-23f2-11ed-8337-95a76fda76ff-building-react-components-from-headless-cms-markdown-hashnode.png",
+      "post_slug": "building-react-components-from-headless-cms-markdown",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 600866,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/8b81e1c0-2226-11ed-8337-95a76fda76ff-mdn-to-html.gif",
+      "local_path": "assets/cosmic-archive/building-react-components-from-headless-cms-markdown/8b81e1c0-2226-11ed-8337-95a76fda76ff-mdn-to-html.gif",
+      "post_slug": "building-react-components-from-headless-cms-markdown",
+      "source": "content",
+      "content_type": "image/gif",
+      "bytes": 591198,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/89c95c50-2226-11ed-8337-95a76fda76ff-react-markdown-ast-diagram.png",
+      "local_path": null,
+      "post_slug": "building-react-components-from-headless-cms-markdown",
+      "source": "content",
+      "content_type": null,
+      "bytes": null,
+      "status": "dead",
+      "http_status": 403
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/8cf4f9c0-2226-11ed-8337-95a76fda76ff-loading-all-images.gif",
+      "local_path": "assets/cosmic-archive/building-react-components-from-headless-cms-markdown/8cf4f9c0-2226-11ed-8337-95a76fda76ff-loading-all-images.gif",
+      "post_slug": "building-react-components-from-headless-cms-markdown",
+      "source": "content",
+      "content_type": "image/gif",
+      "bytes": 1475097,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/907d5d30-2226-11ed-8337-95a76fda76ff-loading-images-next-image.gif",
+      "local_path": "assets/cosmic-archive/building-react-components-from-headless-cms-markdown/907d5d30-2226-11ed-8337-95a76fda76ff-loading-images-next-image.gif",
+      "post_slug": "building-react-components-from-headless-cms-markdown",
+      "source": "content",
+      "content_type": "image/gif",
+      "bytes": 8190633,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/03a91650-bac5-11ed-94e0-9b90ec083d2d-deploy-website-to-vercel-html-css-js.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/03a91650-bac5-11ed-94e0-9b90ec083d2d-deploy-website-to-vercel-html-css-js.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "cover_image",
+      "content_type": "image/png",
+      "bytes": 153204,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/728c89d0-bac5-11ed-94e0-9b90ec083d2d-directory-setup.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/728c89d0-bac5-11ed-94e0-9b90ec083d2d-directory-setup.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 261177,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/7265c7f0-bac5-11ed-94e0-9b90ec083d2d-add-project-vercel.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/7265c7f0-bac5-11ed-94e0-9b90ec083d2d-add-project-vercel.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 75264,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/7280ca00-bac5-11ed-94e0-9b90ec083d2d-import-repository-vercel.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/7280ca00-bac5-11ed-94e0-9b90ec083d2d-import-repository-vercel.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 146443,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/72813f30-bac5-11ed-94e0-9b90ec083d2d-configure-settings-vercel.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/72813f30-bac5-11ed-94e0-9b90ec083d2d-configure-settings-vercel.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 154702,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/451f71d0-bae1-11ed-94e0-9b90ec083d2d-deploy-without-webpack.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/451f71d0-bae1-11ed-94e0-9b90ec083d2d-deploy-without-webpack.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 272487,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/451dc420-bae1-11ed-94e0-9b90ec083d2d-configure-vercel-without-webpack.png",
+      "local_path": "assets/cosmic-archive/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel/451dc420-bae1-11ed-94e0-9b90ec083d2d-configure-vercel-without-webpack.png",
+      "post_slug": "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+      "source": "content",
+      "content_type": "image/png",
+      "bytes": 214053,
+      "status": "ok"
+    },
+    {
+      "url": "https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg",
+      "local_path": "assets/cosmic-archive/_site/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg",
+      "post_slug": "_site",
+      "source": "Meta.tsx",
+      "content_type": "image/jpeg",
+      "bytes": 67209,
+      "status": "ok"
+    }
+  ]
+}
