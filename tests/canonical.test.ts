@@ -68,7 +68,7 @@ describe('pageMetadata', () => {
 
   it('gives the share image dimensions and alt in og and twitter alike', () => {
     const image = {
-      url: 'https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg',
+      url: '/images/stefan_kudla_ogImage.jpg',
       width: 1200,
       height: 630,
       alt: 'The SK monogram logo beside the words "stefankudla.com" and "software developer"',
