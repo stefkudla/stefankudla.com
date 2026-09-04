@@ -13,8 +13,17 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-| | |
-|---|---|
+**Stage 0, 1 and 2 are merged to `main`.** PRs #17 (this doc), #18 (salvage), #19 (T-04),
+#20 (T-06, T-07), #21 (T-09, T-10, T-11), #22 (this block).
+
+`main` verified green at `9db56ae`: `bun run build` passes with 11 post pages,
+`tsc --noEmit` clean, `bun run test` 3/3, `bun run lint` runs (11 problems, all pre-existing).
+Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
+All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
+
+**Next: T-25** — the App Router port. It is the sole gate on Stage 3.
+
+---|---|
 | **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
 | **Open, awaiting review** | **[#18](https://github.com/stefkudla/stefankudla.com/pull/18) — T-01, T-02, T-08 (salvage).** Held deliberately: it adds **28 MB of binaries to public git history, permanently**, which a revert does not undo. The archive exists safely on the branch meanwhile. |
 | **`main` verified at `a5c779d`** | `bun run build` passes (11 post pages), `tsc --noEmit` clean, `bun run test` 3/3, `bun run lint` runs (11 problems, pre-existing). Zero empty `<pre>` in server HTML. |
@@ -707,6 +716,6 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-03 | Claude | **Stefan flagged the Vercel-deploy post as his top page.** Confirmed: 69% of blog traffic. Added §1 protection block (anchor IDs, image risk, staleness-notice exception) and opened D-10. |
 | 2026-09-03 | Claude | Found `/publications` and `/tools` — live 404s still taking traffic, absent from the original plan's URL list. Added to §1; redirects folded into T-21. |
 | 2026-09-03 | Claude | **Process note:** the four agents shared one working directory, so per-agent branches did not isolate and all commits piled onto one branch. Untangled by cherry-picking into clean branches (safety tags `backup/agent-pileup`, `backup/salvage`). File-level partitioning held — no content conflicts. **Future parallel work must use isolated git worktrees.** |
-| 2026-09-03 | Claude | PRs **#17, #19, #20, #21 merged to `main`** (`a5c779d`). Build, typecheck, tests and lint all verified green on `main` post-merge. **#18 (salvage) held** pending an explicit call on committing 28 MB of binaries to public history. |
+| 2026-09-03 | Claude | **PRs #17–#22 all merged to `main`** (`9db56ae`). Stage 0, 1 and 2 complete and live. Stefan approved committing the 28 MB asset archive. `main` re-verified green after every merge: build 11 post pages, tsc clean, tests 3/3, lint runs, zero empty `<pre>`, 28 assets valid. |
 | 2026-09-03 | Stefan | **D-01 answered: App Router.** Added **T-25** (Stage 2.5) to port 10 page routes + 6 API routes before the content pipeline. Not in any prior estimate; ~8–14h. Stage 3 now builds against App Router as the original plan described. |
 | 2026-09-03 | Claude | Isolation fix verified and written into §"How to use this document": worktree pattern proven (checkout in a worktree leaves the main repo's HEAD untouched), and a no-push-to-`main` rule added. All four branches re-verified with a full `next build` + `tsc`, each passing standalone. Zero duplicated commits remain; nothing was lost. |
