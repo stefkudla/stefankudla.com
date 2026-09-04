@@ -11,6 +11,7 @@ import TableOfContents from '@/components/TableOfContents'
 import BlogLayout from '@/components/BlogLayout'
 import SectionWrapper from '@/components/SectionWrapper'
 import { postMetadata } from '@/lib/metadata'
+import { resolveImage } from '@/lib/images'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -23,7 +24,9 @@ const asCosmicShape = (post: Post) => ({
   title: post.frontmatter.title,
   created_at: post.frontmatter.date,
   metadata: {
-    cover_image: { imgix_url: post.frontmatter.cover },
+    cover_image: {
+      imgix_url: resolveImage(post.slug, post.frontmatter.cover).src,
+    },
     category: { title: post.frontmatter.category },
   },
 })
@@ -53,7 +56,7 @@ export async function generateMetadata({ params }: PageProps) {
       description: local.frontmatter.excerpt,
       canonical:
         local.frontmatter.canonical || `https://stefankudla.com/posts/${slug}`,
-      imageUrl: local.frontmatter.cover,
+      imageUrl: resolveImage(slug, local.frontmatter.cover).src,
     })
   }
 
@@ -94,7 +97,7 @@ const Post = async ({ params }: PageProps) => {
               {local ? (
                 <>
                   <PostHeader post={asCosmicShape(local)} />
-                  <MdxBody body={local.body} />
+                  <MdxBody slug={local.slug} body={local.body} />
                 </>
               ) : (
                 <>

@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
+    "predev": "bun scripts/copy-content-images.ts",
     "dev": "next",
+    "prebuild": "bun scripts/copy-content-images.ts",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.mjs",
     "start": "next start",
