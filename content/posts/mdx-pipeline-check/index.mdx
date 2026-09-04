@@ -3,7 +3,7 @@ title: MDX Pipeline Check
 date: 2026-09-04
 excerpt: A hand-written post that proves the repo-local content pipeline renders end to end. Replaced by the real archive in T-20.
 category: tutorial
-cover: /images/stefan_kudla_ogImage.jpg
+cover: ./lighthouse.png
 draft: true
 ---
 
@@ -36,4 +36,13 @@ export const postMetadata = ({ title, canonical }: PostMeta): Metadata => ({
 bun run validate:content
 ```
 
-Local images are deliberately not here yet — that is T-14.
+## What images look like
+
+A colocated raster image, sized from the prebuild manifest so it reserves its
+space before it loads:
+
+![A Lighthouse report scoring 100 across the board](./lighthouse.png)
+
+And an animated GIF, which is passed through unoptimised so it keeps moving:
+
+![A page scrolling to demonstrate a scroll animation](./scrolling.gif)

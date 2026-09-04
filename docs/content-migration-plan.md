@@ -7,10 +7,12 @@ reviewed and published by an agent through a pull request.
 **Last updated:** 2026-09-04
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **T-12 and T-13 have landed** — the content pipeline has a schema, a loader, a validate
-> script and build-time syntax highlighting. The next piece is **T-14** (images, including the
-> copy step D-08 calls for), which needs **D-05** answered. Still open and blocking smaller
-> items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
+> **T-12, T-13 and T-14's pipeline have landed** — schema, loader, validate script,
+> build-time highlighting, and colocated images copied to `public/` with real dimensions.
+> **T-14 stays unticked until D-05** (the GIF question) is answered; everything else in it is
+> merged and working. Next up: **T-15** (notes), **T-16** (feed, needs D-02), **T-17** (draft
+> gate) and **T-18** (`AGENTS.md`). Still open and blocking smaller items: D-03 (bio copy →
+> T-05) and D-04 (the four dead images → T-03).
 
 ### Work in flight
 
@@ -29,7 +31,8 @@ preview secret, `tsc --noEmit` clean, tests 3/3, lint unchanged at 11 pre-existi
 Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
 All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
 
-**Next: T-14** (images plus the D-08 copy step) — it needs **D-05**, the GIF question.
+**Next: T-15** (notes), **T-17** (draft gate) and **T-18** (`AGENTS.md`) are unblocked. T-14
+needs **D-05**; T-16 needs **D-02**.
 
 ---|---|
 | **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
@@ -307,7 +310,10 @@ Two are Cosmic dashboard screenshots that may not be worth recreating.
 
 ### D-05 · GIF handling — 7 files, not 1
 
-> **Status:** ⬜ open · blocks T-14
+> **Status:** ⬜ open · blocks T-14 (only the tick — the pipeline is merged)
+> **Option A is implemented as the floor:** GIFs render through `next/image` with
+> `unoptimized`, because the optimizer would otherwise flatten them to a still. Choosing
+> conversion instead is still Stefan's call, and is what actually fixes the 8.0 MB file.
 
 `next/image` won't animate an optimized GIF. Either mark them `unoptimized` or convert to
 muted autoplay `<video>`. The plan recommended conversion when it thought there was one file;
@@ -683,7 +689,25 @@ Ordered by real dependency, not by report order.
     or moves to the current API.
   - **Done when:** a test post renders a local raster image and an animated GIF (or its video
     replacement), both correct in light and dark themes.
-  - *Blocked by: T-12, D-05*
+  - *Blocked by: D-05 only — the pipeline is built and merged, the GIF question is not answered.*
+
+  **Built 2026-09-04 on `t14-images`; ticked once D-05 closes.**
+  `scripts/copy-content-images.ts` runs as `prebuild` **and `predev`**: it copies every
+  colocated image to `public/content/posts/<slug>/` and writes
+  `content/.generated/images.json` with width, height, a 16px WebP blur placeholder and an
+  `animated` flag from `sharp`. `src/lib/images.ts` reads that manifest and
+  `src/components/MdxImage.tsx` renders through `next/image`, so markdown images reserve their
+  space instead of shifting the page. Both generated locations are gitignored.
+  - **`next/legacy/image` question answered: new content uses the modern API.** `MdxImage` is
+    plain `next/image`; `BlurImage` stays on the legacy API for Cosmic markdown and dies with
+    `PostBody` in T-20. Nothing was migrated across.
+  - **GIFs are passed through `unoptimized`**, which is the correct floor — the optimizer would
+    flatten them to a still. That is D-05's option A implemented, not D-05 answered: converting
+    to muted autoplay video is still open, and is where the 8.0 MB GIF actually gets fixed.
+  - `sharp`'s `height` on an animated GIF is every frame stacked; `pageHeight` is one frame.
+    Using `height` gives a 59×-too-tall image.
+  - A `cover` may be colocated (`./cover.png`), an absolute public path, or a remote URL —
+    `resolveImage` passes the last two through untouched, so T-20 can set covers either way.
 
 - [ ] **T-15 · Notes collection and `/notes` routes**
   `/notes` renders notes **inline and in full** as a reverse-chronological stream, not a card
@@ -840,3 +864,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Stefan | **D-08 answered: colocated + a build-time copy script** (Claude's recommendation, requested). **Images stay** — the earlier "move away from images" leaning is withdrawn. Posts are `content/posts/<slug>/index.mdx`; notes stay flat. Research recorded in D-08: `next-mdx-remote/rsc` cannot resolve colocated images, so T-14 owns a copy-to-`public` step with `sharp`-computed dimensions and blur data; the usual `copy-webpack-plugin` recipe is unusable because we build with Turbopack; Velite was considered and rejected as it would replace T-12 rather than feed it. |
 | 2026-09-04 | Claude | **T-12** done on `t12-content-loader`. Zod schemas for posts and notes, `gray-matter` parsing, a loader that throws naming file and field, and `bun run validate:content` reporting every problem at once — both verified against a deliberately malformed post. `/posts/[slug]` prefers local content and falls back to Cosmic; the proof post renders at its route. Build 22 pages, sitemap still 17 URLs, tests 5/5, tsc clean, lint unchanged. `tests/route-manifest.ts` repointed at colocated directories, unioned with the snapshot while Cosmic still serves posts — **T-20 must delete that half.** |
 | 2026-09-04 | Claude | **T-13** done on `t13-mdx-highlighting`. `rehype-pretty-code` + Shiki at build time, themed to a one-for-one port of the existing Prism palette, zero highlighter in the client bundle. `rehype-autolink-headings` proved unnecessary — `rehype-slug` plus a shared `PostHeading` gives MDX and Cosmic byte-identical heading markup. Traps recorded in T-13: an inline Shiki theme needs a `tokenColors` key or rehype-pretty-code reads it as a map of named themes, and a broken MDX render does **not** fail the build while the proof post is a draft — it 500s at request time. One CI-only failure worth remembering: `formik`'s nested `@types/react` 18 breaks the MDX component types, a `package.json` `overrides` pin fixes it locally but **Vercel's install ignores it**, so the fix is a typed escape hatch in the component map, not a dependency pin. |
+| 2026-09-04 | Claude | **T-14 built** on `t14-images` (left unticked — D-05 unanswered). `prebuild`/`predev` script copies colocated images to `public/content/posts/<slug>/` and writes a manifest of width, height, blur placeholder and `animated` from `sharp`; `MdxImage` renders them through the modern `next/image`, GIFs `unoptimized`. Decided the T-14 side question: new content uses the current `next/image` API, `BlurImage`'s `next/legacy/image` stays with `PostBody` until T-20. Trap recorded: `sharp`'s `height` on an animated GIF is all frames stacked — use `pageHeight`, or the image renders 59× too tall. |
