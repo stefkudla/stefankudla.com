@@ -11,6 +11,8 @@ import TableOfContents from '@/components/TableOfContents'
 import BlogLayout from '@/components/BlogLayout'
 import SectionWrapper from '@/components/SectionWrapper'
 import { postMetadata } from '@/lib/metadata'
+import Breadcrumbs from '@/components/Breadcrumbs'
+import { SITE_URL, type Crumb } from '@/lib/structured-data'
 import { resolveImage } from '@/lib/images'
 
 type PageProps = { params: Promise<{ slug: string }> }
@@ -87,6 +89,14 @@ const Post = async ({ params }: PageProps) => {
     notFound()
   }
 
+  const crumbs: Crumb[] = [
+    { name: 'Home', href: '/' },
+    { name: 'Posts', href: '/posts' },
+    // Categories are a client-side filter on /posts, not a route, so the
+    // post's category is deliberately not a crumb — it has no URL to link.
+    { name: local ? local.frontmatter.title : post.title },
+  ]
+
   return (
     <BlogLayout>
       <SectionWrapper as="div" fullWidth>
@@ -95,6 +105,10 @@ const Post = async ({ params }: PageProps) => {
           <div className="relative w-full flex">
             <TableOfContents />
             <div className="container mx-auto max-w-3xl px-4">
+              <Breadcrumbs
+                crumbs={crumbs}
+                pageUrl={`${SITE_URL}/posts/${slug}`}
+              />
               {local ? (
                 <>
                   <PostHeader post={asCosmicShape(local)} />
