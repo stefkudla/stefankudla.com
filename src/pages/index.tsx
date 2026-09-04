@@ -1,17 +1,11 @@
 import { NextPage } from 'next'
-import { getAllPosts } from '@/lib/cosmic'
 import IntroSection from '@/sections/IntroSection'
 import { PageMeta } from '@/components/Meta'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
-import { Services } from '@/sections/ServicesSection'
-import { cosmic } from '@/lib/cosmic'
 import CtaSection from '@/sections/CtaSection'
 
-const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
-  allPosts,
-  services,
-}) => {
+const Index: NextPage = () => {
   const router = useRouter()
   return (
     <Layout
@@ -31,15 +25,9 @@ const Index: NextPage<{ allPosts: Object[]; services: Services[] }> = ({
   )
 }
 
-export async function getStaticProps({ preview }: { preview?: boolean }) {
-  const allPosts = (await getAllPosts(preview, 3)) || []
-
-  const services = await cosmic.objects
-    .find({ type: 'services' })
-    .props('slug,title,metadata')
-    .depth(1)
+export async function getStaticProps() {
   return {
-    props: { allPosts, services: services.objects },
+    props: {},
     revalidate: 180,
   }
 }
