@@ -37,7 +37,6 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.4",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "^18.0.0",
@@ -46,7 +45,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "10.4.14",
     "caniuse-lite": "^1.0.30001775",
-    "eslint": "^10.0.2",
+    "eslint": "^9.39.5",
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "next-sitemap": "^4.2.3",
