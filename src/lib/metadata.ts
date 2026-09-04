@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
-const SITE_OG_IMAGE =
-  'https://imgix.cosmicjs.com/19acc550-cd9f-11ec-831d-dfdedfe3228f-stefankudlaogImage.jpg'
+const SITE_OG_IMAGE = '/images/stefan_kudla_ogImage.jpg'
 
 /** The page-level tags `PageMeta` used to render through `next/head`. */
 export const pageMetadata = ({
