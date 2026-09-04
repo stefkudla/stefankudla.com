@@ -3,50 +3,55 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **18 / 35 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **21 / 35 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **The content pipeline is finished and on `main`:** schema and loader (T-12), MDX compile
-> with build-time highlighting (T-13), colocated images (T-14), notes and `/notes` (T-15),
-> the draft gate (T-17), `AGENTS.md` and scaffolding (T-18), and CI plus a post-deploy smoke
-> check (T-19). A post can now be drafted, validated, previewed and published through a PR —
-> **the eleven real posts have not been imported yet, which is T-20.**
+> **The pipeline is finished and the 2026-09-04 wave is merged:** schema and loader (T-12),
+> MDX compile with build-time highlighting (T-13), colocated images (T-14), notes (T-15), the
+> draft gate (T-17), `AGENTS.md` (T-18), CI and a post-deploy smoke check (T-19), canonicals
+> (T-26), the local share image (T-27), named AI crawlers (T-31), breadcrumbs (T-33), and the
+> `/api/top-tracks` 500 stopped (T-34). **The eleven real posts are still not imported — that
+> is T-20, and it is gated on D-04.**
 >
-> Blocking: **D-05** (GIFs → T-14's tick), **D-02** (feed path → T-16), **D-04** (the four dead
-> images → T-03 → T-20) and **D-03** (bio copy → T-05).
+> Every remaining task is blocked on a decision or on T-20. See the table below.
 
 > **Stage 6 added 2026-09-04** — discoverability for search engines and AI assistants, **T-26
 > … T-32**, from an external playbook audited against this repo and against live production
-> HTML. **T-26, T-27, T-31 and T-32 depend on nothing** and can fill any gap in Stage 3. The
-> verified findings are in §1 "Discoverability surface"; the two real defects are **no
-> `canonical` on any of the six static routes** and **zero JSON-LD site-wide**. **D-11 is
-> answered.**
+> HTML. **T-26, T-27 and T-31 are merged as of 2026-09-04**, along with T-33's breadcrumbs;
+> **T-32 still depends on nothing** and T-29 needs only Stefan's approval to land. The verified
+> findings are in §1 "Discoverability surface". Of the two real defects it named, the missing
+> canonicals are fixed by T-26; **JSON-LD is now partial — `BreadcrumbList` on post routes from
+> T-33, nothing else until T-28.** **D-11 is answered.**
 
 ### Work in flight
 
-**Nothing is in flight. Everything below that is ticked is merged to `main` and deployed.**
+**Nothing is in flight.** Everything ticked below is merged to `main` and deployed.
 
-Stage 0, 1, 2 and 2.5 are complete, and Stage 3 is complete except **T-14** (waiting on D-05)
-and **T-16** (waiting on D-02). PRs so far: #17–#22 (Stages 0–2), #23 (T-25), #24 (D-09),
-#26 (T-12), #27 (T-13), #28 (T-14's pipeline), #29 (T-17), #30 (T-15), #31 (Stage 6),
-#32 (T-18), #33 (T-19).
+Stage 0, 1, 2 and 2.5 are complete. Stage 3 is complete except **T-14** (D-05) and **T-16**
+(D-02). Stage 6 has **T-26, T-27, T-31 and T-33** merged; **T-28, T-29, T-30, T-32** remain.
+Stage 7's **T-35** closed as not reproducible and **T-34**'s defensive fix is merged, leaving
+only D-12.
 
-`main` verified at `4f7daab`: `bun run build` emits 23 pages including all 11 post routes,
-`tsc --noEmit` clean, `bun run test` 5/5, `bun run validate:content` clean, `bun run lint`
-runs (11 problems, all pre-existing). Sitemap 18 URLs. Production smoke check green —
-`bun run smoke https://stefankudla.com`, 18/18.
+`main` verified at the head of the 2026-09-04 wave: build 23 pages, `tsc --noEmit` clean,
+`bun run test` 32/32, `validate:content` clean, sitemap 18 URLs, production smoke 18/18.
+Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates from a stray
+`.claude/worktrees/` checkout that ESLint scans; CI, which checks out clean, still sees 11.
 
-**Two decisions are the only things blocking Stage 3 from finishing:**
+**Seven decisions are what stands between here and the end of the migration:**
 
-- **D-05 — the GIF question.** T-14's pipeline is merged and GIFs render correctly, passed
-  through `unoptimized`. Converting them to muted autoplay video is the open half, and it is
-  where the 8.0 MB file gets fixed.
-- **D-02 — the feed path.** `/feed.xml` or `/rss.xml`. T-16 cannot start without it.
+| Decision | Gates |
+|---|---|
+| **D-04** · the four dead images | T-03 → **T-20** → T-21, T-22, T-23, T-30 — the whole endgame |
+| **D-06** · `/about` vs the AboutSheet | T-22, T-24, T-28 |
+| **D-07** · `/services` | T-21, T-28 |
+| **D-02** · feed path | T-16 — and `/feed.xml` is advertised in every page's head while returning 404 |
+| **D-05** · GIF handling | T-14's tick only |
+| **D-12** · Spotify, fix or remove | T-34's tick only |
+| **D-03** · replacement bio copy | T-05 |
 
-**Unblocked and ready to pick up:** T-26, T-27, T-31 and T-32 in Stage 6, which depend on
-nothing. T-20 (the import) additionally needs T-03, which needs D-04.
-
+**Unblocked and ready without any decision:** **T-29** (page descriptions — draft for approval)
+and **T-32** (metadata guard test, now that T-26 is merged).
 
 ## How to use this document
 
@@ -434,7 +439,10 @@ Stefan, 2026-09-04.
 
 ### D-12 · The Spotify integration — fix or remove — **blocks T-34**
 
-> **Status:** ⬜ open · blocks T-34
+> **Status:** ⬜ open · blocks T-34's tick only — the 500 itself is fixed and merged.
+> **Root cause now confirmed:** the refresh token is *revoked*
+> (`400 invalid_grant: Refresh token revoked`), so option A means re-authorising Spotify by
+> hand, not a code change.
 
 `/api/top-tracks` has thrown `TypeError: Cannot read properties of undefined (reading 'slice')`
 on **every page load since 2026-07-24** — 140 occurrences across 69 users in the last seven days
@@ -1010,7 +1018,7 @@ back.
 
 **Every claim gets a test.** Each ticket ships its own guard; T-32 covers what spans them.
 
-- [ ] **T-26 · Canonicals and complete OG tags on the six static routes**
+- [x] **T-26 · Canonicals and complete OG tags on the six static routes** — done 2026-09-04, merged
   `pageMetadata` sets `openGraph.url` but never `alternates.canonical`, so `/`, `/about`,
   `/contact`, `/posts`, `/projects` and `/services` have shipped without a canonical for the
   site's whole life. `postMetadata` has always been correct — this is a gap in one helper, not a
@@ -1025,7 +1033,7 @@ back.
     whatever Search Console history the site has.
   - *Blocked by: nothing*
 
-- [ ] **T-27 · Bring the share image into the repo**
+- [x] **T-27 · Bring the share image into the repo** — done 2026-09-04, merged
   `SITE_OG_IMAGE` at `src/lib/metadata.ts:3` points at `imgix.cosmicjs.com`. The identical file
   is already committed at `public/images/stefan_kudla_ogImage.jpg` — 1200×630, 67,209 bytes,
   verified byte-for-byte against the live URL. Every non-post page's social card dies with the
@@ -1085,7 +1093,7 @@ back.
   - *Blocked by: T-20 — half the posts still come from Cosmic, and a file listing only the local
     half is worse than no file. The `llms.txt` index alone could ship earlier if T-20 stalls.*
 
-- [ ] **T-31 · Name the AI crawlers in `robots.txt`**
+- [x] **T-31 · Name the AI crawlers in `robots.txt`** — done 2026-09-04, merged
   Per **D-11** (answered: allow everything, named). `robots.txt` is generated by `next-sitemap`
   as a `postbuild` step, gated on `NEXT_PUBLIC_GENERATE_ROBOTS` — so this is
   `robotsTxtOptions.policies` in `next-sitemap.config.mjs`, not a new route.
@@ -1144,7 +1152,7 @@ the fuller Euronet title · which of `/about` and the drawer is the canonical bi
 Found in Vercel's runtime error table on 2026-09-04, both predating this migration. Independent
 of everything else — neither touches content.
 
-- [ ] **T-34 · `/api/top-tracks` 500s on every page load**
+- [ ] **T-34 · `/api/top-tracks` 500s on every page load** — **defensive fix merged 2026-09-04; open only on D-12**
   `TypeError: Cannot read properties of undefined (reading 'slice')` at
   `src/app/api/top-tracks/route.ts` — `const { items } = await response.json()` comes back
   undefined and `items.slice(0, 10)` throws. **140 occurrences, 69 users, in seven days**, first
@@ -1159,6 +1167,15 @@ of everything else — neither touches content.
     response, the header renders without an error, and the error group stops growing on the next
     deploy.
   - *Blocked by: nothing for the defensive fix. The fix-or-remove call is D-12.*
+
+  **Defensive fix merged.** The route degrades to `{ tracks: [] }` with a 200 on a non-ok
+  response, a body without an `items` array, or a thrown fetch, and filters malformed tracks
+  rather than assuming them well formed. Production verified: `200 {"tracks":[]}` where it
+  previously 500ed. **Root cause confirmed against live credentials, and it is not what the
+  ticket assumed:** Spotify answers the token request with
+  `400 invalid_grant: Refresh token revoked`. The response shape did not change — the token
+  did. So D-12 is a question about whether you want to keep re-authorising Spotify by hand,
+  not about whether the code can be fixed.
 
 - [x] **T-35 · `react-syntax-highlighter` fails to load in the serverless runtime** — closed 2026-09-04, **not reproducible; fixed incidentally by T-25**
   `ERR_REQUIRE_ESM: require() of ES Module refractor/lib/core.js from
@@ -1252,3 +1269,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **Two pre-port findings re-verified against production, both changed.** `/rss.xml` **and** `/feed.xml` are both 404 today while the root layout advertises `/feed.xml` — the dead autodiscovery link is still real and still belongs to T-16, waiting on D-02. The `REVALIDATE_TOKEN` gap is **not** a gap post-port: `/api/revalidate` fails closed with 401 when the secret is absent or wrong, verified live. The only open question there is whether the variable is set in Vercel at all — if it is not, the route is inert rather than unsafe. |
 | 2026-09-04 | Claude | **T-35 closed without a code change: not reproducible.** The `ERR_REQUIRE_ESM` was webpack externalising `react-syntax-highlighter`; Turbopack bundles it, and the route's Node file trace ships neither it nor `refractor` — 1014 traced files, zero matches, verified twice. The App Router port fixed it incidentally. Existing smoke-check coverage (unknown slug must 404) is exactly this bug's signature, so no new guard was added. **T-34's defensive fix is PR #37**, and confirmed the real cause: Spotify returns `invalid_grant: Refresh token revoked`, so D-12 is a question about maintaining a token, not about code. |
 | 2026-09-04 | Claude | **T-33** (new, Stefan's request) done on `t33-breadcrumbs`: visible breadcrumbs plus `BreadcrumbList` JSON-LD on post pages, in its own worktree. No category crumb — categories are a client-side filter with no route, so linking one would invent a URL. Built on T-28's `@id` convention so T-28 extends it instead of duplicating. **The request assumed Pages Router and asked whether to wait for D-01: neither applies — D-01 was answered 2026-09-03 and T-25 shipped the App Router port, so there is nothing to hold for and nothing to redo.** |
+| 2026-09-04 | Claude | **Wave merged: six PRs.** #36 (tickets, D-12), #37 (T-34 defensive fix), #38 (T-27), #39 (T-31), #40 (T-26), #35 (T-33). Production re-verified after deploy: `/api/top-tracks` returns 200 with an empty list, every static route carries exactly one self-referencing canonical, `og:image` is served from `public/`, `robots.txt` names 17 agents and disallows `/api/`, post pages render breadcrumbs plus one `BreadcrumbList` script, and the smoke check is 18/18. Two merge collisions handled rather than papered over: T-26's pinned expectation caught T-27's image change (fixed by pointing it at the new value), and T-33 needed a doc rebase against the Stage 7 tickets. |
+| 2026-09-04 | Claude | **Wave process note.** The first attempt at this wave dispatched five agents at once and *all five* died on a shared session rate limit, having committed nothing; two left partial working-tree edits that were reviewed rather than trusted on the retry. Three at a time is the safer cadence. Agents were also told not to touch this file — one owner per document — which is why these ticks arrive as a separate bookkeeping commit. |
