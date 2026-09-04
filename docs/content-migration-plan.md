@@ -3,14 +3,14 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **10 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done
+**Status:** in progress · **11 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
 **Last updated:** 2026-09-04
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **T-25 has landed — the site is on the App Router and Stage 3 is unblocked.** The next
-> piece of work is **T-12**, the content schema and loader. Still open and blocking smaller
-> items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03). **D-09 is answered**
-> (genre axis: `tutorial` · `essay` · `project`), so T-12 now waits only on D-08.
+> **T-12 has landed — the content pipeline has a schema, a loader and a validate script.**
+> The next pieces are **T-13** (MDX compile and highlighting) and **T-14** (images, including
+> the copy step D-08 calls for). D-08 and D-09 are both answered. Still open and blocking
+> smaller items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
 
 ### Work in flight
 
@@ -29,7 +29,7 @@ preview secret, `tsc --noEmit` clean, tests 3/3, lint unchanged at 11 pre-existi
 Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
 All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
 
-**Next: T-12** — the content schema and loader, now that the App Router port is done.
+**Next: T-13** (MDX compile and highlighting) and **T-14** (images plus the D-08 copy step).
 
 ---|---|
 | **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
@@ -337,18 +337,36 @@ redirected. If freelance inquiries still arrive through it, that's Stefan's call
 
 ### D-08 · Content layout — colocated or flat
 
-> **Status:** ⬜ open · blocks T-12
-> **Leaning (Stefan, 2026-09-04): flat.** He expects to move away from inline images because
-> they do little for agents — see the image-direction note in §6. If inline images mostly go,
-> colocation loses its point: a directory per post only earns its keep when a post *is* a
-> directory of assets. Cover images are a separate question and are not part of that leaning.
-> Not closed — the four-image cost to the Vercel-deploy post is the open part.
+> **Status:** ✅ **ANSWERED 2026-09-04 — colocated, with a build-time copy step.**
+> Stefan's call, having asked for the recommendation. A post is the directory
+> `content/posts/<slug>/`, holding `index.mdx` and that post's images. Notes stay flat at
+> `content/notes/<slug>.mdx` — a note that needs a directory of assets is a post.
+> **The earlier "move away from images" leaning is withdrawn: images stay.**
 
-`content/posts/<slug>/index.mdx` + colocated assets, or `content/posts/<slug>.mdx` +
-`public/images/posts/<slug>/`. *Recommendation: colocated — "the post" is one directory,
-which is easier for an agent to reason about.*
+**Why colocation needs a build step at all.** `next/image` derives width, height and a blur
+placeholder only from a *static* import, which the bundler analyses at build time; a dynamic
+`import()` of a computed path is unsupported. That works only where the bundler compiles the
+MDX. With `next-mdx-remote/rsc` — chosen so slugs stay data-driven from `content/` — there is
+no colocated-image support at all: images must be reachable from `public/`. So **T-14 owns a
+build step that copies colocated images into `public/` and rewrites the `src`**, and, using
+`sharp` (already a dependency), emits width, height and a real `blurDataURL` per image so
+markdown images do not shift the layout.
 
-**Decision:** _(unanswered)_
+**Do not copy the standard recipe.** Nearly every published solution reaches for
+`copy-webpack-plugin` in `next.config.js`. This site builds with **Turbopack**, which ignores
+webpack config entirely. It has to be a plain Node script in `prebuild`.
+
+Considered and rejected: **Velite**, which does the copy (`copyLinkedFiles`, assets to
+`public/static`, URLs rewritten) *and* schema, validation and type generation. It would have
+replaced most of T-12 rather than fed it — less code we own, but a content framework as a
+dependency. Revisit only if the hand-rolled loader starts growing.
+
+The images are **already colocated by slug in the repo** from T-01 —
+`assets/cosmic-archive/<slug>/`, 28 files / 28 MB — so T-20 is a move plus a filename cleanup
+(the Cosmic UUID prefixes), not new repo weight.
+
+**Decision:** ✅ Colocated `content/posts/<slug>/index.mdx` + a build-time copy script.
+Stefan, 2026-09-04.
 
 ### D-10 · Refresh the Vercel-deploy post's screenshots?
 
@@ -601,15 +619,32 @@ Ordered by real dependency, not by report order.
 > Unblocked — T-25 landed 2026-09-04. Build against App Router — `next-mdx-remote/rsc` and the
 > `opengraph-image` convention now apply as the original plan described.
 
-- [ ] **T-12 · Content schema and loader**
+- [x] **T-12 · Content schema and loader** — done 2026-09-04, branch `t12-content-loader`
   `content/`, Zod schemas for posts and notes, `gray-matter` frontmatter parsing, a loader that
   throws at build time on a malformed post, and a standalone validate script.
   - Notes take a deliberately looser schema — date required, title optional.
   - **Done when:** one hand-written post renders at its route, a deliberately malformed
     frontmatter fails the build with a message naming the file and field, and
     `bun run validate:content` reports the same error standalone.
-  - *Blocked by: D-08. D-01 and D-09 are answered — the category enum is closed on
-    `tutorial` · `essay` · `project`, remap table in D-09.*
+  - *Blocked by: nothing — D-01, D-08 and D-09 are all answered.*
+
+  **Result.** `src/lib/content.ts` holds both schemas and the loader;
+  `bun run validate:content` (`scripts/validate-content.ts`) reports every problem across every
+  collection at once, while the loader throws on the first. Both name the file and the field: a
+  `category: Web Dev` post fails with `content/posts/<slug>/index.mdx` /
+  `frontmatter.category — Invalid option: expected one of "tutorial"|"essay"|"project"`.
+  Notes are looser as specified — date required, title optional. Carry forward:
+  - **YAML parses an unquoted `date: 2026-09-04` into a `Date`, not a string.** The schema
+    accepts both and normalises to `YYYY-MM-DD`, because quoting it is exactly the detail a
+    drafting agent gets wrong. Say so in T-18 anyway.
+  - `/posts/[slug]` **prefers a local post and falls back to Cosmic**. That fallback, and the
+    `asCosmicShape` adapter feeding `PostHeader`, are the bridge T-20 removes.
+  - The proof post is `content/posts/mdx-pipeline-check/`, marked `draft: true`. Drafts are
+    excluded from `generateStaticParams`, so it renders on request but never prerenders and
+    never enters the sitemap — still 17 URLs. A deliberate sliver of T-17; the full gate
+    (404 in production, out of the feed) remains T-17's. **T-20 deletes this post.**
+  - MDX renders through `src/components/MdxBody.tsx` with **no rehype plugins** — highlighting
+    and heading anchors are T-13, images T-14.
 
 - [ ] **T-13 · MDX compile and syntax highlighting**
   Whichever compile path D-01 selects, plus `rehype-pretty-code` (Shiki), `rehype-slug` and
@@ -686,6 +721,10 @@ Ordered by real dependency, not by report order.
     - Map `created_at` → frontmatter `date`.
     - Set `cover` explicitly from the existing cover image so social previews stay byte-identical.
     - Rewrite all 31 imgix URLs to local paths.
+  - **Also delete in this task:** `content/posts/mdx-pipeline-check/`, the Cosmic fallback and
+    `asCosmicShape` in `src/app/posts/[slug]/page.tsx`, and the snapshot half of
+    `tests/route-manifest.ts` — with Cosmic gone the content directory is the only source of
+    truth, which restores T-11's guard to catching a deleted post.
   - **Done when:** all 11 files exist using their Cosmic slug **verbatim**; fenced-block and
     inline-span counts per post match the archive exactly (33 and 61 in total); every image
     resolves locally; T-11's parity test is green; and each post's rendered date matches the
@@ -775,3 +814,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-25** done on `t25-app-router`. All 10 page routes and 6 API routes ported to the App Router; `next/head` replaced by `metadata`/`generateMetadata`, preview mode by `draftMode()`, `getStaticPaths` by `generateStaticParams`. Rendered page text byte-identical to the Pages output on every route; 11 post routes still SSG. Two forced fixes: `bash` grammar registration in `CodeBlock` (the Pages build was highlighting it by accident) and an unused `useRef` import in `AlertPreview`. **Stage 3 is unblocked.** |
 | 2026-09-04 | Stefan | **D-09 answered: Option A, genre axis** — `tutorial` · `essay` · `project`, replacing the five-value mix of technology and genre. Full 11-post remap recorded in D-09. Renaming is URL-safe (no `/category/<x>` routes). Tech `tags` deferred until ~25 posts. **T-12 now waits only on D-08.** |
 | 2026-09-04 | Claude | **Image direction (Stefan's leaning, not a closed decision):** move away from inline images — they do little for agents. Measured extent: **19 inline images across 7 posts**, 4 posts already have none; all 11 have a cover. Consequences if taken: D-08 → flat, D-05 answers itself (all 7 GIFs are inline), D-04 likely moot. **The cost is concentrated in one place** — `how-to-deploy-a-static-html-css-and-javascript-website-to-vercel` holds 6 of the 19, they are click-here-then-here Vercel UI screenshots, and it is the post carrying 69% of blog traffic. That is D-10. Covers are separate: they feed `og:image` for crawlers and social cards, so dropping inline images does not imply dropping covers. |
+| 2026-09-04 | Stefan | **D-08 answered: colocated + a build-time copy script** (Claude's recommendation, requested). **Images stay** — the earlier "move away from images" leaning is withdrawn. Posts are `content/posts/<slug>/index.mdx`; notes stay flat. Research recorded in D-08: `next-mdx-remote/rsc` cannot resolve colocated images, so T-14 owns a copy-to-`public` step with `sharp`-computed dimensions and blur data; the usual `copy-webpack-plugin` recipe is unusable because we build with Turbopack; Velite was considered and rejected as it would replace T-12 rather than feed it. |
+| 2026-09-04 | Claude | **T-12** done on `t12-content-loader`. Zod schemas for posts and notes, `gray-matter` parsing, a loader that throws naming file and field, and `bun run validate:content` reporting every problem at once — both verified against a deliberately malformed post. `/posts/[slug]` prefers local content and falls back to Cosmic; the proof post renders at its route. Build 22 pages, sitemap still 17 URLs, tests 5/5, tsc clean, lint unchanged. `tests/route-manifest.ts` repointed at colocated directories, unioned with the snapshot while Cosmic still serves posts — **T-20 must delete that half.** |
