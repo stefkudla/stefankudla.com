@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
 import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript'
@@ -23,11 +23,6 @@ const CodeBlock = ({
   children: ReactNode
   [key: string]: unknown
 }) => {
-  const [hasMounted, setHasMounted] = useState(false)
-  useEffect(() => {
-    setHasMounted(true)
-  }, [])
-  if (!hasMounted) return null
   const match = /language-(\w+)/.exec(className || '')
   return match ? (
     <SyntaxHighlighter
