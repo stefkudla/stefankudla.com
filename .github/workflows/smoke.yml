@@ -1,0 +1,31 @@
+name: Smoke
+
+# Vercel reports every deployment back to GitHub, so this runs against the real
+# deployed site — previews included — rather than a local build.
+on:
+  deployment_status
+
+jobs:
+  smoke:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.1
+
+      - run: bun install --frozen-lockfile
+
+      # Asserts each legacy post's title and a known sentence from its body,
+      # and that an unknown slug returns a real 404 — not just 200 plus an h1.
+      - name: Smoke check legacy URLs
+        run: bun run smoke "${{ github.event.deployment_status.environment_url }}"
+
+      - name: Link check (advisory)
+        continue-on-error: true
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-concurrency 4 "${{ github.event.deployment_status.environment_url }}"
+          fail: false

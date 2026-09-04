@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "validate:content": "bun scripts/validate-content.ts",
+    "smoke": "bun scripts/smoke.ts",
     "new:post": "bun scripts/new-content.ts post",
     "new:note": "bun scripts/new-content.ts note"
   },
