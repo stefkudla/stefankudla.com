@@ -53,6 +53,51 @@ Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates 
 **Unblocked and ready without any decision:** **T-29** (page descriptions — draft for approval)
 and **T-32** (metadata guard test, now that T-26 is merged).
 
+### Session handoff — state as of 2026-09-04, end of the wave
+
+Written so that losing the session that did this work costs only ramp-up time.
+
+**Nothing is running.** No agents are mid-flight, no PRs are open, no branch holds unmerged
+work. Every task branch from the 2026-09-04 wave (`t26-canonicals`, `t27-share-image`,
+`t31-robots`, `t33-breadcrumbs`, `t34-top-tracks`, `t34-t35-tickets`, `t35-highlighter`,
+`wave-bookkeeping`) was squash-merged and deleted, and its worktree removed.
+
+**Remote branches that still exist and are *not* this migration's:** `staging` and
+`upgrade-nextjs-13` (both predate this work, untouched), and
+`claude/seo-agent-search-playbook-bb143f`, which belongs to the session that wrote Stage 6.
+
+**One stray worktree lives inside the repo:**
+`.claude/worktrees/seo-agent-search-playbook-bb143f`, from that other session. It is
+git-excluded via `.git/info/exclude`, but **ESLint scans it**, which is why `bun run lint`
+reports 22 problems locally and 11 in CI. Deleting it when that session is finished restores
+the local count.
+
+**Worktree procedure that actually worked**, beyond the isolation rule documented above:
+
+- Path convention `/Users/stefankudla/Documents/code/.stefankudla-worktrees/<task>`, i.e.
+  *outside* the repo — which also avoids the ESLint problem the in-repo one causes.
+- **Copy `.env` into each new worktree.** It is gitignored, so a fresh worktree cannot build or
+  reach Cosmic without it, and the failure is confusing.
+- Run `bun install` per worktree.
+- **One owner per document.** Agents in the wave were explicitly told *not* to touch this file;
+  the owning session ticked boxes afterwards in a single bookkeeping PR. Five concurrent PRs
+  editing this file would have conflicted five ways. Keep doing that.
+- **Three agents at a time, not five.** See the changelog note on the rate limit.
+
+**Decisions answered so far, with their answers**, so a new session need not hunt:
+
+| Decision | Answer |
+|---|---|
+| D-01 | App Router. Shipped by T-25. |
+| D-08 | Colocated posts (`content/posts/<slug>/index.mdx`) + a build-time image copy. Notes stay flat. Images stay. |
+| D-09 | Genre axis: `tutorial` · `essay` · `project`. Full 11-post remap is in D-09. |
+| D-11 | Allow every AI crawler, named explicitly. Shipped by T-31. |
+
+**Still open:** D-02, D-03, D-04, D-05, D-06, D-07, D-10, D-12 — see the gating table above.
+**D-04 is the one that matters**: it gates T-03 → T-20 → T-21, T-22, T-23, T-30.
+
+---
+
 ## How to use this document
 
 This is the source of truth for the migration, across many sessions. It is meant to be
@@ -230,6 +275,10 @@ Site-level, every line below verified against production, not inferred from sour
 - **No JSON-LD anywhere.** `grep -r 'ld+json' src content public` returns nothing. Not one
   structured-data node on any route.
 - **No `/llms.txt`, no `/llms-full.txt`**, and no `robots.txt` group naming any AI agent.
+- **`robots.txt` cannot be verified on a preview deployment.** `NEXT_PUBLIC_GENERATE_ROBOTS` is
+  set for **production only**, so `/robots.txt` returns **404 on every preview URL** while
+  returning 200 in production. Confirmed 2026-09-04 against PR #39's preview. A robots change
+  therefore has no preview to eyeball — its test is the only pre-merge evidence.
 - `robots.txt` **is** served — so `NEXT_PUBLIC_GENERATE_ROBOTS=true` is set in Vercel, which
   `next-sitemap.config.mjs` gates on. It is next-sitemap's default: `Allow: /`, a `Host` line, a
   `Sitemap` line, and **no `Disallow` for `/api/`**.
@@ -925,8 +974,11 @@ Ordered by real dependency, not by report order.
     (18/18); red when a fixture phrase is tampered with (names the post and the missing text);
     red when pointed at the wrong host (16 of 18); and `bun run test` goes red when a slug is
     added to `content/legacy-slugs.json` that the manifest cannot satisfy.
-  - **`deployment_status` workflows run from the default branch**, so the smoke check only
-    starts firing once this is merged to `main`.
+  - **Correction, 2026-09-04:** the note here previously said `deployment_status` workflows run
+    only from the default branch. **They do not** — the smoke job ran on PRs #33, #35 and
+    #37–#41 from their own branches, against each Vercel *preview* deployment, before any of
+    them merged. That is better than expected: every preview is smoke-checked. Do not "fix"
+    this by moving the trigger.
 
 ### Stage 4 · Migration
 
@@ -1019,6 +1071,14 @@ back.
 **Every claim gets a test.** Each ticket ships its own guard; T-32 covers what spans them.
 
 - [x] **T-26 · Canonicals and complete OG tags on the six static routes** — done 2026-09-04, merged
+
+  > **Trap this uncovered, and it will recur.** In Next's metadata, a route's `alternates`
+  > **replaces the root layout's entire `alternates` object** rather than merging into it. The
+  > root layout supplies `types: { 'application/rss+xml': '/feed.xml' }`, so adding
+  > `alternates.canonical` to `pageMetadata` silently deleted the RSS autodiscovery link from
+  > all seven static routes. Both helpers now carry the `types` entry themselves — which is
+  > presumably why `postMetadata` already had it. **Anything that touches `alternates` must
+  > re-check the feed link in rendered HTML**, T-16 and T-28 included.
   `pageMetadata` sets `openGraph.url` but never `alternates.canonical`, so `/`, `/about`,
   `/contact`, `/posts`, `/projects` and `/services` have shipped without a canonical for the
   site's whole life. `postMetadata` has always been correct — this is a gap in one helper, not a
@@ -1094,6 +1154,11 @@ back.
     half is worse than no file. The `llms.txt` index alone could ship earlier if T-20 stalls.*
 
 - [x] **T-31 · Name the AI crawlers in `robots.txt`** — done 2026-09-04, merged
+
+  > Two observations raised during implementation and deliberately **not** acted on, since
+  > D-11's lists are the authority: `Bingbot` is a general search crawler rather than an
+  > AI-specific one, and both `Applebot` and `Applebot-Extended` appear. If either is
+  > unintentional, amend D-11 and the config follows.
   Per **D-11** (answered: allow everything, named). `robots.txt` is generated by `next-sitemap`
   as a `postbuild` step, gated on `NEXT_PUBLIC_GENERATE_ROBOTS` — so this is
   `robotsTxtOptions.policies` in `next-sitemap.config.mjs`, not a new route.
@@ -1271,3 +1336,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-33** (new, Stefan's request) done on `t33-breadcrumbs`: visible breadcrumbs plus `BreadcrumbList` JSON-LD on post pages, in its own worktree. No category crumb — categories are a client-side filter with no route, so linking one would invent a URL. Built on T-28's `@id` convention so T-28 extends it instead of duplicating. **The request assumed Pages Router and asked whether to wait for D-01: neither applies — D-01 was answered 2026-09-03 and T-25 shipped the App Router port, so there is nothing to hold for and nothing to redo.** |
 | 2026-09-04 | Claude | **Wave merged: six PRs.** #36 (tickets, D-12), #37 (T-34 defensive fix), #38 (T-27), #39 (T-31), #40 (T-26), #35 (T-33). Production re-verified after deploy: `/api/top-tracks` returns 200 with an empty list, every static route carries exactly one self-referencing canonical, `og:image` is served from `public/`, `robots.txt` names 17 agents and disallows `/api/`, post pages render breadcrumbs plus one `BreadcrumbList` script, and the smoke check is 18/18. Two merge collisions handled rather than papered over: T-26's pinned expectation caught T-27's image change (fixed by pointing it at the new value), and T-33 needed a doc rebase against the Stage 7 tickets. |
 | 2026-09-04 | Claude | **Wave process note.** The first attempt at this wave dispatched five agents at once and *all five* died on a shared session rate limit, having committed nothing; two left partial working-tree edits that were reviewed rather than trusted on the retry. Three at a time is the safer cadence. Agents were also told not to touch this file — one owner per document — which is why these ticks arrive as a separate bookkeeping commit. |
+| 2026-09-04 | Claude | **Session handoff written** (§"Session handoff"), so the session holding this context can be replaced without loss: nothing in flight, every wave branch merged and deleted, the answered decisions listed with their answers, the worktree procedure that worked (path outside the repo, copy `.env`, one owner per document, three agents not five), and the stray in-repo worktree that inflates local lint counts. **One earlier claim corrected:** `deployment_status` workflows do *not* only run from the default branch — the smoke job ran from PR branches against preview deployments throughout the wave, so every preview is smoke-checked. **Two traps recorded that were living only in PR bodies:** a route's `alternates` replaces the root layout's entire object, so adding a canonical silently drops the RSS link (bit T-26, will bite T-16 and T-28); and `/robots.txt` 404s on every preview because `NEXT_PUBLIC_GENERATE_ROBOTS` is production-only, so a robots change has no preview to inspect. |
