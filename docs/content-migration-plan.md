@@ -121,8 +121,8 @@ Client: `src/lib/cosmic.ts`. Env vars in `.env` (gitignored):
 - **5 categories**: Perspective, Next.js, Web Dev, Tailwind CSS, React. Stored as Cosmic
   *reference objects*, not strings — resolve them, don't copy the ID.
 - Displayed post date comes from Cosmic `created_at` (not `published_at`).
-- `metadata.canonical` is `null` on all 11. Correct canonicals come from the fallback at
-  the fallback in `src/app/posts/[slug]/page.tsx` (`generateMetadata`), not from data.
+- `metadata.canonical` is `null` on all 11. Correct canonicals come from the fallback in
+  `src/app/posts/[slug]/page.tsx` (`generateMetadata`), not from data.
 - **31 imgix assets, 27.6 MB total, 7 animated GIFs.** Largest is an 8.0 MB GIF in
   `building-react-components-from-headless-cms-markdown`. **4 assets are already dead** — see T-02.
 - Post cover images double as OG images; there is no separate OG asset.
