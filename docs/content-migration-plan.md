@@ -3,12 +3,13 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **9 / 24 tasks complete** · Stage 0, 1 and 2 done
+**Status:** in progress · **9 / 25 tasks complete** · Stage 0, 1 and 2 done
 **Last updated:** 2026-09-03
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **Next blocker: [D-01](#d-01--pages-router-or-app-router--blocks-stage-3-onward) is unanswered.** Everything not blocked on a decision has been done.
-> Stage 3 onward cannot start until the router question is settled.
+> **D-01 is answered: App Router.** The next piece of work is **T-25**, the route migration,
+> which is now the single gate on all of Stage 3. Still open and blocking smaller items:
+> D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
 
 ---
 
@@ -225,7 +226,11 @@ Agents must not resolve these. Record the answer inline and date it.
 
 ### D-01 · Pages Router or App Router — **blocks Stage 3 onward**
 
-> **Status:** ⬜ open
+> **Status:** ✅ **ANSWERED 2026-09-03 — Option B, migrate to App Router.**
+> Stefan's call. Stage 3 is unblocked once **T-25** (the route migration) lands.
+> Consequence: the original plan's stack works as written — `next-mdx-remote/rsc`,
+> `opengraph-image` route convention, route-segment `revalidate`. Do **not** build the
+> Pages-Router variant of anything.
 
 The plan's entire content stack (`next-mdx-remote/rsc`, `opengraph-image` route convention)
 assumes App Router. This site is Pages Router.
@@ -477,9 +482,53 @@ Ordered by real dependency, not by report order.
     (verify by temporarily removing one).
   - *Blocked by: T-10*
 
-### Stage 3 · Content pipeline — **blocked on D-01**
+### Stage 2.5 · App Router migration — **the new gate for Stage 3**
 
-> Do not start until the router question is answered. Choosing late means rewriting the loader.
+> D-01 answered: **migrate to App Router.** This work is not in the original plan's estimates.
+> Do it before the content pipeline, so the loader is written once against its final target.
+
+- [ ] **T-25 · Port routes from `src/pages/` to `src/app/`**
+  Every route below must keep its URL, its rendering behaviour and its metadata. This is a
+  translation, **not** a redesign — no visual changes, no component rewrites beyond what the
+  router change forces.
+
+  **10 page routes:** `404`, `_app`, `_document`, `about`, `contact`, `index`, `posts/index`,
+  `posts/[slug]`, `projects`, `services`
+  **6 API routes:** `currently-playing`, `exit-preview`, `preview`, `recent-posts`, `revalidate`,
+  `top-tracks`
+
+  Known translation points, all verified present in this repo:
+  - `_app.tsx` + `_document.tsx` → `app/layout.tsx`. `_app.tsx` currently mounts `Header`,
+    `AboutSheet` (with `useState`) and `@vercel/analytics` — the stateful parts need a client
+    boundary.
+  - `getStaticProps` → server components; `revalidate: 180` (5s on projects) → route-segment
+    `export const revalidate`.
+  - `getStaticPaths` → `generateStaticParams`. **T-06's `fallback: 'blocking'` + `notFound: true`
+    becomes `dynamicParams` + `notFound()`** — preserve the behaviour T-06 established, do not
+    regress to soft-404s.
+  - **Preview mode → `draftMode()`.** `src/pages/api/preview.ts:39` calls `res.setPreviewData({})`
+    and `api/exit-preview.ts:8` calls `res.clearPreviewData()`; neither exists in App Router.
+  - `next/head` (`src/components/Meta.tsx`) → the `metadata` export / `generateMetadata`.
+    **Preserve the self-referential canonical** currently produced by the fallback in
+    `posts/[slug].tsx`, and keep per-post OG images pointing at the same cover URLs.
+  - `useRouter` from `next/router` → `next/navigation`.
+  - `src/components/BlurImage.tsx` uses `next/legacy/image` with `layout="responsive"` — decide
+    whether it moves to the modern API now or after the content migration.
+
+  **Acceptance:**
+  1. `bun run build` succeeds and emits all 11 post routes.
+  2. Every URL in `content/legacy-slugs.json` returns 200; `/posts/does-not-exist-xyz` returns
+     **404** (T-06 parity).
+  3. `bun run test` passes — T-11's guard is framework-agnostic and must stay green untouched.
+  4. Rendered markup for `/`, `/about`, `/posts` is visually unchanged.
+  5. Per-post `<title>`, meta description, canonical and og:image match the current live values.
+  6. `/api/preview` still gates on `COSMIC_PREVIEW_SECRET` and still reveals drafts.
+  - *Blocked by: nothing — D-01 is answered. **Blocks all of Stage 3.***
+
+### Stage 3 · Content pipeline
+
+> Unblocked once T-25 lands. Build against App Router — `next-mdx-remote/rsc` and the
+> `opengraph-image` convention now apply as the original plan described.
 
 - [ ] **T-12 · Content schema and loader**
   `content/`, Zod schemas for posts and notes, `gray-matter` frontmatter parsing, a loader that
@@ -648,4 +697,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-03 | Claude | **Stefan flagged the Vercel-deploy post as his top page.** Confirmed: 69% of blog traffic. Added §1 protection block (anchor IDs, image risk, staleness-notice exception) and opened D-10. |
 | 2026-09-03 | Claude | Found `/publications` and `/tools` — live 404s still taking traffic, absent from the original plan's URL list. Added to §1; redirects folded into T-21. |
 | 2026-09-03 | Claude | **Process note:** the four agents shared one working directory, so per-agent branches did not isolate and all commits piled onto one branch. Untangled by cherry-picking into clean branches (safety tags `backup/agent-pileup`, `backup/salvage`). File-level partitioning held — no content conflicts. **Future parallel work must use isolated git worktrees.** |
+| 2026-09-03 | Stefan | **D-01 answered: App Router.** Added **T-25** (Stage 2.5) to port 10 page routes + 6 API routes before the content pipeline. Not in any prior estimate; ~8–14h. Stage 3 now builds against App Router as the original plan described. |
 | 2026-09-03 | Claude | Isolation fix verified and written into §"How to use this document": worktree pattern proven (checkout in a worktree leaves the main repo's HEAD untouched), and a no-push-to-`main` rule added. All four branches re-verified with a full `next build` + `tsc`, each passing standalone. Zero duplicated commits remain; nothing was lost. |
