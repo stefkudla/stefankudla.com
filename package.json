@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
-    "validate:content": "bun scripts/validate-content.ts"
+    "validate:content": "bun scripts/validate-content.ts",
+    "new:post": "bun scripts/new-content.ts post",
+    "new:note": "bun scripts/new-content.ts note"
   },
   "dependencies": {
     "@cosmicjs/sdk": "^1.0.5",

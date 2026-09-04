@@ -755,7 +755,7 @@ Ordered by real dependency, not by report order.
     mentions of the draft slug, both ways.
   - **Local `bun run dev` counts as non-production**, so drafts render there too.
 
-- [ ] **T-18 · `AGENTS.md`**
+- [x] **T-18 · `AGENTS.md`** — done 2026-09-04, branch `t18-agents-md`
   The cheapest high-leverage item in the project: it determines whether agent-drafted posts
   arrive 80% right or 40% right.
   - Frontmatter contract with a filled example; the **never rename a slug** rule; voice guide;
@@ -763,6 +763,23 @@ Ordered by real dependency, not by report order.
   - **Done when:** an agent given only `AGENTS.md` produces a post that passes
     `bun run validate:content` on the first attempt.
   - *Blocked by: T-12*
+
+  **Result.** `AGENTS.md` at the repo root, `content/_templates/`, and
+  `bun run new:post` / `bun run new:note` (`scripts/new-content.ts`).
+  **Tested twice with a fresh agent given only `AGENTS.md`**, which is the acceptance
+  criterion and worth repeating whenever the contract changes:
+  - **Run 1 passed validation but had to leave the document** — the scaffold wrote
+    `cover: ./cover.png`, no such file existed, and nothing named a fallback, so the agent
+    went looking through `public/images`. It also caught a contradiction (the table said
+    sentence case, the example was title case) and three unstated things: draft `date`
+    semantics, whether `title="…"` fences work for languages other than `tsx`, and whether an
+    image-free post is still a directory. All fixed; the template now defaults `cover` to the
+    site card.
+  - **Run 2 passed on the first attempt with no outside information**, and surfaced only the
+    YAML quoting trap for titles containing `:` or a leading `#`, now documented.
+  - **`<!-- html comments -->` are a compile error in MDX** (`{/* … */}` is the form), and
+    because drafts are not prerendered it shows up as a 500 on the page, never at build time.
+    Verified deliberately; both `AGENTS.md` and the template say so.
 
 - [ ] **T-19 · CI**
   GitHub Actions on every PR: content validation, slug-parity, typecheck. Lint and link-check
@@ -890,3 +907,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-14 built** on `t14-images` (left unticked — D-05 unanswered). `prebuild`/`predev` script copies colocated images to `public/content/posts/<slug>/` and writes a manifest of width, height, blur placeholder and `animated` from `sharp`; `MdxImage` renders them through the modern `next/image`, GIFs `unoptimized`. Decided the T-14 side question: new content uses the current `next/image` API, `BlurImage`'s `next/legacy/image` stays with `PostBody` until T-20. Trap recorded: `sharp`'s `height` on an animated GIF is all frames stacked — use `pageHeight`, or the image renders 59× too tall. |
 | 2026-09-04 | Claude | **T-17** done on `t17-draft-gate`. `draftsAreVisible` gates every collection reader on `VERCEL_ENV !== 'production'`; drafts 404 in production, render at their real URL on previews and locally, and never enter the sitemap because they are never prerendered. Verified with a production-env build and a preview-env build side by side. |
 | 2026-09-04 | Claude | **T-15** done on `t15-notes`. `/notes` is a reverse-chronological stream rendering each note in full, with `/notes/<slug>` permalinks; two test notes (one untitled) verified newest-first, linked, and absent from `/posts`. Both are drafts, so production shows an empty state until a real note lands. |
+| 2026-09-04 | Claude | **T-18** done on `t18-agents-md`. `AGENTS.md` + `content/_templates/` + `bun run new:post`/`new:note`. Acceptance tested for real: a fresh agent given only `AGENTS.md` wrote a valid post first try. The first run exposed four gaps — the scaffold's non-existent default cover, a sentence-case/title-case contradiction, draft `date` semantics, and flat-vs-directory for image-free posts — all fixed before the second run, which needed nothing outside the document. |
