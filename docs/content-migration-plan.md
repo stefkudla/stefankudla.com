@@ -709,13 +709,25 @@ Ordered by real dependency, not by report order.
   - A `cover` may be colocated (`./cover.png`), an absolute public path, or a remote URL —
     `resolveImage` passes the last two through untouched, so T-20 can set covers either way.
 
-- [ ] **T-15 · Notes collection and `/notes` routes**
+- [x] **T-15 · Notes collection and `/notes` routes** — done 2026-09-04, branch `t15-notes`
   `/notes` renders notes **inline and in full** as a reverse-chronological stream, not a card
   grid — that presentation is what makes short-form feel legitimate rather than unfinished.
   Permalinks exist for linking and for the feed.
   - **Done when:** two test notes render in full on `/notes` newest-first, each has a working
     permalink, and neither appears on `/posts`.
   - *Blocked by: T-12*
+
+  **Result.** `/notes` renders each note's full MDX inline, newest first, separated by rules;
+  the date is the permalink and a titled note also links from its heading. `/notes/<slug>`
+  is the permalink page. Verified with two test notes — one titled, one not.
+  - **Both test notes are drafts**, so in production `/notes` currently shows a
+    "No notes yet." empty state and the route is in the sitemap (18 URLs) while the note
+    permalinks are not. It stops being a thin page the moment a real note is published.
+  - `noteTitle()` in `src/lib/notes.ts` is the single fallback for an untitled note
+    (`Note — <date>`), so the permalink `<title>`, the stream and T-16's feed cannot disagree.
+  - **Notes reference images by absolute path.** They are flat by D-08, so a relative `src` in a
+    note resolves against the *posts* image directory and 404s visibly. A note that needs its
+    own images is a post — say so in T-18.
 
 - [ ] **T-16 · Feed**
   Full content, not excerpts. Posts and notes merged, `<category>` distinguishing them.
@@ -877,3 +889,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-13** done on `t13-mdx-highlighting`. `rehype-pretty-code` + Shiki at build time, themed to a one-for-one port of the existing Prism palette, zero highlighter in the client bundle. `rehype-autolink-headings` proved unnecessary — `rehype-slug` plus a shared `PostHeading` gives MDX and Cosmic byte-identical heading markup. Traps recorded in T-13: an inline Shiki theme needs a `tokenColors` key or rehype-pretty-code reads it as a map of named themes, and a broken MDX render does **not** fail the build while the proof post is a draft — it 500s at request time. One CI-only failure worth remembering: `formik`'s nested `@types/react` 18 breaks the MDX component types, a `package.json` `overrides` pin fixes it locally but **Vercel's install ignores it**, so the fix is a typed escape hatch in the component map, not a dependency pin. |
 | 2026-09-04 | Claude | **T-14 built** on `t14-images` (left unticked — D-05 unanswered). `prebuild`/`predev` script copies colocated images to `public/content/posts/<slug>/` and writes a manifest of width, height, blur placeholder and `animated` from `sharp`; `MdxImage` renders them through the modern `next/image`, GIFs `unoptimized`. Decided the T-14 side question: new content uses the current `next/image` API, `BlurImage`'s `next/legacy/image` stays with `PostBody` until T-20. Trap recorded: `sharp`'s `height` on an animated GIF is all frames stacked — use `pageHeight`, or the image renders 59× too tall. |
 | 2026-09-04 | Claude | **T-17** done on `t17-draft-gate`. `draftsAreVisible` gates every collection reader on `VERCEL_ENV !== 'production'`; drafts 404 in production, render at their real URL on previews and locally, and never enter the sitemap because they are never prerendered. Verified with a production-env build and a preview-env build side by side. |
+| 2026-09-04 | Claude | **T-15** done on `t15-notes`. `/notes` is a reverse-chronological stream rendering each note in full, with `/notes/<slug>` permalinks; two test notes (one untitled) verified newest-first, linked, and absent from `/posts`. Both are drafts, so production shows an empty state until a real note lands. |
