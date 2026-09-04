@@ -126,20 +126,42 @@ const read = <T>(
   }
 }
 
-/** Throws a ContentError naming the file and field on the first bad entry. */
+/**
+ * Drafts are readable everywhere except production: on a preview deployment
+ * and in local development a `draft: true` entry renders like any other, so a
+ * post can be reviewed at its real URL before it is published.
+ */
+export const draftsAreVisible = process.env.VERCEL_ENV !== 'production'
+
+const published = <T extends { frontmatter: { draft: boolean } }>(
+  entries: T[]
+): T[] =>
+  draftsAreVisible ? entries : entries.filter(e => !e.frontmatter.draft)
+
+const byNewest = <T extends { frontmatter: { date: string } }>(a: T, b: T) =>
+  b.frontmatter.date.localeCompare(a.frontmatter.date)
+
+/**
+ * Throws a ContentError naming the file and field on the first bad entry.
+ * Drafts are included in development and on previews, never in production.
+ */
 export const getAllPosts = (): Post[] =>
-  listSources('posts')
-    .map(source => read<PostFrontmatter>('posts', source))
-    .sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date))
+  published(
+    listSources('posts').map(source => read<PostFrontmatter>('posts', source))
+  ).sort(byNewest)
 
 export const getAllNotes = (): Note[] =>
-  listSources('notes')
-    .map(source => read<NoteFrontmatter>('notes', source))
-    .sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date))
+  published(
+    listSources('notes').map(source => read<NoteFrontmatter>('notes', source))
+  ).sort(byNewest)
 
+/** Null for an unknown slug, and for a draft in production. */
 export const getPost = (slug: string): Post | null => {
   const source = listSources('posts').find(entry => entry.slug === slug)
-  return source ? read<PostFrontmatter>('posts', source) : null
+  if (!source) return null
+
+  const post = read<PostFrontmatter>('posts', source)
+  return post.frontmatter.draft && !draftsAreVisible ? null : post
 }
 
 /**

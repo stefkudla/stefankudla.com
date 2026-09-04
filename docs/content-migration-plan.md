@@ -725,12 +725,23 @@ Ordered by real dependency, not by report order.
     and the `<link rel="alternate">` on every page resolves to HTTP 200.
   - *Blocked by: T-12, D-02*
 
-- [ ] **T-17 · Draft gate and preview deploys**
+- [x] **T-17 · Draft gate and preview deploys** — done 2026-09-04, branch `t17-draft-gate`
   Include `draft: true` posts when `process.env.VERCEL_ENV !== 'production'`. Drafts stay out of
   `/posts`, the sitemap and the feed in production regardless.
   - **Done when:** a draft post is visible on a preview deployment and returns 404 in production,
     and appears in neither the production sitemap nor the feed.
   - *Blocked by: T-12*
+
+  **Result.** `draftsAreVisible` in `src/lib/content.ts` is
+  `process.env.VERCEL_ENV !== 'production'`, and every collection reader filters through it, so
+  a draft is invisible in production to anything built on the loader — `/posts`, the feed when
+  T-16 lands, and `getPost`, which returns null and 404s the route. Drafts are never added to
+  `generateStaticParams`, which is what keeps them out of the sitemap on *every* environment,
+  preview included.
+  - Verified by building twice: `VERCEL_ENV=production` → the draft 404s while published posts
+    stay 200; `VERCEL_ENV=preview` → the draft renders at its real URL. Sitemap 17 URLs, zero
+    mentions of the draft slug, both ways.
+  - **Local `bun run dev` counts as non-production**, so drafts render there too.
 
 - [ ] **T-18 · `AGENTS.md`**
   The cheapest high-leverage item in the project: it determines whether agent-drafted posts
@@ -865,3 +876,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-12** done on `t12-content-loader`. Zod schemas for posts and notes, `gray-matter` parsing, a loader that throws naming file and field, and `bun run validate:content` reporting every problem at once — both verified against a deliberately malformed post. `/posts/[slug]` prefers local content and falls back to Cosmic; the proof post renders at its route. Build 22 pages, sitemap still 17 URLs, tests 5/5, tsc clean, lint unchanged. `tests/route-manifest.ts` repointed at colocated directories, unioned with the snapshot while Cosmic still serves posts — **T-20 must delete that half.** |
 | 2026-09-04 | Claude | **T-13** done on `t13-mdx-highlighting`. `rehype-pretty-code` + Shiki at build time, themed to a one-for-one port of the existing Prism palette, zero highlighter in the client bundle. `rehype-autolink-headings` proved unnecessary — `rehype-slug` plus a shared `PostHeading` gives MDX and Cosmic byte-identical heading markup. Traps recorded in T-13: an inline Shiki theme needs a `tokenColors` key or rehype-pretty-code reads it as a map of named themes, and a broken MDX render does **not** fail the build while the proof post is a draft — it 500s at request time. One CI-only failure worth remembering: `formik`'s nested `@types/react` 18 breaks the MDX component types, a `package.json` `overrides` pin fixes it locally but **Vercel's install ignores it**, so the fix is a typed escape hatch in the component map, not a dependency pin. |
 | 2026-09-04 | Claude | **T-14 built** on `t14-images` (left unticked — D-05 unanswered). `prebuild`/`predev` script copies colocated images to `public/content/posts/<slug>/` and writes a manifest of width, height, blur placeholder and `animated` from `sharp`; `MdxImage` renders them through the modern `next/image`, GIFs `unoptimized`. Decided the T-14 side question: new content uses the current `next/image` API, `BlurImage`'s `next/legacy/image` stays with `PostBody` until T-20. Trap recorded: `sharp`'s `height` on an animated GIF is all frames stacked — use `pageHeight`, or the image renders 59× too tall. |
+| 2026-09-04 | Claude | **T-17** done on `t17-draft-gate`. `draftsAreVisible` gates every collection reader on `VERCEL_ENV !== 'production'`; drafts 404 in production, render at their real URL on previews and locally, and never enter the sitemap because they are never prerendered. Verified with a production-env build and a preview-env build side by side. |

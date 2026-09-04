@@ -37,8 +37,9 @@ export async function generateStaticParams() {
     cosmicPosts.map((post: { slug: string }) => post.slug)
   )
 
-  // Drafts render on request but are never prerendered, so they stay out of
-  // the sitemap. The full draft gate — 404 in production — is T-17.
+  // Drafts render on request but are never prerendered, which is what keeps
+  // them out of the sitemap on every environment. In production `getPost` also
+  // refuses them, so the route 404s.
   for (const post of getAllPosts()) {
     if (!post.frontmatter.draft) slugs.add(post.slug)
   }
