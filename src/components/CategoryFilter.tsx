@@ -1,3 +1,5 @@
+'use client'
+
 import cn from 'classnames'
 import { motion } from 'framer-motion'
 

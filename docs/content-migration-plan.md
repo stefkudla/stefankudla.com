@@ -3,25 +3,33 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **9 / 25 tasks complete** · Stage 0, 1 and 2 done
-**Last updated:** 2026-09-03
+**Status:** in progress · **10 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done
+**Last updated:** 2026-09-04
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **D-01 is answered: App Router.** The next piece of work is **T-25**, the route migration,
-> which is now the single gate on all of Stage 3. Still open and blocking smaller items:
-> D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
+> **T-25 has landed — the site is on the App Router and Stage 3 is unblocked.** The next
+> piece of work is **T-12**, the content schema and loader. Still open and blocking smaller
+> items: D-03 (bio copy → T-05), D-04 (the four dead images → T-03), and D-08/D-09, which
+> T-12 needs answered.
 
 ### Work in flight
 
 **Stage 0, 1 and 2 are merged to `main`.** PRs #17 (this doc), #18 (salvage), #19 (T-04),
 #20 (T-06, T-07), #21 (T-09, T-10, T-11), #22 (this block).
 
+**T-25 (Stage 2.5) is open for review on `t25-app-router`.** It is a translation only:
+`src/pages/` is gone, `src/app/` replaces it, and rendered page text is byte-identical to the
+Pages-Router output on every route. Verified on the branch: build emits all 11 post routes as
+SSG, all 17 legacy URLs 200 and `/posts/does-not-exist-xyz` 404s, per-post title/description/
+canonical/og:image match, 0 empty `<pre>`, draft mode round-trips against the real Cosmic
+preview secret, `tsc --noEmit` clean, tests 3/3, lint unchanged at 11 pre-existing problems.
+
 `main` verified green at `9db56ae`: `bun run build` passes with 11 post pages,
 `tsc --noEmit` clean, `bun run test` 3/3, `bun run lint` runs (11 problems, all pre-existing).
 Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
 All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
 
-**Next: T-25** — the App Router port. It is the sole gate on Stage 3.
+**Next: T-12** — the content schema and loader, now that the App Router port is done.
 
 ---|---|
 | **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
@@ -77,7 +85,7 @@ Established by direct verification. Trust these; don't re-derive them.
 
 | | |
 |---|---|
-| Framework | Next.js **16.1.6**, **Pages Router** (`src/pages/`). No `app/` directory. |
+| Framework | Next.js **16.1.6**, **App Router** (`src/app/`) since T-25. No `pages/` directory. |
 | React | 19.2.4 |
 | TypeScript | Yes, `strict: true`. `npx tsc --noEmit` passes clean. |
 | Package manager | **bun** (`bun.lockb`, bun-specific `.npmrc`). Not pnpm, not npm. |
@@ -113,8 +121,8 @@ Client: `src/lib/cosmic.ts`. Env vars in `.env` (gitignored):
 - **5 categories**: Perspective, Next.js, Web Dev, Tailwind CSS, React. Stored as Cosmic
   *reference objects*, not strings — resolve them, don't copy the ID.
 - Displayed post date comes from Cosmic `created_at` (not `published_at`).
-- `metadata.canonical` is `null` on all 11. Correct canonicals come from the fallback at
-  `src/pages/posts/[slug].tsx:35`, not from data.
+- `metadata.canonical` is `null` on all 11. Correct canonicals come from the fallback in
+  `src/app/posts/[slug]/page.tsx` (`generateMetadata`), not from data.
 - **31 imgix assets, 27.6 MB total, 7 animated GIFs.** Largest is an 8.0 MB GIF in
   `building-react-components-from-headless-cms-markdown`. **4 assets are already dead** — see T-02.
 - Post cover images double as OG images; there is no separate OG asset.
@@ -207,7 +215,9 @@ export — never against rendered HTML.**
 ### 2.2 `next-mdx-remote/rsc` will not work
 
 The plan specifies an RSC-based compile and an App Router `opengraph-image` route convention.
-This site is Pages Router. See decision **D-01**.
+This site was Pages Router when the plan was written. **Resolved by T-25** — the site is on the
+App Router now, so `next-mdx-remote/rsc` and `opengraph-image` work as the plan describes. See
+decision **D-01**.
 
 ### 2.3 The URL smoke check cannot detect a broken slug
 
@@ -311,7 +321,7 @@ at 7 files (including an 8.0 MB one) conversion is more work but a much bigger w
 
 `/about` is genuinely orphaned — **zero** `href="/about"` in the live HTML of any page. But the
 Header's "About me" button doesn't link it; it opens `AboutSheet`, a client-side drawer mounted
-in `src/pages/_app.tsx:22` that duplicates much of the page's content. Adding About to the nav
+in `src/app/site-chrome.tsx` that duplicates much of the page's content. Adding About to the nav
 without resolving this ships two competing Abouts.
 
 **Decision:** _(unanswered)_
@@ -506,7 +516,7 @@ Ordered by real dependency, not by report order.
 > D-01 answered: **migrate to App Router.** This work is not in the original plan's estimates.
 > Do it before the content pipeline, so the loader is written once against its final target.
 
-- [ ] **T-25 · Port routes from `src/pages/` to `src/app/`**
+- [x] **T-25 · Port routes from `src/pages/` to `src/app/`** — done 2026-09-04, branch `t25-app-router`
   Every route below must keep its URL, its rendering behaviour and its metadata. This is a
   translation, **not** a redesign — no visual changes, no component rewrites beyond what the
   router change forces.
@@ -544,9 +554,23 @@ Ordered by real dependency, not by report order.
   6. `/api/preview` still gates on `COSMIC_PREVIEW_SECRET` and still reveals drafts.
   - *Blocked by: nothing — D-01 is answered. **Blocks all of Stage 3.***
 
+  **Result:** all six acceptance points verified. Notes for whoever builds on this:
+  - `draftMode()` did **not** force dynamic rendering — `/posts/[slug]` still prerenders all
+    11 slugs as SSG and switches to dynamic only when the draft cookie is present.
+  - `CodeBlock` had to register the `bash` grammar explicitly. The Pages build resolved a
+    refractor variant with every language pre-registered, so bash blocks highlighted despite
+    never being registered; the App Router build resolves `refractor/core` correctly. Without
+    the registration, bash blocks silently lost their colouring.
+  - `BlurImage` stays on `next/legacy/image` for now — moving it is content-migration work,
+    not routing work.
+  - `src/components/Navbar.tsx` still imports `next/router` and is now the only file that
+    does. It is dead code (nothing imports it) and was left alone; delete it in Stage 5.
+  - Two deliberate metadata diffs: `/posts` og:url was the relative string `/posts` and is now
+    absolute, and the post `<head>` no longer repeats `og:image` twice.
+
 ### Stage 3 · Content pipeline
 
-> Unblocked once T-25 lands. Build against App Router — `next-mdx-remote/rsc` and the
+> Unblocked — T-25 landed 2026-09-04. Build against App Router — `next-mdx-remote/rsc` and the
 > `opengraph-image` convention now apply as the original plan described.
 
 - [ ] **T-12 · Content schema and loader**
@@ -719,3 +743,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-03 | Claude | **PRs #17–#22 all merged to `main`** (`9db56ae`). Stage 0, 1 and 2 complete and live. Stefan approved committing the 28 MB asset archive. `main` re-verified green after every merge: build 11 post pages, tsc clean, tests 3/3, lint runs, zero empty `<pre>`, 28 assets valid. |
 | 2026-09-03 | Stefan | **D-01 answered: App Router.** Added **T-25** (Stage 2.5) to port 10 page routes + 6 API routes before the content pipeline. Not in any prior estimate; ~8–14h. Stage 3 now builds against App Router as the original plan described. |
 | 2026-09-03 | Claude | Isolation fix verified and written into §"How to use this document": worktree pattern proven (checkout in a worktree leaves the main repo's HEAD untouched), and a no-push-to-`main` rule added. All four branches re-verified with a full `next build` + `tsc`, each passing standalone. Zero duplicated commits remain; nothing was lost. |
+| 2026-09-04 | Claude | **T-25** done on `t25-app-router`. All 10 page routes and 6 API routes ported to the App Router; `next/head` replaced by `metadata`/`generateMetadata`, preview mode by `draftMode()`, `getStaticPaths` by `generateStaticParams`. Rendered page text byte-identical to the Pages output on every route; 11 post routes still SSG. Two forced fixes: `bash` grammar registration in `CodeBlock` (the Pages build was highlighting it by accident) and an unused `useRef` import in `AlertPreview`. **Stage 3 is unblocked.** |

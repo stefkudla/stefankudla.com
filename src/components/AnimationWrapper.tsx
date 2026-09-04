@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react'
 import { Variants, motion, useInView } from 'framer-motion'
 import cn from 'classnames'

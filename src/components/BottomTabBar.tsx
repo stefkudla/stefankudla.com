@@ -2,7 +2,7 @@
 
 import { routes } from './MenuItems'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import {
   motion,
   useMotionValue,
@@ -14,7 +14,7 @@ import { useTheme } from 'next-themes'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const BottomTabBar: React.FC = () => {
-  const { pathname } = useRouter()
+  const pathname = usePathname()
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])

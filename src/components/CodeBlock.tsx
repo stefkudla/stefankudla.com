@@ -6,6 +6,7 @@ import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javasc
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown'
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
 import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css'
+import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('typescript', typescript)
@@ -13,6 +14,7 @@ SyntaxHighlighter.registerLanguage('javascript', javascript)
 SyntaxHighlighter.registerLanguage('markdown', markdown)
 SyntaxHighlighter.registerLanguage('json', json)
 SyntaxHighlighter.registerLanguage('css', css)
+SyntaxHighlighter.registerLanguage('bash', bash)
 
 const CodeBlock = ({
   className,

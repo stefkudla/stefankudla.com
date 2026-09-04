@@ -1,3 +1,5 @@
+'use client'
+
 import { useTheme } from 'next-themes'
 import Image, { StaticImageData } from 'next/image'
 import { useEffect, useState } from 'react'

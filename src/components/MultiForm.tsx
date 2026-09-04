@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik'
 import classNames from 'classnames'

@@ -1,27 +1,20 @@
-import Layout from '@/components/Layout'
+'use client'
+
 import Marquee from '@/components/Marquee'
-import { PageMeta } from '@/components/Meta'
 import SectionWrapper from '@/components/SectionWrapper'
-import { cosmic } from '@/lib/cosmic'
 import classNames from 'classnames'
 import { motion } from 'framer-motion'
-import { NextPage } from 'next'
 import React from 'react'
 import Image from 'next/image'
 import featureImage from '@/assets/services/service-feature-1.png'
 import featureImageMobile from '@/assets/services/service-feature-1-mobile.png'
 import CtaSection from '@/sections/CtaSection'
 
-const Services: NextPage<{ services: { title: string }[] }> = ({
+const ServicesContent: React.FC<{ services: { title: string }[] }> = ({
   services,
 }) => {
   return (
-    <Layout>
-      <PageMeta
-        title="Services | Stefan Kudla"
-        description="I offer web development services that bring your digital vision to life. Contact me today."
-        url="https://stefankudla.com/services"
-      />
+    <>
       <section className="h-auto pt-20">
         <h1
           className={classNames(
@@ -257,19 +250,8 @@ const Services: NextPage<{ services: { title: string }[] }> = ({
         </div>
       </SectionWrapper>
       <CtaSection />
-    </Layout>
+    </>
   )
 }
 
-export async function getStaticProps({ preview }: { preview?: boolean }) {
-  const services = await cosmic.objects
-    .find({ type: 'services' })
-    .props('slug,title,metadata')
-    .depth(1)
-  return {
-    props: { services: services.objects },
-    revalidate: 180,
-  }
-}
-
-export default Services
+export default ServicesContent

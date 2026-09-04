@@ -1,3 +1,5 @@
+'use client'
+
 import { ForwardArrowIcon } from '@/configs/icons'
 import Image from 'next/image'
 import Link from 'next/link'
