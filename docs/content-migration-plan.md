@@ -12,9 +12,9 @@ reviewed and published by an agent through a pull request.
 > draft gate (T-17), `AGENTS.md` (T-18), CI and a post-deploy smoke check (T-19), canonicals
 > (T-26), the local share image (T-27), named AI crawlers (T-31), breadcrumbs (T-33), and the
 > `/api/top-tracks` 500 stopped (T-34). **The eleven real posts are still not imported — that
-> is T-20, and it is gated on D-04.**
+> is T-20, and as of 2026-09-04 it is no longer gated: D-04 is answered.**
 >
-> Every remaining task is blocked on a decision or on T-20. See the table below.
+> Every other remaining task is blocked on a decision or on T-20. See the table below.
 
 > **Stage 6 added 2026-09-04** — discoverability for search engines and AI assistants, **T-26
 > … T-32**, from an external playbook audited against this repo and against live production
@@ -26,10 +26,8 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-**One PR is open: #43 `t03-dead-images`** — the two Wayback image recoveries and D-04's answer.
-**It is held deliberately, not stalled:** dropping the Cosmic dashboard screenshot becomes
-irreversible once the bucket goes, so it waits on Stefan. Everything else ticked below is merged
-to `main` and deployed.
+**Nothing is in flight.** Everything ticked below is merged to `main` and deployed, including
+T-36 (the empty table of contents) and this ticket's image recoveries.
 
 Stage 0, 1, 2 and 2.5 are complete. Stage 3 is complete except **T-14** (D-05) and **T-16**
 (D-02). Stage 6 has **T-26, T-27, T-31 and T-33** merged; **T-28, T-29, T-30, T-32** remain.
@@ -41,11 +39,11 @@ only D-12.
 Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates from a stray
 `.claude/worktrees/` checkout that ESLint scans; CI, which checks out clean, still sees 11.
 
-**Seven decisions are what stands between here and the end of the migration:**
+**Six decisions are what stands between here and the end of the migration** — D-04 was answered
+2026-09-04, which **unblocks T-20 and with it T-21, T-22, T-23 and T-30**:
 
 | Decision | Gates |
 |---|---|
-| **D-04** · the four dead images | T-03 → **T-20** → T-21, T-22, T-23, T-30 — the whole endgame |
 | **D-06** · `/about` vs the AboutSheet | T-22, T-24, T-28 |
 | **D-07** · `/services` | T-21, T-28 |
 | **D-02** · feed path | T-16 — and `/feed.xml` is advertised in every page's head while returning 404 |
@@ -53,8 +51,10 @@ Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates 
 | **D-12** · Spotify, fix or remove | T-34's tick only |
 | **D-03** · replacement bio copy | T-05 |
 
-**Unblocked and ready without any decision:** **T-29** (page descriptions — draft for approval)
-and **T-32** (metadata guard test, now that T-26 is merged).
+**Unblocked and ready without any decision:** **T-20** (import the eleven posts — the big one,
+now that D-04 is answered), **T-29** (page descriptions — draft for approval), and **T-32**
+(metadata guard test — its own ticket lists T-29 as a blocker, so the description-length
+assertion waits; everything else in it can land now).
 
 ### Session handoff — state as of 2026-09-04, end of the wave
 
@@ -95,9 +95,11 @@ the local count.
 | D-08 | Colocated posts (`content/posts/<slug>/index.mdx`) + a build-time image copy. Notes stay flat. Images stay. |
 | D-09 | Genre axis: `tutorial` · `essay` · `project`. Full 11-post remap is in D-09. |
 | D-11 | Allow every AI crawler, named explicitly. Shipped by T-31. |
+| D-04 | Two dead images recovered from the Wayback Machine, two dropped with the prose rewritten. Rewrites are recorded verbatim in D-04 and applied by T-20. |
 
-**Still open:** D-02, D-03, D-04, D-05, D-06, D-07, D-10, D-12 — see the gating table above.
-**D-04 is the one that matters**: it gates T-03 → T-20 → T-21, T-22, T-23, T-30.
+**Still open:** D-02, D-03, D-05, D-06, D-07, D-10, D-12 — see the gating table above.
+**T-20 is now the one that matters**: it imports the eleven posts and unblocks T-21, T-22,
+T-23 and T-30 behind it.
 
 ---
 
@@ -410,13 +412,57 @@ Creator" text. Stefan's voice, not an agent's.
 
 ### D-04 · The four dead images
 
-> **Status:** ⬜ open · blocks T-03
+> **Status:** ✅ **ANSWERED 2026-09-04 — two recovered from the Wayback Machine, two dropped
+> with the prose rewritten.** Stefan's call. **T-20 is unblocked.**
 
 Four post images are permanently gone from imgix. Per image: recreate the screenshot, replace
 with something equivalent, or remove the reference and adjust surrounding prose.
-Two are Cosmic dashboard screenshots that may not be worth recreating.
 
-**Decision:** _(unanswered)_
+**Only two were permanently gone.** The framing above — and the note that "two are Cosmic
+dashboard screenshots that may not be worth recreating" — was half wrong, found on 2026-09-04
+by checking the Wayback Machine, which nobody had done. Only one of the four is a Cosmic
+dashboard screenshot. All four still 403 on imgix today, re-verified with a browser user-agent.
+
+| Image | Post | Outcome |
+|---|---|---|
+| `blur-placeholder-next.gif` | how-to-use-nextjs-image-with-a-headless-cms | **Recovered** — Wayback snapshot `20220729192424`, 674,232 B, GIF89a 912×520, 3 frames |
+| `image-settings.gif` | how-to-use-nextjs-image-with-a-headless-cms | **Recovered** — Wayback snapshot `20220729192613`, 1,540,459 B, GIF89a 1524×923, 35 frames |
+| `react-markdown-ast-diagram.png` | building-react-components-from-headless-cms-markdown | **Dropped**, one sentence rewritten |
+| `image-bucket.png` | how-im-using-cosmic-to-optimize-my-website | **Dropped**, two sentences rewritten and one deleted |
+
+Both recovered files are byte-complete against the archived `Content-Length`, verified as
+animated GIFs rather than a Wayback error page, and committed under
+`assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/` beside the rest of the
+salvage. `scripts/asset-manifest.json` records them as `status: "recovered"` with the snapshot
+URL in `recovered_from` — a status the download script does not produce, so **re-running
+`scripts/download-assets.mjs` re-marks them dead**; there is a warning in its header.
+
+#### The two prose rewrites — apply these during T-20
+
+Both posts are still on Cosmic, so there is no file to edit yet. **T-20 applies these when it
+imports the two posts**, and that is the whole of T-03's remaining half. Neither rewrite adds a
+claim; each only removes the image and repairs the sentence that pointed at it.
+
+**`building-react-components-from-headless-cms-markdown`** — delete the image line, then one
+sentence changes. The three numbered steps below it already say everything the diagram said, so
+nothing is lost but the picture.
+
+- Delete: `![Diagram of the react markdown architecture flow](https://imgix.cosmicjs.com/89c95c50-2226-11ed-8337-95a76fda76ff-react-markdown-ast-diagram.png)`
+- Before: *"To further understand this component, let's reference the diagram above step-by-step."*
+- After: *"To further understand this component, let's walk through what it does step-by-step."*
+
+**`how-im-using-cosmic-to-optimize-my-website`** — delete the image line; the paragraph after it
+opens by pointing at the screenshot and closes on a joke that only works with it on screen.
+
+- Delete: `![My Image bucket in Cosmic](https://imgix.cosmicjs.com/aafe7660-0527-11ed-b7be-d956591ad437-image-bucket.png)`
+- Before: *"As you can see here, I have all of my images stored in the 'Media' folder, which is there by default."*
+- After: *"All of my images live in the 'Media' folder, which is there by default."*
+- Delete the paragraph's last two sentences: *"Maybe you guessed it, but even the image of my images is hosted in my image hosting Bucket. *Mind blown*."* The gag is that the screenshot of the image bucket is itself served from the image bucket; with no screenshot there is no gag. **Do not rescue it** by repointing it at the article's other images — after T-20 those are repo-local, and the sentence would become false.
+
+The middle of that paragraph — sub-folders, separate Buckets for consulting — stands on its own
+and is untouched.
+
+**Decision:** **Recover the two, drop the two, rewrite the prose.** Recorded 2026-09-04.
 
 ### D-05 · GIF handling — 7 files, not 1
 
@@ -428,6 +474,11 @@ Two are Cosmic dashboard screenshots that may not be worth recreating.
 `next/image` won't animate an optimized GIF. Either mark them `unoptimized` or convert to
 muted autoplay `<video>`. The plan recommended conversion when it thought there was one file;
 at 7 files (including an 8.0 MB one) conversion is more work but a much bigger win.
+
+**Update 2026-09-04 (T-03):** all 7 are now on disk — two of them, `blur-placeholder-next.gif`
+(658 KB) and `image-settings.gif` (1.47 MB), were dead until they came back from the Wayback
+Machine. The count in this decision has not changed; what changed is that there is no longer a
+GIF you could avoid deciding about by writing it off as lost.
 
 **Decision:** _(unanswered)_
 
@@ -606,7 +657,7 @@ Ordered by real dependency, not by report order.
 
 - [x] **T-02 · Download all 31 imgix assets** ✅ `salvage/cosmic-archive-and-assets` · `b65e08a`
   > **Done.** 31 unique URLs / 32 references / **28 files, 28.23 MB** in `assets/cosmic-archive/<slug>/`, manifest at `scripts/asset-manifest.json`. Byte-completeness re-verified against `Content-Length` per file; `file(1)` confirms every artifact is a valid PNG/JPEG/GIF.
-  > **Exactly 4 dead, no more — decay has not accelerated.** 7 GIFs total (5 downloaded, 2 among the dead).
+  > **Exactly 4 dead, no more — decay has not accelerated.** 7 GIFs total (5 downloaded, 2 among the dead). **Updated 2026-09-04 (T-03):** 2 of the 4 dead were recovered from the Wayback Machine, so the archive now holds **30 files / 30.34 MB** and **all 7 GIFs**; 2 remain dead and are dropped per D-04.
   > Count note: `…-design-systems-tailwind.png` is referenced by two posts, so 31 URLs → 32 references → 28 files (a copy under each owning slug, keeping post directories self-contained).
   Every hour these stay only on Cosmic's imgix account is exposure. `imgix.cosmicjs.com` is
   Cosmic's account keyed to Stefan's bucket, not his own.
@@ -617,7 +668,13 @@ Ordered by real dependency, not by report order.
     matching its `Content-Length`. A manifest maps original URL → local path → owning post.
   - *Blocked by: nothing. Do not wait for D-01 or D-08 — park the files, place them later.*
 
-- [ ] **T-03 · Recover or replace the four dead images**
+- [ ] **T-03 · Recover or replace the four dead images** — **assets settled 2026-09-04; the prose half is applied by T-20**
+  > **Two of the four came back.** `blur-placeholder-next.gif` and `image-settings.gif` were
+  > recovered from Wayback Machine snapshots and are committed with the rest of the salvage;
+  > `image-bucket.png` and `react-markdown-ast-diagram.png` are dropped. **D-04 holds the
+  > outcomes and the two prose rewrites verbatim.** The checkbox stays open because the rewrites
+  > cannot be applied to a file that does not exist yet — both posts are still on Cosmic — so
+  > **T-20 applies them at import and this ticks with it.** Nothing here blocks T-20.
   These return a hard `403` today, with a browser user-agent, on the live site:
   ```
   …/aafe7660-0527-11ed-b7be-d956591ad437-image-bucket.png
@@ -629,11 +686,13 @@ Ordered by real dependency, not by report order.
   …/ac715ea0-0deb-11ed-b476-13ceb56f12f2-image-settings.gif
       → how-to-use-nextjs-image-with-a-headless-cms
   ```
-  - First check the Cosmic dashboard media library — needs an authenticated session, so an agent
-    likely cannot do this part.
+  - ~~First check the Cosmic dashboard media library~~ — not needed. Two were recovered from the
+    Wayback Machine without an authenticated session; the other two are dropped, so nothing is
+    left to look for.
   - **Done when:** each of the four is either recovered, replaced, or explicitly dropped with the
-    surrounding prose adjusted — and the outcome is recorded against D-04.
-  - *Blocked by: T-02, D-04*
+    surrounding prose adjusted — and the outcome is recorded against D-04. **Recovery and the
+    drop decisions are done; the two prose adjustments land with T-20.**
+  - *Blocked by: T-02 (done), D-04 (answered). Remaining half rides on T-20.*
 
 ### Stage 1 · Independent fixes — ship these now
 
@@ -1376,3 +1435,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **Wave process note.** The first attempt at this wave dispatched five agents at once and *all five* died on a shared session rate limit, having committed nothing; two left partial working-tree edits that were reviewed rather than trusted on the retry. Three at a time is the safer cadence. Agents were also told not to touch this file — one owner per document — which is why these ticks arrive as a separate bookkeeping commit. |
 | 2026-09-04 | Claude | **Session handoff written** (§"Session handoff"), so the session holding this context can be replaced without loss: nothing in flight, every wave branch merged and deleted, the answered decisions listed with their answers, the worktree procedure that worked (path outside the repo, copy `.env`, one owner per document, three agents not five), and the stray in-repo worktree that inflates local lint counts. **One earlier claim corrected:** `deployment_status` workflows do *not* only run from the default branch — the smoke job ran from PR branches against preview deployments throughout the wave, so every preview is smoke-checked. **Two traps recorded that were living only in PR bodies:** a route's `alternates` replaces the root layout's entire object, so adding a canonical silently drops the RSS link (bit T-26, will bite T-16 and T-28); and `/robots.txt` 404s on every preview because `NEXT_PUBLIC_GENERATE_ROBOTS` is production-only, so a robots change has no preview to inspect. |
 | 2026-09-04 | Claude | **T-36** done on `t36-empty-toc`. `/posts/i-built-a-free-sitemap-comparison-tool` has no `h2`s, so the sidebar showed a "TABLE OF CONTENTS" label above an empty box. Root cause is that `TableOfContents` scrapes `h2`s from the DOM after mounting, so the label and an empty `<ul>` ship in the server HTML of **every** post and are filled only at hydration — on that one post they never fill. The page now counts headings server-side and does not render the component below `TOC_MIN_HEADINGS`; `TableOfContents.tsx` is untouched. **Threshold set to 2** — a one-item table of contents is a label above a single link to a heading already on screen — though no post has exactly one `h2`, so it guards a future case rather than a current one. **Trap recorded: `##` inside fenced code blocks.** Stripping fences first is what keeps `building-react-components-from-headless-cms-markdown` at 5 rather than 9 (`## or` between install commands); the browser never sees those, so a naive count disagrees with the DOM by four. All 11 posts audited — one zero, none at one, ten at 2–9 — and confirmed in built HTML. |
+| 2026-09-04 | Claude | **Two of the four "permanently gone" images are not gone.** Nobody had checked the Wayback Machine. `blur-placeholder-next.gif` (674,232 B, 3 frames) and `image-settings.gif` (1,540,459 B, 35 frames) both have 2022-07-29 snapshots, byte-complete and still animated; recovered, verified and committed to `assets/cosmic-archive/`. `image-bucket.png` and `react-markdown-ast-diagram.png` have no snapshot and still 403. Manifest now reads 30 downloaded / 2 dead / 7 GIFs, with the two recovered entries carrying `status: "recovered"` and a `recovered_from` snapshot URL. **Re-running `scripts/download-assets.mjs` would re-mark them dead** — warning added to its header. Also corrects D-04's premise: only one of the four was a Cosmic dashboard screenshot, not two. |
+| 2026-09-04 | Stefan | **D-04 answered: recover the two, drop the two, rewrite the prose.** The two Wayback recoveries stand; `react-markdown-ast-diagram.png` and `image-bucket.png` are dropped rather than recreated. Both rewrites are recorded verbatim in D-04 — one sentence in the react-markdown post (the three numbered steps below it already carry the diagram's content), and two sentences plus a deleted joke in the Cosmic post (the gag depends on the screenshot being on screen and must not be repointed at images that become repo-local at T-20). **T-03's asset half is done and its prose half rides on T-20, so T-20 is unblocked** — and with it T-21, T-22, T-23 and T-30. |

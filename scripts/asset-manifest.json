@@ -2,11 +2,11 @@
   "summary": {
     "generated_at": "2026-09-04T06:16:45.040Z",
     "total_references": 32,
-    "downloaded": 28,
-    "dead": 4,
+    "downloaded": 30,
+    "dead": 2,
     "truncated": 0,
-    "gif_count": 5,
-    "total_bytes": 29601820
+    "gif_count": 7,
+    "total_bytes": 31816511
   },
   "assets": [
     {
@@ -147,23 +147,23 @@
     },
     {
       "url": "https://imgix.cosmicjs.com/0ebcd220-0e0e-11ed-b569-c7971f032df6-blur-placeholder-next.gif",
-      "local_path": null,
+      "local_path": "assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/0ebcd220-0e0e-11ed-b569-c7971f032df6-blur-placeholder-next.gif",
       "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
       "source": "content",
-      "content_type": null,
-      "bytes": null,
-      "status": "dead",
-      "http_status": 403
+      "content_type": "image/gif",
+      "bytes": 674232,
+      "status": "recovered",
+      "recovered_from": "http://web.archive.org/web/20220729192424id_/https://imgix.cosmicjs.com/0ebcd220-0e0e-11ed-b569-c7971f032df6-blur-placeholder-next.gif"
     },
     {
       "url": "https://imgix.cosmicjs.com/ac715ea0-0deb-11ed-b476-13ceb56f12f2-image-settings.gif",
-      "local_path": null,
+      "local_path": "assets/cosmic-archive/how-to-use-nextjs-image-with-a-headless-cms/ac715ea0-0deb-11ed-b476-13ceb56f12f2-image-settings.gif",
       "post_slug": "how-to-use-nextjs-image-with-a-headless-cms",
       "source": "content",
-      "content_type": null,
-      "bytes": null,
-      "status": "dead",
-      "http_status": 403
+      "content_type": "image/gif",
+      "bytes": 1540459,
+      "status": "recovered",
+      "recovered_from": "http://web.archive.org/web/20220729192613id_/https://imgix.cosmicjs.com/ac715ea0-0deb-11ed-b476-13ceb56f12f2-image-settings.gif"
     },
     {
       "url": "https://imgix.cosmicjs.com/87625240-0acb-11ed-b7be-d956591ad437-design-systems-tailwind.png",
