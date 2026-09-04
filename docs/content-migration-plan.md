@@ -866,7 +866,7 @@ Ordered by real dependency, not by report order.
     because drafts are not prerendered it shows up as a 500 on the page, never at build time.
     Verified deliberately; both `AGENTS.md` and the template say so.
 
-- [ ] **T-19 · CI**
+- [x] **T-19 · CI** — done 2026-09-04, branch `t19-ci`
   GitHub Actions on every PR: content validation, slug-parity, typecheck. Lint and link-check
   advisory. Plus a post-deploy smoke check over every legacy URL.
   - The smoke check must assert **real 404s on unknown slugs** and known body text — not just
@@ -874,6 +874,22 @@ Ordered by real dependency, not by report order.
   - **Done when:** CI is green on a valid PR, red on a PR that removes a legacy slug, and the
     smoke check fails when pointed at a deliberately broken URL.
   - *Blocked by: T-06, T-09, T-10, T-11*
+
+  **Result.** Two workflows. `.github/workflows/ci.yml` runs on every PR and on `main`:
+  `validate:content`, `tsc --noEmit` and the test suite are hard gates; lint is advisory,
+  because its 11 problems live in components this migration does not touch and failing on them
+  would block every PR. `.github/workflows/smoke.yml` runs on `deployment_status`, so it checks
+  the **real deployed site** — previews included — via `bun run smoke <url>`, with an advisory
+  lychee link check.
+  - `scripts/smoke.ts` answers §2.3 directly: per legacy post it asserts the `<title>` **and a
+    known sentence from the body**, held in `tests/fixtures/legacy-content.json` and generated
+    from the live pages, plus a real 404 on an unknown slug. 18 checks.
+  - All three acceptance conditions were exercised, not assumed: green against production
+    (18/18); red when a fixture phrase is tampered with (names the post and the missing text);
+    red when pointed at the wrong host (16 of 18); and `bun run test` goes red when a slug is
+    added to `content/legacy-slugs.json` that the manifest cannot satisfy.
+  - **`deployment_status` workflows run from the default branch**, so the smoke check only
+    starts firing once this is merged to `main`.
 
 ### Stage 4 · Migration
 
@@ -1118,3 +1134,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-17** done on `t17-draft-gate`. `draftsAreVisible` gates every collection reader on `VERCEL_ENV !== 'production'`; drafts 404 in production, render at their real URL on previews and locally, and never enter the sitemap because they are never prerendered. Verified with a production-env build and a preview-env build side by side. |
 | 2026-09-04 | Claude | **T-15** done on `t15-notes`. `/notes` is a reverse-chronological stream rendering each note in full, with `/notes/<slug>` permalinks; two test notes (one untitled) verified newest-first, linked, and absent from `/posts`. Both are drafts, so production shows an empty state until a real note lands. |
 | 2026-09-04 | Claude | **T-18** done on `t18-agents-md`. `AGENTS.md` + `content/_templates/` + `bun run new:post`/`new:note`. Acceptance tested for real: a fresh agent given only `AGENTS.md` wrote a valid post first try. The first run exposed four gaps — the scaffold's non-existent default cover, a sentence-case/title-case contradiction, draft `date` semantics, and flat-vs-directory for image-free posts — all fixed before the second run, which needed nothing outside the document. |
+| 2026-09-04 | Claude | **T-19** done on `t19-ci`. `ci.yml` (content validation, typecheck, tests as hard gates; lint advisory) on every PR, and `smoke.yml` on `deployment_status` running `scripts/smoke.ts` against the real deployed URL — asserting each legacy post's title *and* a known body sentence from a generated fixture, plus a real 404 on an unknown slug, which is what §2.3 said a 200-plus-h1 check could never catch. All three acceptance conditions exercised for real, including tampering with a fixture phrase to watch it go red. |

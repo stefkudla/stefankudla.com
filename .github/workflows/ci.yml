@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.1
+
+      - run: bun install --frozen-lockfile
+
+      # Content validation and the slug-parity guard are the two gates that
+      # protect published URLs, so they are not advisory.
+      - name: Validate content
+        run: bun run validate:content
+
+      - name: Typecheck
+        run: bun x tsc --noEmit
+
+      - name: Tests
+        run: bun run test
+
+      # Advisory: 11 pre-existing problems live in components this migration
+      # does not touch. Failing on them would block every PR.
+      - name: Lint (advisory)
+        run: bun run lint
+        continue-on-error: true
