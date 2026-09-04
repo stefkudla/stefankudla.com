@@ -3,9 +3,12 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** not started · 0 / 24 tasks complete
+**Status:** in progress · **9 / 24 tasks complete** · Stage 0, 1 and 2 done
 **Last updated:** 2026-09-03
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
+
+> **Next blocker: [D-01](#d-01--pages-router-or-app-router--blocks-stage-3-onward) is unanswered.** Everything not blocked on a decision has been done.
+> Stage 3 onward cannot start until the router question is settled.
 
 ---
 
@@ -38,13 +41,14 @@ Established by direct verification. Trust these; don't re-derive them.
 | Package manager | **bun** (`bun.lockb`, bun-specific `.npmrc`). Not pnpm, not npm. |
 | Styling | Tailwind 3.3 + `@tailwindcss/typography`, `next-themes` for dark mode |
 | Build | `npx next build` succeeds in <4s. One cosmetic `caniuse-lite` staleness warning. |
-| Lint | **Broken.** `npm run lint` crashes before linting anything. See T-09. |
-| Tests | **None.** No Vitest, no Jest, no test script, no test files. See T-10. |
+| Lint | Repaired by T-09. **ESLint is pinned to `^9.39.5` on purpose — do not "upgrade" it.** ESLint 10 removes `scopeManager.addGlobals`, which `typescript-eslint` 8.x still calls; `typescript-eslint` v9 does not exist yet. Bumping ESLint to 10 re-breaks lint entirely. |
+| Tests | Vitest 5, added by T-10. `bun run test`. Config is `vitest.config.mts` with an explicit `@` → `./src` alias (`vite-tsconfig-paths` failed to resolve for files outside `src/`). |
 | Markdown rendering | `react-markdown` v10 + `react-syntax-highlighter`, not MDX |
 | Images | `next/legacy/image` via `src/components/BlurImage.tsx` |
 | Sitemap | `next-sitemap` as a `postbuild` step |
 | Node | v26.8.1 |
-| Deploy | Vercel. **Not** under the Vercel account currently connected to this session — deployments and build logs could not be inspected. |
+| Deploy | Vercel project **`stefankudla`** (`prj_Jq6RoQIpR4Mb90Hd2DV9mvdPzAiA`) in team `team_e5YJJUrK30kJGm69DNoTrRvd` (hobby), GitHub-linked to `stefkudla/stefankudla.com`. No `.vercel/` on disk and none needed — Git integration handles it. Build command is `bun run build`, with `next-sitemap` via `postbuild`. |
+| Build strictness | Vercel **fails** builds on TypeScript errors rather than warning. Both historical failed deploys were type errors. Good news for the migration: a Zod-validated loader really will stop a bad post from deploying. |
 
 ### Cosmic surface
 
@@ -90,6 +94,46 @@ creativity-and-software-development-is-a-wonderful-combination
 ```
 
 Plus static routes: `/`, `/about`, `/contact`, `/posts`, `/projects`, `/services`.
+
+**Two more live URLs that 404 today and are missing from the plan's original list.** Both are absent from the sitemap but still receive traffic from inbound links, so they need redirects (see T-21):
+
+| URL | Status | Visitors, 30d |
+|---|---|---|
+| `/publications` | 404 | 3 |
+| `/tools` | 404 | 3 |
+
+### ⚠ The one post that carries the site
+
+`/posts/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel` is **the highest-traffic page on the site after the homepage**, and it is roughly **69% of all blog traffic**. Vercel Analytics, last 30 days (the hobby plan retains only 31 days, so no longer-range trend is available):
+
+| Path | Visitors | Pageviews |
+|---|---|---|
+| `/` | 147 | 150 |
+| **`/posts/how-to-deploy-a-static-html-css-and-javascript-website-to-vercel`** | **44** | **46** |
+| `/posts/simple-scroll-animations-…` | 5 | 5 |
+| every other post | 1–3 | 1–3 |
+
+**Treat this file as the highest-risk item in the migration.** It is also the post with the most to lose:
+
+- **6 inline screenshots — more than any other post.** All 6 are alive (none of the four dead assets are here), but all 6 are imgix-hosted. This is a step-by-step tutorial: if the images break, the page is worthless even though the prose survives.
+- **7 inline code spans** — `npm run build`, `pnpm build`, `yarn build`, `webpack.config.js`, `package.json`. These are the exact terms the page ranks for, and they were being stripped from server HTML by the T-04 bug. **T-04 fixed this**, which is a direct SEO win on the best page.
+- **The TLDR block uses in-page anchor links.** The post opens with `[Build settings using Webpack](#configure-the-vercel-build-and-output-settings)` and `[Build settings without using Webpack](#deploying-a-website-without-webpack)`. These depend on `rehype-slug` generating byte-identical heading IDs after migration. If slugification changes, the TLDR silently breaks.
+
+**These seven anchor IDs must be identical post-migration. Assert them, don't eyeball them:**
+
+```
+#tldr
+#project-and-directory-setup
+#create-a-public-folder
+#create-a-new-github-repository
+#create-a-new-vercel-project
+#configure-the-vercel-build-and-output-settings
+#deploying-a-website-without-webpack
+```
+
+**Exception to the staleness notice (plan §6).** The original plan wants a "written in 2023, my current work looks quite different" banner on anything older than 18 months. This post would qualify and **must not get one** — a staleness banner on the only page earning traffic is self-sabotage. The correct treatment is the opposite: refresh its six screenshots against Vercel's current dashboard, set `updated`, and let it read as maintained. See D-10.
+
+Minor while in there: `[Vercel](http://vercel.com)` uses `http`.
 
 ---
 
@@ -245,6 +289,14 @@ which is easier for an agent to reason about.*
 
 **Decision:** _(unanswered)_
 
+### D-10 · Refresh the Vercel-deploy post's screenshots?
+
+> **Status:** ⬜ open · does not block anything
+
+The site's top page is a 2023 step-by-step tutorial whose six screenshots show a Vercel dashboard UI that has since changed. Refreshing them is the single highest-value editorial act available on the site, and it pairs with the staleness-notice exception above. It is genuinely editorial work — someone has to walk the flow and re-capture — so it is Stefan's call whether it becomes a task or stays a background item.
+
+**Decision:** _(unanswered)_
+
 ### D-09 · Category taxonomy
 
 > **Status:** ⬜ open · blocks T-12
@@ -264,7 +316,8 @@ Ordered by real dependency, not by report order.
 > Content is **actively decaying**. Four assets have already been lost. This stage is the only
 > irreversible risk in the whole project; everything else can be redone. It depends on nothing.
 
-- [ ] **T-01 · Archive the Cosmic bucket**
+- [x] **T-01 · Archive the Cosmic bucket** ✅ `salvage/cosmic-archive-and-assets` · `eb51a41`
+  > **Done.** `scripts/export-cosmic.mjs` → gitignored `scripts/cosmic-export/` (`objects.json` + `by-type/<type>.json`). 52 objects across 11 types: posts 11, services 12, products 8, post-categories 5, menu-items 4, works 3, configs 2, pages 2, projects 2, work-categories 2, projects-page 1. All 11 required post slugs present with non-empty content (1,400–10,536 chars) and a cover image.
   Export the full bucket as JSON before anything else touches it. This becomes the rollback
   source and the diff target for migration verification.
   - Fetch all objects with content and metadata via the Cosmic v3 API using the keys in `.env`.
@@ -274,7 +327,10 @@ Ordered by real dependency, not by report order.
     second copy exists outside the repo.
   - *Blocked by: nothing*
 
-- [ ] **T-02 · Download all 31 imgix assets**
+- [x] **T-02 · Download all 31 imgix assets** ✅ `salvage/cosmic-archive-and-assets` · `b65e08a`
+  > **Done.** 31 unique URLs / 32 references / **28 files, 28.23 MB** in `assets/cosmic-archive/<slug>/`, manifest at `scripts/asset-manifest.json`. Byte-completeness re-verified against `Content-Length` per file; `file(1)` confirms every artifact is a valid PNG/JPEG/GIF.
+  > **Exactly 4 dead, no more — decay has not accelerated.** 7 GIFs total (5 downloaded, 2 among the dead).
+  > Count note: `…-design-systems-tailwind.png` is referenced by two posts, so 31 URLs → 32 references → 28 files (a copy under each owning slug, keeping post directories self-contained).
   Every hour these stay only on Cosmic's imgix account is exposure. `imgix.cosmicjs.com` is
   Cosmic's account keyed to Stefan's bucket, not his own.
   - Source URLs: the 11 `metadata.cover_image.imgix_url` values plus every
@@ -307,7 +363,10 @@ Ordered by real dependency, not by report order.
 > None of these depend on the router decision or the content pipeline. Two are prerequisites for
 > the plan's own safety guarantees. All are small.
 
-- [ ] **T-04 · Render code blocks on the server**
+- [x] **T-04 · Render code blocks on the server** ✅ `fix/codeblock-server-rendering` · `1d6e2f8`
+  > **Done.** Removed the `hasMounted` gate from `CodeBlock.tsx`; `PostBody.tsx` needed no change. **All 33 fenced blocks now populated in server HTML, zero empty `<pre></pre>` across all 11 posts.** Inline code renders too — the marquee post's double-space artifact is gone.
+  > **There was no real hydration mismatch** — `PrismLight` emits byte-identical markup server and client, so the gate was defensive, not necessary. Console clean.
+  > Incidental, pre-existing, not fixed: `react-markdown` v10 passes a `node` prop through `PostBody`'s spread, so blocks carry a stray `node="[object Object]"` attribute. Harmless and consistent, but now visible in server HTML. Worth stripping separately.
   `src/components/CodeBlock.tsx:30` returns `null` until mounted, so **33 fenced blocks and 61
   inline code spans** are invisible to anything that reads HTML rather than running JS —
   crawlers, link previews, LLM fetches. Inline code is the worse half: it deletes words from
@@ -331,7 +390,10 @@ Ordered by real dependency, not by report order.
     returns zero hits across `src/`.
   - *Blocked by: D-03*
 
-- [ ] **T-06 · Make unknown post slugs return a real 404**
+- [x] **T-06 · Make unknown post slugs return a real 404** ✅ `fix/post-404-and-dead-fetches` · `1c0dc36`
+  > **Done.** Chose **`fallback: 'blocking'` + `notFound: true, revalidate: 180`**. Both options satisfy the smoke check equally, so `'blocking'` won as the less disruptive: it keeps the ability to serve a newly published CMS post without a rebuild, and the `revalidate` means a 404 recovers on its own rather than caching permanently.
+  > Verified on a local prod build: `/posts/does-not-exist-xyz` → **404**; all 11 real slugs → **200** with non-empty `<article>`; exactly 11 static post paths emitted.
+  > Removed as newly-unreachable: the `router.isFallback` loader branch, the `PageNotFound` guard, and both orphaned imports.
   `src/pages/posts/[slug].tsx:62` sets `fallback: true`, so a missing slug returns **200** with
   the not-found component inside. Until this changes, no post-deploy URL check means anything —
   a renamed content file, the most plausible way this project breaks, sails straight through.
@@ -341,14 +403,17 @@ Ordered by real dependency, not by report order.
     real slugs still return 200 with their content.
   - *Blocked by: nothing.* **Prerequisite for T-19.**
 
-- [ ] **T-07 · Delete the dead homepage Cosmic fetches**
+- [x] **T-07 · Delete the dead homepage Cosmic fetches** ✅ `fix/post-404-and-dead-fetches` · `65eef4c`
+  > **Done.** Removed both fetches, both props, and the orphaned `getAllPosts` / `cosmic` / `Services` imports. **Rendered markup byte-identical** — the only diff is JS chunk filenames and per-build `buildId` hashes. `__NEXT_DATA__` `pageProps` went from a ~4 KB payload to `{}` (page 48,585 → 44,521 bytes).
+  > Noted, not touched: `getStaticProps` now returns empty props purely to retain `revalidate: 180`. Dropping it entirely would change the route from SSG-with-ISR to fully static — a behaviour change, out of scope.
   `src/pages/index.tsx:35,37` fetches `allPosts` and `services` in `getStaticProps` and passes
   both as props the component never reads — two Cosmic calls per revalidation for nothing.
   - **Done when:** both fetches and their props are gone, `IntroSection`/`CtaSection` render
     unchanged, and `tsc --noEmit` passes.
   - *Blocked by: nothing*
 
-- [ ] **T-08 · Stop tracking `public/sitemap.xml`**
+- [x] **T-08 · Stop tracking `public/sitemap.xml`** ✅ `salvage/cosmic-archive-and-assets` · `89ee977`
+  > **Done.** `git rm --cached` + gitignored. `git ls-files public/sitemap.xml` is empty; a full `bun run build` regenerates a valid 17-URL sitemap at that path and git ignores it.
   It's committed to git and dated `2026-03-01`, while the live one is `2026-09-04`. The
   `postbuild` `next-sitemap` step overwrites it every build, so the tracked copy only produces
   noisy diffs — and if a build ever skips `postbuild`, it silently serves a five-month-old sitemap.
@@ -358,7 +423,9 @@ Ordered by real dependency, not by report order.
 
 ### Stage 2 · Toolchain — required before any CI gate
 
-- [ ] **T-09 · Repair ESLint**
+- [x] **T-09 · Repair ESLint** ✅ `chore/toolchain-lint-and-tests` · `86bbc4f`
+  > **Done — but it was two breakages, not one.** (1) The `FlatCompat` crash: `eslint-config-next@16` ships a real flat config, so `eslint.config.mjs` now imports `eslint-config-next/core-web-vitals` and `eslint-config-prettier/flat` directly; `@eslint/eslintrc` removed as an orphan. (2) Past that, ESLint 10 died on every file with `TypeError: scopeManager.addGlobals is not a function` — ESLint 10 removed that API and `typescript-eslint` 8.x still calls it, with no v9 published. **ESLint pinned to `^9.39.5`.** See the warning in §1.
+  > `bun run lint` now lints `src/` and reports **12 problems (9 errors, 3 warnings)** — 8 of them the same `react-hooks/set-state-in-effect` rule. Deliberately left unfixed: other agents were editing `src/` concurrently. **Follow-up work, not yet a task.**
   `npm run lint` doesn't run at all. ESLint 10.0.2 with `FlatCompat` loading
   `next/core-web-vitals` throws `TypeError: Converting circular structure to JSON` before
   linting a single file. Config is `eslint.config.mjs`.
@@ -367,14 +434,18 @@ Ordered by real dependency, not by report order.
   - **Done when:** `bun run lint` completes and reports findings (or none) without throwing.
   - *Blocked by: nothing.* Prerequisite for making lint a CI check.
 
-- [ ] **T-10 · Install a test runner**
+- [x] **T-10 · Install a test runner** ✅ `chore/toolchain-lint-and-tests` · `0ec94d5`
+  > **Done.** Vitest 5 + `vitest.config.mts`. `tests/utils.test.ts` exercises the real `cn()` from `src/lib/utils.ts` (tailwind-merge conflict resolution, falsy/array flattening) rather than a placeholder assertion.
   There is no Vitest, no Jest, no test script, no test files. The slug-parity test — the plan's
   central URL guarantee — has nowhere to live.
   - Vitest, wired to bun. Add a `test` script.
   - **Done when:** `bun run test` executes and passes with at least one real assertion.
   - *Blocked by: nothing.* Prerequisite for T-11 and T-19.
 
-- [ ] **T-11 · Freeze the legacy slug list and assert it forever**
+- [x] **T-11 · Freeze the legacy slug list and assert it forever** ✅ `chore/toolchain-lint-and-tests` · `9adb157`
+  > **Done.** `content/legacy-slugs.json` holds the 11 slugs plus the 6 static routes. `getRouteManifest()` in `tests/route-manifest.ts` is the single seam: it reads a committed snapshot of real `next-sitemap` output (`tests/fixtures/generated-sitemap-routes.json`) today, and **switches post routes to `content/posts/*.mdx` automatically the moment that directory exists** — so the guard bites during the migration instead of needing rewiring first. Offline, deterministic, framework-agnostic.
+  > **Negative test performed:** removed one slug from the snapshot → test failed with `missing: ["/posts/coding-your-design-system-with-tailwind-css"]`; restored → 3/3 pass.
+  > ⚠ Does **not** yet cover `/publications` and `/tools` (see §1) — they 404 today, so they are redirect targets for T-21, not manifest entries.
   The single most plausible way this project loses two years of SEO is an agent renaming a
   content file.
   - Commit `content/legacy-slugs.json` with the 11 post slugs from §1 plus `/`, `/about`,
@@ -527,11 +598,13 @@ Ordered by real dependency, not by report order.
 
 Carried forward so nobody assumes it was checked.
 
-- **Vercel deployment history and build logs.** The connected Vercel account has no projects —
-  the site deploys from a different account. Known instead: local production build is clean,
-  `tsc --noEmit` passes, and live responses show `x-vercel-cache: HIT` with the 11 post pages
-  served as ISR-cached static HTML. Connect the right account or run `vercel logs` if
-  deployment warnings matter before starting.
+- ~~**Vercel deployment history and build logs.**~~ **Resolved 2026-09-03.** The earlier reading
+  ("connected account has no projects, site deploys elsewhere") was wrong — the connector simply
+  lacked project-read scope. After reauthorization: current production is `bca37e2`, READY, clean,
+  20 static pages / 11 post paths / ~23s build, no warnings. Two historical ERROR deploys, both
+  since fixed and both TypeScript failures — `50bc4bc` on main (`CurrentlyPlaying.tsx:8`,
+  `React.FC` typed as returning `JSX.Element | undefined`) and `3b8a851` on `update-ui` (PR #16).
+  Nothing outstanding.
 - **Whether the four dead assets are recoverable from the Cosmic dashboard.** Needs an
   authenticated session.
 - **Squash-merge trailer preservation**, if the changelog artifact from plan §7 ever gets built.
@@ -545,3 +618,11 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | Date | Who | What |
 |---|---|---|
 | 2026-09-03 | Claude | Document created from the verification pass against commit `bca37e2`. No tasks started. |
+| 2026-09-03 | Claude | **T-01, T-02, T-08** done on `salvage/cosmic-archive-and-assets`. Bucket archived (52 objects, 11 types); 28 asset files / 28.23 MB committed; sitemap untracked. **Exactly 4 dead assets confirmed — no more. Decay has not accelerated.** |
+| 2026-09-03 | Claude | **T-04** done on `fix/codeblock-server-rendering`. 33 fenced blocks + all inline spans now render server-side; zero empty `<pre>` remain. No hydration mismatch existed — the gate was defensive. |
+| 2026-09-03 | Claude | **T-06, T-07** done on `fix/post-404-and-dead-fetches`. Unknown slugs now 404 via `fallback: 'blocking'`; homepage's two dead Cosmic fetches removed with byte-identical markup. |
+| 2026-09-03 | Claude | **T-09, T-10, T-11** done on `chore/toolchain-lint-and-tests`. Lint repaired (two breakages, ESLint pinned to 9.x); Vitest 5 added; slug-parity guard committed and negative-tested. |
+| 2026-09-03 | Claude | Vercel access resolved — §5 entry corrected, real project id and build facts recorded in §1. Prior "deploys from a different account" claim was wrong. |
+| 2026-09-03 | Claude | **Stefan flagged the Vercel-deploy post as his top page.** Confirmed: 69% of blog traffic. Added §1 protection block (anchor IDs, image risk, staleness-notice exception) and opened D-10. |
+| 2026-09-03 | Claude | Found `/publications` and `/tools` — live 404s still taking traffic, absent from the original plan's URL list. Added to §1; redirects folded into T-21. |
+| 2026-09-03 | Claude | **Process note:** the four agents shared one working directory, so per-agent branches did not isolate and all commits piled onto one branch. Untangled by cherry-picking into clean branches (safety tags `backup/agent-pileup`, `backup/salvage`). File-level partitioning held — no content conflicts. **Future parallel work must use isolated git worktrees.** |
