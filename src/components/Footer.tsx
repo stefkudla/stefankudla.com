@@ -10,9 +10,14 @@ const Footer: React.FC = () => (
     )}
   >
     <div className="flex flex-col-reverse md:flex-row items-center md:justify-between md:gap-y-0">
-      <span className="text-sm text-fore-secondary">
-        &copy; {new Date().getFullYear()} Stefan Kudla. All Rights Reserved.
-      </span>
+      <div className="flex flex-col gap-1">
+        <span className="text-sm text-fore-secondary">
+          &copy; {new Date().getFullYear()} Stefan Kudla. All Rights Reserved.
+        </span>
+        <span className="text-xs text-fore-secondary">
+          yooo
+        </span>
+      </div>
     </div>
     <div className="flex flex-col items-center md:flex-row md:justify-between md:gap-y-0">
       <SocialIcons />
