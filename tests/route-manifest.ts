@@ -31,24 +31,33 @@ const SITEMAP_SNAPSHOT = path.join(
 /**
  * The site's route manifest, as a list of pathnames.
  *
- * This is the single seam to repoint after the MDX migration: once
- * `content/posts/*.mdx` exists it becomes the source of truth for post routes
- * automatically, and the snapshot only supplies the non-post routes.
+ * Post routes come from two places while the migration is in flight: the
+ * colocated `content/posts/<slug>/index.mdx` directories (D-08), and the
+ * snapshot, which stands in for the posts Cosmic still serves through the
+ * fallback in `src/app/posts/[slug]/page.tsx`.
+ *
+ * **T-20 must delete the snapshot half.** Once all 11 posts are local and the
+ * Cosmic branch is gone, the content directory is the only source of truth and
+ * this guard goes back to catching a deleted post. Until then a legacy slug is
+ * still served either way, so the union is the honest manifest.
  */
 export function getRouteManifest(): string[] {
   const snapshot: string[] = JSON.parse(
     fs.readFileSync(SITEMAP_SNAPSHOT, 'utf8')
   )
-  const nonPostRoutes = snapshot.filter(route => !route.startsWith('/posts/'))
 
   if (!fs.existsSync(POSTS_CONTENT_DIR)) {
     return snapshot
   }
 
-  const postRoutes = fs
-    .readdirSync(POSTS_CONTENT_DIR)
-    .filter(file => file.endsWith('.mdx'))
-    .map(file => `/posts/${file.replace(/\.mdx$/, '')}`)
+  const localPostRoutes = fs
+    .readdirSync(POSTS_CONTENT_DIR, { withFileTypes: true })
+    .filter(
+      entry =>
+        entry.isDirectory() &&
+        fs.existsSync(path.join(POSTS_CONTENT_DIR, entry.name, 'index.mdx'))
+    )
+    .map(entry => `/posts/${entry.name}`)
 
-  return [...nonPostRoutes, ...postRoutes]
+  return [...new Set([...snapshot, ...localPostRoutes])]
 }
