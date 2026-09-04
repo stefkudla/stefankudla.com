@@ -14,6 +14,7 @@ import { postMetadata } from '@/lib/metadata'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { SITE_URL, type Crumb } from '@/lib/structured-data'
 import { resolveImage } from '@/lib/images'
+import { countHeadings, TOC_MIN_HEADINGS } from '@/lib/headings'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -89,6 +90,14 @@ const Post = async ({ params }: PageProps) => {
     notFound()
   }
 
+  // The table of contents is a client component that reads `h2`s out of the
+  // DOM, so it cannot know whether it will be empty until after it mounts.
+  // Deciding here instead keeps the empty panel out of the server HTML and out
+  // of the flex row entirely, so the article closes up rather than sitting
+  // beside a reserved gap.
+  const body = local ? local.body : post.metadata.content
+  const showToc = countHeadings(body ?? '') >= TOC_MIN_HEADINGS
+
   const crumbs: Crumb[] = [
     { name: 'Home', href: '/' },
     { name: 'Posts', href: '/posts' },
@@ -103,7 +112,7 @@ const Post = async ({ params }: PageProps) => {
         <article className="w-full">
           {post?.status === 'draft' && <AlertPreview />}
           <div className="relative w-full flex">
-            <TableOfContents />
+            {showToc && <TableOfContents />}
             <div className="container mx-auto max-w-3xl px-4">
               <Breadcrumbs
                 crumbs={crumbs}
