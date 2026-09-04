@@ -9,8 +9,8 @@ reviewed and published by an agent through a pull request.
 
 > **T-25 has landed — the site is on the App Router and Stage 3 is unblocked.** The next
 > piece of work is **T-12**, the content schema and loader. Still open and blocking smaller
-> items: D-03 (bio copy → T-05), D-04 (the four dead images → T-03), and D-08/D-09, which
-> T-12 needs answered.
+> items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03). **D-09 is answered**
+> (genre axis: `tutorial` · `essay` · `project`), so T-12 now waits only on D-08.
 
 ### Work in flight
 
@@ -338,6 +338,11 @@ redirected. If freelance inquiries still arrive through it, that's Stefan's call
 ### D-08 · Content layout — colocated or flat
 
 > **Status:** ⬜ open · blocks T-12
+> **Leaning (Stefan, 2026-09-04): flat.** He expects to move away from inline images because
+> they do little for agents — see the image-direction note in §6. If inline images mostly go,
+> colocation loses its point: a directory per post only earns its keep when a post *is* a
+> directory of assets. Cover images are a separate question and are not part of that leaning.
+> Not closed — the four-image cost to the Vercel-deploy post is the open part.
 
 `content/posts/<slug>/index.mdx` + colocated assets, or `content/posts/<slug>.mdx` +
 `public/images/posts/<slug>/`. *Recommendation: colocated — "the post" is one directory,
@@ -355,11 +360,34 @@ The site's top page is a 2023 step-by-step tutorial whose six screenshots show a
 
 ### D-09 · Category taxonomy
 
-> **Status:** ⬜ open · blocks T-12
+> **Status:** ✅ **ANSWERED 2026-09-04 — remap to a three-value genre axis.**
+> Stefan's call. The enum is `tutorial` · `essay` · `project`. T-12's Zod enum is closed on
+> exactly these three; a post with anything else fails the build.
 
-Keep the existing five, or collapse and remap. Whatever is chosen becomes a closed Zod enum.
+The old five mixed two axes — technology (React, Next.js, Tailwind CSS) and genre (Web Dev,
+Perspective). A post can belong to both, so "Web Dev" became the catch-all and took 6 of 11.
+The genre axis is the one an agent can pick correctly without a judgment call, and it stays
+stable as posts are added: a new framework does not mint a new category.
 
-**Decision:** _(unanswered)_
+**Renaming is URL-safe.** There are no `/category/<x>` routes. The category drives only the
+client-side filter on `/posts` and the label in the post header, so nothing redirects and the
+T-11 slug guard is untouched.
+
+**The remap, all 11 posts** — copy this into T-12's frontmatter, don't re-derive it:
+
+| Category | Posts |
+|---|---|
+| `tutorial` (7) | `coding-your-design-system-with-tailwind-css`, `how-to-use-nextjs-image-with-a-headless-cms`, `building-react-components-from-headless-cms-markdown`, `how-to-deploy-a-static-html-css-and-javascript-website-to-vercel`, `simple-scroll-animations-with-html-and-javascript-quick-guide`, `how-to-create-a-marquee-with-framer-motion-and-react`, `how-im-using-cosmic-to-optimize-my-website` |
+| `essay` (3) | `creativity-and-software-development-is-a-wonderful-combination`, `how-i-started-freelancing-as-a-web-developer-in-2022`, `heres-why-all-musicians-need-a-website-in-2022` |
+| `project` (1) | `i-built-a-free-sitemap-comparison-tool` |
+
+`how-im-using-cosmic-to-optimize-my-website` is the one arguable call — it reads as a case
+study but is structured as a walkthrough, so it lands in `tutorial`.
+
+Tech labels as a separate free `tags` array were considered and **deferred** — not worth two
+things to maintain until the archive is past ~25 posts.
+
+**Decision:** ✅ Option A, genre axis: `tutorial` · `essay` · `project`. Stefan, 2026-09-04.
 
 ---
 
@@ -580,7 +608,8 @@ Ordered by real dependency, not by report order.
   - **Done when:** one hand-written post renders at its route, a deliberately malformed
     frontmatter fails the build with a message naming the file and field, and
     `bun run validate:content` reports the same error standalone.
-  - *Blocked by: D-01, D-08, D-09*
+  - *Blocked by: D-08. D-01 and D-09 are answered — the category enum is closed on
+    `tutorial` · `essay` · `project`, remap table in D-09.*
 
 - [ ] **T-13 · MDX compile and syntax highlighting**
   Whichever compile path D-01 selects, plus `rehype-pretty-code` (Shiki), `rehype-slug` and
@@ -744,3 +773,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-03 | Stefan | **D-01 answered: App Router.** Added **T-25** (Stage 2.5) to port 10 page routes + 6 API routes before the content pipeline. Not in any prior estimate; ~8–14h. Stage 3 now builds against App Router as the original plan described. |
 | 2026-09-03 | Claude | Isolation fix verified and written into §"How to use this document": worktree pattern proven (checkout in a worktree leaves the main repo's HEAD untouched), and a no-push-to-`main` rule added. All four branches re-verified with a full `next build` + `tsc`, each passing standalone. Zero duplicated commits remain; nothing was lost. |
 | 2026-09-04 | Claude | **T-25** done on `t25-app-router`. All 10 page routes and 6 API routes ported to the App Router; `next/head` replaced by `metadata`/`generateMetadata`, preview mode by `draftMode()`, `getStaticPaths` by `generateStaticParams`. Rendered page text byte-identical to the Pages output on every route; 11 post routes still SSG. Two forced fixes: `bash` grammar registration in `CodeBlock` (the Pages build was highlighting it by accident) and an unused `useRef` import in `AlertPreview`. **Stage 3 is unblocked.** |
+| 2026-09-04 | Stefan | **D-09 answered: Option A, genre axis** — `tutorial` · `essay` · `project`, replacing the five-value mix of technology and genre. Full 11-post remap recorded in D-09. Renaming is URL-safe (no `/category/<x>` routes). Tech `tags` deferred until ~25 posts. **T-12 now waits only on D-08.** |
+| 2026-09-04 | Claude | **Image direction (Stefan's leaning, not a closed decision):** move away from inline images — they do little for agents. Measured extent: **19 inline images across 7 posts**, 4 posts already have none; all 11 have a cover. Consequences if taken: D-08 → flat, D-05 answers itself (all 7 GIFs are inline), D-04 likely moot. **The cost is concentrated in one place** — `how-to-deploy-a-static-html-css-and-javascript-website-to-vercel` holds 6 of the 19, they are click-here-then-here Vercel UI screenshots, and it is the post carrying 69% of blog traffic. That is D-10. Covers are separate: they feed `og:image` for crawlers and social cards, so dropping inline images does not imply dropping covers. |
