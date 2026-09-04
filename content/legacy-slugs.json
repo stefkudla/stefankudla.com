@@ -1,0 +1,24 @@
+{
+  "_comment": "Frozen list of routes that existed on stefankudla.com before the MDX content migration. These URLs have accumulated SEO and inbound links; they must never disappear. tests/legacy-slugs.test.ts asserts the generated route manifest is a superset of this file. Do not remove entries.",
+  "staticRoutes": [
+    "/",
+    "/about",
+    "/contact",
+    "/posts",
+    "/projects",
+    "/services"
+  ],
+  "postSlugs": [
+    "how-to-create-a-marquee-with-framer-motion-and-react",
+    "simple-scroll-animations-with-html-and-javascript-quick-guide",
+    "i-built-a-free-sitemap-comparison-tool",
+    "how-to-deploy-a-static-html-css-and-javascript-website-to-vercel",
+    "building-react-components-from-headless-cms-markdown",
+    "heres-why-all-musicians-need-a-website-in-2022",
+    "how-to-use-nextjs-image-with-a-headless-cms",
+    "coding-your-design-system-with-tailwind-css",
+    "how-im-using-cosmic-to-optimize-my-website",
+    "how-i-started-freelancing-as-a-web-developer-in-2022",
+    "creativity-and-software-development-is-a-wonderful-combination"
+  ]
+}

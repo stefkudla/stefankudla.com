@@ -1,16 +1,15 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { FlatCompat } from '@eslint/eslintrc'
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
+import prettier from 'eslint-config-prettier/flat'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
-
+// eslint-config-next >= 15 ships a flat config directly, so we consume it
+// as-is. The previous FlatCompat bridge crashed on ESLint 10 while
+// serialising the (circular) plugin object during eslintrc validation.
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'prettier'),
+  {
+    ignores: ['.next/**', 'out/**', 'build/**', 'coverage/**', 'node_modules/**'],
+  },
+  ...nextCoreWebVitals,
+  prettier,
 ]
 
 export default eslintConfig
