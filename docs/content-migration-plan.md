@@ -3,16 +3,18 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **13 / 32 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
+**Status:** in progress · **16 / 32 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
-**Verified against:** commit `f0a106d`, Cosmic bucket `stefankudlacom-production`, live site
+**Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **T-12, T-13 and T-14's pipeline have landed** — schema, loader, validate script,
-> build-time highlighting, and colocated images copied to `public/` with real dimensions.
-> **T-14 stays unticked until D-05** (the GIF question) is answered; everything else in it is
-> merged and working. Next up: **T-15** (notes), **T-16** (feed, needs D-02), **T-17** (draft
-> gate) and **T-18** (`AGENTS.md`). Still open and blocking smaller items: D-03 (bio copy →
-> T-05) and D-04 (the four dead images → T-03).
+> **The content pipeline is finished and on `main`:** schema and loader (T-12), MDX compile
+> with build-time highlighting (T-13), colocated images (T-14), notes and `/notes` (T-15),
+> the draft gate (T-17), `AGENTS.md` and scaffolding (T-18), and CI plus a post-deploy smoke
+> check (T-19). A post can now be drafted, validated, previewed and published through a PR —
+> **the eleven real posts have not been imported yet, which is T-20.**
+>
+> Blocking: **D-05** (GIFs → T-14's tick), **D-02** (feed path → T-16), **D-04** (the four dead
+> images → T-03 → T-20) and **D-03** (bio copy → T-05).
 
 > **Stage 6 added 2026-09-04** — discoverability for search engines and AI assistants, **T-26
 > … T-32**, from an external playbook audited against this repo and against live production
@@ -23,32 +25,28 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-**Stage 0, 1 and 2 are merged to `main`.** PRs #17 (this doc), #18 (salvage), #19 (T-04),
-#20 (T-06, T-07), #21 (T-09, T-10, T-11), #22 (this block).
+**Nothing is in flight. Everything below that is ticked is merged to `main` and deployed.**
 
-**T-25 (Stage 2.5) is open for review on `t25-app-router`.** It is a translation only:
-`src/pages/` is gone, `src/app/` replaces it, and rendered page text is byte-identical to the
-Pages-Router output on every route. Verified on the branch: build emits all 11 post routes as
-SSG, all 17 legacy URLs 200 and `/posts/does-not-exist-xyz` 404s, per-post title/description/
-canonical/og:image match, 0 empty `<pre>`, draft mode round-trips against the real Cosmic
-preview secret, `tsc --noEmit` clean, tests 3/3, lint unchanged at 11 pre-existing problems.
+Stage 0, 1, 2 and 2.5 are complete, and Stage 3 is complete except **T-14** (waiting on D-05)
+and **T-16** (waiting on D-02). PRs so far: #17–#22 (Stages 0–2), #23 (T-25), #24 (D-09),
+#26 (T-12), #27 (T-13), #28 (T-14's pipeline), #29 (T-17), #30 (T-15), #31 (Stage 6),
+#32 (T-18), #33 (T-19).
 
-`main` verified green at `9db56ae`: `bun run build` passes with 11 post pages,
-`tsc --noEmit` clean, `bun run test` 3/3, `bun run lint` runs (11 problems, all pre-existing).
-Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
-All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
+`main` verified at `4f7daab`: `bun run build` emits 23 pages including all 11 post routes,
+`tsc --noEmit` clean, `bun run test` 5/5, `bun run validate:content` clean, `bun run lint`
+runs (11 problems, all pre-existing). Sitemap 18 URLs. Production smoke check green —
+`bun run smoke https://stefankudla.com`, 18/18.
 
-**Next: T-15** (notes), **T-17** (draft gate) and **T-18** (`AGENTS.md`) are unblocked. T-14
-needs **D-05**; T-16 needs **D-02**.
+**Two decisions are the only things blocking Stage 3 from finishing:**
 
----|---|
-| **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
-| **Open, awaiting review** | **[#18](https://github.com/stefkudla/stefankudla.com/pull/18) — T-01, T-02, T-08 (salvage).** Held deliberately: it adds **28 MB of binaries to public git history, permanently**, which a revert does not undo. The archive exists safely on the branch meanwhile. |
-| **`main` verified at `a5c779d`** | `bun run build` passes (11 post pages), `tsc --noEmit` clean, `bun run test` 3/3, `bun run lint` runs (11 problems, pre-existing). Zero empty `<pre>` in server HTML. |
+- **D-05 — the GIF question.** T-14's pipeline is merged and GIFs render correctly, passed
+  through `unoptimized`. Converting them to muted autoplay video is the open half, and it is
+  where the 8.0 MB file gets fixed.
+- **D-02 — the feed path.** `/feed.xml` or `/rss.xml`. T-16 cannot start without it.
 
-> Tasks T-01, T-02 and T-08 are ticked below but live **only on the `#18` branch** until it merges.
+**Unblocked and ready to pick up:** T-26, T-27, T-31 and T-32 in Stage 6, which depend on
+nothing. T-20 (the import) additionally needs T-03, which needs D-04.
 
----
 
 ## How to use this document
 
