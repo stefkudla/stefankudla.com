@@ -3,7 +3,7 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **21 / 35 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **22 / 36 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
@@ -26,7 +26,10 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-**Nothing is in flight.** Everything ticked below is merged to `main` and deployed.
+**One PR is open: #43 `t03-dead-images`** — the two Wayback image recoveries and D-04's answer.
+**It is held deliberately, not stalled:** dropping the Cosmic dashboard screenshot becomes
+irreversible once the bucket goes, so it waits on Stefan. Everything else ticked below is merged
+to `main` and deployed.
 
 Stage 0, 1, 2 and 2.5 are complete. Stage 3 is complete except **T-14** (D-05) and **T-16**
 (D-02). Stage 6 has **T-26, T-27, T-31 and T-33** merged; **T-28, T-29, T-30, T-32** remain.
@@ -1281,6 +1284,41 @@ of everything else — neither touches content.
     go and the markdown path moves to the Shiki setup T-13 built. Migrating it now would be
     churn against a bug that no longer exists.
 
+- [x] **T-36 · Don't render an empty table of contents** — done 2026-09-04, branch `t36-empty-toc`
+  Stefan's report, 2026-09-04, with a screenshot of `/posts/i-built-a-free-sitemap-comparison-tool`:
+  the post has no `h2`s, so the sidebar showed a "TABLE OF CONTENTS" label above an empty box.
+  - **The cause is that `TableOfContents` is a client component that reads `h2`s out of the DOM
+    after it mounts.** It cannot know whether it will be empty until too late, so it always
+    shipped the label and an empty `<ul>` — on *every* post, filled in only at hydration. On the
+    one post with no headings, it never filled.
+  - Fixed by deciding on the server: the page counts `##` in the body and renders the component
+    only above a threshold, so the wrapper never enters the flex row and the article closes up
+    instead of sitting beside a reserved gap. **`TableOfContents.tsx` is unchanged** — it was
+    not broken, it was being asked a question it could not answer.
+  - **Threshold is 2, not 1.** A one-item table of contents is a label above a single link to a
+    heading already on screen. No post has exactly one `h2` today, so this is a deliberate
+    threshold rather than a fix for an observed case; `TOC_MIN_HEADINGS` names it and a test
+    pins it.
+  - > **Trap: `##` inside fenced code blocks.** `countHeadings` strips fences first. Without
+    > that, `building-react-components-from-headless-cms-markdown` counts **9** headings instead
+    > of 5 — the extra four are `## or` lines between npm/pnpm/yarn install commands. The browser
+    > never sees those as headings, so a naive count would disagree with the DOM by four. Any
+    > future code that counts markdown headings needs the same strip.
+  - **All 11 posts audited, so this is fixed once rather than per-post:** exactly one has zero
+    `h2`s (the sitemap post), none has exactly one, and the other ten range 2–9. Verified in
+    built HTML — 10 of 11 post pages contain the table-of-contents `nav`, and the sitemap post
+    contains none.
+  - **Done when:** the empty panel is gone with no label, container or reserved gap; posts with
+    headings are unaffected; and the counter is unit-tested including the code-fence case. All
+    verified — built HTML counted per post, and both cases eyeballed at 1100px, the width where
+    the panel sits in the flex row rather than absolutely positioned.
+  - *Blocked by: nothing*
+
+  **Observation, not actioned:** on posts that *do* have headings the server HTML still ships the
+  label above an empty `<ul>` until hydration fills it. That is the pre-existing DOM-scraping
+  design and it predates this ticket. Fixing it means passing the headings themselves from the
+  server, which needs slugs that match `rehype-slug` exactly — worth doing when the Cosmic branch
+  goes at T-20 and there is one rendering path instead of two, not now.
 
 ## 5. Not verified
 
@@ -1337,3 +1375,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **Wave merged: six PRs.** #36 (tickets, D-12), #37 (T-34 defensive fix), #38 (T-27), #39 (T-31), #40 (T-26), #35 (T-33). Production re-verified after deploy: `/api/top-tracks` returns 200 with an empty list, every static route carries exactly one self-referencing canonical, `og:image` is served from `public/`, `robots.txt` names 17 agents and disallows `/api/`, post pages render breadcrumbs plus one `BreadcrumbList` script, and the smoke check is 18/18. Two merge collisions handled rather than papered over: T-26's pinned expectation caught T-27's image change (fixed by pointing it at the new value), and T-33 needed a doc rebase against the Stage 7 tickets. |
 | 2026-09-04 | Claude | **Wave process note.** The first attempt at this wave dispatched five agents at once and *all five* died on a shared session rate limit, having committed nothing; two left partial working-tree edits that were reviewed rather than trusted on the retry. Three at a time is the safer cadence. Agents were also told not to touch this file — one owner per document — which is why these ticks arrive as a separate bookkeeping commit. |
 | 2026-09-04 | Claude | **Session handoff written** (§"Session handoff"), so the session holding this context can be replaced without loss: nothing in flight, every wave branch merged and deleted, the answered decisions listed with their answers, the worktree procedure that worked (path outside the repo, copy `.env`, one owner per document, three agents not five), and the stray in-repo worktree that inflates local lint counts. **One earlier claim corrected:** `deployment_status` workflows do *not* only run from the default branch — the smoke job ran from PR branches against preview deployments throughout the wave, so every preview is smoke-checked. **Two traps recorded that were living only in PR bodies:** a route's `alternates` replaces the root layout's entire object, so adding a canonical silently drops the RSS link (bit T-26, will bite T-16 and T-28); and `/robots.txt` 404s on every preview because `NEXT_PUBLIC_GENERATE_ROBOTS` is production-only, so a robots change has no preview to inspect. |
+| 2026-09-04 | Claude | **T-36** done on `t36-empty-toc`. `/posts/i-built-a-free-sitemap-comparison-tool` has no `h2`s, so the sidebar showed a "TABLE OF CONTENTS" label above an empty box. Root cause is that `TableOfContents` scrapes `h2`s from the DOM after mounting, so the label and an empty `<ul>` ship in the server HTML of **every** post and are filled only at hydration — on that one post they never fill. The page now counts headings server-side and does not render the component below `TOC_MIN_HEADINGS`; `TableOfContents.tsx` is untouched. **Threshold set to 2** — a one-item table of contents is a label above a single link to a heading already on screen — though no post has exactly one `h2`, so it guards a future case rather than a current one. **Trap recorded: `##` inside fenced code blocks.** Stripping fences first is what keeps `building-react-components-from-headless-cms-markdown` at 5 rather than 9 (`## or` between install commands); the browser never sees those, so a naive count disagrees with the DOM by four. All 11 posts audited — one zero, none at one, ten at 2–9 — and confirmed in built HTML. |
