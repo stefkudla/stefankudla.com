@@ -3,7 +3,7 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **16 / 34 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **17 / 34 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
@@ -1137,7 +1137,7 @@ of everything else — neither touches content.
     deploy.
   - *Blocked by: nothing for the defensive fix. The fix-or-remove call is D-12.*
 
-- [ ] **T-35 · `react-syntax-highlighter` fails to load in the serverless runtime**
+- [x] **T-35 · `react-syntax-highlighter` fails to load in the serverless runtime** — closed 2026-09-04, **not reproducible; fixed incidentally by T-25**
   `ERR_REQUIRE_ESM: require() of ES Module refractor/lib/core.js from
   react-syntax-highlighter/dist/cjs/prism-light.js` on `/posts/[slug]` — 10 occurrences, 3 users,
   first seen 2026-06-26, **last seen 2026-09-04 05:49**, which is before the App Router port
@@ -1153,6 +1153,28 @@ of everything else — neither touches content.
     cannot produce `ERR_REQUIRE_ESM`, demonstrated rather than asserted, and code blocks still
     render highlighted in server HTML with zero empty `<pre>`.
   - *Blocked by: nothing*
+
+  **Result: no code changed, and that is the finding.** It was a *bundling* failure, not a code
+  failure. Under Pages Router and webpack, `react-syntax-highlighter` was left external, so the
+  serverless function did `require()` on its CJS `prism-light.js`, which `require()`s ESM
+  `refractor/lib/core.js`. Turbopack compiles both packages **into** the server chunks, so that
+  `require()` no longer exists.
+  - The decisive evidence is deployment-shaped, not runtime-shaped: the Node file trace for the
+    route, `.next/server/app/posts/[slug]/page.js.nft.json`, lists **1014 files and zero**
+    matching `react-syntax-highlighter` or `refractor` — those files are never shipped to
+    `/var/task` for this function, so the traced `require()` is unreachable. The sourcemap for
+    the SSR chunk instead lists `refractor/lang/*` among its sources. Independently re-verified.
+  - Supporting: on-demand renders of the exact failing slugs (`/posts/Next.js`,
+    `/posts/webpack.config.js`) 404 with a clean server log, and Cosmic posts still render
+    highlighted code in server HTML with zero empty `<pre>`. Local `next start` is not Vercel's
+    runtime, so this is corroboration, not proof — the trace is the proof.
+  - **Regression cover already exists.** `scripts/smoke.ts` asserts a real 404 on an unknown
+    slug and `.github/workflows/smoke.yml` runs it against every successful deployment. That is
+    exactly this bug's signature: an unknown slug forces a dynamic render, and a module that
+    fails to evaluate gives 500 instead of 404. A second check would be duplication.
+  - **The CJS dependency itself still dies at T-20**, when the Cosmic branch and `asCosmicShape`
+    go and the markdown path moves to the Shiki setup T-13 built. Migrating it now would be
+    churn against a bug that no longer exists.
 
 
 ## 5. Not verified
@@ -1205,3 +1227,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-19** done on `t19-ci`. `ci.yml` (content validation, typecheck, tests as hard gates; lint advisory) on every PR, and `smoke.yml` on `deployment_status` running `scripts/smoke.ts` against the real deployed URL — asserting each legacy post's title *and* a known body sentence from a generated fixture, plus a real 404 on an unknown slug, which is what §2.3 said a 200-plus-h1 check could never catch. All three acceptance conditions exercised for real, including tampering with a fixture phrase to watch it go red. |
 | 2026-09-04 | Claude | **Two live production defects ticketed** from Vercel's runtime error table, both predating the migration. **T-34**: `/api/top-tracks` has 500ed on every page load since 2026-07-24 — 140 occurrences, 69 users in seven days — because Spotify's response no longer carries `items`; `NowPlayingPill` in the header fetches it site-wide. Fix-or-remove is **D-12**, opened; the defensive fix is not blocked on it. **T-35**: `ERR_REQUIRE_ESM` on `react-syntax-highlighter` at `/posts/[slug]`, last seen 05:49 today, *before* the App Router port deployed — the failing URLs 404 correctly now, so it may already be fixed and the task is to prove it either way. |
 | 2026-09-04 | Claude | **Two pre-port findings re-verified against production, both changed.** `/rss.xml` **and** `/feed.xml` are both 404 today while the root layout advertises `/feed.xml` — the dead autodiscovery link is still real and still belongs to T-16, waiting on D-02. The `REVALIDATE_TOKEN` gap is **not** a gap post-port: `/api/revalidate` fails closed with 401 when the secret is absent or wrong, verified live. The only open question there is whether the variable is set in Vercel at all — if it is not, the route is inert rather than unsafe. |
+| 2026-09-04 | Claude | **T-35 closed without a code change: not reproducible.** The `ERR_REQUIRE_ESM` was webpack externalising `react-syntax-highlighter`; Turbopack bundles it, and the route's Node file trace ships neither it nor `refractor` — 1014 traced files, zero matches, verified twice. The App Router port fixed it incidentally. Existing smoke-check coverage (unknown slug must 404) is exactly this bug's signature, so no new guard was added. **T-34's defensive fix is PR #37**, and confirmed the real cause: Spotify returns `invalid_grant: Refresh token revoked`, so D-12 is a question about maintaining a token, not about code. |
