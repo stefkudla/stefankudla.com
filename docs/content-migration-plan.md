@@ -3,7 +3,7 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **17 / 34 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **18 / 35 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
@@ -1044,7 +1044,8 @@ back.
     `description`, `inLanguage`, `dateModified`, `isPartOf` → the website. `BlogPosting` on
     posts, read from frontmatter — `headline`, `datePublished` (`date`), `dateModified`
     (`updated ?? date`), `author` → the person, `image` → the cover. `BreadcrumbList` on every
-    route except `/`.
+    route except `/` — **`/posts/<slug>` is already done by T-33; extend
+    `src/lib/structured-data.ts` rather than writing a second implementation.**
   - Cross-reference by `@id`: `https://stefankudla.com/#person`, `/#website`,
     `<page-url>#webpage`, `<page-url>#breadcrumb`. Two scripts sharing `@id`s are stitched back
     together by every consumer that matters.
@@ -1113,6 +1114,28 @@ back.
 profile URLs beyond what the site already links · whether `jobTitle` reads "Software Engineer" or
 the fuller Euronet title · which of `/about` and the drawer is the canonical bio (D-06) · whether
 `/services` survives (D-07).
+
+- [x] **T-33 · Breadcrumbs on post pages** — done 2026-09-04, branch `t33-breadcrumbs`
+  Stefan's request, 2026-09-04. Visible breadcrumb trail on `/posts/[slug]` plus its
+  `BreadcrumbList` JSON-LD.
+  - `Home / Posts / <title>`, the last crumb rendered as text rather than a link and marked
+    `aria-current="page"`, inside a `<nav aria-label="Breadcrumb">` with an ordered list.
+  - **No category crumb.** `CategoryFilter` is a client-side `useState` filter on `/posts`;
+    there is no `/posts/category/<x>` route, so a category crumb would link a URL that does not
+    exist. If category views are ever built, add the crumb then.
+  - **This delivers the `BreadcrumbList` half of T-28 for post routes**, deliberately using
+    T-28's `@id` convention (`<page-url>#breadcrumb`) so the two scripts stitch together rather
+    than duplicate. `src/lib/structured-data.ts` is the pure-function home T-28 describes and
+    `src/components/JsonLd.tsx` the serialiser, with `<` escaped as `\u003c`. **T-28 should
+    extend these, not replace them**, and still owns breadcrumbs on the other routes.
+  - Visual language is the existing post-meta treatment — `font-oswald`, uppercase,
+    `text-card-border`, `/` separators — kept to one line, the final crumb truncating rather
+    than wrapping.
+  - **Done when:** the trail renders on both a Cosmic post and a repo-local post, the JSON-LD
+    validates with positions 1..n and no `item` on the last entry, and the final crumb is not a
+    link. All three verified, plus a unit test covering the graph shape.
+  - *Blocked by: nothing. **Not blocked by D-01** — that was answered 2026-09-03 and T-25
+    shipped the App Router port, so this is written against `src/app/`.*
 
 ---
 
@@ -1228,3 +1251,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **Two live production defects ticketed** from Vercel's runtime error table, both predating the migration. **T-34**: `/api/top-tracks` has 500ed on every page load since 2026-07-24 — 140 occurrences, 69 users in seven days — because Spotify's response no longer carries `items`; `NowPlayingPill` in the header fetches it site-wide. Fix-or-remove is **D-12**, opened; the defensive fix is not blocked on it. **T-35**: `ERR_REQUIRE_ESM` on `react-syntax-highlighter` at `/posts/[slug]`, last seen 05:49 today, *before* the App Router port deployed — the failing URLs 404 correctly now, so it may already be fixed and the task is to prove it either way. |
 | 2026-09-04 | Claude | **Two pre-port findings re-verified against production, both changed.** `/rss.xml` **and** `/feed.xml` are both 404 today while the root layout advertises `/feed.xml` — the dead autodiscovery link is still real and still belongs to T-16, waiting on D-02. The `REVALIDATE_TOKEN` gap is **not** a gap post-port: `/api/revalidate` fails closed with 401 when the secret is absent or wrong, verified live. The only open question there is whether the variable is set in Vercel at all — if it is not, the route is inert rather than unsafe. |
 | 2026-09-04 | Claude | **T-35 closed without a code change: not reproducible.** The `ERR_REQUIRE_ESM` was webpack externalising `react-syntax-highlighter`; Turbopack bundles it, and the route's Node file trace ships neither it nor `refractor` — 1014 traced files, zero matches, verified twice. The App Router port fixed it incidentally. Existing smoke-check coverage (unknown slug must 404) is exactly this bug's signature, so no new guard was added. **T-34's defensive fix is PR #37**, and confirmed the real cause: Spotify returns `invalid_grant: Refresh token revoked`, so D-12 is a question about maintaining a token, not about code. |
+| 2026-09-04 | Claude | **T-33** (new, Stefan's request) done on `t33-breadcrumbs`: visible breadcrumbs plus `BreadcrumbList` JSON-LD on post pages, in its own worktree. No category crumb — categories are a client-side filter with no route, so linking one would invent a URL. Built on T-28's `@id` convention so T-28 extends it instead of duplicating. **The request assumed Pages Router and asked whether to wait for D-01: neither applies — D-01 was answered 2026-09-03 and T-25 shipped the App Router port, so there is nothing to hold for and nothing to redo.** |
