@@ -34,9 +34,19 @@ const TopTracks: React.FC = () => {
     )
   }
 
+  const tracks = data.tracks ?? []
+
+  if (!tracks.length) {
+    return (
+      <p className="text-fore-subtle">
+        Top tracks aren&apos;t available right now.
+      </p>
+    )
+  }
+
   return (
     <ol className="pl-5 grid grid-rows-4">
-      {data.tracks.map((track, index) => (
+      {tracks.map((track, index) => (
         <li
           key={index}
           className="group list-decimal pb-1 transition shadow-md hover:shadow-lg dark:shadow-[#111] marker:hover:text-[#1DB954] rounded-b"
