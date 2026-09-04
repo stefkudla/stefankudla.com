@@ -3,14 +3,14 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **11 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
+**Status:** in progress · **12 / 25 tasks complete** · Stage 0, 1, 2 and 2.5 done; Stage 3 started
 **Last updated:** 2026-09-04
 **Verified against:** commit `bca37e2`, Cosmic bucket `stefankudlacom-production`, live site
 
-> **T-12 has landed — the content pipeline has a schema, a loader and a validate script.**
-> The next pieces are **T-13** (MDX compile and highlighting) and **T-14** (images, including
-> the copy step D-08 calls for). D-08 and D-09 are both answered. Still open and blocking
-> smaller items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
+> **T-12 and T-13 have landed** — the content pipeline has a schema, a loader, a validate
+> script and build-time syntax highlighting. The next piece is **T-14** (images, including the
+> copy step D-08 calls for), which needs **D-05** answered. Still open and blocking smaller
+> items: D-03 (bio copy → T-05) and D-04 (the four dead images → T-03).
 
 ### Work in flight
 
@@ -29,7 +29,7 @@ preview secret, `tsc --noEmit` clean, tests 3/3, lint unchanged at 11 pre-existi
 Zero empty `<pre>` in server HTML. Sitemap regenerates to 17 URLs and is correctly ignored.
 All 28 archived assets present and valid (18 PNG, 5 JPEG, 5 GIF).
 
-**Next: T-13** (MDX compile and highlighting) and **T-14** (images plus the D-08 copy step).
+**Next: T-14** (images plus the D-08 copy step) — it needs **D-05**, the GIF question.
 
 ---|---|
 | **Merged to `main`** | #17 (this doc) · #19 (T-04) · #20 (T-06, T-07) · #21 (T-09, T-10, T-11) |
@@ -646,13 +646,36 @@ Ordered by real dependency, not by report order.
   - MDX renders through `src/components/MdxBody.tsx` with **no rehype plugins** — highlighting
     and heading anchors are T-13, images T-14.
 
-- [ ] **T-13 · MDX compile and syntax highlighting**
+- [x] **T-13 · MDX compile and syntax highlighting** — done 2026-09-04, branch `t13-mdx-highlighting`
   Whichever compile path D-01 selects, plus `rehype-pretty-code` (Shiki), `rehype-slug` and
   `rehype-autolink-headings` to preserve the existing `#heading-anchor` behaviour.
   - Theme it to the existing dark palette.
   - **Done when:** a test post's code blocks render highlighted **in server HTML** with zero
     client JS, and heading anchors still work.
   - *Blocked by: T-12*
+
+  **Result.** `rehype-pretty-code` + Shiki run at build time in
+  `src/components/MdxBody.tsx`; the highlighter never reaches the client bundle. The palette is
+  `src/lib/code-theme.ts`, a one-for-one port of the Prism theme in `src/styles/code-theme.css`,
+  so MDX and Cosmic code blocks look the same while both paths coexist. Three things that cost
+  time and will cost it again otherwise:
+  - **`rehype-pretty-code` only recognises an inline theme when it has a `tokenColors` key**
+    (`isJSONTheme` checks exactly that). A valid Shiki theme with just `settings` is treated as
+    a *map of named themes*, and the error you get is the useless
+    ``Theme `dark` not found``. The theme object sets both, pointing at one array.
+  - **A broken MDX render does not fail `bun run build`** — the proof post is a draft, so it is
+    not prerendered, and the failure only appeared as a 500 at request time. Check the route,
+    not just the build.
+  - **`rehype-autolink-headings` was not needed.** `rehype-slug` supplies the ids and a shared
+    `src/components/PostHeading.tsx` renders the anchor, so MDX and Cosmic headings are
+    byte-identical markup rather than two implementations that drift. `PostBody` now uses it too;
+    it goes when `PostBody` does, in T-20.
+  - **`formik` drags in a second `@types/react` (18) beside the repo's 19**, so the MDX
+    `components` map is typed against a different React and no honest prop type satisfies both.
+    A `package.json` `overrides` pin fixes it locally and **Vercel ignores it** — its install
+    re-resolves and the nested copy comes back, so the build went red while local was green.
+    The `h2` mapping takes `props: any` instead, with a comment. If a similar cross-copy type
+    error appears elsewhere, this is why.
 
 - [ ] **T-14 · Image handling**
   Local images through `next/image`, plus the GIF strategy from D-05.
@@ -816,3 +839,4 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **Image direction (Stefan's leaning, not a closed decision):** move away from inline images — they do little for agents. Measured extent: **19 inline images across 7 posts**, 4 posts already have none; all 11 have a cover. Consequences if taken: D-08 → flat, D-05 answers itself (all 7 GIFs are inline), D-04 likely moot. **The cost is concentrated in one place** — `how-to-deploy-a-static-html-css-and-javascript-website-to-vercel` holds 6 of the 19, they are click-here-then-here Vercel UI screenshots, and it is the post carrying 69% of blog traffic. That is D-10. Covers are separate: they feed `og:image` for crawlers and social cards, so dropping inline images does not imply dropping covers. |
 | 2026-09-04 | Stefan | **D-08 answered: colocated + a build-time copy script** (Claude's recommendation, requested). **Images stay** — the earlier "move away from images" leaning is withdrawn. Posts are `content/posts/<slug>/index.mdx`; notes stay flat. Research recorded in D-08: `next-mdx-remote/rsc` cannot resolve colocated images, so T-14 owns a copy-to-`public` step with `sharp`-computed dimensions and blur data; the usual `copy-webpack-plugin` recipe is unusable because we build with Turbopack; Velite was considered and rejected as it would replace T-12 rather than feed it. |
 | 2026-09-04 | Claude | **T-12** done on `t12-content-loader`. Zod schemas for posts and notes, `gray-matter` parsing, a loader that throws naming file and field, and `bun run validate:content` reporting every problem at once — both verified against a deliberately malformed post. `/posts/[slug]` prefers local content and falls back to Cosmic; the proof post renders at its route. Build 22 pages, sitemap still 17 URLs, tests 5/5, tsc clean, lint unchanged. `tests/route-manifest.ts` repointed at colocated directories, unioned with the snapshot while Cosmic still serves posts — **T-20 must delete that half.** |
+| 2026-09-04 | Claude | **T-13** done on `t13-mdx-highlighting`. `rehype-pretty-code` + Shiki at build time, themed to a one-for-one port of the existing Prism palette, zero highlighter in the client bundle. `rehype-autolink-headings` proved unnecessary — `rehype-slug` plus a shared `PostHeading` gives MDX and Cosmic byte-identical heading markup. Traps recorded in T-13: an inline Shiki theme needs a `tokenColors` key or rehype-pretty-code reads it as a map of named themes, and a broken MDX render does **not** fail the build while the proof post is a draft — it 500s at request time. One CI-only failure worth remembering: `formik`'s nested `@types/react` 18 breaks the MDX component types, a `package.json` `overrides` pin fixes it locally but **Vercel's install ignores it**, so the fix is a typed escape hatch in the component map, not a dependency pin. |
