@@ -3,7 +3,7 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **16 / 32 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **16 / 34 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
@@ -431,6 +431,37 @@ The images are **already colocated by slug in the repo** from T-01 —
 
 **Decision:** ✅ Colocated `content/posts/<slug>/index.mdx` + a build-time copy script.
 Stefan, 2026-09-04.
+
+### D-12 · The Spotify integration — fix or remove — **blocks T-34**
+
+> **Status:** ⬜ open · blocks T-34
+
+`/api/top-tracks` has thrown `TypeError: Cannot read properties of undefined (reading 'slice')`
+on **every page load since 2026-07-24** — 140 occurrences across 69 users in the last seven days
+alone. `getTopTracks()` returns a response whose body no longer contains `items`, so
+`items.slice(0, 10)` throws and the route 500s. Spotify changed the shape (or the token/scope no
+longer satisfies `/v1/me/top/tracks`); the exact cause needs a live call to confirm.
+
+**This is not a corner of the site.** `TopTracksSection` is dead — no page renders it — but
+`NowPlayingPill` sits in the header on *every* page and fetches `/api/top-tracks` through SWR.
+Every visitor triggers the 500. `/api/currently-playing` is fine: it already handles a bad
+response and returns `{ isPlaying: false }`.
+
+- **A — Fix it.** Diagnose the real Spotify response, handle a missing `items` the way
+  `currently-playing` handles its failure case, and re-check the refresh token and scopes.
+  Keeps the widget.
+- **B — Remove it.** Delete `/api/top-tracks`, the `NowPlayingPill` top-tracks fetch, the dead
+  `TopTracksSection`, and the Spotify env vars if nothing else uses them. `currently-playing`
+  can stay or go with it.
+
+Either way **the route must stop 500ing on every page load**, which is why T-34 carries a
+defensive fix that does not depend on this decision.
+
+*Recommendation: A if the widget still matters to you, and B if it does not — but the deciding
+question is whether you want to keep maintaining a Spotify token, not whether the code is
+fixable.*
+
+**Decision:** _(unanswered)_
 
 ### D-10 · Refresh the Vercel-deploy post's screenshots?
 
@@ -1085,6 +1116,45 @@ the fuller Euronet title · which of `/about` and the drawer is the canonical bi
 
 ---
 
+### Stage 7 · Live production defects
+
+Found in Vercel's runtime error table on 2026-09-04, both predating this migration. Independent
+of everything else — neither touches content.
+
+- [ ] **T-34 · `/api/top-tracks` 500s on every page load**
+  `TypeError: Cannot read properties of undefined (reading 'slice')` at
+  `src/app/api/top-tracks/route.ts` — `const { items } = await response.json()` comes back
+  undefined and `items.slice(0, 10)` throws. **140 occurrences, 69 users, in seven days**, first
+  seen 2026-07-24, still firing today. `NowPlayingPill` is in the header on every page and
+  fetches this route, so every visitor hits it.
+  - **Split the work at the decision.** The defensive half is not blocked: the route must return
+    a well-formed empty payload instead of throwing when the response has no `items`, exactly as
+    `/api/currently-playing` already does for its own failure case. Ship that first.
+  - Whether the widget is then *fixed* (real tracks again) or *removed* is **D-12** — do not
+    pick on Stefan's behalf.
+  - **Done when:** the route returns 200 with an empty track list against a malformed Spotify
+    response, the header renders without an error, and the error group stops growing on the next
+    deploy.
+  - *Blocked by: nothing for the defensive fix. The fix-or-remove call is D-12.*
+
+- [ ] **T-35 · `react-syntax-highlighter` fails to load in the serverless runtime**
+  `ERR_REQUIRE_ESM: require() of ES Module refractor/lib/core.js from
+  react-syntax-highlighter/dist/cjs/prism-light.js` on `/posts/[slug]` — 10 occurrences, 3 users,
+  first seen 2026-06-26, **last seen 2026-09-04 05:49**, which is before the App Router port
+  deployed. The three failing URLs (`/posts/Next.js`, `/posts/webpack.config.js`,
+  `/posts/does-not-exist-xyz`) all return **404 correctly on production now**, so the port may
+  already have fixed it as a side effect of Turbopack's bundling.
+  - **Verify before fixing.** If it is genuinely gone, prove it and leave a guard; if it can
+    still happen on an on-demand render, the durable fix is to stop importing
+    `react-syntax-highlighter/dist/cjs/*` from a server component at all — T-13 already renders
+    MDX through Shiki, so the Cosmic path can use the same one and the dependency dies early
+    instead of at T-20.
+  - **Done when:** an on-demand render of `/posts/[slug]` — a real post and an unknown slug —
+    cannot produce `ERR_REQUIRE_ESM`, demonstrated rather than asserted, and code blocks still
+    render highlighted in server HTML with zero empty `<pre>`.
+  - *Blocked by: nothing*
+
+
 ## 5. Not verified
 
 Carried forward so nobody assumes it was checked.
@@ -1133,3 +1203,5 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-15** done on `t15-notes`. `/notes` is a reverse-chronological stream rendering each note in full, with `/notes/<slug>` permalinks; two test notes (one untitled) verified newest-first, linked, and absent from `/posts`. Both are drafts, so production shows an empty state until a real note lands. |
 | 2026-09-04 | Claude | **T-18** done on `t18-agents-md`. `AGENTS.md` + `content/_templates/` + `bun run new:post`/`new:note`. Acceptance tested for real: a fresh agent given only `AGENTS.md` wrote a valid post first try. The first run exposed four gaps — the scaffold's non-existent default cover, a sentence-case/title-case contradiction, draft `date` semantics, and flat-vs-directory for image-free posts — all fixed before the second run, which needed nothing outside the document. |
 | 2026-09-04 | Claude | **T-19** done on `t19-ci`. `ci.yml` (content validation, typecheck, tests as hard gates; lint advisory) on every PR, and `smoke.yml` on `deployment_status` running `scripts/smoke.ts` against the real deployed URL — asserting each legacy post's title *and* a known body sentence from a generated fixture, plus a real 404 on an unknown slug, which is what §2.3 said a 200-plus-h1 check could never catch. All three acceptance conditions exercised for real, including tampering with a fixture phrase to watch it go red. |
+| 2026-09-04 | Claude | **Two live production defects ticketed** from Vercel's runtime error table, both predating the migration. **T-34**: `/api/top-tracks` has 500ed on every page load since 2026-07-24 — 140 occurrences, 69 users in seven days — because Spotify's response no longer carries `items`; `NowPlayingPill` in the header fetches it site-wide. Fix-or-remove is **D-12**, opened; the defensive fix is not blocked on it. **T-35**: `ERR_REQUIRE_ESM` on `react-syntax-highlighter` at `/posts/[slug]`, last seen 05:49 today, *before* the App Router port deployed — the failing URLs 404 correctly now, so it may already be fixed and the task is to prove it either way. |
+| 2026-09-04 | Claude | **Two pre-port findings re-verified against production, both changed.** `/rss.xml` **and** `/feed.xml` are both 404 today while the root layout advertises `/feed.xml` — the dead autodiscovery link is still real and still belongs to T-16, waiting on D-02. The `REVALIDATE_TOKEN` gap is **not** a gap post-port: `/api/revalidate` fails closed with 401 when the secret is absent or wrong, verified live. The only open question there is whether the variable is set in Vercel at all — if it is not, the route is inert rather than unsafe. |
