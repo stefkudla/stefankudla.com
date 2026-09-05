@@ -9,7 +9,9 @@ const Author = () => {
         About <span className="text-accent">Stefan Kudla</span>
       </h3>
       <p className="my-4 pr-8">
-        Freelance Web Developer, Music Producer, and Tech Content Creator. When
+        Lead Full Stack Developer at Euronet Worldwide, building cashless
+        gaming with MoolahPlay on Euronet&apos;s Ren platform. I write here
+        about agentic engineering and the practice of building software. When
         I&apos;m not creating, you can usually find me brushing my teeth with
         coffee or looking for the best view atop a mountain.
       </p>
