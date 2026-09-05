@@ -3,7 +3,7 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **22 / 36 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
+**Status:** in progress · **23 / 36 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
 **Last updated:** 2026-09-04
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
@@ -26,8 +26,8 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-**Nothing is in flight.** Everything ticked below is merged to `main` and deployed, including
-T-36 (the empty table of contents) and this ticket's image recoveries.
+**One PR is open: `t34-remove-spotify`** — the D-12 removal. Everything else ticked below is
+merged to `main` and deployed.
 
 Stage 0, 1, 2 and 2.5 are complete. Stage 3 is complete except **T-14** (D-05) and **T-16**
 (D-02). Stage 6 has **T-26, T-27, T-31 and T-33** merged; **T-28, T-29, T-30, T-32** remain.
@@ -39,20 +39,23 @@ only D-12.
 Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates from a stray
 `.claude/worktrees/` checkout that ESLint scans; CI, which checks out clean, still sees 11.
 
-**Six decisions are what stands between here and the end of the migration** — D-04 was answered
-2026-09-04, which **unblocks T-20 and with it T-21, T-22, T-23 and T-30**:
+**Four decisions are what stands between here and the end of the migration.** D-02 and D-12 were
+answered 2026-09-04 alongside D-04:
 
 | Decision | Gates |
 |---|---|
+| **D-05** · GIF handling | T-14's tick — **and hold T-20 for it**, see below |
 | **D-06** · `/about` vs the AboutSheet | T-22, T-24, T-28 |
 | **D-07** · `/services` | T-21, T-28 |
-| **D-02** · feed path | T-16 — and `/feed.xml` is advertised in every page's head while returning 404 |
-| **D-05** · GIF handling | T-14's tick only |
-| **D-12** · Spotify, fix or remove | T-34's tick only |
 | **D-03** · replacement bio copy | T-05 |
 
-**Unblocked and ready without any decision:** **T-20** (import the eleven posts — the big one,
-now that D-04 is answered), **T-29** (page descriptions — draft for approval), and **T-32**
+**D-05 now gates T-20 in practice, not just T-14's tick.** T-20 rewrites all 31 image URLs to
+local paths, seven of which are GIFs. Converting them to video afterwards would mean editing the
+same four posts twice. **Do not start T-20 until D-05 is answered** — Stefan's instruction,
+2026-09-04.
+
+**Unblocked and ready:** **T-16** (the feed, now that D-02 is answered — it also ends the
+autodiscovery 404 on every page), **T-29** (page descriptions — draft for approval), and **T-32**
 (metadata guard test — its own ticket lists T-29 as a blocker, so the description-length
 assertion waits; everything else in it can land now).
 
@@ -96,8 +99,10 @@ the local count.
 | D-09 | Genre axis: `tutorial` · `essay` · `project`. Full 11-post remap is in D-09. |
 | D-11 | Allow every AI crawler, named explicitly. Shipped by T-31. |
 | D-04 | Two dead images recovered from the Wayback Machine, two dropped with the prose rewritten. Rewrites are recorded verbatim in D-04 and applied by T-20. |
+| D-02 | `/feed.xml`, matching the link the site has advertised for years. No `/rss.xml`. Shipped by T-16. |
+| D-12 | Remove Spotify. **Removed, not abandoned.** Shipped by T-34. |
 
-**Still open:** D-02, D-03, D-05, D-06, D-07, D-10, D-12 — see the gating table above.
+**Still open:** D-03, D-05, D-06, D-07, D-10 — see the gating table above.
 **T-20 is now the one that matters**: it imports the eleven posts and unblocks T-21, T-22,
 T-23 and T-30 behind it.
 
@@ -393,13 +398,21 @@ to publish again this month, A.*
 
 ### D-02 · Feed path — `/feed.xml` or `/rss.xml`
 
-> **Status:** ⬜ open · blocks T-16
+> **Status:** ✅ **ANSWERED 2026-09-04 — `/feed.xml`.** Stefan's call, matching the
+> recommendation. **T-16 is unblocked.**
 
 `Meta.tsx:33` already advertises `/feed.xml`. The plan says `/rss.xml`. Pick one and make the
 `<link rel="alternate">` match. Don't ship a third path.
 *Recommendation: `/feed.xml`, matching the link that already exists.*
 
-**Decision:** _(unanswered)_
+**Decision:** **`/feed.xml`.** It is what the site has advertised for years, so building there
+fixes the long-standing autodiscovery 404 instead of adding a second URL. **Do not add
+`/rss.xml`**; 301 it to `/feed.xml` only if something turns out to link it.
+
+**Nothing links `/rss.xml` today** — checked across `src/`, `scripts/`, `tests/`, `content/` and
+`next-sitemap.config.mjs` on 2026-09-04. Every `rss` hit is the `application/rss+xml` MIME type
+on the autodiscovery link, not the path. So T-16 needs no redirect unless one shows up in the
+Search Console or server logs later.
 
 ### D-03 · Replacement author bio copy
 
@@ -542,10 +555,13 @@ Stefan, 2026-09-04.
 
 ### D-12 · The Spotify integration — fix or remove — **blocks T-34**
 
-> **Status:** ⬜ open · blocks T-34's tick only — the 500 itself is fixed and merged.
-> **Root cause now confirmed:** the refresh token is *revoked*
-> (`400 invalid_grant: Refresh token revoked`), so option A means re-authorising Spotify by
-> hand, not a code change.
+> **Status:** ✅ **ANSWERED 2026-09-04 — remove it.** Stefan's call: the refresh token is revoked
+> and he does not want to keep re-authorising it by hand. **Shipped by T-34.**
+>
+> **Removed, not abandoned.** This is a closed decision, not unfinished business. A future
+> session should not treat the absent widget as a regression or a TODO — if Stefan wants music on
+> the site again, that is a new ticket with a fresh decision behind it, not the resumption of
+> this one.
 
 `/api/top-tracks` has thrown `TypeError: Cannot read properties of undefined (reading 'slice')`
 on **every page load since 2026-07-24** — 140 occurrences across 69 users in the last seven days
@@ -1279,7 +1295,7 @@ the fuller Euronet title · which of `/about` and the drawer is the canonical bi
 Found in Vercel's runtime error table on 2026-09-04, both predating this migration. Independent
 of everything else — neither touches content.
 
-- [ ] **T-34 · `/api/top-tracks` 500s on every page load** — **defensive fix merged 2026-09-04; open only on D-12**
+- [x] **T-34 · `/api/top-tracks` 500s on every page load** — **removed 2026-09-04 per D-12, branch `t34-remove-spotify`**
   `TypeError: Cannot read properties of undefined (reading 'slice')` at
   `src/app/api/top-tracks/route.ts` — `const { items } = await response.json()` comes back
   undefined and `items.slice(0, 10)` throws. **140 occurrences, 69 users, in seven days**, first
@@ -1303,6 +1319,23 @@ of everything else — neither touches content.
   `400 invalid_grant: Refresh token revoked`. The response shape did not change — the token
   did. So D-12 is a question about whether you want to keep re-authorising Spotify by hand,
   not about whether the code can be fixed.
+
+  **Removed 2026-09-04, closing the ticket.** D-12 answered: remove. Deleted both routes
+  (`/api/top-tracks`, `/api/currently-playing`), `src/lib/spotify.ts`, `NowPlayingPill` and its
+  two mount points in `Header`, and the three components that were already orphaned before this
+  ticket (`CurrentlyPlaying`, `TopTracks`, `TopTracksSection` — nothing rendered the last two),
+  plus `SpotifyIcon`, `src/lib/types.ts` (it held only Spotify types) and
+  `tests/top-tracks-route.test.ts`.
+  - **`swr` and `src/lib/fetcher.ts` stay.** `RecentPostsBadge` still uses both — checked before
+    deleting rather than after.
+  - **Verified:** build emits four API routes instead of six, both removed paths 404, the home
+    page renders with no console error and **no request to either route**, `tsc` clean, tests
+    34/34 (the six top-tracks tests went with the file), lint at the documented 11-problem
+    baseline.
+  - **Left for Stefan:** the three `SPOTIFY_*` variables in `.env` and in Vercel's project
+    settings are now unused. Harmless, but they are credentials, so they are worth deleting —
+    an agent should not touch either store.
+  - **Removed, not abandoned.** See D-12.
 
 - [x] **T-35 · `react-syntax-highlighter` fails to load in the serverless runtime** — closed 2026-09-04, **not reproducible; fixed incidentally by T-25**
   `ERR_REQUIRE_ESM: require() of ES Module refractor/lib/core.js from
@@ -1437,3 +1470,7 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Claude | **T-36** done on `t36-empty-toc`. `/posts/i-built-a-free-sitemap-comparison-tool` has no `h2`s, so the sidebar showed a "TABLE OF CONTENTS" label above an empty box. Root cause is that `TableOfContents` scrapes `h2`s from the DOM after mounting, so the label and an empty `<ul>` ship in the server HTML of **every** post and are filled only at hydration — on that one post they never fill. The page now counts headings server-side and does not render the component below `TOC_MIN_HEADINGS`; `TableOfContents.tsx` is untouched. **Threshold set to 2** — a one-item table of contents is a label above a single link to a heading already on screen — though no post has exactly one `h2`, so it guards a future case rather than a current one. **Trap recorded: `##` inside fenced code blocks.** Stripping fences first is what keeps `building-react-components-from-headless-cms-markdown` at 5 rather than 9 (`## or` between install commands); the browser never sees those, so a naive count disagrees with the DOM by four. All 11 posts audited — one zero, none at one, ten at 2–9 — and confirmed in built HTML. |
 | 2026-09-04 | Claude | **Two of the four "permanently gone" images are not gone.** Nobody had checked the Wayback Machine. `blur-placeholder-next.gif` (674,232 B, 3 frames) and `image-settings.gif` (1,540,459 B, 35 frames) both have 2022-07-29 snapshots, byte-complete and still animated; recovered, verified and committed to `assets/cosmic-archive/`. `image-bucket.png` and `react-markdown-ast-diagram.png` have no snapshot and still 403. Manifest now reads 30 downloaded / 2 dead / 7 GIFs, with the two recovered entries carrying `status: "recovered"` and a `recovered_from` snapshot URL. **Re-running `scripts/download-assets.mjs` would re-mark them dead** — warning added to its header. Also corrects D-04's premise: only one of the four was a Cosmic dashboard screenshot, not two. |
 | 2026-09-04 | Stefan | **D-04 answered: recover the two, drop the two, rewrite the prose.** The two Wayback recoveries stand; `react-markdown-ast-diagram.png` and `image-bucket.png` are dropped rather than recreated. Both rewrites are recorded verbatim in D-04 — one sentence in the react-markdown post (the three numbered steps below it already carry the diagram's content), and two sentences plus a deleted joke in the Cosmic post (the gag depends on the screenshot being on screen and must not be repointed at images that become repo-local at T-20). **T-03's asset half is done and its prose half rides on T-20, so T-20 is unblocked** — and with it T-21, T-22, T-23 and T-30. |
+| 2026-09-04 | Stefan | **D-02 answered: `/feed.xml`** — the path the site has advertised for years, so T-16 fixes the autodiscovery 404 rather than adding a second URL. No `/rss.xml`; verified nothing links it today, so T-16 needs no redirect. **T-16 unblocked.** |
+| 2026-09-04 | Stefan | **D-12 answered: remove Spotify.** The refresh token is revoked and he does not want to keep re-authorising by hand. **Removed, not abandoned** — recorded in D-12 so a later session does not read the missing widget as unfinished work. |
+| 2026-09-04 | Claude | **T-34** done on `t34-remove-spotify`. Both API routes, `src/lib/spotify.ts`, `NowPlayingPill` and its two `Header` mounts, three already-orphaned components (`CurrentlyPlaying`, `TopTracks`, `TopTracksSection`), `SpotifyIcon`, `src/lib/types.ts` and the route test are gone; the live production error is gone with them. `swr` and `lib/fetcher` survive because `RecentPostsBadge` uses them — checked before deleting. Build emits four API routes instead of six and the home page issues no request to either removed path. The three `SPOTIFY_*` env vars in `.env` and Vercel are now unused and are Stefan's to delete. |
+| 2026-09-04 | Stefan | **D-05 held open deliberately** — he is weighing GIF-versus-video and asked for per-file before/after sizes. **T-20 is not to start until it is answered**, since the import rewrites those seven image URLs either way and converting afterwards means editing four posts twice. |
