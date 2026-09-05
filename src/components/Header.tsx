@@ -4,7 +4,6 @@ import { User } from 'lucide-react'
 import { routes } from './MenuItems'
 import { FloatingDock, type DockItem } from './ui/floating-dock'
 import BottomTabBar from './BottomTabBar'
-import NowPlayingPill from './NowPlayingPill'
 import RecentPostsBadge from './RecentPostsBadge'
 
 interface HeaderProps {
@@ -32,8 +31,6 @@ const Header: React.FC<HeaderProps> = ({ onAboutOpen }) => {
         >
           <User className="h-5 w-5 text-fore-primary" />
         </button>
-
-        <NowPlayingPill />
       </header>
 
       {/* Desktop: avatar button (no glass bar needed) */}
@@ -45,11 +42,6 @@ const Header: React.FC<HeaderProps> = ({ onAboutOpen }) => {
       >
         <User className="h-5 w-5 text-fore-primary" />
       </button>
-
-      {/* Desktop: Now Playing pill top-right */}
-      <div className="hidden md:block fixed top-4 right-4 z-50">
-        <NowPlayingPill />
-      </div>
 
       {/* Desktop: Floating Dock at bottom center */}
       <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 hidden md:block">
