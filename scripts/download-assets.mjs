@@ -9,6 +9,12 @@
  *
  * Requires scripts/cosmic-export/ (run scripts/export-cosmic.mjs first).
  * Known-dead assets return 403 and are recorded with status "dead".
+ *
+ * WARNING: two entries in the manifest carry status "recovered" — files pulled
+ * from the Wayback Machine (T-03) that imgix still 403s. Re-running this script
+ * overwrites the manifest and re-marks them "dead", losing local_path and
+ * recovered_from. The files themselves survive on disk; restore those two
+ * entries by hand, or do not re-run — the salvage it performs (T-02) is done.
  */
 import { mkdir, writeFile, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
