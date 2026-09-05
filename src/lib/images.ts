@@ -7,6 +7,8 @@ export type ImageRecord = {
   height?: number
   blurDataURL?: string
   animated: boolean
+  /** Public path of the poster frame. Present only for video. */
+  poster?: string
 }
 
 const MANIFEST = path.join(

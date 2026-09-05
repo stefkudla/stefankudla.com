@@ -1,11 +1,7 @@
 import { notFound } from 'next/navigation'
-import { draftMode } from 'next/headers'
-import PostBody from '@/components/PostBody'
 import MdxBody from '@/components/MdxBody'
 import PostHeader from '@/components/PostHeader'
-import { getAllPostPaths, getSinglePost } from '@/lib/cosmic'
 import { getAllPosts, getPost, type Post } from '@/lib/content'
-import AlertPreview from '@/components/AlertPreview'
 import Author from '@/components/Author'
 import TableOfContents from '@/components/TableOfContents'
 import BlogLayout from '@/components/BlogLayout'
@@ -19,9 +15,8 @@ import { countHeadings, TOC_MIN_HEADINGS } from '@/lib/headings'
 type PageProps = { params: Promise<{ slug: string }> }
 
 /**
- * A repo-local post rendered through the components that still expect the
- * Cosmic object shape. This adapter is the bridge T-20 crosses: once all 11
- * posts are local, the Cosmic branch below goes away and so does this.
+ * `PostHeader` still takes the Cosmic object shape. T-22 owns the remaining
+ * Cosmic surfaces, so the adapter stays until the component itself moves.
  */
 const asCosmicShape = (post: Post) => ({
   title: post.frontmatter.title,
@@ -35,58 +30,33 @@ const asCosmicShape = (post: Post) => ({
 })
 
 export async function generateStaticParams() {
-  const cosmicPosts = (await getAllPostPaths()) || []
-  const slugs = new Set<string>(
-    cosmicPosts.map((post: { slug: string }) => post.slug)
-  )
-
   // Drafts render on request but are never prerendered, which is what keeps
   // them out of the sitemap on every environment. In production `getPost` also
   // refuses them, so the route 404s.
-  for (const post of getAllPosts()) {
-    if (!post.frontmatter.draft) slugs.add(post.slug)
-  }
-
-  return [...slugs].map(slug => ({ slug }))
+  return getAllPosts()
+    .filter(post => !post.frontmatter.draft)
+    .map(post => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params
-
   const local = getPost(slug)
-  if (local) {
-    return postMetadata({
-      title: local.frontmatter.title,
-      description: local.frontmatter.excerpt,
-      canonical:
-        local.frontmatter.canonical || `https://stefankudla.com/posts/${slug}`,
-      imageUrl: resolveImage(slug, local.frontmatter.cover).src,
-    })
-  }
-
-  const { isEnabled: preview } = await draftMode()
-  const post = await getSinglePost(slug, preview)
-
-  if (!post?.slug) {
-    return {}
-  }
+  if (!local) return {}
 
   return postMetadata({
-    title: post.title,
-    description: post.metadata.excerpt,
+    title: local.frontmatter.title,
+    description: local.frontmatter.excerpt,
     canonical:
-      post.metadata.canonical || `https://stefankudla.com/posts/${post.slug}`,
-    imageUrl: post.metadata.cover_image.imgix_url,
+      local.frontmatter.canonical || `https://stefankudla.com/posts/${slug}`,
+    imageUrl: resolveImage(slug, local.frontmatter.cover).src,
   })
 }
 
 const Post = async ({ params }: PageProps) => {
   const { slug } = await params
-  const local = getPost(slug)
-  const { isEnabled: preview } = await draftMode()
-  const post = local ? null : await getSinglePost(slug, preview)
+  const post = getPost(slug)
 
-  if (!local && !post?.slug) {
+  if (!post) {
     notFound()
   }
 
@@ -95,22 +65,20 @@ const Post = async ({ params }: PageProps) => {
   // Deciding here instead keeps the empty panel out of the server HTML and out
   // of the flex row entirely, so the article closes up rather than sitting
   // beside a reserved gap.
-  const body = local ? local.body : post.metadata.content
-  const showToc = countHeadings(body ?? '') >= TOC_MIN_HEADINGS
+  const showToc = countHeadings(post.body) >= TOC_MIN_HEADINGS
 
   const crumbs: Crumb[] = [
     { name: 'Home', href: '/' },
     { name: 'Posts', href: '/posts' },
     // Categories are a client-side filter on /posts, not a route, so the
     // post's category is deliberately not a crumb — it has no URL to link.
-    { name: local ? local.frontmatter.title : post.title },
+    { name: post.frontmatter.title },
   ]
 
   return (
     <BlogLayout>
       <SectionWrapper as="div" fullWidth>
         <article className="w-full">
-          {post?.status === 'draft' && <AlertPreview />}
           <div className="relative w-full flex">
             {showToc && <TableOfContents />}
             <div className="container mx-auto max-w-3xl px-4">
@@ -118,17 +86,8 @@ const Post = async ({ params }: PageProps) => {
                 crumbs={crumbs}
                 pageUrl={`${SITE_URL}/posts/${slug}`}
               />
-              {local ? (
-                <>
-                  <PostHeader post={asCosmicShape(local)} />
-                  <MdxBody slug={local.slug} body={local.body} />
-                </>
-              ) : (
-                <>
-                  <PostHeader post={post} />
-                  <PostBody content={post.metadata.content} />
-                </>
-              )}
+              <PostHeader post={asCosmicShape(post)} />
+              <MdxBody slug={post.slug} body={post.body} />
               <Author />
             </div>
           </div>

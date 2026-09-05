@@ -1,0 +1,258 @@
+---
+title: "Building React Components from headless CMS markdown"
+date: 2023-07-10
+excerpt: "Using React Markdown, we’re going to create Custom React Components (in a Next.js application) using parsed markdown retrieved from a headless CMS."
+category: tutorial
+cover: ./ffcac510-23f2-11ed-8337-95a76fda76ff-building-react-components-from-headless-cms-markdown-hashnode.png
+---
+Markdown has become a staple in my workflow as a developer and content creator. It’s quick to write, flexible with its features, and has easy-to-remember syntax.
+
+Using [React Markdown](https://github.com/remarkjs/react-markdown), we’re going to create Custom React Components (in a [Next.js](https://www.cosmicjs.com/apps/developer-portfolio) application) using parsed markdown retrieved from a headless CMS. By doing so, we will be able to quite easily utilize cutting-edge features like [Next Image](https://nextjs.org/docs/api-reference/next/image) in the body of our Markdown. This way, we can take dynamic content and shape it the way we want, improving performance, accessibility, and overall user experience.
+
+![mdn to html](./8b81e1c0-2226-11ed-8337-95a76fda76ff-mdn-to-html.mp4)
+
+This article features the [Next.js Developer Portfolio Template](https://nextjs-developer-portfolio-cms.vercel.app/) I built with [Cosmic](https://www.cosmicjs.com/). You can follow along by visiting the [App Template Page](https://www.cosmicjs.com/apps/developer-portfolio) and importing the template into your own Cosmic Bucket ([create an account](https://app.cosmicjs.com/signup) if you’d like to follow along this way and haven’t already made one). Or, view the [source code](https://github.com/cosmicjs/nextjs-developer-portfolio/) if you’d rather follow along with your own application.
+
+## A brief overview of React Markdown
+
+React Markdown is a React Component to render markdown which lets you create and render custom components instead of standard HTML components. It is safe by default (no `dangerouslySetInnerHTML`) and allows you to use a wide array of [plugins](https://github.com/remarkjs/react-markdown#plugins) from [remarkjs](https://github.com/remarkjs/remark) to enhance your markdown.
+
+
+To further understand this component, let’s walk through what it does step-by-step.
+
+1. The markdown content is parsed and turned into a markdown syntax tree
+2. The markdown syntax tree is transformed to an HTML syntax tree through [remark](https://github.com/remarkjs/remark)
+3. The HTML syntax tree is transformed through [rehype](https://github.com/rehypejs/rehype), and rendered to React components.
+
+## Installing the packages
+
+To use react-markdown, we only need the package itself.
+
+```bash
+pnpm add react-markdown
+## or
+npm install react-markdown
+## or
+yarn add react-markdown
+```
+
+To retrieve our data from Cosmic, we can install the Cosmic NPM module.
+
+```bash
+pnpm add cosmicjs
+## or
+npm install cosmicjs
+## or
+yarn add cosmicjs
+```
+
+## Getting our Markdown content from a headless CMS
+
+In this example, we’re retrieving markdown content from a Cosmic [Object](https://docs.cosmicjs.com/api-reference/objects) that is going to be the body of text for an article. Within the pages directory of our Next.js application, make sure you have a `[slug].jsx` file created within a folder called `posts`, `articles` , or whatever you please.
+
+We can import the `cosmicjs` package, set the environment variables, then write two functions that will get data from our Cosmic dashboard.
+
+```jsx
+const Cosmic = require('cosmicjs')
+const api = Cosmic()
+
+const bucket = api.bucket({
+  slug: process.env.COSMIC_BUCKET_SLUG,
+  read_key: process.env.COSMIC_READ_KEY,
+})
+
+export async function getAllPostsWithSlug() {
+  const params = {
+    query: { type: 'posts' },
+    props: 'title,slug,metadata,created_at',
+  }
+  const data = await bucket.getObjects(params)
+  return data.objects
+}
+
+export async function getPostAndMorePosts(slug, preview) {
+  const singleObjectParams = {
+    query: { slug: slug },
+    ...(preview && { status: 'any' }),
+    props: 'slug,title,metadata,created_at',
+  }
+  const moreObjectParams = {
+    query: { type: 'posts' },
+    ...(preview && { status: 'any' }),
+    limit: 3,
+    props: 'title,slug,metadata,created_at',
+  }
+
+  try {
+    const data = await bucket.getObjects(singleObjectParams)
+    const moreObjects = await bucket.getObjects(moreObjectParams)
+    const morePosts = moreObjects.objects
+      ?.filter(({ slug: object_slug }) => object_slug !== slug)
+      .slice(0, 2)
+    return {
+      post: data?.objects[0],
+      morePosts,
+    }
+  } catch (error) {
+    if (is404(error)) return
+    throw error
+  }
+}
+```
+
+Within our `[slug].jsx` file, we can call `getStaticProps()` and `getStaticPaths()` , pull in data, then pass it through to our `Post` component.
+
+```jsx
+// pages/posts/[slug].jsx
+
+const Post = ({ post }) => {
+  return (
+    <>
+      <article>
+        <PostBody content={post.metadata.content} />
+      </article>
+    </>
+  )
+}
+export default Post
+
+export async function getStaticProps({ params, preview = null }) {
+  const data = await getPostAndMorePosts(params.slug, preview)
+
+  return {
+    props: {
+      preview,
+      post: {
+        ...data.post,
+      },
+      morePosts: data.morePosts || [],
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  const allPosts = (await getAllPostsWithSlug()) || []
+  return {
+    paths: allPosts.map(post => `/posts/${post.slug}`),
+    fallback: true,
+  }
+}
+```
+
+Now that we’ve got the page itself set up, let’s dive into our `PostBody` component, where we will be using react-markdown to render our content.
+
+## Implementing React Markdown
+
+Within our `PostBody` we can import and use the `ReactMarkdown` Component. We simply import the package and wrap our content in the `ReactMarkdown` component.
+
+```jsx
+import ReactMarkdown from 'react-markdown'
+
+const PostBody = ({ content }) => {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <ReactMarkdown>
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+}
+export default PostBody
+```
+
+## Creating custom components
+
+Furthermore, we can create custom components. To do this, we will create a `components` object above our `PostBody` component and pass it through to the `ReactMarkdown` component.
+
+When creating the custom components, the key will be the HTML equivalent for the content we write in markdown. The parameter will be what you want to render as an HTML element, and will have access to the props of that element. For example, the `a` element will give us access to `href` and `children` and the `img` tag `src` and `alt`. 
+
+The JSX you write within these functions will return the provided element. You could write something like `h1: h1 => {return (<h2>{h1.children}</h2>)}` and you will render `h2` elements for every `h1` written in markdown.
+
+```jsx
+import ReactMarkdown from 'react-markdown'
+
+const components = {
+  a: a => {
+    return (
+      <a href={a.href} rel="noopener noreferrer" target="_blank">
+        {a.children}
+      </a>
+    )
+  },
+}
+
+const PostBody = ({ content }) => {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <ReactMarkdown
+        components={components}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+}
+export default PostBody
+```
+
+My favorite use case so far has been implementing Next Image for optimized image sizes and better page load times. 
+
+Without using Next Image, having lots of images in our markdown will require all of the images to be loading when the page is requested. This is slow and negatively impacts user experience and lighthouse scores.
+
+When I refresh the page, all of the images will be loaded at once. Yikes!
+
+![Loading all images on a web page without lazy loading](./8cf4f9c0-2226-11ed-8337-95a76fda76ff-loading-all-images.mp4)
+
+Let’s improve this! Import `Image` from `next/image`, then create a custom `img` component inside of the `components` object. Remember, we have access to some standard props with these components, so we can simply grab the `src` and `alt` from the `img`. We pass them into our `Image` component written in our JSX, defining a set `height` and `width`, a lower `quality` to the file size, and a `layout` of `responsive` to serve scaled images according to screen size, ensuring that small devices don’t receive any unnecessarily large file sizes. 
+
+```jsx
+import ReactMarkdown from 'react-markdown'
+import Image from 'next/image'
+
+const components = {
+  a: a => {
+    return (
+      <a href={a.href} rel="noopener noreferrer" target="_blank">
+        {a.children}
+      </a>
+    )
+  },
+  img: img => {
+    return (
+      <Image
+        src={img.src}
+        alt={img.alt}
+        width={400}
+        height={300}
+        quality={50}
+        layout="responsive"
+        objectFit="contain"
+        objectPosition="center"
+      />
+    )
+  },
+}
+
+const PostBody = ({ content }) => {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <ReactMarkdown
+        components={components}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+}
+export default PostBody
+```
+
+Now that we’ve added the custom `Image` component, let’s reload the page and see the magic.
+
+![Loading images on a web page with Next Image and lazy loading](./907d5d30-2226-11ed-8337-95a76fda76ff-loading-images-next-image.mp4)
+
+We are no longer requesting all of those images at once, and as we scroll down the page, the lazy loaded images start to appear in the network tab.
+
+Having the flexibility to create custom React Components for markdown is essential and with react-markdown, we can achieve this in just a few lines of code. Boosting performance, increasing link security, and having overall increased capabilities for our markdown data are what we achieve here. Aside from the improvements within our application, this component is super easy to use and taps us into the [unifiedjs](https://unifiedjs.com/) (giving us superpowers!).
+
+Come build some cool sh!t with us! You can tune into our new show [Build Time](https://www.cosmicjs.com/blog/introducing-build-time-a-new-podcast-by-cosmic), where we cover topics like headless CMS, Next.js, React, and *many* *many* more.
