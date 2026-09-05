@@ -3,8 +3,8 @@
 Moving site content out of Cosmic and into the repo as MDX, so posts can be drafted,
 reviewed and published by an agent through a pull request.
 
-**Status:** in progress · **23 / 36 tasks complete** · Stages 0–2.5 done; Stage 3 done but for T-14 and T-16
-**Last updated:** 2026-09-04
+**Status:** in progress · **26 / 36 tasks complete** · Stages 0–3 done but for T-16; **the eleven posts are in the repo**
+**Last updated:** 2026-09-05
 **Verified against:** commit `4f7daab`, Cosmic bucket `stefankudlacom-production`, live site
 
 > **The pipeline is finished and the 2026-09-04 wave is merged:** schema and loader (T-12),
@@ -26,38 +26,31 @@ reviewed and published by an agent through a pull request.
 
 ### Work in flight
 
-**One PR is open: `t34-remove-spotify`** — the D-12 removal. Everything else ticked below is
-merged to `main` and deployed.
+**One PR is open: `t20-import-posts`** — T-20, which also closes T-03 and T-14. Everything else
+ticked below is merged to `main` and deployed.
 
-Stage 0, 1, 2 and 2.5 are complete. Stage 3 is complete except **T-14** (D-05) and **T-16**
-(D-02). Stage 6 has **T-26, T-27, T-31 and T-33** merged; **T-28, T-29, T-30, T-32** remain.
-Stage 7's **T-35** closed as not reproducible and **T-34**'s defensive fix is merged, leaving
-only D-12.
+**The migration's point is done: all eleven posts are repo-local MDX and Cosmic no longer serves
+a post.** `/posts/[slug]` reads `content/posts/` alone, `asCosmicShape` survives only as an
+adapter for `PostHeader` until T-22 moves that component, and the route manifest's post half now
+comes from the content directory so a deleted post fails the guard again.
 
-`main` verified at the head of the 2026-09-04 wave: build 23 pages, `tsc --noEmit` clean,
-`bun run test` 32/32, `validate:content` clean, sitemap 18 URLs, production smoke 18/18.
-Lint reports 22 problems locally rather than 11 — the extra 11 are duplicates from a stray
-`.claude/worktrees/` checkout that ESLint scans; CI, which checks out clean, still sees 11.
+Stage 0, 1, 2, 2.5 and 3 are complete except **T-16** (the feed — unblocked, D-02 answered).
+Stage 4 has **T-20** done; **T-21, T-22, T-23** remain. Stage 6 has **T-26, T-27, T-31, T-33**
+merged; **T-28, T-29, T-30, T-32** remain. Stage 7 is closed.
 
-**Four decisions are what stands between here and the end of the migration.** D-02 and D-12 were
-answered 2026-09-04 alongside D-04:
+**Three decisions are what stands between here and the end of the migration.** D-05 was answered
+2026-09-05; D-02, D-04 and D-12 on 2026-09-04:
 
 | Decision | Gates |
 |---|---|
-| **D-05** · GIF handling | T-14's tick — **and hold T-20 for it**, see below |
 | **D-06** · `/about` vs the AboutSheet | T-22, T-24, T-28 |
 | **D-07** · `/services` | T-21, T-28 |
 | **D-03** · replacement bio copy | T-05 |
 
-**D-05 now gates T-20 in practice, not just T-14's tick.** T-20 rewrites all 31 image URLs to
-local paths, seven of which are GIFs. Converting them to video afterwards would mean editing the
-same four posts twice. **Do not start T-20 until D-05 is answered** — Stefan's instruction,
-2026-09-04.
-
-**Unblocked and ready:** **T-16** (the feed, now that D-02 is answered — it also ends the
-autodiscovery 404 on every page), **T-29** (page descriptions — draft for approval), and **T-32**
-(metadata guard test — its own ticket lists T-29 as a blocker, so the description-length
-assertion waits; everything else in it can land now).
+**Unblocked and ready, needing no decision at all:** **T-16** (the feed — and see its new video
+requirement), **T-29** (page descriptions — draft for approval), **T-30** (`llms.txt`, unblocked
+now that T-20 has landed) and **T-32** (metadata guard test — its own ticket lists T-29 as a
+blocker, so the description-length assertion waits; everything else in it can land now).
 
 ### Session handoff — state as of 2026-09-04, end of the wave
 
@@ -101,8 +94,9 @@ the local count.
 | D-04 | Two dead images recovered from the Wayback Machine, two dropped with the prose rewritten. Rewrites are recorded verbatim in D-04 and applied by T-20. |
 | D-02 | `/feed.xml`, matching the link the site has advertised for years. No `/rss.xml`. Shipped by T-16. |
 | D-12 | Remove Spotify. **Removed, not abandoned.** Shipped by T-34. |
+| D-05 | Convert all seven GIFs to video. MP4 only, no WebM. Shipped by T-20; 16.54 MB → 4.23 MB. |
 
-**Still open:** D-03, D-05, D-06, D-07, D-10 — see the gating table above.
+**Still open:** D-03, D-06, D-07, D-10 — see the gating table above.
 **T-20 is now the one that matters**: it imports the eleven posts and unblocks T-21, T-22,
 T-23 and T-30 behind it.
 
@@ -479,10 +473,18 @@ and is untouched.
 
 ### D-05 · GIF handling — 7 files, not 1
 
-> **Status:** ⬜ open · blocks T-14 (only the tick — the pipeline is merged)
-> **Option A is implemented as the floor:** GIFs render through `next/image` with
-> `unoptimized`, because the optimizer would otherwise flatten them to a still. Choosing
-> conversion instead is still Stefan's call, and is what actually fixes the 8.0 MB file.
+> **Status:** ✅ **ANSWERED 2026-09-05 — convert all seven to video.** Stefan's call.
+> **Shipped by T-20**, which was held for this answer because the import rewrites those same
+> image URLs. **16.54 MB of GIF became 4.23 MB of MP4 and posters — a 12.30 MB saving.**
+>
+> **MP4 (H.264) only; no WebM.** Measured rather than assumed: VP9/WebM saves a further 0.8 MB
+> across all seven, is *larger* than H.264 on the marquee clip, and doubles the committed
+> assets. Not worth a second encode in the build. CRF 28 was compared frame-for-frame against
+> the source on the most text-heavy capture and is indistinguishable, at roughly half of CRF 23.
+>
+> Encode settings live in `scripts/gif-to-video.mjs` so they are recoverable rather than
+> folklore. **The GIFs stay in `assets/cosmic-archive/`** — two of them exist only because
+> T-03 recovered them from the Wayback Machine.
 
 `next/image` won't animate an optimized GIF. Either mark them `unoptimized` or convert to
 muted autoplay `<video>`. The plan recommended conversion when it thought there was one file;
@@ -493,7 +495,33 @@ at 7 files (including an 8.0 MB one) conversion is more work but a much bigger w
 Machine. The count in this decision has not changed; what changed is that there is no longer a
 GIF you could avoid deciding about by writing it off as lost.
 
-**Decision:** _(unanswered)_
+**Decision:** **Convert all seven to video**, MP4 only. Stefan, 2026-09-05.
+
+**How it renders.** The markdown stays markdown — `![caption](./thing.mp4)` — and `MdxImage`
+renders a `<figure><video>` for a video extension. That is what carries the alt text across:
+`<video>` has no `alt`, so the text becomes both the `aria-label` and the visible
+`<figcaption>` instead of being dropped. Attributes are `muted loop playsinline
+preload="metadata"`, with explicit `width`/`height` from the poster and a committed poster
+frame, so nothing shifts before playback.
+
+**Three things this uncovered, all of which would have shipped silently:**
+
+1. **A `<figure>` cannot live inside a `<p>`.** Markdown wraps a lone image in a paragraph, the
+   browser closes the paragraph early, and the DOM stops matching React's tree — React #418, a
+   hydration failure that leaves the subtree un-hydrated so *no* video ever plays.
+   `src/lib/rehype-unwrap-videos.ts` lifts video-only paragraphs out. Ordinary images stay
+   wrapped, where `<img>` is valid and the prose spacing is already tuned.
+2. **Chrome refuses to autoplay off-screen muted video** — *"video-only background media was
+   paused to save power"* — so playing on mount silently fails for every capture below the
+   fold. Playback is driven by an `IntersectionObserver`, which is also what `preload="metadata"`
+   is for: seven captures should not all decode at once.
+3. **Two captures carry a filename where their alt text should be** —
+   `marquee-images.gif` and `scrolling-example.gif`, weak on the live site long before this.
+   They stay as the accessible name, because inventing a description is writing Stefan's copy,
+   but they are not printed as captions. **Replacing them is Stefan's to do.**
+
+**Reduced motion is respected**: nothing autoplays until the client has checked
+`prefers-reduced-motion`, and when motion is not wanted the video renders with controls instead.
 
 ### D-06 · `/about` versus the AboutSheet drawer
 
@@ -684,7 +712,7 @@ Ordered by real dependency, not by report order.
     matching its `Content-Length`. A manifest maps original URL → local path → owning post.
   - *Blocked by: nothing. Do not wait for D-01 or D-08 — park the files, place them later.*
 
-- [ ] **T-03 · Recover or replace the four dead images** — **assets settled 2026-09-04; the prose half is applied by T-20**
+- [x] **T-03 · Recover or replace the four dead images** — **done 2026-09-05 with T-20, which applied the two prose rewrites**
   > **Two of the four came back.** `blur-placeholder-next.gif` and `image-settings.gif` were
   > recovered from Wayback Machine snapshots and are committed with the rest of the salvage;
   > `image-bucket.png` and `react-markdown-ast-diagram.png` are dropped. **D-04 holds the
@@ -927,7 +955,7 @@ Ordered by real dependency, not by report order.
     The `h2` mapping takes `props: any` instead, with a comment. If a similar cross-copy type
     error appears elsewhere, this is why.
 
-- [ ] **T-14 · Image handling**
+- [x] **T-14 · Image handling** — **done 2026-09-05 with T-20**, which added the video path D-05 called for
   Local images through `next/image`, plus the GIF strategy from D-05.
   - `src/components/BlurImage.tsx` uses `next/legacy/image`; decide whether new content uses it
     or moves to the current API.
@@ -975,6 +1003,13 @@ Ordered by real dependency, not by report order.
 
 - [ ] **T-16 · Feed**
   Full content, not excerpts. Posts and notes merged, `<category>` distinguishing them.
+
+  > **The feed carries full post bodies, and four posts now contain `<video>` (D-05).** Most
+  > RSS readers render `<video>` badly or strip it, so the feed must **not** emit the element:
+  > substitute each video's committed poster frame as an `<img>` linked to the post, which is
+  > the usual answer and needs no second asset — the poster already exists. Confirmed 2026-09-05
+  > that this is a live spec and not a shipped behaviour: `/feed.xml` still 404s, so nothing
+  > regresses by deciding it now.
   - Path per D-02. Fix or keep the autodiscovery link so it points at the feed that actually
     exists. **`Meta.tsx:33` no longer exists** — T-25 moved the link to `src/app/layout.tsx:26`
     and `src/lib/metadata.ts:49`, so there are two places to change now, not one.
@@ -1063,7 +1098,7 @@ Ordered by real dependency, not by report order.
 > Run only after the pipeline is proven with one or two hand-written posts. Building the schema
 > against imported content before the schema is settled means doing the import twice.
 
-- [ ] **T-20 · Import the 11 posts from the archive**
+- [x] **T-20 · Import the 11 posts from the archive** — done 2026-09-05, branch `t20-import-posts`
   Content is plain markdown — **no `turndown`, no HTML conversion**. Verify against the T-01
   archive, never against rendered HTML (§2.1).
   - Known conversions:
@@ -1084,7 +1119,31 @@ Ordered by real dependency, not by report order.
     inline-span counts per post match the archive exactly (33 and 61 in total); every image
     resolves locally; T-11's parity test is green; and each post's rendered date matches the
     live site today.
-  - *Blocked by: T-01, T-02, T-03, T-12, T-13, T-14*
+  - *Blocked by: T-01, T-02, T-03, T-12, T-13, T-14 — all met.*
+
+  **Done.** `scripts/import-posts.mjs` did the conversion and is kept, because the conversions
+  are the part a reviewer needs to check. Verified against the archive, not rendered HTML:
+  **33 fenced blocks and 52 inline spans, matching post-for-post.** (The ticket's figure of 61
+  counts spans inside fences too; both measures match exactly.) **All eleven rendered dates match
+  the live site**, and the sitemap still holds 18 URLs.
+  - **Dates gained a timezone fix on the way.** Cosmic stores an instant, and `parseISO` +
+    `format` render it in the server's zone — so `i-built-a-free-sitemap-comparison-tool` shows
+    "Aug 14, 2024" on Vercel (UTC) and "Aug 13, 2024" in Pacific. Frontmatter takes the **UTC
+    date part**, and a date-only string parses as local midnight, so every post now renders the
+    same day in every zone. Production's rendering is unchanged; only the latent bug is gone.
+  - **The two bare `<img>` tags are prose, not images** — "optimizing the standard `<img>`
+    component in your code". They became `&lt;img&gt;`, which is exactly what the live site
+    renders today, and unlike backticks does not invent two new inline code spans.
+  - **Ten imgix URLs deliberately survive**, all inside code fences in
+    `how-to-use-nextjs-image-with-a-headless-cms`. They are that tutorial's own worked examples
+    of fetching from Cosmic; rewriting them would corrupt the prose to fix an image that was
+    never rendered. Built HTML has **zero** imgix references in rendered prose or image
+    attributes.
+  - **Three excerpts are shorter than `AGENTS.md`'s 80–160 guidance** — 76, 78 and 78 characters
+    on `how-im-using-cosmic-to-optimize-my-website`,
+    `i-built-a-free-sitemap-comparison-tool` and `coding-your-design-system-with-tailwind-css`.
+    The Zod schema only requires non-empty, so they import and build cleanly. **Imported
+    verbatim and handed back** — excerpts are Stefan's voice, the same class as T-29 and D-03.
 
 - [ ] **T-21 · Sitemap, redirects and JSON-LD**
   - Real per-URL `lastmod` from `updated ?? date`. Drop `changefreq` and the uniform
@@ -1474,3 +1533,9 @@ Append a line whenever a task completes or the plan changes. Newest last.
 | 2026-09-04 | Stefan | **D-12 answered: remove Spotify.** The refresh token is revoked and he does not want to keep re-authorising by hand. **Removed, not abandoned** — recorded in D-12 so a later session does not read the missing widget as unfinished work. |
 | 2026-09-04 | Claude | **T-34** done on `t34-remove-spotify`. Both API routes, `src/lib/spotify.ts`, `NowPlayingPill` and its two `Header` mounts, three already-orphaned components (`CurrentlyPlaying`, `TopTracks`, `TopTracksSection`), `SpotifyIcon`, `src/lib/types.ts` and the route test are gone; the live production error is gone with them. `swr` and `lib/fetcher` survive because `RecentPostsBadge` uses them — checked before deleting. Build emits four API routes instead of six and the home page issues no request to either removed path. The three `SPOTIFY_*` env vars in `.env` and Vercel are now unused and are Stefan's to delete. |
 | 2026-09-04 | Stefan | **D-05 held open deliberately** — he is weighing GIF-versus-video and asked for per-file before/after sizes. **T-20 is not to start until it is answered**, since the import rewrites those seven image URLs either way and converting afterwards means editing four posts twice. |
+| 2026-09-05 | Stefan | **D-05 answered: convert all seven GIFs to video**, as part of T-20 rather than before it, since the import rewrites those URLs either way. |
+| 2026-09-05 | Claude | **T-20 done** on `t20-import-posts` — **the eleven posts are repo-local MDX and Cosmic no longer serves a post.** Closes **T-03** and **T-14** with it. Verified against the T-01 archive rather than rendered HTML: 33 fenced blocks and 52 inline spans matching post-for-post (61 if in-fence spans are counted, as the ticket does — both match), all eleven rendered dates identical to the live site, sitemap still 18 URLs, zero empty `<pre>`, tests 34/34, lint at the 11-problem baseline. `scripts/import-posts.mjs` is kept: the conversions are what a reviewer needs to check. |
+| 2026-09-05 | Claude | **GIF → video, measured:** 16.54 MB → 4.23 MB including posters, a **12.30 MB saving (25.6% of the original)**. Per file, GIF → MP4+poster: `loading-images-next-image` 7999K→2302K · `marquee-images` 4213K→135K · `image-settings` 1504K→507K · `loading-all-images` 1441K→642K · `blur-placeholder-next` 658K→281K · `mdn-to-html` 577K→413K · `scrolling-example` 542K→57K. MP4 only — WebM saves 0.8 MB more but is *larger* on the marquee clip and doubles the committed assets. |
+| 2026-09-05 | Claude | **Three traps the video conversion surfaced**, all silent: a `<figure>` inside markdown's wrapping `<p>` is invalid nesting and fails hydration (React #418), which leaves the subtree un-hydrated so *no* video plays — fixed by `rehype-unwrap-videos`; Chrome refuses to autoplay off-screen muted video ("paused to save power"), so playback is driven by an `IntersectionObserver` rather than on mount; and React sets `muted` as a property, so it is set again in the effect before `play()`. **Autoplay itself could not be verified in this session** — the automation browser's tab reports `document.visibilityState: "hidden"`, and Chrome pauses video-only media in hidden tabs by policy. Everything else was verified in built HTML. **Worth eyeballing on the preview.** |
+| 2026-09-05 | Claude | **Latent timezone bug fixed by the import.** Cosmic stores an instant and the site formats it in the server's zone, so the sitemap post renders "Aug 14, 2024" on Vercel and "Aug 13, 2024" in Pacific. Frontmatter now carries the UTC date part, which `parseISO` reads as local midnight — same day in every zone. Production's output is unchanged. |
+| 2026-09-05 | Claude | **Handed back to Stefan, not guessed at:** two captures whose alt text is a bare filename (`marquee-images.gif`, `scrolling-example.gif`) — kept as the accessible name but not printed as captions; and three excerpts below `AGENTS.md`'s 80–160 guidance (76–78 chars) that the Zod schema does not enforce, imported verbatim. Both are copy, which is his. |

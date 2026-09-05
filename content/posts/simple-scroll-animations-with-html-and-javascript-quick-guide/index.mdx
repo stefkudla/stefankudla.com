@@ -1,0 +1,185 @@
+---
+title: "Simple Scroll Animations with HTML and JavaScript [Quick Guide]"
+date: 2024-08-17
+excerpt: "In this quick guide, I'll walk you through creating simple scroll animations using HTML, CSS, and JavaScript. "
+category: tutorial
+cover: ./a388d380-5c5a-11ef-b1ea-f56c65dfade9-CleanShot-2024-08-16-at-22.35.432x.png
+---
+Scroll animations can add a touch of elegance and interactivity to your web pages. In this quick guide, I'll walk you through creating simple scroll animations using HTML, CSS, and JavaScript. We'll focus on a basic slide-up animation that triggers when elements come into view.
+
+![scrolling-example.gif](./cb871600-5c58-11ef-b1ea-f56c65dfade9-scrolling-example.mp4)
+
+## Step 1: Setting Up the HTML
+
+First, let's create a basic HTML structure. We'll add some elements that we want to animate when they scroll into view.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="content animation" data-animation="fade-in-bottom">
+      <h2>Scroll to see the animation</h2>
+      <p>This content will slide up as you scroll down.</p>
+    </div>
+    <!-- Add more content here -->
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
+```
+
+## Step 2: Adding CSS for Animations
+
+Next, we'll define the CSS keyframes for the slide-up animation and apply the animation to elements when they come into view.
+
+```css
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 200vh; /* To enable scrolling */
+}
+
+.container {
+  padding: 50px;
+}
+
+@keyframes fade-in-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-bottom {
+  animation: fade-in-bottom 1s ease-out forwards;
+}
+```
+
+## Step 3: Writing JavaScript for Scroll Detection
+
+We'll use the `IntersectionObserver` API to detect when elements come into view and add the appropriate animation class.
+
+```javascript
+// scripts.js
+document.addEventListener("DOMContentLoaded", () => {
+  const elements = document.querySelectorAll(".animation");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const animationClass = entry.target.dataset.animation;
+          entry.target.classList.add(animationClass);
+        }
+      });
+    },
+    { rootMargin: "0px", threshold: 0.2 }
+  );
+
+  elements.forEach((element) => {
+    observer.observe(element);
+  });
+});
+```
+
+## Putting It All Together
+
+With the HTML, CSS, and JavaScript in place, your scroll animations should now work seamlessly. As you scroll down the page, elements with the `animation` class will slide up into view.
+
+### Full Example
+
+Here's the complete code for reference:
+
+**HTML:**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="content animation" data-animation="fade-in-bottom">
+      <h2>Scroll to see the animation</h2>
+      <p>This content will slide up as you scroll down.</p>
+    </div>
+    <!-- Add more content here -->
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
+```
+
+**CSS:**
+```css
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 200vh; /* To enable scrolling */
+}
+
+.container {
+  padding: 50px;
+}
+
+@keyframes fade-in-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-bottom {
+  animation: fade-in-bottom 1s ease-out forwards;
+}
+```
+
+**JavaScript:**
+```javascript
+// scripts.js
+document.addEventListener("DOMContentLoaded", () => {
+  const elements = document.querySelectorAll(".animation");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const animationClass = entry.target.dataset.animation;
+          entry.target.classList.add(animationClass);
+        }
+      });
+    },
+    { rootMargin: "0px", threshold: 0.2 }
+  );
+
+  elements.forEach((element) => {
+    observer.observe(element);
+  });
+});
+```
+
+## Conclusion
+
+With just a few lines of HTML, CSS, and JavaScript, you can create engaging scroll animations that enhance the user experience on your website. Feel free to experiment with different animations and thresholds to achieve the desired effect.

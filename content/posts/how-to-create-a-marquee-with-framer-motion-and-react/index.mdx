@@ -1,0 +1,186 @@
+---
+title: "How to Create a Marquee with Framer Motion and React"
+date: 2024-08-17
+excerpt: "In this tutorial, we'll walk through creating a smooth, continuous marquee using React and Framer Motion."
+category: tutorial
+cover: ./550d8230-5c5c-11ef-b1ea-f56c65dfade9-marque-cover.png
+---
+In this tutorial, we'll walk through creating a smooth, continuous marquee using React and Framer Motion. We'll also use the `@react-hook/window-size` package to make our marquee responsive. By the end of this tutorial, you'll have a reusable Marquee component that you can integrate into your projects.
+
+![marquee-images.gif](./b499ce20-5c5c-11ef-b1ea-f56c65dfade9-marquee-images.mp4)
+
+## Prerequisites
+
+- Basic knowledge of React
+- Familiarity with Framer Motion
+- A React project set up
+
+## Step 1: Install Dependencies
+
+First, ensure you have the necessary packages installed. Run the following command to install Framer Motion and the window size hook:
+
+```bash
+npm install framer-motion @react-hook/window-size
+```
+
+## Step 2: Create the Marquee Component
+
+Create a new file named `Marquee.tsx` in your components directory. This component will handle the marquee animation and responsiveness.
+
+```typescript title="src/components/Marquee.tsx"
+import { useState, useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { useWindowSize } from '@react-hook/window-size'
+
+const Marquee = ({
+  children,
+  gapBetween = 0,
+  speed = 20,
+}: {
+  children: React.ReactNode | React.ReactNode[]
+  gapBetween?: number
+  speed?: number
+}) => {
+  const marquee = useRef<null | HTMLDivElement>(null)
+  const [width] = useWindowSize()
+  const [marqueeWidth, setMarqueeWidth] = useState(0)
+  const [marqueeSpeed, setMarqueeSpeed] = useState(speed)
+
+  useEffect(() => {
+    if (global.window !== undefined) {
+      setMarqueeWidth(marquee.current!.scrollWidth)
+    }
+  }, [width])
+
+  const duplicateChildren = new Array(3).fill(children)
+
+  return (
+    <motion.div className="overflow-hidden">
+      <motion.div
+        animate={{
+          x: [0, -marqueeWidth / 3],
+          scale: 1,
+        }}
+        transition={{
+          repeat: Infinity,
+          repeatType: 'loop',
+          ease: 'linear',
+          duration: marqueeSpeed,
+        }}
+        ref={marquee}
+        className={`flex py-20 z-20`}
+      >
+        {duplicateChildren.map((child, index) => {
+          return (
+            <div key={index} className={`flex-shrink-0 px-${gapBetween / 2}`}>
+              {child}
+            </div>
+          )
+        })}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default Marquee
+```
+
+### Explanation
+
+- **useRef**: To reference the marquee container.
+- **useWindowSize**: To get the current window size and update the marquee width accordingly.
+- **useEffect**: To set the marquee width whenever the window size changes.
+- **motion.div**: To create the animated container using Framer Motion.
+- **duplicateChildren**: To create a seamless loop by duplicating the children elements.
+
+## Step 3: Create the ImageMarquee Component
+
+Now, let's create a component to showcase our Marquee in action. Create a new file named `ImageMarquee.tsx` in your sections directory.
+
+```typescript title="src/sections/ImageMarquee.tsx"
+import Marquee from '@/components/Marquee'
+import SectionWrapper from '@/components/SectionWrapper'
+import Image from 'next/image'
+import Mockup1 from '@/assets/images/mockups/mockup-ajproperties.png'
+import Mockup2 from '@/assets/images/mockups/mockup-coffeehouse.png'
+import Mockup3 from '@/assets/images/mockups/mockup-oesterrtech.png'
+import BusinessCard1 from '@/assets/images/mockups/mockup-stefan-business-card.png'
+
+const ImageMarquee = () => {
+  return (
+    <SectionWrapper fullWidth classNames="bg-back-secondary py-36">
+      <Marquee speed={24} gapBetween={8}>
+        <div className="flex w-fit gap-x-8">
+          <div>
+            // Note that we're using Next.js in this example, hence the "Image" component
+            <Image
+              src={Mockup1}
+              width={580}
+              height={512}
+              alt="Design mockup of Aj Properties website made by Stefan Kudla"
+              className="rounded-lg"
+            />
+          </div>
+          <div>
+            <Image
+              src={Mockup2}
+              width={580}
+              height={512}
+              alt="Design mockup of Mill Creek Coffeehouse website by Stefan Kudla"
+              className="rounded-lg"
+            />
+          </div>
+          <div>
+            <Image
+              src={Mockup3}
+              width={580}
+              height={512}
+              alt="Design mockup of Oesterrtech website by Stefan Kudla"
+              className="rounded-lg"
+            />
+          </div>
+          <div>
+            <Image
+              src={BusinessCard1}
+              width={580}
+              height={512}
+              alt="Business card design mockup made by Stefan Kudla"
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </Marquee>
+    </SectionWrapper>
+  )
+}
+
+export default ImageMarquee
+```
+
+### Explanation
+
+- **SectionWrapper**: A wrapper component to style the section.
+- **Marquee**: Our custom Marquee component.
+- **Image**: Next.js Image component to display images.
+
+## Step 4: Integrate and Test
+
+Import and use the `ImageMarquee` component in your main application file or any other component to see it in action.
+
+```typescript title="src/pages/index.tsx"
+import ImageMarquee from '@/sections/ImageMarquee'
+
+const HomePage = () => {
+  return (
+    <div>
+      <ImageMarquee />
+    </div>
+  )
+}
+
+export default HomePage
+```
+
+## Conclusion
+
+You've now created a responsive Marquee component using React and Framer Motion. This component can be customized further to fit your needs, such as adjusting the speed, gap, or content. You can use any sort of content you please, such as images or text sort of like a Spotify or Apple Music side-scrolling text.

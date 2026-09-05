@@ -4,6 +4,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import PostHeading from './PostHeading'
 import MdxImage from './MdxImage'
 import { codeTheme } from '@/lib/code-theme'
+import rehypeUnwrapVideos from '@/lib/rehype-unwrap-videos'
 
 /**
  * Renders repo-local MDX in the same prose wrapper `PostBody` gives Cosmic
@@ -34,6 +35,7 @@ const MdxBody: React.FC<{ slug: string; body: string }> = ({ slug, body }) => (
           mdxOptions: {
             rehypePlugins: [
               rehypeSlug,
+              rehypeUnwrapVideos,
               [
                 rehypePrettyCode,
                 {

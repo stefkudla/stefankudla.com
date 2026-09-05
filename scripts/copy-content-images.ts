@@ -24,7 +24,11 @@ const MANIFEST = path.join(
 )
 
 const RASTER = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'])
-const COPYABLE = new Set([...RASTER, '.svg'])
+const VIDEO = new Set(['.mp4'])
+const COPYABLE = new Set([...RASTER, ...VIDEO, '.svg'])
+
+/** `foo.mp4` is posted by `foo.poster.webp`, written by `gif-to-video.mjs`. */
+const posterFor = (name: string) => `${name.replace(/\.mp4$/i, '')}.poster.webp`
 
 export type ImageRecord = {
   src: string
@@ -32,6 +36,8 @@ export type ImageRecord = {
   height?: number
   blurDataURL?: string
   animated: boolean
+  /** Public path of the poster frame. Present only for video. */
+  poster?: string
 }
 
 const describe = async (file: string): Promise<Omit<ImageRecord, 'src'>> => {
@@ -76,6 +82,26 @@ const run = async () => {
       const to = path.join(PUBLIC_DIR, slug, name)
       fs.mkdirSync(path.dirname(to), { recursive: true })
       fs.copyFileSync(from, to)
+
+      if (VIDEO.has(path.extname(name).toLowerCase())) {
+        // A video's dimensions come from its poster, which is the same size by
+        // construction — Vercel's build image has no ffmpeg to ask the file
+        // itself, and a video without width and height shifts the page.
+        const poster = posterFor(name)
+        const posterPath = path.join(postDir, poster)
+        if (!fs.existsSync(posterPath)) {
+          throw new Error(`${slug}/${name}: no poster at ${poster}`)
+        }
+        const { width, height } = await sharp(posterPath).metadata()
+        manifest[`${slug}/${name}`] = {
+          src: `/content/posts/${slug}/${name}`,
+          width,
+          height,
+          poster: `/content/posts/${slug}/${poster}`,
+          animated: true,
+        }
+        continue
+      }
 
       manifest[`${slug}/${name}`] = {
         src: `/content/posts/${slug}/${name}`,

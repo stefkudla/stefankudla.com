@@ -4,19 +4,17 @@ import { fileURLToPath } from 'node:url'
 
 const REPO_ROOT = fileURLToPath(new URL('..', import.meta.url))
 
-/** Where the MDX migration will land post content. */
+/** Where post content lives. */
 const POSTS_CONTENT_DIR = path.join(REPO_ROOT, 'content', 'posts')
 
 /**
- * Snapshot of the routes in the sitemap that `next build && next-sitemap`
- * generated (`public/sitemap.xml`).
+ * Snapshot of the routes `next build && next-sitemap` generated
+ * (`public/sitemap.xml`), which is itself gitignored.
  *
- * Why a snapshot: post routes are currently produced at build time from the
- * Cosmic API (`getAllPostPaths()` in src/lib/cosmic.ts), and the generated
- * sitemap itself is gitignored. Reading either would make this test depend on
- * the network and on a prior build. The snapshot keeps the test offline and
- * deterministic, and is honest about being a point-in-time copy of real
- * generated output rather than a hand-written list.
+ * **Only its static routes are used now.** T-20 imported all 11 posts, so post
+ * routes come from `content/posts/` alone and the snapshot's copies of them are
+ * ignored — otherwise a deleted post would still look present and this guard
+ * would stop catching the thing it exists to catch.
  *
  * Refresh it with `bun run build` followed by re-extracting the <loc> values
  * from public/sitemap.xml.
@@ -31,24 +29,14 @@ const SITEMAP_SNAPSHOT = path.join(
 /**
  * The site's route manifest, as a list of pathnames.
  *
- * Post routes come from two places while the migration is in flight: the
- * colocated `content/posts/<slug>/index.mdx` directories (D-08), and the
- * snapshot, which stands in for the posts Cosmic still serves through the
- * fallback in `src/app/posts/[slug]/page.tsx`.
- *
- * **T-20 must delete the snapshot half.** Once all 11 posts are local and the
- * Cosmic branch is gone, the content directory is the only source of truth and
- * this guard goes back to catching a deleted post. Until then a legacy slug is
- * still served either way, so the union is the honest manifest.
+ * Static routes come from the sitemap snapshot; **post routes come from
+ * `content/posts/` and nowhere else**, so deleting a post's directory makes
+ * this manifest shrink and the slug-parity guard fail — which is the point.
  */
 export function getRouteManifest(): string[] {
-  const snapshot: string[] = JSON.parse(
+  const staticRoutes: string[] = JSON.parse(
     fs.readFileSync(SITEMAP_SNAPSHOT, 'utf8')
-  )
-
-  if (!fs.existsSync(POSTS_CONTENT_DIR)) {
-    return snapshot
-  }
+  ).filter((route: string) => !route.startsWith('/posts/'))
 
   const localPostRoutes = fs
     .readdirSync(POSTS_CONTENT_DIR, { withFileTypes: true })
@@ -59,5 +47,5 @@ export function getRouteManifest(): string[] {
     )
     .map(entry => `/posts/${entry.name}`)
 
-  return [...new Set([...snapshot, ...localPostRoutes])]
+  return [...new Set([...staticRoutes, ...localPostRoutes])]
 }
