@@ -9,9 +9,10 @@ const Author = () => {
         About <span className="text-accent">Stefan Kudla</span>
       </h3>
       <p className="my-4 pr-8">
-        Freelance Web Developer, Music Producer, and Tech Content Creator. When
-        I&apos;m not creating, you can usually find me brushing my teeth with
-        coffee or looking for the best view atop a mountain.
+        Lead Full Stack Developer at Euronet Worldwide, based in Las Vegas. I
+        build cashless gaming systems by day and write about agentic engineering
+        here. When I&apos;m not creating, you can usually find me brushing my
+        teeth with coffee or looking for the best view atop a mountain.
       </p>
       <div className="flex items-center justify-between">
         <SocialIcons />
