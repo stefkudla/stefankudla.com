@@ -9,7 +9,17 @@ const Footer: React.FC = () => (
       nunitoSans.variable
     )}
   >
-    <div className="flex flex-col-reverse md:flex-row items-center md:justify-between md:gap-y-0">
+    <div className="flex flex-col items-center gap-1 text-center md:items-start md:text-left">
+      <span className="text-sm text-fore-secondary">
+        I also run{' '}
+        <a
+          href="https://wellcodedsolutions.com"
+          className="underline hover:text-accent transition-colors"
+        >
+          Well Coded Solutions
+        </a>
+        , websites and apps for small businesses in Las Vegas.
+      </span>
       <span className="text-sm text-fore-secondary">
         &copy; {new Date().getFullYear()} Stefan Kudla. All Rights Reserved.
       </span>
